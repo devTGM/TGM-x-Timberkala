@@ -1,0 +1,715 @@
+<script src="{{ 'search-drawer.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'page-header.js' | asset_url }}" defer="defer"></script>
+
+{% assign transparent_header_rgb = section.settings.transparent_header_color | color_to_rgb %}
+<style>
+    :root{
+      --logo-width: {{ section.settings.mobile_screen_logo_width }}px;
+      --logo-width-mobile: {{ section.settings.mobile_screen_logo_width }}px;
+      --logo-width-desk: {{ section.settings.large_screen_logo_width }}px;
+    }
+
+    {% if transparent_header_rgb != 'rgba(0, 0, 0, 0.0)' %}
+    header[id="shopify-section-{{ section.id }}"]{
+      --color-transparent-header: {{ section.settings.transparent_header_color }};
+    }
+  {% endif %}
+</style>
+
+<page-header
+  role="banner"
+  id="header"
+  class="
+    wt-header
+    {% if settings.always_mobile_navigation or section.settings.layout == 'option_3' or section.settings.layout == 'option_4' %}mobile-nav{% endif %}
+    {% if section.settings.layout == 'option_1' %} wt-header--v1 wt-header--search{% endif %}
+    {% if section.settings.layout == 'option_2' %} wt-header--v2{% endif %}
+    {% if section.settings.layout == 'option_3' or section.settings.layout == 'option_4' %} wt-header--v3 wt-header--fashion{% endif %}
+    {% if section.settings.layout == 'option_4' %} wt-header--transparent {% endif %}
+    {% if section.settings.transparent_logo != blank %} wt-header--transparent-logo {% endif %}
+    {% if section.settings.show_shadow %} wt-header--shadow{% endif %}
+    {% if section.settings.show_line_separator %} wt-header--separator{% endif %}
+    {% if section.settings.sticky_header %} wt-header--sticky{% endif %}
+  "
+  {% if section.settings.layout == 'option_3' or section.settings.layout == 'option_4' %}
+    data-always-mobile-menu="true"
+  {% endif %}
+  {% if section.settings.layout == 'option_4' %}
+    data-transparent="true"
+  {% endif %}
+  {% if section.settings.sticky_header %}
+    data-sticky="true"
+  {% endif %}
+>
+  <div
+    class="
+      {%- if section.settings.layout == 'option_1' -%}
+          wt-header__body wt-header__body--search
+      {%- else -%}
+          wt-header__body
+      {%- endif -%}
+    "
+  >
+    {% if section.settings.layout == 'option_3' or section.settings.layout == 'option_4' %}
+      <div class="wt-header__nav-teaser">
+        <a
+          href="#"
+          class="wt-header__icon wt-header__menu-trigger wt-icon"
+          rel="toggle-menu"
+          aria-label="{{ 'aria-label.page-header-toggle-menu' | t }}"
+          aria-controls="wt-drawer-nav"
+          aria-expanded="false"
+          data-open="false"
+          role="button"
+          tabindex="0"
+        >
+          {% render 'icons', id: 'bars' %}
+        </a>
+
+        {%- if section.settings.teaser_menu != blank -%}
+          <ul class="wt-header__nav-teaser__list" tabindex="-1">
+            {%- for link in section.settings.teaser_menu.links -%}
+              {% if forloop.index <= 3 %}
+                {% assign is_parent = false %}
+                {% if link.links != blank %}
+                  {% assign is_parent = true %}
+                {% endif %}
+
+                <li class="wt-header__nav-teaser__item {% if is_parent %}wt-header__nav-teaser__item--parent{% endif %}">
+                  <a
+                    href="{% if link.url %}{{ link.url }}{% else %}#{% endif %}"
+                    class="wt-header__nav-teaser__link {% if is_parent %}wt-header__nav-teaser__link--parent{% endif %} {% if link.current %} wt-header__nav-teaser__link--active{% endif %}"
+                    {% if link.current %}
+                      aria-current="page"
+                    {% endif %}
+                  >
+                    <span class="wt-header__nav-teaser__link-text wt-page-nav-mega__decorated">
+                      {{- link.title | escape -}}
+                    </span>
+                  </a>
+                </li>
+              {% endif %}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+      </div>
+    {% endif %}
+
+    <div class="wt-header__aside">
+      {%- if section.settings.layout != 'option_1' -%}
+        <a
+          href="#"
+          class="wt-header__icon wt-header__menu-trigger wt-icon"
+          rel="toggle-menu"
+          aria-label="{{ 'aria-label.page-header-toggle-menu' | t }}"
+          aria-controls="wt-drawer-nav"
+          aria-expanded="false"
+          role="button"
+        >
+          {% render 'icons', id: 'bars' %}
+        </a>
+      {% endif %}
+      {%- if section.settings.layout == 'option_2' and section.settings.sticky_header -%}
+        <a
+          href="#"
+          class="wt-header__icon wt-header__sticky-menu-trigger wt-icon"
+          rel="toggle-menu"
+          aria-label="{{ 'aria-label.page-header-toggle-menu' | t }}"
+        >
+          {% render 'icons', id: 'bars' %}
+          {% render 'icons', id: 'close' %}
+        </a>
+      {% endif %}
+      <search-drawer
+        class="wt-header__search wt-drawer-search"
+        data-loading-text="{{ 'accessibility.searching' | t }}"
+      >
+        <div
+          {% comment %}for="search-shop"{% endcomment %}
+          class="wt-header__icon wt-header__search-trigger wt-icon"
+          rel="toggle-search"
+          tabindex="0"
+          role="button"
+          aria-label="{{ 'aria-label.page-header-open-search' | t }}"
+        >
+          {% render 'icons', id: 'search' %}
+        </div>
+
+        <form
+          class="wt-header__search__body store-search-form"
+          action="{{ routes.search_url }}"
+          method="get"
+          role="search"
+        >
+          <input type="hidden" name="type" value="product">
+
+          <div class="wt-header__search__form">
+            <label class="wt-header__icon wt-header__search__label" for="search-shop">
+              {% render 'icons', id: 'search' %}
+              <span class="visually-hidden">{{ 'aria-label.page-header-search' | t }}</span>
+            </label>
+            <input
+              type="text"
+              placeholder="{{ section.settings.typing_search }}"
+              id="search-shop"
+              name="q"
+              class="wt-header__search__field"
+              aria-controls="predictive-search-results-list"
+              aria-autocomplete="list"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              spellcheck="false"
+              tabindex="-1"
+              role="combobox"
+              autocorrect="off"
+              autocomplete="off"
+              autocapitalize="off"
+              data-search="true"
+              aria-label="{{ 'aria-label.page-header-search' | t }}"
+            >
+
+            <div class="wt-header__search__clear-button__container">
+              <div
+                class="wt-header__search__clear-button"
+                role="button"
+                aria-label="{{ 'aria-label.page-header-remove-all' | t }}"
+                tabindex="-1"
+              >
+                {% render 'icons', id: 'close' -%}
+                <span class="text">{{ 'aria-label.page-header-toggle-menu' | t }}</span>
+              </div>
+            </div>
+            <button
+              aria-label="{{ 'aria-label.page-header-search' | t }}"
+              class="wt-header__search__button"
+              tabindex="-1"
+            >
+              {% render 'icons', id: 'search' -%}
+              <span class="text">{{ 'aria-label.page-header-search' | t }}</span>
+            </button>
+            <button
+              aria-label="{{ 'aria-label.page-header-close-search' | t }}"
+              class="wt-header__search__close"
+              tabindex="-1"
+            >
+              {% render 'icons', id: 'close' %}
+            </button>
+          </div>
+          <div class="wt-header__search__results">
+            <div class="predictive-search-status">
+              {% render 'search-top' %}
+            </div>
+
+            {% render 'loader' %}
+
+            <div class="search-result-wrapper" data-predictive-search></div>
+          </div>
+        </form>
+      </search-drawer>
+    </div>
+
+    {%- if section.settings.layout == 'option_1' and section.settings.sticky_header -%}
+      <a
+        href="#"
+        class="wt-header__icon wt-header__sticky-menu-trigger  wt-header__sticky-menu-trigger--v1 wt-icon"
+        rel="toggle-menu"
+        role="button"
+        aria-label="{{ 'aria-label.page-header-toggle-menu' | t }}"
+        aria-controls="wt-drawer-nav"
+        aria-expanded="false"
+      >
+        {% render 'icons', id: 'bars' %}
+        {% render 'icons', id: 'close' %}
+      </a>
+    {% endif %}
+
+    <h1 itemscope itemtype="http://schema.org/Organization" class="wt-header__logo">
+      {%- if section.settings.layout == 'option_1' -%}
+        <a
+          href="#"
+          class="wt-header__icon wt-header__menu-trigger wt-icon"
+          rel="toggle-menu"
+          aria-label="{{ 'aria-label.page-header-toggle-menu' | t }}"
+        >
+          {% render 'icons', id: 'bars' %}
+        </a>
+      {%- endif -%}
+
+      <a
+        href="{{ routes.root_url }}"
+        class="wt-header__logo__link"
+        style="
+          {% if section.settings.logo %}
+          --logo-width: {{ section.settings.mobile_screen_logo_width }}px;
+          --logo-width-desk: {{ section.settings.large_screen_logo_width }}px;
+          {% else %}
+            --logo-width: auto;
+            --logo-width-desk: auto;
+          {% endif %}
+        "
+      >
+        {%- if section.settings.logo != blank or section.settings.transparent_logo != blank -%}
+          {% if section.settings.logo != blank %}
+            {%- assign large_image_size = settings.large_screen_logo_width -%}
+            {%- assign large_image_size_double = large_image_size | times: 2 -%}
+
+            <img
+              srcset="{{ section.settings.logo | image_url: width: large_image_size }} 1x, {{ section.settings.logo | image_url: width: large_image_size_double }} 2x"
+              src="{{ section.settings.logo | image_url: width: large_image_size }}"
+              loading="lazy"
+              width="{{ section.settings.logo.width }}"
+              height="{{ section.settings.logo.height }}"
+              class="wt-header__logo__img"
+              alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+            >
+
+            {%- assign mobile_image_size = section.settings.mobile_screen_logo_width -%}
+            {%- assign mobile_image_size_double = mobile_image_size | times: 2 -%}
+            <img
+              srcset="{{ section.settings.logo | image_url: width: mobile_image_size }} 1x, {{ section.settings.logo | image_url: width: mobile_image_size_double }} 2x"
+              src="{{ section.settings.logo | image_url: width: mobile_image_size }}"
+              loading="lazy"
+              width="{{ section.settings.logo.width }}"
+              height="{{ section.settings.logo.height }}"
+              class="wt-header__logo__img wt-header__logo__img--mobile"
+              alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+            >
+          {% endif %}
+
+          {% assign transp_logo = section.settings.transparent_logo %}
+          {% if transp_logo != blank %}
+            <img
+              srcset="{{ transp_logo | image_url: width: large_image_size }} 1x, {{ transp_logo | image_url: width: large_image_size_double }} 2x"
+              src="{{ transp_logo | image_url: width: large_image_size }}"
+              loading="lazy"
+              width="{{ section.settings.logo.width }}"
+              height="{{ section.settings.logo.height }}"
+              class="wt-header__logo__img wt-header__logo__img--transparent"
+              alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+            >
+          {% endif %}
+        {%- else -%}
+          {{ shop.name }}
+        {%- endif -%}
+      </a>
+    </h1>
+
+    <ul class="wt-header__panel wt-header__panel--no-labels">
+      <li class="wt-header__panel__item wt-header__panel__item--account">
+        <a href="{{ routes.account_url }}" class="wt-header__panel__link wt-icon">
+          {% render 'icons', id: 'user' %}
+          <span class="wt-header__panel__label">Account</span>
+        </a>
+      </li>
+      <li class="wt-header__panel__item wt-header__panel__item--cart">
+        {% comment %} <a href="{{ routes.cart_url }}" class="wt-header__panel__link wt-icon wt-cart__trigger" id="cart-icon-bubble"> {% endcomment %}
+        <a onclick="handleFloCartBtn();" class=" wt-header__panel__link wt-icon wt-cart__trigger" style="cursor:pointer;" id="cart-icon-bubble">
+
+          {% render 'icons', id: 'bag' %}
+          {% if cart.item_count != 0 %}
+            <span class="flo-cart-icon-bubble wt-header__panel__counter">{{ cart.item_count }}</span>
+          {% endif %}
+          <span class="wt-header__panel__label">Cart</span>
+        </a>
+      </li>
+    </ul>
+    {% if section.settings.show_line_separator %}
+      <div class="wt-header__spacer"></div>
+    {% endif %}
+  </div>
+</page-header>
+
+{%- if request.page_type != 'cart' -%}
+  {%- render 'cart-notification' -%}
+{%- endif -%}
+
+<drawer-nav
+  class="wt-drawer wt-drawer--nav{% if settings.always_mobile_navigation or section.settings.layout == 'option_3' or section.settings.layout == 'option_4' %} wt-drawer--mobile-nav{% endif %}"
+  id="wt-drawer-nav"
+>
+  <div class="wt-drawer__content">
+    <div class="wt-drawer__title">
+      <div class="wt-drawer__title__text">{{ section.settings.drawer_title }}</div>
+      <div
+        class="wt-drawer__close"
+        tabindex="-1"
+        role="button"
+        aria-label="{{ 'aria-label.page-header-toggle-menu' | t }}"
+        aria-controls="wt-drawer-nav"
+        aria-expanded="false"
+      >
+        {% render 'icons', id: 'close' %}
+      </div>
+    </div>
+
+    <mega-menu-section class="mega-menu">
+      <nav class="wt-page-nav-mega {% if section.settings.show_shadow %} wt-page-nav-mega--shadow{% endif %}">
+        {%- if section.settings.menu != blank -%}
+          {% render 'mega-menu', menu: section.settings.menu, blocks: section.blocks %}
+        {%- endif -%}
+      </nav>
+
+      <aside class="wt-page-nav-mega__aside">
+        <ul class="wt-page-nav-mega__aside-list">
+          <li class="wt-page-nav-mega__aside-list__item">
+            {%- if shop.customer_accounts_enabled -%}
+              <a
+                href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                class="wt-page-nav-mega__aside-list__link"
+                tabindex="-1"
+              >
+                {%- liquid
+                  if customer
+                    echo 'customer.account_fallback' | t
+                  else
+                    echo 'customer.log_in' | t
+                  endif
+                -%}
+              </a>
+            {%- endif -%}
+          </li>
+          {%- for link in section.settings.mobile_footer_menu.links -%}
+            <li class="wt-page-nav-mega__aside-list__item">
+              <a
+                href="{% if link.url %}{{ link.url }}{% else %}#{% endif %}"
+                class="wt-page-nav-mega__aside-list__link"
+                tabindex="-1"
+              >
+                {{- link.title | escape -}}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </aside>
+    </mega-menu-section>
+  </div>
+</drawer-nav>
+
+{% comment %}{% if section.settings.sticky_header %}{% endcomment %}
+{% comment %}<script src="{{ 'page-header-sticky.js' | asset_url }}" defer="defer"></script>{% endcomment %}
+{% comment %}{% endif %}{% endcomment %}
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "tag": "header",
+  "class": "page-header",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "option_1",
+          "label": "t:settings_schema.layout.settings.input_type__2_1.option_1.label"
+        },
+        {
+          "value": "option_2",
+          "label": "t:settings_schema.layout.settings.input_type__2_1.option_2.label"
+        },
+        {
+          "value": "option_3",
+          "label": "t:settings_schema.layout.settings.input_type__2_1.option_3.label"
+        },
+        {
+          "value": "option_4",
+          "label": "t:settings_schema.layout.settings.input_type__2_1.option_4.label"
+        }
+      ],
+      "default": "option_3",
+      "label": "t:settings_schema.layout.settings.input_type__2_1.label",
+      "info": "t:settings_schema.layout.settings.input_type__2_1.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "default": false,
+      "label": "t:settings_schema.layout.settings.sticky_header.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "label": "t:sections.header.settings.show_line_separator.label",
+      "info": "t:sections.header.settings.show_line_separator.info",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shadow",
+      "label": "t:sections.header.settings.show_shadow.label",
+      "info": "t:sections.header.settings.show_shadow.info",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "t:settings_schema.layout.settings.header_logo.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.header.settings.logo.label"
+    },
+    {
+      "type": "range",
+      "id": "large_screen_logo_width",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "default": 120,
+      "unit": "t:sections.header.settings.large_screen_logo_width.unit",
+      "label": "t:sections.header.settings.large_screen_logo_width.label"
+    },
+    {
+      "type": "range",
+      "id": "mobile_screen_logo_width",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "default": 90,
+      "unit": "t:sections.header.settings.mobile_screen_logo_width.unit",
+      "label": "t:sections.header.settings.mobile_screen_logo_width.label"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "link_list",
+      "id": "teaser_menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.teaser_menu.label",
+      "info": "t:sections.header.settings.teaser_menu.info"
+    },
+    {
+      "type": "link_list",
+      "id": "mobile_footer_menu",
+      "label": "t:sections.header.settings.mobile_footer_menu.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.transparent_header.label",
+      "info": "t:sections.header.settings.transparent_header.info"
+    },
+    {
+      "type": "image_picker",
+      "id": "transparent_logo",
+      "label": "t:sections.header.settings.transparent_logo.label",
+      "info": "t:sections.header.settings.transparent_logo.info"
+    },
+    {
+      "type": "color",
+      "id": "transparent_header_color",
+      "label": "t:sections.header.settings.custom-color.label",
+      "default": "transparent"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header.settings.drawer.label"
+    },
+    {
+      "type": "text",
+      "id": "drawer_title",
+      "label": "t:sections.header.settings.drawer_title.label",
+      "info": "t:sections.header.settings.drawer_title.info",
+      "default": "Shop by"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.global.search"
+    },
+    {
+      "type": "text",
+      "id": "typing_search",
+      "label": "t:sections.header.settings.typing_search.label"
+    },
+    {
+      "type": "text",
+      "id": "suggestions_title",
+      "label": "t:sections.header.settings.suggestions_title.label",
+      "info": "t:sections.header.settings.suggestions_title.info"
+    },
+    {
+      "type": "link_list",
+      "id": "suggestions_menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.suggestions_menu.label",
+      "info": "t:sections.header.settings.suggestions_menu.info"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "t:sections.header.blocks.column.name",
+      "settings": [
+        {
+          "id": "title",
+          "type": "text",
+          "label": "t:sections.header.blocks.column.settings.menu_item.label",
+          "info": "t:sections.header.blocks.column.settings.menu_item.info"
+        },
+        {
+          "type": "range",
+          "id": "promo_section_width",
+          "min": 2,
+          "max": 6,
+          "step": 1,
+          "default": 4,
+          "label": "t:sections.header.blocks.column.settings.reserved_columns.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.global.image_1"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image_1",
+          "label": "t:sections.settings.settings.image.label",
+          "info": "t:sections.settings.settings.image.info"
+        },
+        {
+          "id": "heading_1",
+          "type": "text",
+          "label": "t:sections.settings.settings.heading.label"
+        },
+        {
+          "id": "text_1",
+          "type": "text",
+          "label": "t:sections.settings.settings.text.label"
+        },
+        {
+          "id": "link_1",
+          "type": "url",
+          "label": "t:sections.settings.settings.link.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.global.image_2"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image_2",
+          "label": "t:sections.settings.settings.image.label",
+          "info": "t:sections.settings.settings.image.info"
+        },
+        {
+          "id": "heading_2",
+          "type": "text",
+          "label": "t:sections.settings.settings.heading.label"
+        },
+        {
+          "id": "text_2",
+          "type": "text",
+          "label": "t:sections.settings.settings.text.label"
+        },
+        {
+          "id": "link_2",
+          "type": "url",
+          "label": "t:sections.settings.settings.link.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.global.image_3"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image_3",
+          "label": "t:sections.settings.settings.image.label",
+          "info": "t:sections.settings.settings.image.info"
+        },
+        {
+          "id": "heading_3",
+          "type": "text",
+          "label": "t:sections.settings.settings.heading.label"
+        },
+        {
+          "id": "text_3",
+          "type": "text",
+          "label": "t:sections.settings.settings.text.label"
+        },
+        {
+          "id": "link_3",
+          "type": "url",
+          "label": "t:sections.settings.settings.link.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.global.image_4"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image_4",
+          "label": "t:sections.settings.settings.image.label",
+          "info": "t:sections.settings.settings.image.info"
+        },
+        {
+          "id": "heading_4",
+          "type": "text",
+          "label": "t:sections.settings.settings.heading.label"
+        },
+        {
+          "id": "text_4",
+          "type": "text",
+          "label": "t:sections.settings.settings.text.label"
+        },
+        {
+          "id": "link_4",
+          "type": "url",
+          "label": "t:sections.settings.settings.link.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.global.image_5"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image_5",
+          "label": "t:sections.settings.settings.image.label",
+          "info": "t:sections.settings.settings.image.info"
+        },
+        {
+          "id": "heading_5",
+          "type": "text",
+          "label": "t:sections.settings.settings.heading.label"
+        },
+        {
+          "id": "text_5",
+          "type": "text",
+          "label": "t:sections.settings.settings.text.label"
+        },
+        {
+          "id": "link_5",
+          "type": "url",
+          "label": "t:sections.settings.settings.link.label"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.global.image_6"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image_6",
+          "label": "t:sections.settings.settings.image.label",
+          "info": "t:sections.settings.settings.image.info"
+        },
+        {
+          "id": "heading_6",
+          "type": "text",
+          "label": "t:sections.settings.settings.heading.label"
+        },
+        {
+          "id": "text_6",
+          "type": "text",
+          "label": "t:sections.settings.settings.text.label"
+        },
+        {
+          "id": "link_6",
+          "type": "url",
+          "label": "t:sections.settings.settings.link.label"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,55 @@
+<div class="wt-cart__footer__body">
+  <div class="wt-cart__subtotal">
+    <div class="wt-cart__subtotal__label">
+      <span class="text">{{ 'sections.cart.subtotal' | t }}</span>
+    </div>
+    <div class="wt-cart__subtotal__value">
+      {{ cart.total_price | money_with_currency }}
+    </div>
+  </div>
+  {%- if cart.cart_level_discount_applications.size > 0 -%}
+    <div>
+      <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+        {%- for discount in cart.cart_level_discount_applications -%}
+          <li>
+            {%- render 'icon-discount' -%}
+            {{ discount.title }}
+            (-{{ discount.total_allocated_amount | money_with_currency }})
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+
+  {% comment %} <button
+    aria-label="{{ 'sections.cart.checkout' | t }}"
+    type="submit"
+    id="CartDrawer-Checkout"
+    class="btn-checkout wt-cart__cta"
+    name="checkout"
+    form="CartDrawer-Form"
+    {% if cart == empty %}
+      disabled
+    {% endif %}
+    tabindex="-1"
+  >
+    {{ 'sections.cart.checkout' | t }}
+  </button> {% endcomment %}
+
+  <button type="button" style="width:100%; cursor:pointer;" id="checkout2" onclick="handleFloCheckoutBtn()" class="cart__checkout-button button" name="checkout2">
+		{{ 'Checkout' }}
+</button> 
+
+  {% if settings.show_view_cart %}
+    <div class="wt-featured-collection__button-container wt-button__container">
+      <button
+        aria-label="{{ 'aria-label.featured-collection' | t }}"
+        class="wt-cart__show-cart hero__button--link"
+        onclick='location.href="{{ routes.cart_url }}"'
+        tabindex="-1"
+      >
+        <span>{{ 'sections.cart.view_cart' | t }}</span>
+      </button>
+    </div>
+  {% endif %}
+</div>

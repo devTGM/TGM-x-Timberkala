@@ -1,0 +1,199 @@
+:root {
+    --aspect-ratio: auto;
+    --font-base: Poppins,sans-serif;
+    --font-base-style: normal;
+    --font-base-weight: 400;
+    --font-base-size: 16px;
+    --font-base-letter-spacing: 0px;
+    --font-base-line-height: 1.5;
+    --font-base-transform: none;
+
+    /* --font-breadcrumbs */
+    --font-breadcrumbs: ,;
+    --font-breadcrumbs-style: ;
+    --font-breadcrumbs-weight: ;
+    --font-breadcrumbs-size: 13px;
+    --font-breadcrumbs-letter-spacing: px;
+
+    --font-headline: Poppins,sans-serif;
+    --font-headline-style: normal;
+    --font-headline-weight: 500;
+    --font-headline-size: 22px;
+    --font-headline-transform: none;
+    --font-headline-letter-spacing: 0px;
+    --font-headline-line-height: 1.2;
+
+    --font-navigation: Poppins,sans-serif;
+    --font-navigation-style: normal;
+    --font-navigation-weight: 500;
+    --font-navigation-size: 16px;
+    --font-navigation-transform: none;
+    --font-navigation-letter-spacing: 0px;
+
+    --font-button: Poppins,sans-serif;
+    --font-button-style: normal;
+    --font-button-weight: 500;
+    --font-button-size: 16px;
+    --font-button-transform: uppercase;
+    --font-button-letter-spacing: 0px;
+
+    --font-price: Poppins,sans-serif;
+    --font-price-style: normal;
+    --font-price-weight: 500;
+    --font-price-size: px;
+    --font-price-transform: none;
+    --font-price-letter-spacing: 0px;
+
+    --gap: 8px;
+    --section-gap: 2;
+    --section-margin-block-mobile: 6rem;
+
+    --grid-gap: 16px;
+
+    /* Colors */
+    --color-text-inactive: #ADADAD;
+    --color-text-light: #e5e5e5;
+    --color-text-highlight: #f7f7f7;
+    --color-footer-bg: #EBEBEB;
+    --color-footer-border: #ccc;
+    --color-footer-copy-text: #ADADAD;
+    --color-newsletter-border: #BCBCBC;
+    --color-header-search-border: #E0DEDB;
+    --color-header-border: #E0DEDB;
+    --color-input-border-active: #4C4C4B;
+    --color-input-bg: #fff;
+    --color-button-border: #000;
+    --color-button-bg: #fff;
+    --color-button-text: #000;
+    --color-button-main-bg: #000;
+    --color-button-main-text: #fff;
+    --color-button-cta-bg: #000;
+    --color-button-cta-text: #fff;
+    --color-hr: #BCBCBC;
+    --color-overlay-text: black;
+    --color-navbar-bg: #333;
+    --color-navbar-text: #eee;
+    --color-breadcrumbs-bg: white;
+    --color-bullet: black;
+    --color-promo-price: red;
+    --color-promo-badge: red;
+    --color-promo-badge-text: white;
+
+    /* Sizes */
+    --size-icon: 2.4rem;
+    --size-icon-desk: 2.8rem;
+    --input-height: 4.8rem;
+    --height-chip: 4rem;
+    --height-vertical-thumbs-gallery--square: 608px;
+    --height-vertical-thumbs-gallery--portrait: 748px;
+    --height-vertical-thumbs-gallery--original: 520px;
+
+    --site-max-width: 1900px;
+    --site-max-width-big: 1900px;
+    --hero-max-width: 2560px;
+    --post-max-width: 850px;
+
+    --navbar-height: 56px;
+
+    /* NEW GLOBAL COLOR SETTINGS */
+
+    /* General */
+    --color-background: #ffffff;
+    --color-foreground: rgba(34, 35, 33, 0.03);
+    --color-teaser-background: #F4EEDA;
+    --color-headings-text: #222321;
+    --color-text: #222321;
+    --color-body-text: var(--color-text);
+    --color-body-text-light: #6b6b6b;
+    --color-links: #222321;
+    --color-links-active: #222321;
+    --color-border: #dfdfdf;
+
+    --color-overlay: #ff9900;
+    --color-overlay-rgb: 255, 153, 0;
+    --color-overlay-opacity: 0.0;
+
+    --color-action-text: #ffffff; /* cart dot */
+    --color-action-background: #222321; /* cart dot */
+
+    --color-placeholder-bg: #F4EEDA;
+
+    /* Header, navigation */
+    --color-header-text: #222321;
+    --color-header-background: #ffffff;
+    --color-menu-text: #222321;
+    --color-menu-background: #ffffff;
+    --color-transparent-header: #222321;
+
+    /* Buttons */
+    --color-button-primary-background: #222321;
+    --color-button-primary-text: #ffffff;
+    --color-button-primary-text-hover: #ffffff;
+    --color-button-primary-background-hover: #000000;
+
+    --color-button-secondary-background: #ffffff;
+    --color-button-secondary-border: #e2e2e2;
+    --color-button-secondary-text: #222321;
+    --color-button-secondary-text-hover: #ffffff;
+    --color-button-secondary-background-hover: #222321;
+
+    /* Product */
+    --color-price: #222321;
+    --color-sale-price: #d24646;
+    --color-brand: #9b9b9b;
+    --color-star-rating: #f2a541;
+    --color-sale-badge-text: #FFFFFF;
+    --color-sale-badge-background: #d42626;
+    --color-sold-out-text: #ffffff;
+    --color-sold-out-background: #dfdfdf;
+
+    /* Forms */
+    --color-input-text: #222321;
+    --color-input-background: #f8f8f8;
+    --color-input-border: #dfdfdf;
+    --color-input-placeholder: #717171;
+
+    /* Footer */
+    --color-footer-background: #f8f8f8;
+    --color-footer-text: #222321;
+    --color-footer-text-rgb: 34, 35, 33;
+    
+
+    /* Radius */
+    --border-radius: 12px;
+    --border-radius-button: 0px;
+
+    /* Swiper */
+    --swiper-theme-color: #222321;
+    --swiper-scrollbar-track-color: rgba(0, 0,
+    0, 0.1);
+
+    /* Color Focal */
+    --image-object-position: 50% 50%;
+    --image-object-position-desktop: 50% 50%;
+
+    /* Animations */
+    --duration-short: 100ms;
+    --duration-default: 200ms;
+    --duration-announcement-bar: 250ms;
+    --duration-medium: 300ms;
+    --duration-long: 500ms;
+    --duration-extra-long: 600ms;
+    --duration-extended: 3s;
+    --ease-out-slow: cubic-bezier(0, 0, 0.3, 1);
+    --animation-slide-in: slideIn var(--duration-extra-long) var(--ease-out-slow) forwards;
+    --animation-fade-in: fadeIn var(--duration-extra-long) var(--ease-out-slow);
+}
+
+@media screen and (min-width: 1200px) {
+    :root {
+        --font-base-size: 17px;
+        --font-button-size: 16px;
+        --font-breadcrumbs-size: 14px;
+
+        --font-headline-size: 26px;
+        --font-navigation-size: 17px;
+
+        --height-chip: 3.2rem;
+    }
+}

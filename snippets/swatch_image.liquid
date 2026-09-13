@@ -1,0 +1,26 @@
+{% for variant in swatch_product.variants %}
+  {% assign option_value_downcased = variant[swatch_option_key] %}
+  {% if option_value_downcased == swatch_search_color %}
+    {% if variant.image != blank %}
+      {%- assign swatch_file_url = variant.image | image_url: width: 256 -%}
+    {% endif %}
+    {%- break -%}
+  {% endif %}
+{% endfor %}
+
+{% if swatch_file_url %}
+  <img
+    srcset="
+      {% if variant.image.width >= 64 %}{{ swatch_file_url | image_url: width: 64 }} 64w, {% endif %}
+      {% if variant.image.width >= 128 %}{{ swatch_file_url | image_url: width: 128 }} 128w, {% endif %}
+      {% if variant.image.width >= 256 %}{{ swatch_file_url | image_url: width: 256 }} 256w, {% endif %}
+      {{ swatch_file_url | image_url: width: 128 }} 128w
+    "
+    sizes="(min-width: 128px) 128px, 100vw"
+    src="{{ swatch_file_url | image_url: width: 128 }}"
+    alt="{{ variant.image.alt | escape }}"
+    width="128"
+    height="128"
+    loading="lazy"
+  >
+{% endif %}

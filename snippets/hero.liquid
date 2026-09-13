@@ -1,0 +1,196 @@
+{% if type == 'blocks' %}
+  {% assign button_link = false %}
+  {% assign button_label = blank %}
+
+  {%- for block in section.blocks -%}
+    {% if block.type == 'button' %}
+      {% if block.settings.button_link %}
+        {% assign button_link = block.settings.button_link %}
+      {% endif %}
+      {% if block.settings.button_label != blank %}
+        {% assign button_label = block.settings.button_label %}
+      {% endif %}
+      {% if block.settings.second_button_link %}
+        {% assign second_button_link = block.settings.second_button_link %}
+      {% endif %}
+      {% if block.settings.second_button_label != blank %}
+        {% assign second_button_label = block.settings.second_button_label %}
+      {% endif %}
+    {%- endif -%}
+  {%- endfor -%}
+{% endif %}
+
+{%- liquid
+  assign video_id = video.id | default: video_url.id
+
+  if autoplay == null
+    assign autoplay = true
+  endif
+-%}
+
+<div class="hero hero--video-background {{ classname }} {%- if section.settings.video_type == 'yt' -%}hero__video__yt-wrapper{%- endif -%}">
+  {% if video_url != blank or video %}
+    {% if video %}
+      <div class="wt-video__movie wt-video__movie--shopify-video wt-video__item {% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %} {% if enable_full_screen_mode %}wt-video--fullscreen{% endif %}">
+        {% if mobile_video %}
+          {% assign video_class = 'mobile-hidden' %}
+          {% assign mobile_video_class = 'desktop-hidden' %}
+
+          {% if play_pause_button %}
+            <video-controls>
+              {% render 'play-pause-button', classname: mobile_video_class %}
+          {% endif %}
+
+          {{
+            mobile_video
+            | video_tag:
+              autoplay: autoplay,
+              loop: true,
+              muted: true,
+              controls: video_controls,
+              image_size: '600x',
+              class: mobile_video_class
+          }}
+
+          {% if play_pause_button %}
+            </video-controls>
+          {% endif %}
+        {% else %}
+          {% assign video_class = '' %}
+        {% endif %}
+
+        {% if play_pause_button %}
+          <video-controls>
+            {% render 'play-pause-button', classname: video_class %}
+        {% endif %}
+
+        {{
+          video
+          | video_tag:
+            autoplay: autoplay,
+            loop: true,
+            muted: true,
+            controls: video_controls,
+            image_size: '600x',
+            class: video_class
+        }}
+
+        {% if play_pause_button %}
+          </video-controls>
+        {% endif %}
+      </div>
+    {% else %}
+      {%- if video_url.type == 'youtube' -%}
+        <iframe
+          src="https://www.youtube.com/embed/{{ video_id }}?autoplay=1&mute=1&controls=0"
+          frameborder="0"
+          class="wt-video__movie wt-video__item wt-video__item--bg"
+          allow="autoplay; encrypted-media"
+          title="{{ 'aria-label.hero-yt' | t }}"
+        ></iframe>
+      {%- elsif video_url.type == 'vimeo' -%}
+        <iframe
+          src="https://player.vimeo.com/video/{{ video_id }}?transparent=0&controls=0&autoplay=1&loop=1"
+          frameborder="0"
+          class="js-vimeo wt-video__movie wt-video__item wt-video__item--bg"
+          allow="autoplay; encrypted-media"
+          style="background-color:  black;"
+          title="{{ 'aria-label.hero-vimeo' | t }}"
+        ></iframe>
+      {%- endif -%}
+    {% endif %}
+
+  {% else %}
+    {% render 'picture',
+      desktop_image: desktop_image,
+      mobile_image: mobile_image,
+      placeholder: placeholder,
+      button_link: button_link,
+      button_label: button_label,
+      button_link_in_new_window: button_link_in_new_window,
+      loader: loader
+    %}
+  {% endif %}
+
+  {% if button_link and link_only_on_button %}
+    {% assign overlay_tag = 'div' %}
+  {% elsif button_link and button_label == blank or button_link and button_disable_on_mobile %}
+    {% assign overlay_tag = 'js-link' %}
+  {% else %}
+    {% assign overlay_tag = 'div' %}
+  {% endif %}
+
+  <{{ overlay_tag }}
+    {% if button_link %}
+      href="{{ button_link }}"
+    {% endif %}
+    {% if button_link_in_new_window %}
+      target="_blank" rel="noreferrer noopener"
+    {% endif %}
+    class="
+      hero__overlay
+      hero__overlay--{{ desktop_text_horizontal_position }}
+      hero__overlay--{{ desktop_text_vertical_position }}
+      hero__overlay--mobile--{{ mobile_text_horizontal_position }}
+      hero__overlay--mobile--{{ mobile_text_vertical_position }}
+    "
+    {% if button_disable_on_mobile %}
+      data-mobile="true"
+    {% endif %}
+  >
+    <div class="hero__overlay__content hero__overlay__content--{{ desktop_text_horizontal_position }} hero__overlay__content--mobile--{{ mobile_text_horizontal_position }} rte">
+      {% if blocks %}
+        {% render 'simple-block', prefix: 'hero', blocks: blocks, rich_text_with_image: rich_text_with_image %}
+      {% else %}
+        {% if subheading != blank %}
+          <div class="hero__subheading {% if subheading_disable_on_mobile %}hero__subheading--mobile{% endif %}">
+            {{ subheading | newline_to_br }}
+          </div>
+        {% endif %}
+
+        {% if heading != blank %}
+          <h2 class="hero__title {% if heading_disable_on_mobile %}hero__title--mobile{% endif %}">
+            {{ heading | newline_to_br }}
+          </h2>
+        {% endif %}
+
+        {% if text != blank and show_collection_description != false %}
+          <div class="hero__text hero__richtext {% if text_disable_on_mobile %}hero__text--mobile{% endif %}">
+            {{ text | newline_to_br }}
+          </div>
+        {% endif %}
+        {% if button_label != blank or second_button_label != blank %}
+          <div class="hero__button--gap">
+            {% if button_label != blank %}
+              <a
+                href="{{ button_link }}"
+                {% if button_link_in_new_window %}
+                  target="_blank" rel="noreferrer noopener"
+                {% endif %}
+                tabindex="0"
+                aria-label="{{ button_label }}"
+                class="hero__button {% if button_disable_on_mobile %}hero__button--mobile {% endif %} hero__button--primary {% if button_select != 'primary' %} hero__button--secondary{% endif %}{% if button_select == 'link' %} hero__button--link{% endif %}"
+              >
+                <span>{{ button_label }}</span>
+              </a>
+            {% endif %}
+
+            {% if second_button_label != blank %}
+              <a
+                href="{{ second_button_link }}"
+                {% if button_link_in_new_window %}
+                  target="_blank" rel="noreferrer noopener"
+                {% endif %}
+                tabindex="0"
+                aria-label="{{ second_button_label }}"
+                class="hero__button {% if button_disable_on_mobile_second %}hero__button--mobile {% endif %} hero__button--primary {% if second_button_select != 'primary' %} hero__button--secondary{% endif %}{% if second_button_select == 'link' %} hero__button--link{% endif %}"
+              >
+                <span>{{ second_button_label }}</span>
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endif %}
+    </div>
+  </{{ overlay_tag }}>
+</div>

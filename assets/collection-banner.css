@@ -1,0 +1,8 @@
+.collection-banner .hero__img {
+  height: var(--section-height);
+}
+@media (min-width: 900px) {
+  .collection-banner .hero__img {
+    height: var(--section-height-desk);
+  }
+}

@@ -1,0 +1,56 @@
+{%- if desktop_image == blank -%}
+  {% assign desktop_image = mobile_image %}
+{%- endif -%}
+{%- if mobile_image == blank -%}
+  {% assign mobile_image = desktop_image %}
+{%- endif -%}
+
+<div class="hero__pic-container {% if settings.animations and animation %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %}">
+  {% if button_link and button_label == blank %}
+    <a
+      href="{{ button_link }}"
+      class="hero__pic__link"
+      aria-label="{{ desktop_image.alt }}"
+      {% if button_link_in_new_window %}
+        target="_blank" rel="noreferrer noopener"
+      {% endif %}
+    >
+  {% endif %}
+
+  {%- if desktop_image != blank and mobile_image != blank -%}
+    <picture class="hero__pic hero__pic--mobile">
+      {{
+        mobile_image
+        | image_url: width: 3840
+        | image_tag:
+          loading: 'lazy',
+          sizes: '100vw',
+          widths: '375, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+          class: 'hero__img hero__img--mobile'
+      }}
+    </picture>
+
+    <picture class="hero__pic">
+      {{
+        desktop_image
+        | image_url: width: 3840
+        | image_tag:
+          loading: 'lazy',
+          sizes: '100vw',
+          widths: '375, 750, 1100, 1500, 1780, 2000, 3000, 3840',
+          class: 'hero__img hero__img--desktop'
+      }}
+    </picture>
+
+  {%- else -%}
+    {% if placeholder %}
+      <picture class="hero__pic hero__pic--mobile">
+        {{ placeholder | placeholder_svg_tag: 'hero__img hero__img--placeholder' }}
+      </picture>
+      <picture class="hero__pic">
+        {{ placeholder | placeholder_svg_tag: 'hero__img hero__img--placeholder' }}
+      </picture>
+    {% endif %}
+  {%- endif -%}
+  {% if button_link %}</a>{% endif %}
+</div>
