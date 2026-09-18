@@ -144,7 +144,7 @@
     {% assign template_name = 'empty' | handleize %}
   {% endif %}
 
-  <body class="template-{{ template_name }} nav-drawer-big mobile-nav">
+  <body class="template-{{ template_name }} nav-drawer-big {% if settings.always_mobile_navigation %}mobile-nav{% endif %}">
     <a href="#root" class="skip-to-content-link">{{ 'accessibility.skip_to_text' | t }}</a>
     {% if settings.sticky_header %}<div class="sticky-header__threshold"></div>{% endif %}
     {% sections 'header-group' %}
