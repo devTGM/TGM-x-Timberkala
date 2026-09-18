@@ -473,6 +473,29 @@
     right: -8px !important;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
   }
+
+  /* ---------------- Prevent Duplicate Drawer Menu Bar on Desktop ---------------- */
+  @media (min-width: 990px) {
+    .wt-drawer--nav,
+    body:not(.mobile-nav) .wt-drawer--nav,
+    body:not(.mobile-nav) .wt-drawer,
+    body:not(.mobile-nav) .wt-header ~ .wt-drawer--nav,
+    .wt-header ~ .wt-drawer--nav {
+      display: none !important;
+      position: fixed !important;
+      transform: translateX(-100%) !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      max-height: 0 !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+    }
+  }
 {% endstyle %}
 
 {% if section.settings.layout != 'option_3' and section.settings.layout != 'option_4' %}
@@ -933,7 +956,7 @@
      MOBILE & DRAWER NAVIGATION
      ========================================================================= -->
 <drawer-nav
-  class="wt-drawer wt-drawer--nav{% if settings.always_mobile_navigation or section.settings.layout == 'option_3' or section.settings.layout == 'option_4' %} wt-drawer--mobile-nav{% endif %}"
+  class="wt-drawer wt-drawer--nav wt-drawer--mobile-nav"
   id="wt-drawer-nav"
 >
   <div class="wt-drawer__content">
