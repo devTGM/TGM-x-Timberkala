@@ -37,7 +37,7 @@ class PageHeaderSection extends HTMLElement {
 
     let prevScrollpos = window.pageYOffset;
 
-    const isDesktop = window.matchMedia("(min-width: 1200px)").matches;
+    const isDesktop = window.matchMedia("(min-width: 990px)").matches;
     const isMenuBarOpen = () =>
       this.header.classList.contains(this.desktopHeaderWithMenuBarClass);
     const isHeaderWithDesktopNav =

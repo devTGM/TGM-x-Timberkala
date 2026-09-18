@@ -19,7 +19,7 @@ class DrawerNavSection extends HTMLElement {
     this.isOpen = false;
     this.triggerElement = null;
     this.isAlwaysMobile = () => document.body.classList.contains("mobile-nav");
-    this.desktopBreakpoint = 1200;
+    this.desktopBreakpoint = 990;
     this.isDesktop = () =>
       window.matchMedia(`(min-width: ${this.desktopBreakpoint}px)`).matches;
   }
@@ -243,7 +243,7 @@ class MegaMenuSection extends HTMLElement {
 
     this.isAlwaysMobile = () =>
       document.querySelector("page-header").dataset.alwaysMobileMenu === "true";
-    this.desktopBreakpoint = 1200;
+    this.desktopBreakpoint = 990;
     this.isDesktop = () =>
       window.matchMedia(`(min-width: ${this.desktopBreakpoint}px)`).matches;
 
@@ -329,7 +329,7 @@ class MegaMenuSection extends HTMLElement {
 
   isMobileMenu() {
     return (
-      !window.matchMedia("(min-width: 1200px)").matches ||
+      !window.matchMedia("(min-width: 990px)").matches ||
       this.hasClassMobileNav()
     );
   }

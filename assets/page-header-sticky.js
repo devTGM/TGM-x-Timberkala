@@ -18,7 +18,7 @@
 
   let prevScrollpos = window.pageYOffset;
 
-  const isDesktop = window.matchMedia("(min-width: 1200px)").matches;
+  const isDesktop = window.matchMedia("(min-width: 990px)").matches;
   const isMenuBarOpen = () =>
     header.classList.contains(desktopHeaderWithMenuBarClass);
   const isHeaderWithDesktopNav =
