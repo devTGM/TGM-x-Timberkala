@@ -279,7 +279,7 @@
         "menu_hover_color": "#d4af37",
         "logo": "shopify://shop_images/Timber_Kala_Logo_7b253cba-6ed5-4e44-b429-cb40810b296e.png",
         "large_screen_logo_width": 200,
-        "large_screen_logo_max_height": 75,
+        "large_screen_logo_max_height": 120,
         "mobile_screen_logo_width": 170,
         "mobile_screen_logo_max_height": 50,
         "menu": "main-header",
