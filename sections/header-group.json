@@ -331,7 +331,7 @@
         "sticky_header": true,
         "show_line_separator": true,
         "border_color": "#e8e5df",
-        "show_shadow": false,
+        "show_shadow": true,
         "header_bg_color": "#ffffff",
         "header_text_color": "#1a1a1a",
         "menu_hover_color": "#d4af37",
