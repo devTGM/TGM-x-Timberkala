@@ -317,6 +317,7 @@
         },
         "image_ease": {
           "type": "image",
+          "disabled": true,
           "settings": {
             "heading": "Ease Into the Light",
             "button_label": "Shop lighting",
@@ -342,7 +343,7 @@
         "image_smaller"
       ],
       "settings": {
-        "brand_watermark": "I N O V A",
+        "brand_watermark": "",
         "show_brand_watermark": false,
         "show_social_dock": true,
         "dock_discount_text": "GET 20% OFF",
