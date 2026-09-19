@@ -57,6 +57,34 @@
   overflow: visible;
 }
 
+/* Squiggle Underline Stroke Animation (Concept Inova Signature) */
+@keyframes inovaSquiggleDraw {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+.inova-squiggle path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.inova-bento-section.inova-animated .inova-squiggle path,
+.inova-bento-highlight.inova-animated .inova-squiggle path {
+  animation: inovaSquiggleDraw 1.3s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: 0.2s;
+}
+
 .inova-view-all-btn {
   display: inline-flex;
   align-items: center;
@@ -111,18 +139,20 @@
   grid-row: 2 / 3;
 }
 
-/* Base Card Styling */
+/* Base Card Styling with Luxury Micro-Interactions */
 .inova-bento-card {
   position: relative;
   border-radius: 20px;
   overflow: hidden;
   background-color: #f6f5f1;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-  transition: box-shadow 0.35s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  will-change: transform, box-shadow;
 }
 
 .inova-bento-card:hover {
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.09);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
 }
 
 .inova-bento-card__link {
@@ -148,11 +178,12 @@
   object-fit: cover;
   object-position: center;
   display: block;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 .inova-bento-card:hover .inova-bento-card__image {
-  transform: scale(1.045);
+  transform: scale(1.06);
 }
 
 /* Card Content Overlay */
@@ -164,9 +195,14 @@
   align-items: flex-end;
   justify-content: space-between;
   padding: 24px 28px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.02) 40%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.02) 40%, transparent 100%);
+  transition: background 0.4s ease;
   pointer-events: none;
   box-sizing: border-box;
+}
+
+.inova-bento-card:hover .inova-bento-card__overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.08) 45%, transparent 100%);
 }
 
 .inova-bento-card__info {
@@ -200,13 +236,13 @@
   align-items: center;
   justify-content: center;
   color: #111111;
-  transition: transform 0.28s ease;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
   flex-shrink: 0;
   margin-left: 12px;
 }
 
 .inova-bento-card:hover .inova-bento-card__arrow {
-  transform: translateX(6px);
+  transform: translateX(8px);
 }
 
 /* Tablet & Mobile Responsiveness */

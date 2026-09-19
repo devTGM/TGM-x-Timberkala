@@ -734,7 +734,36 @@
     </div>
   </page-header>
 
-{% elsif section.settings.layout != 'option_3' and section.settings.layout != 'option_4' %}
+  <script>
+    (function() {
+      var header = document.querySelector('.wt-header--inova');
+      if (!header) return;
+
+      var isTicking = false;
+      function checkHeaderStuck() {
+        if (!isTicking) {
+          window.requestAnimationFrame(function() {
+            var rect = header.getBoundingClientRect();
+            // When the header reaches the top of the browser window
+            if (rect.top <= 1) {
+              header.classList.add('is-stuck');
+              header.classList.add('header-scrolled');
+            } else {
+              header.classList.remove('is-stuck');
+              header.classList.remove('header-scrolled');
+            }
+            isTicking = false;
+          });
+          isTicking = true;
+        }
+      }
+
+      window.addEventListener('scroll', checkHeaderStuck, { passive: true });
+      window.addEventListener('resize', checkHeaderStuck, { passive: true });
+      document.addEventListener('DOMContentLoaded', checkHeaderStuck);
+      checkHeaderStuck();
+    })();
+  </script>
   <!-- =========================================================================
        INLINE HEADER: LOGO LEFT, MENU CENTER, ACTIONS RIGHT
        ========================================================================= -->

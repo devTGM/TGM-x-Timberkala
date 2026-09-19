@@ -1300,3 +1300,67 @@ video.inova-media-element,
   border-bottom: none !important;
   padding-bottom: 8px !important;
 }
+
+/* =========================================================================
+   CONCEPT (INOVA) SIGNATURE STICKY HEADER & CURTAIN MOTION
+   ========================================================================= */
+
+/* Pinned Slideshow Hero Section */
+.inova-slideshow-section,
+.shopify-section:has(.inova-slideshow-wrapper),
+.hero-section {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  inset-block-start: 0 !important;
+  z-index: 1 !important;
+  display: block !important;
+  width: 100% !important;
+}
+
+.inova-slideshow-section.hero-scrolled,
+.hero-section.hero-scrolled {
+  position: static !important;
+}
+
+/* Sticky Header Wrapper */
+#shopify-section-header,
+[id*="__header"] {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  inset-block-start: 0 !important;
+  z-index: 100 !important;
+  background: transparent !important;
+}
+
+.wt-header--inova {
+  position: relative !important;
+  z-index: 100 !important;
+  background-color: var(--header-bg-color, #ffffff) !important;
+  border-top-left-radius: 28px !important;
+  border-top-right-radius: 28px !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  transition: border-radius 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.32s ease,
+              padding 0.3s ease !important;
+}
+
+/* When header reaches top: 0, top corners flatten to 0 and shadow appears */
+.wt-header--inova.is-stuck,
+.wt-header--inova.header-scrolled,
+body:not(.template-index) .wt-header--inova {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07) !important;
+}
+
+/* Page Container (#root) and Content Slide OVER Pinned Hero */
+#root,
+main[role="main"],
+.page-container {
+  position: relative !important;
+  z-index: 20 !important;
+  background-color: #ffffff !important;
+}

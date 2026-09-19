@@ -52,7 +52,7 @@
             <span class="inova-bento-highlight">
               {{ heading_words[0] }}
               <svg class="inova-squiggle" viewBox="0 0 120 22" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                <path d="M4 14C16 5 28 19 44 11C60 3 74 17 90 9C102 3 110 12 116 14" stroke="{{ section.settings.squiggle_color | default: '#889867' }}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 14C16 5 28 19 44 11C60 3 74 17 90 9C102 3 110 12 116 14" pathLength="1" stroke="{{ section.settings.squiggle_color | default: '#889867' }}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
             {% for word in heading_words offset: 1 %}
@@ -146,6 +146,30 @@
       </div>
     </div>
   </section>
+
+  <script>
+    (function() {
+      var bento = document.querySelector('[data-section-id="{{ section.id }}"]');
+      if (!bento) return;
+
+      if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              bento.classList.add('inova-animated');
+              var hl = bento.querySelector('.inova-bento-highlight');
+              if (hl) hl.classList.add('inova-animated');
+              observer.unobserve(bento);
+            }
+          });
+        }, { threshold: 0.12 });
+
+        observer.observe(bento);
+      } else {
+        bento.classList.add('inova-animated');
+      }
+    })();
+  </script>
 
 {% schema %}
 {
