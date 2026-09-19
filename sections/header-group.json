@@ -312,7 +312,8 @@
             "heading": "Playful Lines and Elegant Comfort",
             "button_label": "Shop sofas",
             "button_link": "shopify://collections/all-products",
-            "video_url": ""
+            "video_url": "",
+            "hide_overlay_mobile": true
           }
         },
         "image_ease": {
@@ -345,11 +346,14 @@
       "settings": {
         "brand_watermark": "",
         "show_brand_watermark": false,
+        "show_brand_watermark_mobile": false,
         "show_social_dock": true,
+        "show_social_dock_mobile": true,
         "dock_discount_text": "GET 20% OFF",
         "dock_discount_url": "",
         "autoplay": true,
         "autoplay_speed": 5,
+        "mobile_height_mode": "banner_ratio",
         "show_on_all_pages": true
       }
     },

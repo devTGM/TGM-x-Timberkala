@@ -11,7 +11,7 @@
 {%- if template.name == 'index' or section.settings.show_on_all_pages -%}
 <div
   id="inova-slideshow-{{ section.id }}"
-  class="inova-slideshow-wrapper"
+  class="inova-slideshow-wrapper mobile-height--{{ section.settings.mobile_height_mode | default: 'banner_ratio' }}"
   data-autoplay="{{ section.settings.autoplay }}"
   data-autoplay-speed="{{ section.settings.autoplay_speed | default: 5 }}"
 >
@@ -38,8 +38,31 @@
             {%- if v_url == blank -%}
               {%- assign v_url = 'https://concept-theme-inova.myshopify.com/cdn/shop/videos/c/vp/9bdc62d489594794ac76ea91dbaa597a/9bdc62d489594794ac76ea91dbaa597a.HD-1080p-2.5Mbps-35748949.mp4' -%}
             {%- endif -%}
+
+            <!-- Mobile Banner on Video Slide (Exact 656x1024 fit) -->
+            <picture class="inova-media-picture inova-mobile-only">
+              {%- if block.settings.mobile_image != blank -%}
+                <img
+                  class="inova-media-element"
+                  src="{{ block.settings.mobile_image | image_url: width: 1000 }}"
+                  alt="{{ block.settings.heading | default: 'Timberkala' | escape }}"
+                  loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                  fetchpriority="{% if forloop.first %}high{% else %}low{% endif %}"
+                >
+              {%- else -%}
+                <img
+                  class="inova-media-element"
+                  src="{{ 'timberkala-mobile-banner.webp' | asset_url }}"
+                  alt="{{ block.settings.heading | default: 'Timberkala Banner' | escape }}"
+                  loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                  fetchpriority="{% if forloop.first %}high{% else %}low{% endif %}"
+                >
+              {%- endif -%}
+            </picture>
+
+            <!-- Desktop Video -->
             <video
-              class="inova-media-element"
+              class="inova-media-element inova-desktop-only"
               playsinline
               muted
               autoplay
@@ -57,6 +80,8 @@
             <picture class="inova-media-picture">
               {%- if block.settings.mobile_image != blank -%}
                 <source media="(max-width: 767px)" srcset="{{ block.settings.mobile_image | image_url: width: 1000 }}">
+              {%- else -%}
+                <source media="(max-width: 767px)" srcset="{{ 'timberkala-mobile-banner.webp' | asset_url }}">
               {%- endif -%}
               {%- if block.settings.image != blank -%}
                 <img
@@ -84,36 +109,49 @@
         </div>
 
         <!-- Slide Specific Content (Bottom Overlay) -->
-        <div class="inova-slide-content">
-          <div class="inova-content-row">
-            <div class="inova-content-left">
-              <h2 class="inova-slide-heading">
-                {{ block.settings.heading | default: 'Comfort, Style, Durability: Our Seating Collection' }}
-              </h2>
-            </div>
-            <div class="inova-content-right">
+        {%- assign has_content = false -%}
+        {%- if block.settings.heading != blank or block.settings.button_label != blank -%}
+          {%- assign has_content = true -%}
+        {%- endif -%}
+
+        {%- if has_content -%}
+          <div class="inova-slide-content {% if block.settings.hide_overlay_mobile %}mobile-overlay-hidden{% endif %}">
+            <div class="inova-content-row">
+              {%- if block.settings.heading != blank -%}
+                <div class="inova-content-left">
+                  <h2 class="inova-slide-heading">
+                    {{ block.settings.heading }}
+                  </h2>
+                </div>
+              {%- endif -%}
               {%- if block.settings.button_label != blank -%}
-                <a href="{{ block.settings.button_link | default: '/collections/all-products' }}" class="inova-hero-pill-btn">
-                  <span>{{ block.settings.button_label }}</span>
-                </a>
+                <div class="inova-content-right">
+                  <a href="{{ block.settings.button_link | default: '/collections/all-products' }}" class="inova-hero-pill-btn">
+                    <span>{{ block.settings.button_label }}</span>
+                  </a>
+                </div>
               {%- endif -%}
             </div>
           </div>
-        </div>
+        {%- endif -%}
+
+        {%- if block.settings.button_link != blank -%}
+          <a href="{{ block.settings.button_link }}" class="inova-slide-tap-link {% if block.settings.button_label != blank and block.settings.hide_overlay_mobile != true %}inova-slide-tap-link--mobile-only{% endif %}" aria-label="{{ block.settings.heading | default: 'Shop Now' }}"></a>
+        {%- endif -%}
       </div>
     {%- endfor -%}
   </div>
 
   <!-- Giant Center Brand Letters ("I N O V A" / "T I M B E R K A L A") -->
   {%- if section.settings.show_brand_watermark -%}
-    <div class="inova-brand-watermark" aria-hidden="true">
+    <div class="inova-brand-watermark {% if section.settings.show_brand_watermark_mobile == false %}mobile-watermark-hidden{% endif %}" aria-hidden="true">
       <span>{{ section.settings.brand_watermark | default: 'I N O V A' }}</span>
     </div>
   {%- endif -%}
 
   <!-- Left Floating Social & Promo Dock (Inova Signature - Visible on Desktop & Mobile) -->
   {%- if section.settings.show_social_dock -%}
-    <aside class="inova-floating-dock" aria-label="Social and Discounts">
+    <aside class="inova-floating-dock {% if section.settings.show_social_dock_mobile == false %}mobile-dock-hidden{% endif %}" aria-label="Social and Discounts">
       <div class="inova-dock-socials">
         <a href="https://facebook.com/shopify" target="_blank" rel="noopener" aria-label="Facebook" class="inova-dock-icon">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
@@ -492,16 +530,60 @@
   box-shadow: none;
 }
 
+/* Full slide tap link */
+.inova-slide-tap-link {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 6;
+  text-decoration: none;
+  background: transparent;
+}
+@media (min-width: 768px) {
+  .inova-mobile-only {
+    display: none !important;
+  }
+  .inova-desktop-only {
+    display: block !important;
+  }
+  .inova-slide-tap-link--mobile-only {
+    display: none !important;
+  }
+}
+
 /* ==========================================================================
-   MOBILE SCREEN PERFECTION (MATCHES media_1789844803288.png)
+   MOBILE SCREEN PERFECTION (EXACT 656 x 1024 BANNER SIZE)
    ========================================================================== */
 @media (max-width: 767px) {
-  .inova-slideshow-wrapper {
+  /* Lock to exact user mobile banner size: 656 x 1024 (aspect-ratio 41:64) */
+  .inova-slideshow-wrapper,
+  .inova-slideshow-wrapper.mobile-height--banner_ratio {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    aspect-ratio: 656 / 1024 !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  @supports not (aspect-ratio: 656 / 1024) {
+    .inova-slideshow-wrapper,
+    .inova-slideshow-wrapper.mobile-height--banner_ratio {
+      height: 0 !important;
+      padding-top: 156.09756% !important;
+    }
+  }
+
+  .inova-slideshow-wrapper.mobile-height--fullscreen {
     height: 100vh !important;
     height: 100svh !important;
     height: 100dvh !important;
     min-height: 560px !important;
     max-height: 100vh !important;
+    aspect-ratio: auto !important;
+    padding-top: 0 !important;
   }
 
   /* Prevent any mobile scale or distortion on images/videos */
@@ -511,6 +593,23 @@
   .inova-slide-media video {
     transform: none !important;
     transition: none !important;
+  }
+
+  /* Mobile visibility toggles */
+  .mobile-overlay-hidden {
+    display: none !important;
+  }
+  .mobile-watermark-hidden {
+    display: none !important;
+  }
+  .mobile-dock-hidden {
+    display: none !important;
+  }
+  .inova-desktop-only {
+    display: none !important;
+  }
+  .inova-mobile-only {
+    display: block !important;
   }
 
   /* Center Brand Letters on Mobile ("I N O V A") */
@@ -830,6 +929,35 @@ document.addEventListener('DOMContentLoaded', function() {
       "id": "show_on_all_pages",
       "label": "Show on all pages (default: Home page only)",
       "default": false
+    },
+    {
+      "type": "select",
+      "id": "mobile_height_mode",
+      "label": "Mobile Banner Height Mode",
+      "options": [
+        {
+          "value": "banner_ratio",
+          "label": "Locked to Banner Size (656 x 1024 - Recommended)"
+        },
+        {
+          "value": "fullscreen",
+          "label": "Fullscreen (100vh)"
+        }
+      ],
+      "default": "banner_ratio"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brand_watermark_mobile",
+      "label": "Show Brand Watermark on Mobile",
+      "default": false,
+      "info": "Leave disabled if your mobile banner already contains your brand logo"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_dock_mobile",
+      "label": "Show Floating Badge on Mobile",
+      "default": true
     }
   ],
   "blocks": [
@@ -851,6 +979,19 @@ document.addEventListener('DOMContentLoaded', function() {
           "type": "image_picker",
           "id": "fallback_image",
           "label": "Fallback Poster Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Banner Image",
+          "info": "Displays on mobile in place of video. Defaults to 656 x 1024 Timberkala banner"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_overlay_mobile",
+          "label": "Hide heading & button on mobile",
+          "default": false,
+          "info": "Enable if the banner image already contains text or buttons"
         },
         {
           "type": "text",
@@ -884,6 +1025,13 @@ document.addEventListener('DOMContentLoaded', function() {
           "type": "image_picker",
           "id": "mobile_image",
           "label": "Image (Mobile)"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_overlay_mobile",
+          "label": "Hide heading & button on mobile",
+          "default": false,
+          "info": "Enable if the banner image already contains text or buttons"
         },
         {
           "type": "text",

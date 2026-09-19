@@ -805,16 +805,59 @@ video.inova-media-element,
   object-position: center center !important;
 }
 
-/* Mobile specific image rendering improvements */
+/* ==========================================================================
+   MOBILE BANNER SIZE LOCK (656 x 1024 / Aspect Ratio 41:64)
+   Preserves exact 656x1024 mobile banner proportions across all devices
+   without stretching, distorting, or cropping.
+   ========================================================================== */
 @media (max-width: 767px) {
-  .inova-slideshow-wrapper img,
-  .inova-slideshow-wrapper video,
-  .hero__img--mobile {
+  .inova-slideshow-wrapper,
+  .timberkala-banner,
+  .timberkala-hero-slider,
+  .mobile-banner-fit {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    aspect-ratio: 656 / 1024 !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  @supports not (aspect-ratio: 656 / 1024) {
+    .inova-slideshow-wrapper,
+    .timberkala-banner,
+    .timberkala-hero-slider,
+    .mobile-banner-fit {
+      height: 0 !important;
+      padding-top: calc(1024 / 656 * 100%) !important; /* 156.09756% */
+    }
+  }
+
+  .inova-slideshow-wrapper.mobile-height--fullscreen {
+    aspect-ratio: auto !important;
+    padding-top: 0 !important;
+    height: 100vh !important;
+    height: 100svh !important;
+    height: 100dvh !important;
+    min-height: 560px !important;
+  }
+
+  .inova-slideshow-wrapper .inova-slide-media,
+  .inova-slideshow-wrapper .inova-media-picture,
+  .inova-slideshow-wrapper .inova-media-element,
+  .timberkala-banner img,
+  .timberkala-banner picture {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    inset: 0 !important;
     object-fit: cover !important;
     object-position: center center !important;
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
   }
 }
+
 
 
