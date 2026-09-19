@@ -532,9 +532,10 @@
           {% render 'icons', id: 'bars' %}
         </a>
 
+        {%- assign inova_links_limit = section.settings.max_menu_links | default: 4 -%}
         <nav class="inova-desktop-nav" aria-label="Main Navigation">
           <ul class="inova-nav-list">
-            {%- for link in section.settings.menu.links -%}
+            {%- for link in section.settings.menu.links limit: inova_links_limit -%}
               <li class="inova-nav-item{% if link.links != blank %} inova-nav-item--has-children{% endif %}">
                 <a href="{{ link.url }}" class="inova-nav-link{% if link.current %} inova-nav-link--active{% endif %}">
                   <span>{{ link.title | escape }}</span>
@@ -555,6 +556,24 @@
                 {% endif %}
               </li>
             {%- endfor -%}
+
+            {%- if section.settings.menu.links.size > inova_links_limit -%}
+              <li class="inova-nav-item inova-nav-item--more inova-nav-item--has-children">
+                <a href="#" class="inova-nav-link inova-nav-link--more" onclick="return false;">
+                  <span>MORE</span>
+                  <svg class="inova-chevron-down" width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <div class="inova-dropdown">
+                  <ul class="inova-dropdown__list">
+                    {% for link in section.settings.menu.links offset: inova_links_limit %}
+                      <li class="inova-dropdown__item">
+                        <a href="{{ link.url }}" class="inova-dropdown__link">{{ link.title | escape }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </li>
+            {%- endif -%}
           </ul>
         </nav>
       </div>
@@ -587,7 +606,7 @@
                 alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
               >
             {%- else -%}
-              <span class="wt-header__logo__text inova-brand-text">{{ shop.name }}</span>
+              <span class="wt-header__logo__text inova-brand-text">{{ section.settings.inova_logo_text | default: 'I N O V A' }}</span>
             {%- endif -%}
           </a>
         </h1>
@@ -1310,6 +1329,22 @@
       ],
       "default": "1440px",
       "label": "Header Container Width"
+    },
+    {
+      "type": "text",
+      "id": "inova_logo_text",
+      "label": "Inova Center Logo Text (Default: I N O V A)",
+      "default": "I N O V A"
+    },
+    {
+      "type": "range",
+      "id": "max_menu_links",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4,
+      "label": "Max Header Navigation Links (Desktop)",
+      "info": "Links beyond this limit will be placed in a 'MORE' dropdown to preserve the clean luxury layout."
     },
     {
       "type": "checkbox",

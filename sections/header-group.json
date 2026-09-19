@@ -289,7 +289,9 @@
         "typing_search": "Search products...",
         "suggestions_title": "",
         "suggestions_menu": "main-menu",
-        "show_currency_selector": true
+        "show_currency_selector": true,
+        "inova_logo_text": "I N O V A",
+        "max_menu_links": 4
       }
     },
     "slideshow": {
@@ -346,20 +348,21 @@
         "image_smaller"
       ],
       "settings": {
-        "brand_watermark": "",
-        "show_brand_watermark": false,
+        "brand_watermark": "I N O V A",
+        "show_brand_watermark": true,
         "show_social_dock": true,
         "dock_discount_text": "GET 20% OFF",
         "dock_discount_url": "",
         "autoplay": true,
         "autoplay_speed": 5,
-        "desktop_height_mode": "banner_ratio",
+        "desktop_height_mode": "fullscreen",
         "desktop_height": 600,
         "mobile_height_mode": "banner_ratio",
         "show_brand_watermark_mobile": false,
         "show_social_dock_mobile": true,
         "show_on_all_pages": true
-      }
+      },
+      "disabled": false
     },
     "custom_liquid_9gjUz7": {
       "type": "custom-liquid",
@@ -405,9 +408,9 @@
     }
   },
   "order": [
-    "announcement-bar",
-    "header",
     "slideshow",
+    "header",
+    "announcement-bar",
     "custom_liquid_9gjUz7",
     "custom_liquid_DJbfqV",
     "page_header_logo_banner_mEVa4k",

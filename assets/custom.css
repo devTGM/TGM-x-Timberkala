@@ -936,10 +936,23 @@ video.inova-media-element,
    ========================================================================= */
 .wt-header--inova {
   background: var(--header-bg-color, #ffffff) !important;
-  transition: all 0.3s ease !important;
-  width: 100% !important;
+  border-top-left-radius: 28px !important;
+  border-top-right-radius: 28px !important;
+  margin-top: -30px !important;
   position: relative !important;
-  z-index: 80 !important;
+  z-index: 50 !important;
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.05) !important;
+  transition: border-radius 0.25s ease, margin-top 0.25s ease, box-shadow 0.25s ease !important;
+  width: 100% !important;
+}
+
+.wt-header--inova.is-sticky,
+.wt-header--inova[data-stuck="true"] {
+  border-radius: 0 !important;
+  margin-top: 0 !important;
+  position: sticky !important;
+  top: 0 !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
 }
 
 .wt-header__body--inova {
@@ -1196,11 +1209,11 @@ video.inova-media-element,
 
 /* Floating Dock Locked to Viewport Edge Away from Header */
 .inova-floating-dock {
-  position: fixed !important;
-  left: 20px !important;
-  top: clamp(280px, 50vh, 520px) !important;
+  position: absolute !important;
+  left: 24px !important;
+  top: 50% !important;
   transform: translateY(-50%) !important;
-  z-index: 85 !important;
+  z-index: 25 !important;
 }
 
 /* Responsive Overrides for Inova Header */
