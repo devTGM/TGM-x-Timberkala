@@ -498,7 +498,224 @@
   }
 {% endstyle %}
 
-{% if section.settings.layout != 'option_3' and section.settings.layout != 'option_4' %}
+{% if section.settings.layout == 'option_inova' %}
+  <!-- =========================================================================
+       INOVA HEADER: MENU LEFT, LOGO CENTER, CURRENCY + ACTIONS RIGHT
+       ========================================================================= -->
+  <page-header
+    role="banner"
+    id="header"
+    class="
+      wt-header
+      wt-header--inova
+      {% if section.settings.show_shadow %} wt-header--shadow{% endif %}
+      {% if section.settings.show_line_separator %} wt-header--separator{% endif %}
+      {% if section.settings.sticky_header %} wt-header--sticky{% endif %}
+    "
+    {% if section.settings.sticky_header %}
+      data-sticky="true"
+    {% endif %}
+  >
+    <div class="wt-header__body wt-header__body--inova">
+      <!-- LEFT: Mobile Menu Button + Inova Desktop Navigation -->
+      <div class="wt-header__col wt-header__col--inova-left">
+        <a
+          href="#"
+          class="wt-header__icon wt-header__menu-trigger inova-menu-trigger-mobile wt-icon"
+          rel="toggle-menu"
+          aria-label="{{ 'aria-label.page-header-toggle-menu' | t }}"
+          aria-controls="wt-drawer-nav"
+          aria-expanded="false"
+          role="button"
+          tabindex="0"
+        >
+          {% render 'icons', id: 'bars' %}
+        </a>
+
+        <nav class="inova-desktop-nav" aria-label="Main Navigation">
+          <ul class="inova-nav-list">
+            {%- for link in section.settings.menu.links -%}
+              <li class="inova-nav-item{% if link.links != blank %} inova-nav-item--has-children{% endif %}">
+                <a href="{{ link.url }}" class="inova-nav-link{% if link.current %} inova-nav-link--active{% endif %}">
+                  <span>{{ link.title | escape }}</span>
+                  {% if link.links != blank %}
+                    <svg class="inova-chevron-down" width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  {% endif %}
+                </a>
+                {% if link.links != blank %}
+                  <div class="inova-dropdown">
+                    <ul class="inova-dropdown__list">
+                      {% for childlink in link.links %}
+                        <li class="inova-dropdown__item">
+                          <a href="{{ childlink.url }}" class="inova-dropdown__link">{{ childlink.title | escape }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                {% endif %}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- CENTER: Centered Brand Logo -->
+      <div class="wt-header__col wt-header__col--inova-center">
+        <h1 itemscope itemtype="http://schema.org/Organization" class="wt-header__logo inova-header__logo">
+          <a href="{{ routes.root_url }}" class="wt-header__logo__link inova-logo__link">
+            {%- if section.settings.logo != blank -%}
+              {%- assign large_image_size = section.settings.large_screen_logo_width | default: 220 -%}
+              {%- assign large_image_size_double = large_image_size | times: 2 -%}
+              <img
+                srcset="{{ section.settings.logo | image_url: width: large_image_size }} 1x, {{ section.settings.logo | image_url: width: large_image_size_double }} 2x"
+                src="{{ section.settings.logo | image_url: width: large_image_size }}"
+                loading="lazy"
+                width="{{ section.settings.logo.width }}"
+                height="{{ section.settings.logo.height }}"
+                class="wt-header__logo__img inova-logo-desk"
+                alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+              >
+              {%- assign mobile_image_size = section.settings.mobile_screen_logo_width | default: 140 -%}
+              {%- assign mobile_image_size_double = mobile_image_size | times: 2 -%}
+              <img
+                srcset="{{ section.settings.logo | image_url: width: mobile_image_size }} 1x, {{ section.settings.logo | image_url: width: mobile_image_size_double }} 2x"
+                src="{{ section.settings.logo | image_url: width: mobile_image_size }}"
+                loading="lazy"
+                width="{{ section.settings.logo.width }}"
+                height="{{ section.settings.logo.height }}"
+                class="wt-header__logo__img inova-logo-mob"
+                alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+              >
+            {%- else -%}
+              <span class="wt-header__logo__text inova-brand-text">{{ shop.name }}</span>
+            {%- endif -%}
+          </a>
+        </h1>
+      </div>
+
+      <!-- RIGHT: Currency Selector Pill + Search + Account + Cart -->
+      <div class="wt-header__col wt-header__col--inova-right">
+        {%- if section.settings.show_currency_selector != false -%}
+          <div class="inova-currency-pill" role="button" tabindex="0" aria-label="Currency: {{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }}">
+            <span class="inova-pill-flag">🇮🇳</span>
+            <span class="inova-pill-code">{{ localization.country.currency.iso_code | default: 'INR' }}</span>
+            <span class="inova-pill-symbol">{{ localization.country.currency.symbol | default: '₹' }}</span>
+            <svg class="inova-pill-caret" width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        {%- endif -%}
+
+        <!-- Search Drawer Trigger -->
+        <search-drawer
+          class="wt-header__search wt-drawer-search inova-search-trigger"
+          data-loading-text="{{ 'accessibility.searching' | t }}"
+        >
+          <div
+            class="wt-header__icon wt-header__search-trigger wt-icon"
+            rel="toggle-search"
+            tabindex="0"
+            role="button"
+            aria-label="{{ 'aria-label.page-header-open-search' | t }}"
+          >
+            {% render 'icons', id: 'search' %}
+          </div>
+
+          <form
+            class="wt-header__search__body store-search-form"
+            action="{{ routes.search_url }}"
+            method="get"
+            role="search"
+          >
+            <input type="hidden" name="type" value="product">
+
+            <div class="wt-header__search__form">
+              <label class="wt-header__icon wt-header__search__label" for="search-shop-inova">
+                {% render 'icons', id: 'search' %}
+                <span class="visually-hidden">{{ 'aria-label.page-header-search' | t }}</span>
+              </label>
+              <input
+                type="text"
+                placeholder="{{ section.settings.typing_search }}"
+                id="search-shop-inova"
+                name="q"
+                class="wt-header__search__field"
+                aria-controls="predictive-search-results-list"
+                aria-autocomplete="list"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                spellcheck="false"
+                tabindex="-1"
+                role="combobox"
+                autocorrect="off"
+                autocomplete="off"
+                autocapitalize="off"
+                data-search="true"
+                aria-label="{{ 'aria-label.page-header-search' | t }}"
+              >
+
+              <div class="wt-header__search__clear-button__container">
+                <div
+                  class="wt-header__search__clear-button"
+                  role="button"
+                  aria-label="{{ 'aria-label.page-header-remove-all' | t }}"
+                  tabindex="-1"
+                >
+                  {% render 'icons', id: 'close' -%}
+                  <span class="text">{{ 'aria-label.page-header-toggle-menu' | t }}</span>
+                </div>
+              </div>
+              <button
+                aria-label="{{ 'aria-label.page-header-search' | t }}"
+                class="wt-header__search__button"
+                tabindex="-1"
+              >
+                {% render 'icons', id: 'search' -%}
+                <span class="text">{{ 'aria-label.page-header-search' | t }}</span>
+              </button>
+              <button
+                aria-label="{{ 'aria-label.page-header-close-search' | t }}"
+                class="wt-header__search__close"
+                tabindex="-1"
+              >
+                {% render 'icons', id: 'close' %}
+              </button>
+            </div>
+            <div class="wt-header__search__results">
+              <div class="predictive-search-status">
+                {% render 'search-top' %}
+              </div>
+
+              {% render 'loader' %}
+
+              <div class="search-result-wrapper" data-predictive-search></div>
+            </div>
+          </form>
+        </search-drawer>
+
+        <!-- Account & Cart -->
+        <ul class="wt-header__panel wt-header__panel--no-labels inova-header__panel">
+          {%- if shop.customer_accounts_enabled -%}
+            <li class="wt-header__panel__item wt-header__panel__item--account">
+              <a href="{{ routes.account_url }}" class="wt-header__panel__link wt-icon" aria-label="Account">
+                {% render 'icons', id: 'user' %}
+                <span class="wt-header__panel__label">Account</span>
+              </a>
+            </li>
+          {%- endif -%}
+          <li class="wt-header__panel__item wt-header__panel__item--cart">
+            <a onclick="handleFloCartBtn();" class="wt-header__panel__link wt-icon wt-cart__trigger" style="cursor:pointer;" id="cart-icon-bubble-inova" aria-label="Cart">
+              {% render 'icons', id: 'bag' %}
+              {% if cart.item_count != 0 %}
+                <span class="flo-cart-icon-bubble wt-header__panel__counter">{{ cart.item_count }}</span>
+              {% endif %}
+              <span class="wt-header__panel__label">Cart</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </page-header>
+
+{% elsif section.settings.layout != 'option_3' and section.settings.layout != 'option_4' %}
   <!-- =========================================================================
        INLINE HEADER: LOGO LEFT, MENU CENTER, ACTIONS RIGHT
        ========================================================================= -->
@@ -1032,6 +1249,10 @@
       "id": "layout",
       "options": [
         {
+          "value": "option_inova",
+          "label": "Inova: Menu Left, Logo Center, Currency + Actions Right (Recommended)"
+        },
+        {
           "value": "option_inline",
           "label": "Logo Left, Menu Center (Recommended)"
         },
@@ -1089,6 +1310,12 @@
       ],
       "default": "1440px",
       "label": "Header Container Width"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_selector",
+      "default": true,
+      "label": "Show Country/Currency Pill"
     },
     {
       "type": "checkbox",

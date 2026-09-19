@@ -1,0 +1,276 @@
+/* Inova 4-Card Bento Collection Grid */
+.inova-bento-section {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.inova-bento-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+/* Header Row */
+.inova-bento-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  gap: 20px;
+}
+
+.inova-bento-header__left {
+  position: relative;
+}
+
+.inova-bento-title {
+  font-family: inherit;
+  font-size: clamp(26px, 3.8vw, 44px);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.inova-bento-highlight {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.inova-squiggle {
+  position: absolute;
+  left: -2px;
+  bottom: -10px;
+  width: 105%;
+  height: 18px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.inova-view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 26px;
+  border: 1.5px solid #1a1a1a;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: all 0.28s ease;
+  white-space: nowrap;
+}
+
+.inova-view-all-btn:hover {
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+/* 4-Card Asymmetric Bento Grid */
+.inova-bento-grid {
+  display: grid;
+  grid-template-columns: 44% calc(28% - 10px) calc(28% - 10px);
+  grid-template-rows: 290px 290px;
+  gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Card Placements */
+.inova-bento-card--1 {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3; /* Tall card spans both rows */
+}
+
+.inova-bento-card--2 {
+  grid-column: 2 / 4; /* Wide card spans top row across 2 columns */
+  grid-row: 1 / 2;
+}
+
+.inova-bento-card--3 {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+.inova-bento-card--4 {
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+}
+
+/* Base Card Styling */
+.inova-bento-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #f6f5f1;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.35s ease;
+}
+
+.inova-bento-card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.09);
+}
+
+.inova-bento-card__link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+.inova-bento-card__image-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.inova-bento-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.inova-bento-card:hover .inova-bento-card__image {
+  transform: scale(1.045);
+}
+
+/* Card Content Overlay */
+.inova-bento-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 24px 28px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.02) 40%, transparent 100%);
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.inova-bento-card__info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.inova-bento-card__title {
+  font-family: inherit;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #111111;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.inova-bento-card__subtitle {
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 400;
+  color: #444444;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.inova-bento-card__arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111111;
+  transition: transform 0.28s ease;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.inova-bento-card:hover .inova-bento-card__arrow {
+  transform: translateX(6px);
+}
+
+/* Tablet & Mobile Responsiveness */
+@media (max-width: 989px) {
+  .inova-bento-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 16px;
+  }
+
+  .inova-bento-card--1 {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    min-height: 380px;
+  }
+
+  .inova-bento-card--2 {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    min-height: 250px;
+  }
+
+  .inova-bento-card--3,
+  .inova-bento-card--4 {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 240px;
+  }
+
+  .inova-bento-card__overlay {
+    padding: 18px 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .inova-bento-container {
+    padding: 0 16px;
+  }
+
+  .inova-bento-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .inova-bento-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .inova-bento-card--1 {
+    min-height: 340px;
+  }
+
+  .inova-bento-card--2,
+  .inova-bento-card--3,
+  .inova-bento-card--4 {
+    min-height: 220px;
+  }
+
+  .inova-bento-card__title {
+    font-size: 18px;
+  }
+
+  .inova-bento-card__subtitle {
+    font-size: 12.5px;
+  }
+}

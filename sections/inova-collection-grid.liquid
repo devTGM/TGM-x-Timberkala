@@ -1,0 +1,301 @@
+{{ 'inova-collection-grid.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #inova-bento-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | default: 50 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
+    background-color: {{ section.settings.background_color | default: 'transparent' }};
+  }
+{%- endstyle -%}
+
+<section id="inova-bento-{{ section.id }}" class="inova-bento-section" data-section-id="{{ section.id }}">
+  <div class="inova-bento-container">
+    <!-- Header Row: Heading with squiggle + View All Collections button -->
+    <div class="inova-bento-header">
+      <div class="inova-bento-header__left">
+        {%- assign heading_text = section.settings.heading | default: 'LOVE WHERE YOU LIVE' -%}
+        {%- assign heading_words = heading_text | split: ' ' -%}
+        <h2 class="inova-bento-title">
+          <span class="inova-bento-highlight">
+            {{ heading_words[0] }}
+            <svg class="inova-squiggle" viewBox="0 0 120 22" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+              <path d="M4 14C16 5 28 19 44 11C60 3 74 17 90 9C102 3 110 12 116 14" stroke="{{ section.settings.squiggle_color | default: '#889867' }}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          {% for word in heading_words offset: 1 %}
+            {{ word }}{% unless forloop.last %} {% endunless %}
+          {% endfor %}
+        </h2>
+      </div>
+
+      {%- if section.settings.button_label != blank -%}
+        <div class="inova-bento-header__right">
+          <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="inova-view-all-btn">
+            {{ section.settings.button_label }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- 4-Card Asymmetric Bento Grid -->
+    <div class="inova-bento-grid">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks limit: 4 -%}
+          {%- liquid
+            assign card_index = forloop.index
+            assign card_url = block.settings.button_link
+            if card_url == blank and block.settings.collection != blank
+              assign card_url = block.settings.collection.url
+            endif
+            if card_url == blank
+              assign card_url = routes.all_products_collection_url
+            endif
+
+            case card_index
+              when 1
+                assign fallback_img = 'inova-category-seating.png' | asset_url
+                assign default_title = 'SEATING'
+                assign default_sub = 'Sit comfortably, feel at home!'
+              when 2
+                assign fallback_img = 'inova-category-sofas.png' | asset_url
+                assign default_title = 'SOFAS'
+                assign default_sub = 'Create the perfect lounge area!'
+              when 3
+                assign fallback_img = 'inova-category-lighting.png' | asset_url
+                assign default_title = 'LIGHTING'
+                assign default_sub = 'Light that sets the mood!'
+              when 4
+                assign fallback_img = 'inova-category-accessories.png' | asset_url
+                assign default_title = 'ACCESSORIES'
+                assign default_sub = 'Touches that add character!'
+            endcase
+
+            assign card_title = block.settings.title | default: default_title
+            assign card_subtitle = block.settings.subtitle | default: default_sub
+          -%}
+
+          <div class="inova-bento-card inova-bento-card--{{ card_index }}" {{ block.shopify_attributes }}>
+            <a href="{{ card_url }}" class="inova-bento-card__link" aria-label="{{ card_title | escape }}">
+              <div class="inova-bento-card__image-wrap">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    srcset="{{ block.settings.image | image_url: width: 600 }} 600w, {{ block.settings.image | image_url: width: 1200 }} 1200w"
+                    src="{{ block.settings.image | image_url: width: 800 }}"
+                    alt="{{ block.settings.image.alt | default: card_title | escape }}"
+                    loading="lazy"
+                    class="inova-bento-card__image"
+                  >
+                {%- elsif block.settings.collection.featured_image != blank -%}
+                  <img
+                    srcset="{{ block.settings.collection.featured_image | image_url: width: 600 }} 600w, {{ block.settings.collection.featured_image | image_url: width: 1200 }} 1200w"
+                    src="{{ block.settings.collection.featured_image | image_url: width: 800 }}"
+                    alt="{{ card_title | escape }}"
+                    loading="lazy"
+                    class="inova-bento-card__image"
+                  >
+                {%- else -%}
+                  <img
+                    src="{{ fallback_img }}"
+                    alt="{{ card_title | escape }}"
+                    loading="lazy"
+                    class="inova-bento-card__image"
+                  >
+                {%- endif -%}
+              </div>
+
+              <!-- Content Overlay -->
+              <div class="inova-bento-card__overlay">
+                <div class="inova-bento-card__info">
+                  <h3 class="inova-bento-card__title">{{ card_title }}</h3>
+                  {%- if card_subtitle != blank -%}
+                    <p class="inova-bento-card__subtitle">{{ card_subtitle }}</p>
+                  {%- endif -%}
+                </div>
+                <div class="inova-bento-card__arrow" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- Fallback 4 Default Cards if no blocks added -->
+        {%- assign default_cards = "1,2,3,4" | split: "," -%}
+        {%- for item in default_cards -%}
+          {%- liquid
+            case item
+              when '1'
+                assign fallback_img = 'inova-category-seating.png' | asset_url
+                assign title = 'SEATING'
+                assign sub = 'Sit comfortably, feel at home!'
+                assign url = '/collections/furniture'
+              when '2'
+                assign fallback_img = 'inova-category-sofas.png' | asset_url
+                assign title = 'SOFAS'
+                assign sub = 'Create the perfect lounge area!'
+                assign url = '/collections/furniture'
+              when '3'
+                assign fallback_img = 'inova-category-lighting.png' | asset_url
+                assign title = 'LIGHTING'
+                assign sub = 'Light that sets the mood!'
+                assign url = '/collections/glass-on-wood'
+              when '4'
+                assign fallback_img = 'inova-category-accessories.png' | asset_url
+                assign title = 'ACCESSORIES'
+                assign sub = 'Touches that add character!'
+                assign url = '/collections/accessories'
+            endcase
+          -%}
+          <div class="inova-bento-card inova-bento-card--{{ item }}">
+            <a href="{{ url }}" class="inova-bento-card__link" aria-label="{{ title }}">
+              <div class="inova-bento-card__image-wrap">
+                <img src="{{ fallback_img }}" alt="{{ title }}" loading="lazy" class="inova-bento-card__image">
+              </div>
+              <div class="inova-bento-card__overlay">
+                <div class="inova-bento-card__info">
+                  <h3 class="inova-bento-card__title">{{ title }}</h3>
+                  <p class="inova-bento-card__subtitle">{{ sub }}</p>
+                </div>
+                <div class="inova-bento-card__arrow" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Inova Bento Collection",
+  "tag": "section",
+  "class": "section-inova-bento",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "LOVE WHERE YOU LIVE"
+    },
+    {
+      "type": "color",
+      "id": "squiggle_color",
+      "label": "Squiggle Accent Color",
+      "default": "#889867"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "VIEW ALL COLLECTIONS"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Section Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 10,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 10,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_card",
+      "name": "Collection Card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Image (Optional fallback to Inova image)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title (e.g. SEATING)"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle (e.g. Sit comfortably, feel at home!)"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Custom Link (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Inova Bento Collection",
+      "blocks": [
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "SEATING",
+            "subtitle": "Sit comfortably, feel at home!"
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "SOFAS",
+            "subtitle": "Create the perfect lounge area!"
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "LIGHTING",
+            "subtitle": "Light that sets the mood!"
+          }
+        },
+        {
+          "type": "category_card",
+          "settings": {
+            "title": "ACCESSORIES",
+            "subtitle": "Touches that add character!"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

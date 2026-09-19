@@ -230,11 +230,17 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  flex-wrap: wrap !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
   list-style: none !important;
   margin: 0 !important;
   padding: 0 !important;
   gap: var(--menu-item-spacing, 24px) !important;
+}
+.wt-page-nav-mega--inline .wt-page-nav-mega__list::-webkit-scrollbar {
+  display: none !important;
 }
 
 .wt-page-nav-mega--inline .wt-page-nav-mega__item {
@@ -924,3 +930,319 @@ video.inova-media-element,
 
 
 
+
+/* =========================================================================
+   INOVA HEADER STYLING (Matches Concept Inova Preset)
+   ========================================================================= */
+.wt-header--inova {
+  background: var(--header-bg-color, #ffffff) !important;
+  transition: all 0.3s ease !important;
+  width: 100% !important;
+  position: relative !important;
+  z-index: 80 !important;
+}
+
+.wt-header__body--inova {
+  max-width: var(--header-max-width, 1440px) !important;
+  margin: 0 auto !important;
+  padding: var(--header-padding-y-desk, 18px) 32px !important;
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr !important;
+  align-items: center !important;
+  gap: 20px !important;
+  box-sizing: border-box !important;
+}
+
+/* Inova Left Navigation */
+.wt-header__col--inova-left {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  min-width: 0 !important;
+}
+
+.inova-desktop-nav {
+  width: 100% !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+.inova-nav-list {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: var(--menu-item-spacing, 24px) !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+  overflow-x: auto !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.inova-nav-list::-webkit-scrollbar {
+  display: none !important;
+}
+
+.inova-nav-item {
+  position: relative !important;
+  list-style: none !important;
+  flex-shrink: 0 !important;
+}
+
+.inova-nav-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-size: var(--menu-font-size, 13px) !important;
+  font-weight: var(--menu-font-weight, 500) !important;
+  letter-spacing: var(--menu-letter-spacing, 1.2px) !important;
+  text-transform: var(--menu-text-transform, uppercase) !important;
+  color: var(--header-text-color, #1a1a1a) !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  padding: 8px 0 !important;
+  transition: color 0.25s ease !important;
+  position: relative !important;
+}
+
+.inova-nav-link:hover,
+.inova-nav-link--active {
+  color: var(--menu-hover-color, #d4af37) !important;
+}
+
+.inova-nav-link span {
+  position: relative !important;
+}
+
+.inova-nav-link span::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -4px !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 2px !important;
+  background: var(--menu-hover-color, #d4af37) !important;
+  transform: scaleX(0) !important;
+  transition: transform 0.25s ease !important;
+  transform-origin: center !important;
+}
+
+.inova-nav-link:hover span::after,
+.inova-nav-link--active span::after {
+  transform: scaleX(1) !important;
+}
+
+.inova-chevron-down {
+  transition: transform 0.2s ease !important;
+}
+
+.inova-nav-item:hover .inova-chevron-down {
+  transform: rotate(180deg) !important;
+}
+
+/* Inova Dropdown */
+.inova-dropdown {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  min-width: 200px !important;
+  background: #ffffff !important;
+  border: 1px solid #eeebe6 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08) !important;
+  padding: 10px 0 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(8px) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  z-index: 120 !important;
+}
+
+.inova-nav-item:hover .inova-dropdown {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+}
+
+.inova-dropdown__list {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.inova-dropdown__link {
+  display: block !important;
+  padding: 8px 18px !important;
+  font-size: 13px !important;
+  color: #333333 !important;
+  text-decoration: none !important;
+  transition: background 0.2s ease, color 0.2s ease !important;
+}
+
+.inova-dropdown__link:hover {
+  background: #f9f8f5 !important;
+  color: #d4af37 !important;
+}
+
+/* Inova Center Brand Logo */
+.wt-header__col--inova-center {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.inova-header__logo {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+.inova-logo__link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+}
+
+.inova-brand-text {
+  font-family: inherit !important;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.28em !important;
+  text-transform: uppercase !important;
+  color: var(--header-text-color, #1a1a1a) !important;
+  display: inline-block !important;
+  white-space: nowrap !important;
+}
+
+.inova-logo-desk {
+  max-height: 55px !important;
+  width: auto !important;
+  display: block !important;
+}
+
+.inova-logo-mob {
+  display: none !important;
+}
+
+/* Inova Right Actions */
+.wt-header__col--inova-right {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 18px !important;
+}
+
+/* Inova Currency / Country Pill */
+.inova-currency-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 6px 14px !important;
+  border: 1px solid #e0ded9 !important;
+  border-radius: 999px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #333333 !important;
+  background: transparent !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+}
+
+.inova-currency-pill:hover {
+  border-color: #1a1a1a !important;
+  background: #fdfdfc !important;
+}
+
+.inova-pill-flag {
+  font-size: 15px !important;
+  line-height: 1 !important;
+}
+
+.inova-pill-code {
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
+  font-size: 12.5px !important;
+}
+
+.inova-pill-symbol {
+  color: #666666 !important;
+  font-size: 12.5px !important;
+}
+
+.inova-pill-caret {
+  color: #888888 !important;
+  margin-left: 2px !important;
+}
+
+.inova-menu-trigger-mobile {
+  display: none !important;
+}
+
+.inova-header__panel {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Floating Dock Locked to Viewport Edge Away from Header */
+.inova-floating-dock {
+  position: fixed !important;
+  left: 20px !important;
+  top: clamp(280px, 50vh, 520px) !important;
+  transform: translateY(-50%) !important;
+  z-index: 85 !important;
+}
+
+/* Responsive Overrides for Inova Header */
+@media (max-width: 989px) {
+  .wt-header__body--inova {
+    padding: var(--header-padding-y-mob, 12px) 16px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    position: relative !important;
+  }
+
+  .inova-desktop-nav {
+    display: none !important;
+  }
+
+  .inova-menu-trigger-mobile {
+    display: flex !important;
+  }
+
+  .wt-header__col--inova-center {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+
+  .inova-logo-desk {
+    display: none !important;
+  }
+
+  .inova-logo-mob {
+    display: block !important;
+    max-height: 40px !important;
+    width: auto !important;
+  }
+
+  .inova-currency-pill {
+    display: none !important;
+  }
+
+  .inova-brand-text {
+    font-size: 18px !important;
+    letter-spacing: 0.2em !important;
+  }
+}

@@ -1,138 +1,231 @@
 {{ 'collage.css' | asset_url | stylesheet_tag }}
+{{ 'inova-collection-grid.css' | asset_url | stylesheet_tag }}
 
 {% assign background_rgb = section.settings.background_color | color_to_rgb %}
 {% assign text_rgb = section.settings['color-body-text'] | color_to_rgb %}
 
 <style>
-  [data-section-id="{{ section.id }}"]
-  {
-
-      {% if section.settings.margin-top %}
-          --section-gap-top: {{ section.settings.margin-top }}px;
-      {% endif %}
-
-      {% if section.settings.margin-bottom %}
-          --section-gap-bottom: {{ section.settings.margin-bottom }}px;
-      {% endif %}
-
-      {% if background_rgb != 'rgba(0, 0, 0, 0.0)' %}
-        --color-background: {{ section.settings.background_color }};
-      {% endif %}
-
+  [data-section-id="{{ section.id }}"] {
+    {% if section.settings.margin-top %}
+      --section-gap-top: {{ section.settings.margin-top }}px;
+    {% endif %}
+    {% if section.settings.margin-bottom %}
+      --section-gap-bottom: {{ section.settings.margin-bottom }}px;
+    {% endif %}
+    {% if background_rgb != 'rgba(0, 0, 0, 0.0)' %}
+      --color-background: {{ section.settings.background_color }};
+    {% endif %}
   }
 
-  [data-section-id="{{ section.id }}"] .headline__title
-  {
+  [data-section-id="{{ section.id }}"] .headline__title {
     {% if text_rgb != 'rgba(0, 0, 0, 0.0)' %}
       --color-custom-text: {{ section.settings.color-body-text }};
-      {% endif %}
+    {% endif %}
   }
 
   {%- for block in section.blocks -%}
     {% assign background_rgb = block.settings.color-overlay | color_to_rgb %}
     {% assign text_rgb = block.settings.color-body-text | color_to_rgb %}
 
-      [data-block-id="{{ block.id }}"] {
-
-          {% if background_rgb != 'rgba(0, 0, 0, 0.0)' %}
-            --color-overlay-rgb: {{ block.settings.color-overlay | color_to_rgb | remove: 'rgb(' | remove: ')' }};
-            --color-overlay-opacity: {{ block.settings.color-overlay-opacity | divided_by: 100.0 }};
-          {% endif %}
-
-          {% if text_rgb != 'rgba(0, 0, 0, 0.0)' %}
-            --color-custom-text: {{ block.settings.color-body-text }};
-          {% endif %}
-
-          --font-headline-scale-desk: {{ block.settings.size_heading | divided_by: 100.0 }};
-
-          --font-headline-scale: {{ block.settings.size_heading_mobile | divided_by: 100.0 }};
-
-      }
+    [data-block-id="{{ block.id }}"] {
+      {% if background_rgb != 'rgba(0, 0, 0, 0.0)' %}
+        --color-overlay-rgb: {{ block.settings.color-overlay | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+        --color-overlay-opacity: {{ block.settings.color-overlay-opacity | divided_by: 100.0 }};
+      {% endif %}
+      {% if text_rgb != 'rgba(0, 0, 0, 0.0)' %}
+        --color-custom-text: {{ block.settings.color-body-text }};
+      {% endif %}
+      --font-headline-scale-desk: {{ block.settings.size_heading | divided_by: 100.0 }};
+      --font-headline-scale: {{ block.settings.size_heading_mobile | divided_by: 100.0 }};
+    }
   {%- endfor -%}
 </style>
 
-<div class="wt-mosaic" data-section-id="{{ section.id }}">
-  {% render 'headline', title: section.settings.heading | newline_to_br %}
-  <div
-    data-section-id="{{ section.id }}"
-    class="
-      {% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %}  wt-mosaic__container {% if section.settings.desktop_layout == 'row-reverse' %} wt-mosaic__container--reversed {% endif %}
-      {% if section.settings.full-width-enabled %} wt-mosaic__container--full {% endif %}
-    "
-  >
-    {% assign i = 0 %}
-
-    {%- for block in section.blocks -%}
-      {% assign i = i | plus: 1 %}
-
-      {% if i == 1 %}
-        <div
-          data-block-id="{{ block.id }}"
-          {% if settings.animations %}
-            data-cascade
-            style="--animation-order: {{ forloop.index }};"
-          {% endif %}
-          class=" {% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %} wt-mosaic__item wt-mosaic__main{% if section.blocks.size == 1 %} wt-mosaic__main--one{% endif %}"
-        >
-          {% render 'hero',
-            type: 'single',
-            desktop_text_horizontal_position: block.settings.desktop_text_horizontal_position,
-            desktop_text_vertical_position: block.settings.desktop_text_vertical_position,
-            mobile_text_horizontal_position: block.settings.mobile_text_horizontal_position,
-            mobile_text_vertical_position: block.settings.mobile_text_vertical_position,
-            desktop_image: block.settings.desktop_image,
-            mobile_image: block.settings.mobile_image,
-            heading: block.settings.heading,
-            text: block.settings.text,
-            button_label: block.settings.button_label,
-            button_link: block.settings.button_link,
-            heading_disable_on_mobile: block.settings.heading_disable_on_mobile,
-            text_disable_on_mobile: block.settings.text_disable_on_mobile,
-            button_disable_on_mobile: block.settings.button_disable_on_mobile,
-            button_select: block.settings.button_select,
-            placeholder: 'collection-apparel-1'
-          %}
-        </div>
-      {% endif %}
-
-      {% if i == 2 %}
-        <div
-          class="wt-mosaic__aside {% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %}"
-        >
-      {% endif %}
-
-      {% if i == 2 or i == 3 %}
-        <div
-          data-block-id="{{ block.id }}"
-          class="{% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %} wt-mosaic__item wt-mosaic__aside__item{% if section.blocks.size == 2 %} wt-mosaic__aside__item--single{% endif %}"
-        >
-          {% render 'hero',
-            type: 'single',
-            desktop_text_horizontal_position: block.settings.desktop_text_horizontal_position,
-            desktop_text_vertical_position: block.settings.desktop_text_vertical_position,
-            desktop_image: block.settings.desktop_image,
-            mobile_text_horizontal_position: block.settings.mobile_text_horizontal_position,
-            mobile_text_vertical_position: block.settings.mobile_text_vertical_position,
-            mobile_image: block.settings.mobile_image,
-            heading: block.settings.heading,
-            text: block.settings.text,
-            button_label: block.settings.button_label,
-            button_link: block.settings.button_link,
-            heading_disable_on_mobile: block.settings.heading_disable_on_mobile,
-            text_disable_on_mobile: block.settings.text_disable_on_mobile,
-            button_disable_on_mobile: block.settings.button_disable_on_mobile,
-            button_select: block.settings.button_select,
-            placeholder: 'collection-apparel-1'
-          %}
-        </div>
-      {% endif %}
-
-      {% if i > 1 and i == section.blocks.size %}
-        </div>
-      {% endif %}
-    {%- endfor -%}
+{%- if section.settings.layout_style == 'classic' -%}
+  <!-- Classic Mosaic Layout -->
+  <div class="wt-mosaic" data-section-id="{{ section.id }}">
+    {% render 'headline', title: section.settings.heading | newline_to_br %}
+    <div
+      data-section-id="{{ section.id }}"
+      class="
+        {% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %}  wt-mosaic__container {% if section.settings.desktop_layout == 'row-reverse' %} wt-mosaic__container--reversed {% endif %}
+        {% if section.settings.full-width-enabled %} wt-mosaic__container--full {% endif %}
+      "
+    >
+      {% assign i = 0 %}
+      {%- for block in section.blocks -%}
+        {% assign i = i | plus: 1 %}
+        {% if i == 1 %}
+          <div
+            data-block-id="{{ block.id }}"
+            {% if settings.animations %}
+              data-cascade
+              style="--animation-order: {{ forloop.index }};"
+            {% endif %}
+            class=" {% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %} wt-mosaic__item wt-mosaic__main{% if section.blocks.size == 1 %} wt-mosaic__main--one{% endif %}"
+          >
+            {% render 'hero',
+              type: 'single',
+              desktop_text_horizontal_position: block.settings.desktop_text_horizontal_position,
+              desktop_text_vertical_position: block.settings.desktop_text_vertical_position,
+              mobile_text_horizontal_position: block.settings.mobile_text_horizontal_position,
+              mobile_text_vertical_position: block.settings.mobile_text_vertical_position,
+              desktop_image: block.settings.desktop_image,
+              mobile_image: block.settings.mobile_image,
+              heading: block.settings.heading,
+              text: block.settings.text,
+              button_label: block.settings.button_label,
+              button_link: block.settings.button_link,
+              heading_disable_on_mobile: block.settings.heading_disable_on_mobile,
+              text_disable_on_mobile: block.settings.text_disable_on_mobile,
+              button_disable_on_mobile: block.settings.button_disable_on_mobile,
+              button_select: block.settings.button_select,
+              placeholder: 'collection-apparel-1'
+            %}
+          </div>
+        {% endif %}
+        {% if i == 2 %}
+          <div class="wt-mosaic__aside {% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %}">
+        {% endif %}
+        {% if i == 2 or i == 3 %}
+          <div
+            data-block-id="{{ block.id }}"
+            class="{% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %} wt-mosaic__item wt-mosaic__aside__item{% if section.blocks.size == 2 %} wt-mosaic__aside__item--single{% endif %}"
+          >
+            {% render 'hero',
+              type: 'single',
+              desktop_text_horizontal_position: block.settings.desktop_text_horizontal_position,
+              desktop_text_vertical_position: block.settings.desktop_text_vertical_position,
+              desktop_image: block.settings.desktop_image,
+              mobile_text_horizontal_position: block.settings.mobile_text_horizontal_position,
+              mobile_text_vertical_position: block.settings.mobile_text_vertical_position,
+              mobile_image: block.settings.mobile_image,
+              heading: block.settings.heading,
+              text: block.settings.text,
+              button_label: block.settings.button_label,
+              button_link: block.settings.button_link,
+              heading_disable_on_mobile: block.settings.heading_disable_on_mobile,
+              text_disable_on_mobile: block.settings.text_disable_on_mobile,
+              button_disable_on_mobile: block.settings.button_disable_on_mobile,
+              button_select: block.settings.button_select,
+              placeholder: 'collection-apparel-1'
+            %}
+          </div>
+        {% endif %}
+        {% if i > 1 and i == section.blocks.size %}
+          </div>
+        {% endif %}
+      {%- endfor -%}
+    </div>
   </div>
-</div>
+
+{%- else -%}
+  <!-- Inova 4-Card Bento Grid Layout (Matches Concept Inova Preset) -->
+  <section class="inova-bento-section" data-section-id="{{ section.id }}" style="padding-top: {{ section.settings.margin-top }}px; padding-bottom: {{ section.settings.margin-bottom }}px;">
+    <div class="inova-bento-container">
+      <div class="inova-bento-header">
+        <div class="inova-bento-header__left">
+          {%- assign heading_text = section.settings.heading | default: 'LOVE WHERE YOU LIVE' -%}
+          {%- assign heading_words = heading_text | split: ' ' -%}
+          <h2 class="inova-bento-title">
+            <span class="inova-bento-highlight">
+              {{ heading_words[0] }}
+              <svg class="inova-squiggle" viewBox="0 0 120 22" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path d="M4 14C16 5 28 19 44 11C60 3 74 17 90 9C102 3 110 12 116 14" stroke="{{ section.settings.squiggle_color | default: '#889867' }}" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            {% for word in heading_words offset: 1 %}
+              {{ word }}{% unless forloop.last %} {% endunless %}
+            {% endfor %}
+          </h2>
+        </div>
+
+        <div class="inova-bento-header__right">
+          <a href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" class="inova-view-all-btn">
+            {{ section.settings.button_label | default: 'VIEW ALL COLLECTIONS' }}
+          </a>
+        </div>
+      </div>
+
+      <div class="inova-bento-grid">
+        {%- assign total_blocks = section.blocks.size -%}
+        {%- for i in (1..4) -%}
+          {%- liquid
+            assign block = section.blocks[forloop.index0]
+            case i
+              when 1
+                assign fallback_img = 'inova-category-seating.png' | asset_url
+                assign def_title = 'SEATING'
+                assign def_sub = 'Sit comfortably, feel at home!'
+                assign def_url = '/collections/furniture'
+              when 2
+                assign fallback_img = 'inova-category-sofas.png' | asset_url
+                assign def_title = 'SOFAS'
+                assign def_sub = 'Create the perfect lounge area!'
+                assign def_url = '/collections/furniture'
+              when 3
+                assign fallback_img = 'inova-category-lighting.png' | asset_url
+                assign def_title = 'LIGHTING'
+                assign def_sub = 'Light that sets the mood!'
+                assign def_url = '/collections/glass-on-wood'
+              when 4
+                assign fallback_img = 'inova-category-accessories.png' | asset_url
+                assign def_title = 'ACCESSORIES'
+                assign def_sub = 'Touches that add character!'
+                assign def_url = '/collections/accessories'
+            endcase
+
+            assign card_title = def_title
+            assign card_sub = def_sub
+            assign card_url = def_url
+            assign card_img = fallback_img
+
+            if block != blank
+              if block.settings.heading != blank and block.settings.heading != 'Collage image'
+                assign card_title = block.settings.heading
+              endif
+              if block.settings.text != blank
+                assign card_sub = block.settings.text
+              endif
+              if block.settings.button_link != blank
+                assign card_url = block.settings.button_link
+              endif
+              if block.settings.desktop_image != blank
+                assign card_img = block.settings.desktop_image | image_url: width: 1000
+              endif
+            endif
+          -%}
+
+          <div class="inova-bento-card inova-bento-card--{{ i }}" {% if block != blank %}{{ block.shopify_attributes }}{% endif %}>
+            <a href="{{ card_url }}" class="inova-bento-card__link" aria-label="{{ card_title | escape }}">
+              <div class="inova-bento-card__image-wrap">
+                <img
+                  src="{{ card_img }}"
+                  alt="{{ card_title | escape }}"
+                  loading="lazy"
+                  class="inova-bento-card__image"
+                >
+              </div>
+              <div class="inova-bento-card__overlay">
+                <div class="inova-bento-card__info">
+                  <h3 class="inova-bento-card__title">{{ card_title }}</h3>
+                  {%- if card_sub != blank -%}
+                    <p class="inova-bento-card__subtitle">{{ card_sub }}</p>
+                  {%- endif -%}
+                </div>
+                <div class="inova-bento-card__arrow" aria-hidden="true">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
 
 {% schema %}
 {
@@ -140,10 +233,43 @@
   "tag": "section",
   "settings": [
     {
+      "type": "select",
+      "id": "layout_style",
+      "label": "Collage Style",
+      "options": [
+        {
+          "value": "inova",
+          "label": "Inova 4-Card Bento Grid (Recommended)"
+        },
+        {
+          "value": "classic",
+          "label": "Classic 3-Item Mosaic"
+        }
+      ],
+      "default": "inova"
+    },
+    {
       "type": "textarea",
       "id": "heading",
       "label": "t:sections.settings.settings.heading.label",
-      "default": "Collage"
+      "default": "LOVE WHERE YOU LIVE"
+    },
+    {
+      "type": "color",
+      "id": "squiggle_color",
+      "label": "Squiggle Accent Color",
+      "default": "#889867"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Header Button Label",
+      "default": "VIEW ALL COLLECTIONS"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Header Button Link"
     },
     {
       "type": "checkbox",
@@ -195,7 +321,7 @@
       "min": 0,
       "max": 100,
       "step": 4,
-      "default": 20,
+      "default": 40,
       "unit": "px",
       "label": "t:sections.settings.settings.distance-top.label"
     },
@@ -205,7 +331,7 @@
       "min": 0,
       "max": 100,
       "step": 4,
-      "default": 20,
+      "default": 48,
       "unit": "px",
       "label": "t:sections.settings.settings.distance-bottom.label",
       "info": "t:sections.settings.settings.distance-bottom.info"
@@ -215,17 +341,32 @@
     {
       "type": "image",
       "name": "t:sections.collage.settings.image.name",
-      "limit": 3,
+      "limit": 4,
       "settings": [
         {
           "type": "header",
           "content": "t:sections.global.general"
         },
         {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Card Image"
+        },
+        {
           "type": "textarea",
           "id": "heading",
           "default": "Collage image",
-          "label": "t:sections.settings.settings.heading.label"
+          "label": "Card Title (e.g. SEATING)"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Card Subtitle (e.g. Sit comfortably, feel at home!)"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Card Link"
         },
         {
           "type": "checkbox",
@@ -254,14 +395,19 @@
           "unit": "%"
         },
         {
-          "type": "richtext",
-          "id": "text",
-          "default": "<p>A mosaic of your identity</p>",
-          "label": "t:sections.settings.settings.text.label"
+          "type": "checkbox",
+          "id": "text_disable_on_mobile",
+          "label": "t:sections.global.disable_on_mobile",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "t:sections.settings.settings.button-label.label"
         },
         {
           "type": "checkbox",
-          "id": "text_disable_on_mobile",
+          "id": "button_disable_on_mobile",
           "label": "t:sections.global.disable_on_mobile",
           "default": false
         },
@@ -271,180 +417,59 @@
           "options": [
             {
               "value": "primary",
-              "label": "t:sections.settings.settings.button_select.primary.label"
+              "label": "t:sections.settings.settings.button-select.options__1.label"
             },
             {
               "value": "secondary",
-              "label": "t:sections.settings.settings.button_select.secondary.label"
+              "label": "t:sections.settings.settings.button-select.options__2.label"
             },
             {
               "value": "link",
-              "label": "t:sections.settings.settings.button_select.link.label"
+              "label": "t:sections.settings.settings.button-select.options__3.label"
             }
           ],
           "default": "primary",
-          "label": "t:sections.settings.settings.button_select.default.label"
-        },
-        {
-          "id": "button_label",
-          "type": "text",
-          "default": "Button label",
-          "label": "t:sections.settings.settings.button_label.label"
-        },
-        {
-          "type": "checkbox",
-          "id": "button_disable_on_mobile",
-          "label": "t:sections.global.disable_on_mobile",
-          "default": false
-        },
-        {
-          "type": "url",
-          "id": "button_link",
-          "label": "t:sections.settings.settings.link.label"
-        },
-        {
-          "type": "header",
-          "content": "t:sections.global.desktop_version"
-        },
-        {
-          "type": "image_picker",
-          "id": "desktop_image",
-          "label": "t:sections.settings.settings.image.label"
-        },
-        {
-          "type": "select",
-          "id": "desktop_text_vertical_position",
-          "options": [
-            {
-              "value": "top",
-              "label": "t:sections.collage.settings.image.desktop_text_vertical_position.top.label"
-            },
-            {
-              "value": "center",
-              "label": "t:sections.collage.settings.image.desktop_text_vertical_position.center.label"
-            },
-            {
-              "value": "bottom",
-              "label": "t:sections.collage.settings.image.desktop_text_vertical_position.bottom.label"
-            }
-          ],
-          "default": "center",
-          "label": "t:sections.collage.settings.image.desktop_text_vertical_position.default.label"
-        },
-        {
-          "type": "select",
-          "id": "desktop_text_horizontal_position",
-          "options": [
-            {
-              "value": "left",
-              "label": "t:sections.collage.settings.image.desktop_text_horizontal_position.left.label"
-            },
-            {
-              "value": "center",
-              "label": "t:sections.collage.settings.image.desktop_text_horizontal_position.center.label"
-            },
-            {
-              "value": "right",
-              "label": "t:sections.collage.settings.image.desktop_text_horizontal_position.right.label"
-            }
-          ],
-          "default": "center",
-          "label": "t:sections.collage.settings.image.desktop_text_horizontal_position.default.label"
-        },
-        {
-          "type": "header",
-          "content": "t:sections.global.mobile_version"
-        },
-        {
-          "type": "image_picker",
-          "id": "mobile_image",
-          "label": "t:sections.settings.settings.image.label"
-        },
-        {
-          "type": "select",
-          "id": "mobile_text_vertical_position",
-          "options": [
-            {
-              "value": "top",
-              "label": "t:sections.collage.settings.image.mobile_text_vertical_position.top.label"
-            },
-            {
-              "value": "center",
-              "label": "t:sections.collage.settings.image.mobile_text_vertical_position.center.label"
-            },
-            {
-              "value": "bottom",
-              "label": "t:sections.collage.settings.image.mobile_text_vertical_position.bottom.label"
-            }
-          ],
-          "default": "center",
-          "label": "t:sections.collage.settings.image.mobile_text_vertical_position.default.label"
-        },
-        {
-          "type": "select",
-          "id": "mobile_text_horizontal_position",
-          "options": [
-            {
-              "value": "left",
-              "label": "t:sections.collage.settings.image.mobile_text_horizontal_position.left.label"
-            },
-            {
-              "value": "center",
-              "label": "t:sections.collage.settings.image.mobile_text_horizontal_position.center.label"
-            },
-            {
-              "value": "right",
-              "label": "t:sections.collage.settings.image.mobile_text_horizontal_position.right.label"
-            }
-          ],
-          "default": "center",
-          "label": "t:sections.collage.settings.image.mobile_text_horizontal_position.default.label"
-        },
-        {
-          "type": "header",
-          "content": "t:sections.global.colors",
-          "info": "t:sections.global.colors-info"
-        },
-        {
-          "type": "color",
-          "id": "color-body-text",
-          "default": "transparent",
-          "label": "t:sections.settings.settings.text-color.label"
-        },
-        {
-          "type": "color",
-          "id": "color-overlay",
-          "default": "transparent",
-          "label": "t:sections.settings.settings.background-color.label"
-        },
-        {
-          "type": "range",
-          "id": "color-overlay-opacity",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "%",
-          "default": 100,
-          "label": "t:sections.settings.settings.background-opacity.label"
+          "label": "t:sections.settings.settings.button-select.label"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "t:sections.collage.settings.presets.name",
+      "name": "Inova Bento Grid (Love Where You Live)",
+      "settings": {
+        "layout_style": "inova",
+        "heading": "LOVE WHERE YOU LIVE",
+        "button_label": "VIEW ALL COLLECTIONS"
+      },
       "blocks": [
         {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "heading": "SEATING",
+            "text": "Sit comfortably, feel at home!"
+          }
         },
         {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "heading": "SOFAS",
+            "text": "Create the perfect lounge area!"
+          }
         },
         {
           "type": "image",
-          "settings": {}
+          "settings": {
+            "heading": "LIGHTING",
+            "text": "Light that sets the mood!"
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "heading": "ACCESSORIES",
+            "text": "Touches that add character!"
+          }
         }
       ]
     }
