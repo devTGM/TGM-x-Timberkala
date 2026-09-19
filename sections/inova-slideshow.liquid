@@ -1,0 +1,797 @@
+{%- comment -%}
+  Concept (Inova Preset) - Fullscreen Slideshow Hero Section
+  Matches exact styling of Inova demo store:
+  - 100vh Fullscreen Video & Image slides
+  - Giant center brand watermark ("I N O V A" / "T I M B E R K A L A")
+  - Left floating pill dock (Social icons + vertical "GET 20% OFF" badge)
+  - Bottom-left slide heading + bottom-right pill button
+  - Bottom arrow navigation (←) and slide dots (○ • •)
+{%- endcomment -%}
+
+{%- if template.name == 'index' or section.settings.show_on_all_pages -%}
+<div
+  id="inova-slideshow-{{ section.id }}"
+  class="inova-slideshow-wrapper"
+  data-autoplay="{{ section.settings.autoplay }}"
+  data-autoplay-speed="{{ section.settings.autoplay_speed | default: 5 }}"
+>
+  <!-- Fullscreen Slider Container -->
+  <div class="inova-slides-container">
+    {%- for block in section.blocks -%}
+      {%- assign is_video = false -%}
+      {%- if block.type == 'video' or block.settings.video != blank or block.settings.video_url != blank -%}
+        {%- assign is_video = true -%}
+      {%- endif -%}
+
+      <div
+        class="inova-slide {% if forloop.first %}inova-slide--active{% endif %}"
+        data-index="{{ forloop.index0 }}"
+        {{ block.shopify_attributes }}
+      >
+        <!-- Background Media -->
+        <div class="inova-slide-media">
+          {%- if is_video -%}
+            {%- assign v_url = block.settings.video_url -%}
+            {%- if block.settings.video != blank -%}
+              {%- assign v_url = block.settings.video.sources[0].url -%}
+            {%- endif -%}
+            {%- if v_url == blank -%}
+              {%- assign v_url = 'https://concept-theme-inova.myshopify.com/cdn/shop/videos/c/vp/9bdc62d489594794ac76ea91dbaa597a/9bdc62d489594794ac76ea91dbaa597a.HD-1080p-2.5Mbps-35748949.mp4' -%}
+            {%- endif -%}
+            <video
+              class="inova-media-element"
+              playsinline
+              muted
+              autoplay
+              loop
+              preload="metadata"
+              {% if block.settings.fallback_image != blank %}
+                poster="{{ block.settings.fallback_image | image_url: width: 1920 }}"
+              {% else %}
+                poster="https://concept-theme-inova.myshopify.com/cdn/shop/files/preview_images/9bdc62d489594794ac76ea91dbaa597a.thumbnail.0000000000.jpg"
+              {% endif %}
+            >
+              <source src="{{ v_url }}" type="video/mp4">
+            </video>
+          {%- else -%}
+            <picture class="inova-media-element">
+              {%- if block.settings.mobile_image != blank -%}
+                <source media="(max-width: 767px)" srcset="{{ block.settings.mobile_image | image_url: width: 800 }}">
+              {%- endif -%}
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 2200 }}"
+                  alt="{{ block.settings.heading | escape }}"
+                  loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+                  fetchpriority="{% if forloop.first %}high{% else %}low{% endif %}"
+                >
+              {%- else -%}
+                {%- case forloop.index -%}
+                  {%- when 2 -%}
+                    <img src="https://concept-theme-inova.myshopify.com/cdn/shop/files/slide-02.webp" alt="Playful Lines and Elegant Comfort" loading="lazy">
+                  {%- when 3 -%}
+                    <img src="https://concept-theme-inova.myshopify.com/cdn/shop/files/slide-03.webp" alt="Ease Into the Light" loading="lazy">
+                  {%- else -%}
+                    <img src="https://cdn.shopify.com/s/files/1/0909/3352/6833/files/banner_website_glass_and_wood.webp?v=1768303197" alt="Timberkala Showroom" loading="eager">
+                {%- endcase -%}
+              {%- endif -%}
+            </picture>
+          {%- endif -%}
+
+          <!-- Gradient Overlay -->
+          <div class="inova-slide-scrim"></div>
+        </div>
+
+        <!-- Slide Specific Content (Bottom Overlay) -->
+        <div class="inova-slide-content">
+          <div class="inova-content-row">
+            <div class="inova-content-left">
+              <h2 class="inova-slide-heading">
+                {{ block.settings.heading | default: 'Comfort, Style, Durability: Our Seating Collection' }}
+              </h2>
+            </div>
+            <div class="inova-content-right">
+              {%- if block.settings.button_label != blank -%}
+                <a href="{{ block.settings.button_link | default: '/collections/all-products' }}" class="inova-hero-pill-btn">
+                  <span>{{ block.settings.button_label }}</span>
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <!-- Giant Center Brand Letters ("I N O V A" / "T I M B E R K A L A") -->
+  {%- if section.settings.show_brand_watermark -%}
+    <div class="inova-brand-watermark" aria-hidden="true">
+      <span>{{ section.settings.brand_watermark | default: 'I N O V A' }}</span>
+    </div>
+  {%- endif -%}
+
+  <!-- Left Floating Social & Promo Dock (Inova Signature) -->
+  {%- if section.settings.show_social_dock -%}
+    <aside class="inova-floating-dock" aria-label="Social and Discounts">
+      <div class="inova-dock-socials">
+        <a href="https://facebook.com/shopify" target="_blank" rel="noopener" aria-label="Facebook" class="inova-dock-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+        </a>
+        <a href="https://twitter.com/shopify" target="_blank" rel="noopener" aria-label="X" class="inova-dock-icon">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://instagram.com/timber.kala" target="_blank" rel="noopener" aria-label="Instagram" class="inova-dock-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://pinterest.com" target="_blank" rel="noopener" aria-label="Pinterest" class="inova-dock-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.79-.17-2 .03-2.86.19-.77 1.2-5.08 1.2-5.08s-.31-.62-.31-1.53c0-1.43.83-2.5 1.87-2.5.88 0 1.3.66 1.3 1.45 0 .88-.56 2.2-.85 3.42-.24 1.03.52 1.87 1.54 1.87 1.85 0 3.27-1.95 3.27-4.77 0-2.49-1.79-4.23-4.35-4.23-2.96 0-4.7 2.22-4.7 4.51 0 .89.34 1.85.77 2.37.09.1.1.19.07.3-.08.33-.26 1.06-.3 1.21-.05.21-.17.26-.39.16-1.46-.68-2.37-2.81-2.37-4.52 0-3.68 2.67-7.06 7.71-7.06 4.05 0 7.2 2.89 7.2 6.75 0 4.03-2.54 7.27-6.07 7.27-1.19 0-2.3-.62-2.68-1.35l-.73 2.78c-.26 1.02-.97 2.3-1.45 3.08C9.58 21.88 10.77 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+        </a>
+      </div>
+
+      <div class="inova-dock-divider"></div>
+
+      <a href="{{ section.settings.dock_discount_url | default: '/collections/all-products' }}" class="inova-dock-badge">
+        <span>{{ section.settings.dock_discount_text | default: 'GET 20% OFF' }}</span>
+      </a>
+    </aside>
+  {%- endif -%}
+
+  <!-- Bottom Navigation Bar (Arrows & Dots) -->
+  <div class="inova-bottom-controls page-width">
+    <!-- Previous Arrow (←) -->
+    <button type="button" class="inova-nav-btn inova-nav-prev" aria-label="Previous slide">
+      <svg width="34" height="20" viewBox="0 0 37 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 5L3 12M3 12L10 19M3 12H34"/>
+      </svg>
+    </button>
+
+    <!-- Slide Indicator Dots (○ • •) -->
+    <div class="inova-dots-bar" role="tablist">
+      {%- for block in section.blocks -%}
+        <button
+          type="button"
+          class="inova-dot-btn {% if forloop.first %}inova-dot-btn--active{% endif %}"
+          data-dot-index="{{ forloop.index0 }}"
+          role="tab"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          aria-label="Slide {{ forloop.index }}"
+        ></button>
+      {%- endfor -%}
+    </div>
+
+    <!-- Next Arrow (→) -->
+    <button type="button" class="inova-nav-btn inova-nav-next" aria-label="Next slide">
+      <svg width="34" height="20" viewBox="0 0 37 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M27 5L34 12M34 12L27 19M34 12H3"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+/* ==========================================================================
+   CONCEPT (INOVA) FULLSCREEN SLIDESHOW
+   ========================================================================== */
+.inova-slideshow-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 600px;
+  overflow: hidden;
+  background: #121212;
+  margin: 0;
+  padding: 0;
+}
+
+/* Slides Layer */
+.inova-slides-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.inova-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              visibility 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.inova-slide--active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* Media (Image / Video) */
+.inova-slide-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.inova-media-element,
+.inova-media-element img,
+.inova-media-element video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.05);
+  transition: transform 7s cubic-bezier(0.1, 0.8, 0.2, 1);
+}
+
+.inova-slide--active .inova-media-element,
+.inova-slide--active .inova-media-element img,
+.inova-slide--active .inova-media-element video {
+  transform: scale(1);
+}
+
+/* Scrim / Vignette overlay */
+.inova-slide-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.1) 40%,
+    rgba(0, 0, 0, 0.45) 75%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  pointer-events: none;
+}
+
+/* Giant Center Brand Watermark (e.g. "I N O V A" / "T I M B E R K A L A") */
+.inova-brand-watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 1500px;
+  text-align: center;
+  pointer-events: none;
+  z-index: 3;
+  user-select: none;
+}
+
+.inova-brand-watermark span {
+  font-family: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: clamp(55px, 14vw, 195px);
+  font-weight: 300;
+  letter-spacing: clamp(14px, 3.5vw, 55px);
+  text-indent: clamp(14px, 3.5vw, 55px);
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.95);
+  display: inline-block;
+  white-space: nowrap;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Left Floating Social & Promo Dock */
+.inova-floating-dock {
+  position: absolute;
+  left: 28px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 40px;
+  padding: 22px 9px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 20;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.inova-dock-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+.inova-dock-icon {
+  color: #333333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.inova-dock-icon:hover {
+  color: #7b5454;
+  transform: scale(1.15);
+}
+
+.inova-dock-divider {
+  width: 18px;
+  height: 1px;
+  background: #e0e0e0;
+  margin: 2px 0;
+}
+
+.inova-dock-badge {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: 'Jost', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  text-decoration: none;
+  padding: 6px 0;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+}
+
+.inova-dock-badge:hover {
+  color: #7b5454;
+}
+
+/* Slide Content (Bottom Row) */
+.inova-slide-content {
+  position: absolute;
+  bottom: 80px;
+  left: 0;
+  width: 100%;
+  padding: 0 60px;
+  z-index: 10;
+}
+
+.inova-content-row {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.inova-content-left {
+  max-width: 800px;
+}
+
+.inova-slide-heading {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(22px, 3.4vw, 44px);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  color: #ffffff !important;
+  margin: 0;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+}
+
+.inova-content-right {
+  flex-shrink: 0;
+}
+
+.inova-hero-pill-btn {
+  background: #ffffff;
+  color: #1a1a1a !important;
+  border-radius: 50px;
+  padding: 15px 36px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.inova-hero-pill-btn:hover {
+  background: #1a1a1a;
+  color: #ffffff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+/* Bottom Controls (Arrows & Dots) */
+.inova-bottom-controls {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  width: 100%;
+  padding: 0 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 15;
+  box-sizing: border-box;
+}
+
+.inova-nav-btn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 6px;
+  opacity: 0.85;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+}
+
+.inova-nav-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.inova-dots-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.inova-dot-btn {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.inova-dot-btn--active {
+  background: #ffffff;
+  transform: scale(1.3);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .inova-slide-content {
+    padding: 0 32px;
+    bottom: 70px;
+  }
+  .inova-bottom-controls {
+    padding: 0 32px;
+    bottom: 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .inova-slideshow-wrapper {
+    min-height: 520px;
+  }
+  .inova-floating-dock {
+    display: none; /* Hide floating dock on small screens to prevent covering photo */
+  }
+  .inova-slide-content {
+    padding: 0 20px;
+    bottom: 64px;
+  }
+  .inova-content-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .inova-slide-heading {
+    font-size: 20px;
+  }
+  .inova-hero-pill-btn {
+    padding: 12px 26px;
+    font-size: 11px;
+  }
+  .inova-bottom-controls {
+    padding: 0 20px;
+    bottom: 16px;
+  }
+  .inova-brand-watermark span {
+    letter-spacing: 16px;
+    text-indent: 16px;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var wrapper = document.getElementById('inova-slideshow-{{ section.id }}');
+  if (!wrapper) return;
+
+  var slides = wrapper.querySelectorAll('.inova-slide');
+  var dots = wrapper.querySelectorAll('.inova-dot-btn');
+  var prevBtn = wrapper.querySelector('.inova-nav-prev');
+  var nextBtn = wrapper.querySelector('.inova-nav-next');
+  var count = slides.length;
+  if (count <= 1) return;
+
+  var currentIndex = 0;
+  var isAutoplay = wrapper.getAttribute('data-autoplay') === 'true';
+  var intervalTime = parseInt(wrapper.getAttribute('data-autoplay-speed') || '5', 10) * 1000;
+  var timer = null;
+
+  function goToSlide(index) {
+    if (index < 0) index = count - 1;
+    if (index >= count) index = 0;
+    currentIndex = index;
+
+    slides.forEach(function(slide, idx) {
+      if (idx === currentIndex) {
+        slide.classList.add('inova-slide--active');
+        var vid = slide.querySelector('video');
+        if (vid) vid.play().catch(function(){});
+      } else {
+        slide.classList.remove('inova-slide--active');
+      }
+    });
+
+    dots.forEach(function(dot, idx) {
+      if (idx === currentIndex) {
+        dot.classList.add('inova-dot-btn--active');
+        dot.setAttribute('aria-selected', 'true');
+      } else {
+        dot.classList.remove('inova-dot-btn--active');
+        dot.setAttribute('aria-selected', 'false');
+      }
+    });
+  }
+
+  function startTimer() {
+    if (!isAutoplay) return;
+    stopTimer();
+    timer = setInterval(function() {
+      goToSlide(currentIndex + 1);
+    }, intervalTime);
+  }
+
+  function stopTimer() {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function() {
+      goToSlide(currentIndex - 1);
+      startTimer();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function() {
+      goToSlide(currentIndex + 1);
+      startTimer();
+    });
+  }
+
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      var idx = parseInt(dot.getAttribute('data-dot-index'), 10);
+      goToSlide(idx);
+      startTimer();
+    });
+  });
+
+  wrapper.addEventListener('mouseenter', stopTimer);
+  wrapper.addEventListener('mouseleave', startTimer);
+
+  // Touch Swipe Handling
+  var touchStartX = 0;
+  var touchEndX = 0;
+  wrapper.addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  wrapper.addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    var diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 45) {
+      if (diff > 0) {
+        goToSlide(currentIndex + 1);
+      } else {
+        goToSlide(currentIndex - 1);
+      }
+      startTimer();
+    }
+  }, { passive: true });
+
+  startTimer();
+});
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Slideshow",
+  "tag": "section",
+  "class": "inova-slideshow-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_watermark",
+      "label": "Center Brand Watermark Text",
+      "default": "I N O V A",
+      "info": "Giant letters displayed across the center (e.g. I N O V A or T I M B E R K A L A)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_brand_watermark",
+      "label": "Show Brand Watermark",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_social_dock",
+      "label": "Show Left Floating Social Dock",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "dock_discount_text",
+      "label": "Floating Dock Discount Text",
+      "default": "GET 20% OFF"
+    },
+    {
+      "type": "url",
+      "id": "dock_discount_url",
+      "label": "Floating Dock Discount Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Change slides every",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "show_on_all_pages",
+      "label": "Show on all pages (default: Home page only)",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Shopify Hosted Video"
+        },
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "External Video URL (MP4)"
+        },
+        {
+          "type": "image_picker",
+          "id": "fallback_image",
+          "label": "Fallback Poster Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Comfort, Style, Durability: Our Seating Collection"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop seating"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (Desktop)"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Image (Mobile)"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Playful Lines and Elegant Comfort"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop sofas"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "Optional Background Video URL (MP4)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow",
+      "blocks": [
+        {
+          "type": "video",
+          "settings": {
+            "heading": "Comfort, Style, Durability: Our Seating Collection",
+            "button_label": "Shop seating"
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "heading": "Playful Lines and Elegant Comfort",
+            "button_label": "Shop sofas"
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "heading": "Ease Into the Light",
+            "button_label": "Shop lighting"
+          }
+        },
+        {
+          "type": "image",
+          "settings": {
+            "heading": "Smaller Things and Subtle Accents",
+            "button_label": "Shop decor"
+          }
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": ["*"],
+    "groups": ["header"]
+  }
+}
+{% endschema %}
