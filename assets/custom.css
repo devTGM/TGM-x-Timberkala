@@ -502,3 +502,240 @@
   }
 }
 
+/* ==========================================================================
+   ELIMINATE GAPS: MARQUEE, BANNER & HEADER SPACING
+   ========================================================================== */
+.tk-marquee {
+  margin: 0 !important;
+}
+
+.timberkala-banner {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 0 !important;
+  display: block !important;
+  background: #000000 !important;
+}
+
+.timberkala-banner a,
+.timberkala-banner picture {
+  display: block !important;
+  line-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.timberkala-banner img {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  border: 0 !important;
+}
+
+/* Eliminate empty announcement bar or empty custom liquid in header group */
+.wt-announcement:empty,
+#shopify-section-announcement-bar:has(.wt-announcement__container--0col),
+#shopify-section-custom_liquid_9gjUz7:empty {
+  display: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  height: 0 !important;
+}
+
+/* ==========================================================================
+   CONCEPT THEME (INOVA PRESET) LUXURY DESIGN SYSTEM
+   ========================================================================== */
+
+/* --- 1. Typography Overrides: Jost --- */
+body, html,
+p, span, a, input, textarea, select,
+h1, h2, h3, h4, h5, h6,
+.wt-title, .section-heading, .card__heading,
+.wt-header, .wt-menu__link, .menu__item, .header__menu,
+.button, .btn, .wt-button,
+.wt-badge, .card__badge, .badge,
+.price, .price-item, .wt-price {
+  font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 2. Headings: Modern Showroom Aesthetics --- */
+h1, h2, h3, h4, .wt-title, .section-heading {
+  font-family: 'Jost', sans-serif !important;
+  text-transform: uppercase !important;
+  letter-spacing: -0.01em !important;
+  font-weight: 500 !important;
+  color: #1a1a1a !important;
+}
+
+.section-eyebrow, .inova-eyebrow {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  color: #7b5454 !important;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* --- 3. Pill Buttons & Interactive Elements --- */
+.button, .btn, .wt-button, button.wt-button, a.wt-button,
+.inova-btn-primary, .inova-btn-secondary {
+  border-radius: 50px !important;
+  font-family: 'Jost', sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px !important;
+  padding: 13px 28px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  box-shadow: none !important;
+}
+
+.button--primary, .btn--primary, .wt-button--primary, .inova-btn-primary {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+  border: 1px solid #1a1a1a !important;
+}
+
+.button--primary:hover, .btn--primary:hover, .wt-button--primary:hover, .inova-btn-primary:hover {
+  background-color: #7b5454 !important;
+  border-color: #7b5454 !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.button--secondary, .btn--secondary, .wt-button--secondary, .inova-btn-secondary {
+  background-color: transparent !important;
+  color: #1a1a1a !important;
+  border: 1px solid #1a1a1a !important;
+}
+
+.button--secondary:hover, .btn--secondary:hover, .wt-button--secondary:hover, .inova-btn-secondary:hover {
+  background-color: #1a1a1a !important;
+  border-color: #1a1a1a !important;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+/* --- 4. Refined Header & Navigation (Inova Style) --- */
+.wt-header {
+  background: rgba(255, 255, 255, 0.96) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+.wt-header__menu-item, .wt-menu__link {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 1.2px !important;
+  text-transform: uppercase !important;
+  color: #1a1a1a !important;
+  transition: color 0.25s ease !important;
+}
+
+.wt-header__menu-item:hover, .wt-menu__link:hover {
+  color: #7b5454 !important;
+}
+
+/* --- 5. Product Cards & Showroom Grids (Inova Style) --- */
+.card, .wt-card, .product-card {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: transform 0.3s ease !important;
+}
+
+.card:hover, .wt-card:hover {
+  transform: translateY(-3px);
+}
+
+.card__media, .wt-card__media {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+  background-color: #f4efe9 !important;
+}
+
+.card__media img, .wt-card__media img {
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.card:hover .card__media img,
+.wt-card:hover .wt-card__media img {
+  transform: scale(1.04);
+}
+
+.card__heading, .wt-card__title {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  color: #1a1a1a !important;
+  margin-top: 10px !important;
+}
+
+.card__badge, .wt-badge, .badge {
+  border-radius: 50px !important;
+  padding: 4px 10px !important;
+  font-family: 'Jost', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  border: none !important;
+}
+
+.wt-badge--sale, .badge--sale {
+  background: #7b5454 !important;
+  color: #ffffff !important;
+}
+
+.wt-badge--new, .badge--new {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+/* --- 6. Inova Section Styling Classes --- */
+.inova-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 60px 24px;
+}
+
+@media (max-width: 768px) {
+  .inova-container {
+    padding: 40px 16px;
+  }
+}
+
+.inova-section-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 40px auto;
+}
+
+.inova-section-title {
+  font-size: 26px;
+  letter-spacing: 0.5px;
+  color: #1a1a1a;
+  margin-top: 6px;
+}
+
+.inova-section-desc {
+  font-size: 14px;
+  color: #6b6765;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+

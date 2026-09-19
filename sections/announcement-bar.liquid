@@ -15,6 +15,7 @@
 
 <script src="{{ 'announcement-bar.js' | asset_url }}" defer="defer"></script>
 
+{% if section.blocks.size > 0 %}
 <announcement-bar>
   <div
     data-section-id="{{ section.id }}"
@@ -109,6 +110,7 @@
     </button>
   {% endif %}
 </announcement-bar>
+{% endif %}
 
 {% if section.settings.marquee != true %}
   <script>
