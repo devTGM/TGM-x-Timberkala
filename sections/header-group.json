@@ -11,14 +11,79 @@
   "type": "header",
   "name": "Header Group",
   "sections": {
-    "announcement-bar": {
-      "type": "announcement-bar",
+    "slideshow": {
+      "type": "inova-slideshow",
+      "blocks": {
+        "video_comfort": {
+          "type": "video",
+          "disabled": true,
+          "settings": {
+            "video_url": "",
+            "hide_overlay_mobile": false,
+            "hide_overlay_desktop": false,
+            "heading": "Comfort, Style, Durability: Our Seating Collection",
+            "button_label": "Shop seating",
+            "button_link": "shopify://collections/all-products"
+          }
+        },
+        "image_playful": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/banner_website_glass_and_wood.webp",
+            "mobile_image": "shopify://shop_images/TK-mobile.webp",
+            "hide_overlay_mobile": true,
+            "hide_overlay_desktop": true,
+            "heading": "",
+            "button_label": "",
+            "button_link": "shopify://collections/all-products",
+            "video_url": ""
+          }
+        },
+        "image_ease": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "hide_overlay_mobile": false,
+            "hide_overlay_desktop": false,
+            "heading": "Ease Into the Light",
+            "button_label": "Shop lighting",
+            "button_link": "shopify://collections/glass-on-wood",
+            "video_url": ""
+          }
+        },
+        "image_smaller": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "hide_overlay_mobile": false,
+            "hide_overlay_desktop": false,
+            "heading": "Smaller Things and Subtle Accents",
+            "button_label": "Shop decor",
+            "button_link": "shopify://collections/all-products",
+            "video_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_comfort",
+        "image_playful",
+        "image_ease",
+        "image_smaller"
+      ],
       "settings": {
-        "marquee": false,
-        "animation_speed": "50",
-        "checkbox_close_announcement": true,
-        "color-body-text": "rgba(0,0,0,0)",
-        "background_color": "#cecece"
+        "brand_watermark": "",
+        "show_brand_watermark": false,
+        "show_social_dock": true,
+        "dock_discount_text": "GET 20% OFF",
+        "dock_discount_url": "",
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "show_on_all_pages": true,
+        "desktop_height_mode": "fullscreen",
+        "desktop_height": 600,
+        "mobile_height_mode": "banner_ratio",
+        "show_brand_watermark_mobile": false,
+        "show_social_dock_mobile": true
       }
     },
     "header": {
@@ -257,10 +322,9 @@
         "column_ndERFE",
         "column_VyGikH"
       ],
-      "disabled": false,
       "custom_css": [],
       "settings": {
-        "layout": "option_inova",
+        "layout": "option_inline",
         "header_padding_vertical_desktop": 18,
         "header_padding_vertical_mobile": 12,
         "header_max_width": "1440px",
@@ -288,81 +352,18 @@
         "drawer_title": "Shop by",
         "typing_search": "Search products...",
         "suggestions_title": "",
-        "suggestions_menu": "main-menu",
-        "show_currency_selector": true,
-        "inova_logo_text": "I N O V A",
-        "max_menu_links": 4
+        "suggestions_menu": "main-menu"
       }
     },
-    "slideshow": {
-      "type": "inova-slideshow",
-      "blocks": {
-        "video_comfort": {
-          "type": "video",
-          "disabled": true,
-          "settings": {
-            "video_url": "",
-            "heading": "Comfort, Style, Durability: Our Seating Collection",
-            "button_label": "Shop seating",
-            "button_link": "shopify://collections/all-products"
-          }
-        },
-        "image_playful": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/banner_website_glass_and_wood.webp",
-            "mobile_image": "shopify://shop_images/TK-mobile.webp",
-            "heading": "",
-            "button_label": "",
-            "button_link": "shopify://collections/all-products",
-            "video_url": "",
-            "hide_overlay_mobile": true,
-            "hide_overlay_desktop": true
-          }
-        },
-        "image_ease": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "heading": "Ease Into the Light",
-            "button_label": "Shop lighting",
-            "button_link": "shopify://collections/glass-on-wood",
-            "video_url": ""
-          }
-        },
-        "image_smaller": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "heading": "Smaller Things and Subtle Accents",
-            "button_label": "Shop decor",
-            "button_link": "shopify://collections/all-products",
-            "video_url": ""
-          }
-        }
-      },
-      "block_order": [
-        "video_comfort",
-        "image_playful",
-        "image_ease",
-        "image_smaller"
-      ],
+    "announcement-bar": {
+      "type": "announcement-bar",
       "settings": {
-        "brand_watermark": "I N O V A",
-        "show_brand_watermark": true,
-        "show_social_dock": true,
-        "dock_discount_text": "GET 20% OFF",
-        "dock_discount_url": "",
-        "autoplay": true,
-        "autoplay_speed": 5,
-        "desktop_height_mode": "fullscreen",
-        "desktop_height": 600,
-        "mobile_height_mode": "banner_ratio",
-        "show_brand_watermark_mobile": false,
-        "show_social_dock_mobile": true,
-        "show_on_all_pages": true
-      },
-      "disabled": false
+        "marquee": false,
+        "animation_speed": "50",
+        "checkbox_close_announcement": true,
+        "color-body-text": "rgba(0,0,0,0)",
+        "background_color": "#cecece"
+      }
     },
     "custom_liquid_9gjUz7": {
       "type": "custom-liquid",
@@ -377,7 +378,7 @@
       "disabled": true,
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "custom_liquid": "<!doctype html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n  <title>Shop by Department</title>\n\n  <!-- Swiper CSS -->\n  <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css\" />\n\n  <style>\n    @import url('https://fonts.googleapis.com/css2?family=Harmonia+Sans:wght@400;600&display=swap');\n\n    body {\n      background: #f9f8f5;\n      font-family: 'Harmonia Sans', sans-serif;\n      margin: 0;\n      padding: 0;\n    }\n\n    .category-section-mobile {\n      padding: ;\n      background: #f9f8f5;\n    }\n\n    \n    @media (min-width: 768px) {\n      .category-section-mobile {\n        display: none;\n      }\n    }\n\n    \n    .category-heading {\n      text-align: center;\n      font-size: 20px;\n      font-weight: 600;\n      color: #1a1a1a;\n      margin-bottom: 20px;\n      letter-spacing: 1px;\n    }\n\n    \n    .circle-wrapper {\n      width: 100%;\n      padding-top: 100%;\n      position: relative;\n      border-radius: 50%;\n      overflow: hidden;\n      background: #fff;\n      border: 2px solid rgba(212,175,55,0.35);\n      box-shadow: inset 0 0 8px rgba(0,0,0,0.08), 0 6px 16px rgba(0,0,0,0.08);\n      transition: all 0.5s ease;\n    }\n\n    .circle-wrapper img {\n      position: absolute;\n      top: 0; left: 0;\n      width: 100%;\n      height: 100%;\n      object-fit: cover;\n      transition: transform 0.6s ease;\n      z-index: 1;\n    }\n\n    .swiper-slide:hover .circle-wrapper {\n      transform: scale(1.05);\n      border-color: #D4AF37;\n      box-shadow: 0 12px 25px rgba(0,0,0,0.12);\n    }\n\n    .swiper-slide:hover .circle-wrapper img {\n      transform: scale(1.15);\n    }\n\n    \n    .swiper-slide p {\n      margin-top: 10px;\n      font-size: 12px;\n      font-weight: 600;\n      color: #1a1a1a;\n      letter-spacing: 1px;\n      text-transform: uppercase;\n      text-align: center;\n    }\n\n    .swiper-slide:hover p {\n      color: #D4AF37;\n    }\n\n    .category-link {\n      display: block;\n      text-decoration: none;\n    }\n  </style>\n</head>\n<body>\n\n<div class=\"category-section-mobile\">\n  \n\n  <!-- \u2705 Swiper -->\n  <div class=\"swiper categorySwiper\">\n    <div class=\"swiper-wrapper\">\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/animal-figurines\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/1.webp?v=1758372894\" alt=\"Exclusive Pieces\">\n          </div>\n          <p>Exclusive Pieces</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/glass-on-wood\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/2.webp?v=1758372894\" alt=\"Glass on Wood\">\n          </div>\n          <p>Glass on Wood</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/bird-figurines\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/3.webp?v=1758372894\" alt=\"Bird Figurines\">\n          </div>\n          <p>Bird Figurines</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/animal-figurines\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/4.webp?v=1758372894\" alt=\"Animal Figurines\">\n          </div>\n          <p>Animal Figurines</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/furniture\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/5.webp?v=1758372894\" alt=\"Furniture\">\n          </div>\n          <p>Furniture</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/hangings-1\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/6.webp?v=1758372893\" alt=\"Hangings\">\n          </div>\n          <p>Hangings</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/accessories\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/7.webp?v=1758372894\" alt=\"Accessories\">\n          </div>\n          <p>Accessories</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/wind-chimes\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/8.webp?v=1758372893\" alt=\"Wind Chimes\">\n          </div>\n          <p>Wind Chimes</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/gifting\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/9.webp?v=1758372893\" alt=\"Gifting\">\n          </div>\n          <p>Gifting</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/sale-1\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/10.webp?v=1758372894\" alt=\"Unbeatable Prices\">\n          </div>\n          <p>Unbeatable Prices</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/best-seller\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/11.webp?v=1758372894\" alt=\"Best Seller\">\n          </div>\n          <p>Best Seller</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/new-arrivals\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/12.webp?v=1758372894\" alt=\"New Arrivals\">\n          </div>\n          <p>New Arrivals</p>\n        </a>\n      </div>\n\n    </div>\n  </div>\n</div>\n\n<!-- Swiper JS -->\n<script src=\"https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js\"></script>\n\n<script>\n  var swiper = new Swiper(\".categorySwiper\", {\n    slidesPerView: 3,  // \u2705 4 per view\n    spaceBetween: 16,\n    loop: true,\n    speed: 3000, \n    autoplay: {\n      delay: 0,\n      disableOnInteraction: false,\n    },\n    freeMode: true,\n    freeModeMomentum: false,\n  });\n</script>\n\n</body>\n</html>"
+        "custom_liquid": "<!doctype html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\" />\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n  <title>Shop by Department</title>\n\n  <!-- Swiper CSS -->\n  <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css\" />\n\n  <style>\n    @import url('https://fonts.googleapis.com/css2?family=Harmonia+Sans:wght@400;600&display=swap');\n\n    body {\n      background: #f9f8f5;\n      font-family: 'Harmonia Sans', sans-serif;\n      margin: 0;\n      padding: 0;\n    }\n\n    .category-section-mobile {\n      padding: ;\n      background: #f9f8f5;\n    }\n\n    \n    @media (min-width: 768px) {\n      .category-section-mobile {\n        display: none;\n      }\n    }\n\n    \n    .category-heading {\n      text-align: center;\n      font-size: 20px;\n      font-weight: 600;\n      color: #1a1a1a;\n      margin-bottom: 20px;\n      letter-spacing: 1px;\n    }\n\n    \n    .circle-wrapper {\n      width: 100%;\n      padding-top: 100%;\n      position: relative;\n      border-radius: 50%;\n      overflow: hidden;\n      background: #fff;\n      border: 2px solid rgba(212,175,55,0.35);\n      box-shadow: inset 0 0 8px rgba(0,0,0,0.08), 0 6px 16px rgba(0,0,0,0.08);\n      transition: all 0.5s ease;\n    }\n\n    .circle-wrapper img {\n      position: absolute;\n      top: 0; left: 0;\n      width: 100%;\n      height: 100%;\n      object-fit: cover;\n      transition: transform 0.6s ease;\n      z-index: 1;\n    }\n\n    .swiper-slide:hover .circle-wrapper {\n      transform: scale(1.05);\n      border-color: #D4AF37;\n      box-shadow: 0 12px 25px rgba(0,0,0,0.12);\n    }\n\n    .swiper-slide:hover .circle-wrapper img {\n      transform: scale(1.15);\n    }\n\n    \n    .swiper-slide p {\n      margin-top: 10px;\n      font-size: 12px;\n      font-weight: 600;\n      color: #1a1a1a;\n      letter-spacing: 1px;\n      text-transform: uppercase;\n      text-align: center;\n    }\n\n    .swiper-slide:hover p {\n      color: #D4AF37;\n    }\n\n    .category-link {\n      display: block;\n      text-decoration: none;\n    }\n  </style>\n</head>\n<body>\n\n<div class=\"category-section-mobile\">\n  \n\n  <!-- ✅ Swiper -->\n  <div class=\"swiper categorySwiper\">\n    <div class=\"swiper-wrapper\">\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/animal-figurines\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/1.webp?v=1758372894\" alt=\"Exclusive Pieces\">\n          </div>\n          <p>Exclusive Pieces</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/glass-on-wood\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/2.webp?v=1758372894\" alt=\"Glass on Wood\">\n          </div>\n          <p>Glass on Wood</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/bird-figurines\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/3.webp?v=1758372894\" alt=\"Bird Figurines\">\n          </div>\n          <p>Bird Figurines</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/animal-figurines\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/4.webp?v=1758372894\" alt=\"Animal Figurines\">\n          </div>\n          <p>Animal Figurines</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/furniture\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/5.webp?v=1758372894\" alt=\"Furniture\">\n          </div>\n          <p>Furniture</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/hangings-1\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/6.webp?v=1758372893\" alt=\"Hangings\">\n          </div>\n          <p>Hangings</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/accessories\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/7.webp?v=1758372894\" alt=\"Accessories\">\n          </div>\n          <p>Accessories</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/wind-chimes\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/8.webp?v=1758372893\" alt=\"Wind Chimes\">\n          </div>\n          <p>Wind Chimes</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/gifting\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/9.webp?v=1758372893\" alt=\"Gifting\">\n          </div>\n          <p>Gifting</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/sale-1\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/10.webp?v=1758372894\" alt=\"Unbeatable Prices\">\n          </div>\n          <p>Unbeatable Prices</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/best-seller\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/11.webp?v=1758372894\" alt=\"Best Seller\">\n          </div>\n          <p>Best Seller</p>\n        </a>\n      </div>\n\n      <div class=\"swiper-slide\">\n        <a href=\"https://www.timberkala.com/collections/new-arrivals\" class=\"category-link\">\n          <div class=\"circle-wrapper\">\n            <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/12.webp?v=1758372894\" alt=\"New Arrivals\">\n          </div>\n          <p>New Arrivals</p>\n        </a>\n      </div>\n\n    </div>\n  </div>\n</div>\n\n<!-- Swiper JS -->\n<script src=\"https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js\"></script>\n\n<script>\n  var swiper = new Swiper(\".categorySwiper\", {\n    slidesPerView: 3,  // ✅ 4 per view\n    spaceBetween: 16,\n    loop: true,\n    speed: 3000, \n    autoplay: {\n      delay: 0,\n      disableOnInteraction: false,\n    },\n    freeMode: true,\n    freeModeMomentum: false,\n  });\n</script>\n\n</body>\n</html>"
       }
     },
     "page_header_logo_banner_mEVa4k": {
