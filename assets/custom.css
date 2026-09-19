@@ -859,5 +859,68 @@ video.inova-media-element,
   }
 }
 
+/* ==========================================================================
+   DESKTOP BANNER SIZE LOCK (1024 x 473 / Aspect Ratio 1024:473)
+   Preserves exact 1024x473 desktop banner proportions across all monitors
+   without stretching, distorting, or cropping.
+   ========================================================================== */
+@media (min-width: 768px) {
+  .inova-slideshow-wrapper,
+  .inova-slideshow-wrapper.desktop-height--banner_ratio,
+  .timberkala-banner,
+  .timberkala-hero-slider,
+  .desktop-banner-fit {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    aspect-ratio: 1024 / 473 !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  @supports not (aspect-ratio: 1024 / 473) {
+    .inova-slideshow-wrapper,
+    .inova-slideshow-wrapper.desktop-height--banner_ratio,
+    .timberkala-banner,
+    .timberkala-hero-slider,
+    .desktop-banner-fit {
+      height: 0 !important;
+      padding-top: calc(473 / 1024 * 100%) !important; /* 46.1914% */
+    }
+  }
+
+  .inova-slideshow-wrapper.desktop-height--fullscreen {
+    aspect-ratio: auto !important;
+    padding-top: 0 !important;
+    height: 100vh !important;
+    height: 100svh !important;
+    height: 100dvh !important;
+    min-height: 560px !important;
+  }
+
+  .inova-slideshow-wrapper.desktop-height--custom {
+    aspect-ratio: auto !important;
+    padding-top: 0 !important;
+    height: var(--desktop-height, 600px) !important;
+    min-height: 300px !important;
+  }
+
+  .desktop-height--banner_ratio .inova-media-element,
+  .desktop-height--banner_ratio .inova-media-picture img,
+  .desktop-height--banner_ratio .inova-slide-media img,
+  .desktop-height--banner_ratio .inova-slide-media video {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .desktop-overlay-hidden {
+    display: none !important;
+  }
+  .desktop-scrim-hidden {
+    display: none !important;
+  }
+}
+
 
 
