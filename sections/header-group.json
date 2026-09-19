@@ -394,6 +394,61 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "slideshow": {
+      "type": "inova-slideshow",
+      "blocks": {
+        "video_comfort": {
+          "type": "video",
+          "disabled": false,
+          "settings": {
+            "heading": "Comfort, Style, Durability: Our Seating Collection",
+            "button_label": "Shop seating",
+            "button_link": "shopify://collections/all-products"
+          }
+        },
+        "image_playful": {
+          "type": "image",
+          "disabled": false,
+          "settings": {
+            "heading": "Playful Lines and Elegant Comfort",
+            "button_label": "Shop sofas",
+            "button_link": "shopify://collections/all-products"
+          }
+        },
+        "image_ease": {
+          "type": "image",
+          "disabled": false,
+          "settings": {
+            "heading": "Ease Into the Light",
+            "button_label": "Shop lighting",
+            "button_link": "shopify://collections/glass-on-wood"
+          }
+        },
+        "image_smaller": {
+          "type": "image",
+          "disabled": true,
+          "settings": {
+            "heading": "Smaller Things and Subtle Accents",
+            "button_label": "Shop decor",
+            "button_link": "shopify://collections/all-products"
+          }
+        }
+      },
+      "block_order": [
+        "video_comfort",
+        "image_playful",
+        "image_ease",
+        "image_smaller"
+      ],
+      "settings": {
+        "brand_watermark": "I N O V A",
+        "show_brand_watermark": true,
+        "show_social_dock": true,
+        "dock_discount_text": "GET 20% OFF",
+        "autoplay": true,
+        "autoplay_speed": 5
+      }
     }
   },
   "order": [

@@ -1,11 +1,11 @@
 {%- comment -%}
   Concept (Inova Preset) - Fullscreen Slideshow Hero Section
-  Matches exact styling of Inova demo store:
-  - 100vh Fullscreen Video & Image slides
+  Matches exact styling of Inova demo store on Desktop & Mobile:
+  - 100vh Fullscreen Video & Image slides with proportional object-fit: cover (no stretching!)
   - Giant center brand watermark ("I N O V A" / "T I M B E R K A L A")
-  - Left floating pill dock (Social icons + vertical "GET 20% OFF" badge)
-  - Bottom-left slide heading + bottom-right pill button
-  - Bottom arrow navigation (←) and slide dots (○ • •)
+  - Floating pill dock with "GET 20% OFF" badge (visible on mobile and desktop)
+  - Bottom-left slide heading + full-width mobile pill button
+  - Bottom-left slide indicator dots (○ • •) matching mobile preview
 {%- endcomment -%}
 
 {%- if template.name == 'index' or section.settings.show_on_all_pages -%}
@@ -28,7 +28,7 @@
         data-index="{{ forloop.index0 }}"
         {{ block.shopify_attributes }}
       >
-        <!-- Background Media -->
+        <!-- Background Media (Guaranteed Proportional Fit - No Stretching) -->
         <div class="inova-slide-media">
           {%- if is_video -%}
             {%- assign v_url = block.settings.video_url -%}
@@ -54,12 +54,13 @@
               <source src="{{ v_url }}" type="video/mp4">
             </video>
           {%- else -%}
-            <picture class="inova-media-element">
+            <picture class="inova-media-picture">
               {%- if block.settings.mobile_image != blank -%}
-                <source media="(max-width: 767px)" srcset="{{ block.settings.mobile_image | image_url: width: 800 }}">
+                <source media="(max-width: 767px)" srcset="{{ block.settings.mobile_image | image_url: width: 1000 }}">
               {%- endif -%}
               {%- if block.settings.image != blank -%}
                 <img
+                  class="inova-media-element"
                   src="{{ block.settings.image | image_url: width: 2200 }}"
                   alt="{{ block.settings.heading | escape }}"
                   loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
@@ -68,11 +69,11 @@
               {%- else -%}
                 {%- case forloop.index -%}
                   {%- when 2 -%}
-                    <img src="https://concept-theme-inova.myshopify.com/cdn/shop/files/slide-02.webp" alt="Playful Lines and Elegant Comfort" loading="lazy">
+                    <img class="inova-media-element" src="https://concept-theme-inova.myshopify.com/cdn/shop/files/slide-02.webp" alt="Playful Lines and Elegant Comfort" loading="lazy">
                   {%- when 3 -%}
-                    <img src="https://concept-theme-inova.myshopify.com/cdn/shop/files/slide-03.webp" alt="Ease Into the Light" loading="lazy">
+                    <img class="inova-media-element" src="https://concept-theme-inova.myshopify.com/cdn/shop/files/slide-03.webp" alt="Ease Into the Light" loading="lazy">
                   {%- else -%}
-                    <img src="https://cdn.shopify.com/s/files/1/0909/3352/6833/files/banner_website_glass_and_wood.webp?v=1768303197" alt="Timberkala Showroom" loading="eager">
+                    <img class="inova-media-element" src="https://concept-theme-inova.myshopify.com/cdn/shop/files/preview_images/9bdc62d489594794ac76ea91dbaa597a.thumbnail.0000000000.jpg" alt="Comfort, Style, Durability: Our Seating Collection" loading="eager">
                 {%- endcase -%}
               {%- endif -%}
             </picture>
@@ -110,7 +111,7 @@
     </div>
   {%- endif -%}
 
-  <!-- Left Floating Social & Promo Dock (Inova Signature) -->
+  <!-- Left Floating Social & Promo Dock (Inova Signature - Visible on Desktop & Mobile) -->
   {%- if section.settings.show_social_dock -%}
     <aside class="inova-floating-dock" aria-label="Social and Discounts">
       <div class="inova-dock-socials">
@@ -176,7 +177,9 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  min-height: 600px;
+  height: 100svh;
+  height: 100dvh;
+  min-height: 560px;
   overflow: hidden;
   background: #121212;
   margin: 0;
@@ -198,8 +201,8 @@
   height: 100%;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              visibility 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: opacity 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              visibility 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   pointer-events: none;
   z-index: 1;
 }
@@ -211,44 +214,65 @@
   z-index: 2;
 }
 
-/* Media (Image / Video) */
+/* Media (Image / Video) - Guaranteed Proportional Fit (No Stretching!) */
 .inova-slide-media {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+.inova-media-picture {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .inova-media-element,
-.inova-media-element img,
-.inova-media-element video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transform: scale(1.05);
+.inova-media-picture img,
+.inova-slide-media img,
+.inova-slide-media video {
+  display: block !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  transform: scale(1.04);
   transition: transform 7s cubic-bezier(0.1, 0.8, 0.2, 1);
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  max-width: none !important;
+  max-height: none !important;
 }
 
 .inova-slide--active .inova-media-element,
-.inova-slide--active .inova-media-element img,
-.inova-slide--active .inova-media-element video {
+.inova-slide--active .inova-media-picture img,
+.inova-slide--active .inova-slide-media img,
+.inova-slide--active .inova-slide-media video {
   transform: scale(1);
 }
 
 /* Scrim / Vignette overlay */
 .inova-slide-scrim {
-  position: absolute;
-  inset: 0;
+  position: absolute !important;
+  inset: 0 !important;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.35) 0%,
-    rgba(0, 0, 0, 0.1) 40%,
-    rgba(0, 0, 0, 0.45) 75%,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.05) 30%,
+    rgba(0, 0, 0, 0.35) 65%,
     rgba(0, 0, 0, 0.75) 100%
-  );
-  pointer-events: none;
+  ) !important;
+  pointer-events: none !important;
+  z-index: 2;
 }
 
 /* Giant Center Brand Watermark (e.g. "I N O V A" / "T I M B E R K A L A") */
@@ -267,10 +291,10 @@
 
 .inova-brand-watermark span {
   font-family: 'Jost', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: clamp(55px, 14vw, 195px);
+  font-size: clamp(50px, 13vw, 190px);
   font-weight: 300;
-  letter-spacing: clamp(14px, 3.5vw, 55px);
-  text-indent: clamp(14px, 3.5vw, 55px);
+  letter-spacing: clamp(14px, 3.2vw, 55px);
+  text-indent: clamp(14px, 3.2vw, 55px);
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.95);
   display: inline-block;
@@ -328,7 +352,6 @@
 
 .inova-dock-badge {
   writing-mode: vertical-rl;
-  transform: rotate(180deg);
   font-family: 'Jost', sans-serif;
   font-size: 10px;
   font-weight: 600;
@@ -353,6 +376,7 @@
   width: 100%;
   padding: 0 60px;
   z-index: 10;
+  box-sizing: border-box;
 }
 
 .inova-content-row {
@@ -447,64 +471,196 @@
 }
 
 .inova-dot-btn {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.85);
   border: none;
   cursor: pointer;
   padding: 0;
+  box-shadow: none;
   transition: all 0.3s ease;
 }
 
 .inova-dot-btn--active {
-  background: #ffffff;
-  transform: scale(1.3);
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1.8px solid #ffffff;
+  transform: none;
+  box-shadow: none;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .inova-slide-content {
-    padding: 0 32px;
-    bottom: 70px;
-  }
-  .inova-bottom-controls {
-    padding: 0 32px;
-    bottom: 20px;
-  }
-}
-
+/* ==========================================================================
+   MOBILE SCREEN PERFECTION (MATCHES media_1789844803288.png)
+   ========================================================================== */
 @media (max-width: 767px) {
   .inova-slideshow-wrapper {
-    min-height: 520px;
+    height: 100vh !important;
+    height: 100svh !important;
+    height: 100dvh !important;
+    min-height: 560px !important;
+    max-height: 100vh !important;
   }
-  .inova-floating-dock {
-    display: none; /* Hide floating dock on small screens to prevent covering photo */
+
+  /* Prevent any mobile scale or distortion on images/videos */
+  .inova-media-element,
+  .inova-media-picture img,
+  .inova-slide-media img,
+  .inova-slide-media video {
+    transform: none !important;
+    transition: none !important;
   }
-  .inova-slide-content {
-    padding: 0 20px;
-    bottom: 64px;
+
+  /* Center Brand Letters on Mobile ("I N O V A") */
+  .inova-brand-watermark {
+    top: 48% !important;
+    width: 95% !important;
   }
-  .inova-content-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
-  }
-  .inova-slide-heading {
-    font-size: 20px;
-  }
-  .inova-hero-pill-btn {
-    padding: 12px 26px;
-    font-size: 11px;
-  }
-  .inova-bottom-controls {
-    padding: 0 20px;
-    bottom: 16px;
-  }
+
   .inova-brand-watermark span {
-    letter-spacing: 16px;
-    text-indent: 16px;
+    font-size: clamp(48px, 15vw, 76px) !important;
+    letter-spacing: clamp(14px, 4vw, 24px) !important;
+    text-indent: clamp(14px, 4vw, 24px) !important;
+  }
+
+  /* Left Floating Pill Badge on Mobile ("GET 20% OFF") */
+  .inova-floating-dock {
+    display: flex !important;
+    position: absolute !important;
+    left: 14px !important;
+    bottom: 240px !important;
+    top: auto !important;
+    transform: none !important;
+    background: rgba(235, 230, 224, 0.92) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    border-radius: 30px !important;
+    padding: 14px 6px !important;
+    gap: 0 !important;
+    z-index: 25 !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  }
+
+  /* Hide social icons inside the pill on mobile so ONLY the clean vertical "GET 20% OFF" badge is shown */
+  .inova-dock-socials,
+  .inova-dock-divider {
+    display: none !important;
+  }
+
+  .inova-dock-badge {
+    font-size: 9px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1.5px !important;
+    color: #1a1a1a !important;
+    padding: 4px 0 !important;
+  }
+
+  /* Bottom Content on Mobile */
+  .inova-slide-content {
+    position: absolute !important;
+    bottom: 48px !important;
+    left: 0 !important;
+    width: 100% !important;
+    padding: 0 18px !important;
+    box-sizing: border-box !important;
+    z-index: 10 !important;
+  }
+
+  .inova-content-row {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+
+  .inova-content-left {
+    max-width: 100% !important;
+  }
+
+  .inova-slide-heading {
+    font-family: 'Jost', sans-serif !important;
+    font-size: clamp(24px, 6.8vw, 32px) !important;
+    font-weight: 500 !important;
+    line-height: 1.18 !important;
+    letter-spacing: -0.01em !important;
+    text-transform: uppercase !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45) !important;
+  }
+
+  .inova-content-right {
+    width: 100% !important;
+  }
+
+  /* Full-Width Pill Button on Mobile (Matching media_1789844803288.png) */
+  .inova-hero-pill-btn {
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-radius: 50px !important;
+    padding: 16px 20px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1.5px !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25) !important;
+  }
+
+  /* Bottom Controls: Dots at Bottom Left (Matching media_1789844803288.png) */
+  .inova-bottom-controls {
+    position: absolute !important;
+    bottom: 16px !important;
+    left: 0 !important;
+    width: 100% !important;
+    padding: 0 18px !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+    z-index: 15 !important;
+  }
+
+  /* Hide arrows on mobile for clean look matching user screenshot */
+  .inova-nav-btn {
+    display: none !important;
+  }
+
+  .inova-dots-bar {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  /* Inactive dots: solid white circles */
+  .inova-dot-btn {
+    width: 5px !important;
+    height: 5px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    transition: all 0.3s ease !important;
+  }
+
+  /* Active dot: hollow ring circle (matching screenshot ○) */
+  .inova-dot-btn--active {
+    width: 9px !important;
+    height: 9px !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    border: 1.8px solid #ffffff !important;
+    transform: none !important;
+    box-shadow: none !important;
   }
 }
 </style>
@@ -592,7 +748,7 @@ document.addEventListener('DOMContentLoaded', function() {
   wrapper.addEventListener('mouseenter', stopTimer);
   wrapper.addEventListener('mouseleave', startTimer);
 
-  // Touch Swipe Handling
+  // Touch Swipe Handling for Mobile
   var touchStartX = 0;
   var touchEndX = 0;
   wrapper.addEventListener('touchstart', function(e) {
@@ -602,7 +758,7 @@ document.addEventListener('DOMContentLoaded', function() {
   wrapper.addEventListener('touchend', function(e) {
     touchEndX = e.changedTouches[0].screenX;
     var diff = touchStartX - touchEndX;
-    if (Math.abs(diff) > 45) {
+    if (Math.abs(diff) > 40) {
       if (diff > 0) {
         goToSlide(currentIndex + 1);
       } else {

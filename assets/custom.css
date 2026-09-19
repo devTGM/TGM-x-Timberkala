@@ -739,3 +739,82 @@ h1, h2, h3, h4, .wt-title, .section-heading {
   margin-top: 8px;
 }
 
+/* ==========================================================================
+   UNIVERSAL ANTI-STRETCH & PROPORTIONAL FIT SAFEGUARDS
+   Prevents images and videos in banners, heroes, slideshows, and cards
+   from stretching, warping, or distorting on both Mobile and Desktop.
+   ========================================================================== */
+
+/* Universal Banner & Slideshow Media Preservation */
+.inova-slideshow-wrapper,
+.inova-slides-container,
+.inova-slide,
+.inova-slide-media,
+.inova-hero,
+.inova-hero-media,
+.wt-image-banner,
+.page-header-image-banner,
+.section-image-banner {
+  box-sizing: border-box;
+}
+
+/* Picture element must behave as a block container that fills its parent */
+.inova-slide-media picture,
+.inova-hero-media picture,
+.hero__pic,
+picture.hero__pic,
+.inova-cat-img-wrap picture {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Images and Videos: always preserve natural aspect ratio via object-fit: cover */
+.inova-slide-media img,
+.inova-slide-media video,
+.inova-media-element,
+.inova-hero-media img,
+.inova-hero-media video,
+.inova-cat-img-wrap img,
+.hero__img,
+.hero__img--desktop,
+.hero__img--mobile,
+.wt-image-banner img,
+.wt-image-banner video,
+.page-header-image-banner img,
+.page-header-image-banner video,
+.section-image-banner img,
+.section-image-banner video,
+.collection-banner .hero__img,
+.wt-mosaic .hero__img {
+  object-fit: cover !important;
+  object-position: center center !important;
+  max-width: none !important;
+}
+
+/* Prevent video containers from squishing or overflowing */
+video.inova-media-element,
+.inova-slide-media video {
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+/* Mobile specific image rendering improvements */
+@media (max-width: 767px) {
+  .inova-slideshow-wrapper img,
+  .inova-slideshow-wrapper video,
+  .hero__img--mobile {
+    object-fit: cover !important;
+    object-position: center center !important;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}
+
+
