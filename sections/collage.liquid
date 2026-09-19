@@ -41,87 +41,8 @@
   {%- endfor -%}
 </style>
 
-{%- if section.settings.layout_style == 'classic' -%}
-  <!-- Classic Mosaic Layout -->
-  <div class="wt-mosaic" data-section-id="{{ section.id }}">
-    {% render 'headline', title: section.settings.heading | newline_to_br %}
-    <div
-      data-section-id="{{ section.id }}"
-      class="
-        {% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %}  wt-mosaic__container {% if section.settings.desktop_layout == 'row-reverse' %} wt-mosaic__container--reversed {% endif %}
-        {% if section.settings.full-width-enabled %} wt-mosaic__container--full {% endif %}
-      "
-    >
-      {% assign i = 0 %}
-      {%- for block in section.blocks -%}
-        {% assign i = i | plus: 1 %}
-        {% if i == 1 %}
-          <div
-            data-block-id="{{ block.id }}"
-            {% if settings.animations %}
-              data-cascade
-              style="--animation-order: {{ forloop.index }};"
-            {% endif %}
-            class=" {% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %} wt-mosaic__item wt-mosaic__main{% if section.blocks.size == 1 %} wt-mosaic__main--one{% endif %}"
-          >
-            {% render 'hero',
-              type: 'single',
-              desktop_text_horizontal_position: block.settings.desktop_text_horizontal_position,
-              desktop_text_vertical_position: block.settings.desktop_text_vertical_position,
-              mobile_text_horizontal_position: block.settings.mobile_text_horizontal_position,
-              mobile_text_vertical_position: block.settings.mobile_text_vertical_position,
-              desktop_image: block.settings.desktop_image,
-              mobile_image: block.settings.mobile_image,
-              heading: block.settings.heading,
-              text: block.settings.text,
-              button_label: block.settings.button_label,
-              button_link: block.settings.button_link,
-              heading_disable_on_mobile: block.settings.heading_disable_on_mobile,
-              text_disable_on_mobile: block.settings.text_disable_on_mobile,
-              button_disable_on_mobile: block.settings.button_disable_on_mobile,
-              button_select: block.settings.button_select,
-              placeholder: 'collection-apparel-1'
-            %}
-          </div>
-        {% endif %}
-        {% if i == 2 %}
-          <div class="wt-mosaic__aside {% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %}">
-        {% endif %}
-        {% if i == 2 or i == 3 %}
-          <div
-            data-block-id="{{ block.id }}"
-            class="{% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %} wt-mosaic__item wt-mosaic__aside__item{% if section.blocks.size == 2 %} wt-mosaic__aside__item--single{% endif %}"
-          >
-            {% render 'hero',
-              type: 'single',
-              desktop_text_horizontal_position: block.settings.desktop_text_horizontal_position,
-              desktop_text_vertical_position: block.settings.desktop_text_vertical_position,
-              desktop_image: block.settings.desktop_image,
-              mobile_text_horizontal_position: block.settings.mobile_text_horizontal_position,
-              mobile_text_vertical_position: block.settings.mobile_text_vertical_position,
-              mobile_image: block.settings.mobile_image,
-              heading: block.settings.heading,
-              text: block.settings.text,
-              button_label: block.settings.button_label,
-              button_link: block.settings.button_link,
-              heading_disable_on_mobile: block.settings.heading_disable_on_mobile,
-              text_disable_on_mobile: block.settings.text_disable_on_mobile,
-              button_disable_on_mobile: block.settings.button_disable_on_mobile,
-              button_select: block.settings.button_select,
-              placeholder: 'collection-apparel-1'
-            %}
-          </div>
-        {% endif %}
-        {% if i > 1 and i == section.blocks.size %}
-          </div>
-        {% endif %}
-      {%- endfor -%}
-    </div>
-  </div>
-
-{%- else -%}
-  <!-- Inova 4-Card Bento Grid Layout (Matches Concept Inova Preset) -->
-  <section class="inova-bento-section" data-section-id="{{ section.id }}" style="padding-top: {{ section.settings.margin-top }}px; padding-bottom: {{ section.settings.margin-bottom }}px;">
+<!-- Inova 4-Card Bento Grid Layout (Matches Concept Inova Preset) -->
+<section class="inova-bento-section" data-section-id="{{ section.id }}" style="padding-top: {{ section.settings.margin-top | default: 16 }}px; padding-bottom: {{ section.settings.margin-bottom | default: 40 }}px;">
     <div class="inova-bento-container">
       <div class="inova-bento-header">
         <div class="inova-bento-header__left">
@@ -225,7 +146,6 @@
       </div>
     </div>
   </section>
-{%- endif -%}
 
 {% schema %}
 {

@@ -498,7 +498,7 @@
   }
 {% endstyle %}
 
-{% if section.settings.layout == 'option_inova' %}
+{% if section.settings.layout == 'option_inova' or section.settings.layout == 'option_inline' or section.settings.layout == 'option_1' or section.settings.layout == 'option_2' %}
   <!-- =========================================================================
        INOVA HEADER: MENU LEFT, LOGO CENTER, CURRENCY + ACTIONS RIGHT
        ========================================================================= -->
@@ -1292,7 +1292,7 @@
           "label": "Transparent Menu"
         }
       ],
-      "default": "option_inline",
+      "default": "option_inova",
       "label": "Header Layout Style"
     },
     {

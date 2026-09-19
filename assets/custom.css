@@ -1259,3 +1259,44 @@ video.inova-media-element,
     letter-spacing: 0.2em !important;
   }
 }
+
+/* =========================================================================
+   UNIVERSAL INOVA HEADER & COLLAGE RULES
+   Ensures single-row navigation, centered logo, and seamless collage section
+   ========================================================================= */
+.header .header__menu ul.list-menu,
+.wt-header .wt-page-nav-mega__list,
+.wt-header__nav-teaser__list,
+.inova-nav-list {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  white-space: nowrap !important;
+  align-items: center !important;
+  gap: 22px !important;
+}
+
+.header .header__menu .menu__item,
+.wt-header__nav-teaser__link-text,
+.inova-nav-link {
+  white-space: nowrap !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 1.2px !important;
+  text-transform: uppercase !important;
+}
+
+/* Header and Collage Section Seamless Flush Union */
+.shopify-section-group-header-group.header-section + .shopify-section,
+.wt-header--inova + .inova-bento-section,
+.wt-header + .inova-bento-section,
+.wt-header + [data-section-id*="collage"] {
+  margin-top: 0 !important;
+  padding-top: 20px !important;
+  border-top: none !important;
+}
+
+.wt-header--inova,
+.header.header--center-left {
+  border-bottom: none !important;
+  padding-bottom: 8px !important;
+}
