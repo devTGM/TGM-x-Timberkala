@@ -359,6 +359,48 @@ btn.addEventListener("click", () => {
 });
 </script>
 
+<!-- Announcement bar: hide on scroll down, show on scroll up -->
+<script>
+(function() {
+  var annBar = null;
+  var lastScrollY = 0;
+  var ticking = false;
+
+  function getBar() {
+    if (!annBar) {
+      annBar = document.getElementById('shopify-section-announcement-bar') ||
+               document.querySelector('.wt-announcement');
+    }
+    return annBar;
+  }
+
+  function onScroll() {
+    var bar = getBar();
+    if (!bar) return;
+    var currentY = window.scrollY || window.pageYOffset;
+    if (currentY > lastScrollY && currentY > 80) {
+      // Scrolling down — hide bar
+      bar.style.transform = 'translateY(-100%)';
+      bar.style.opacity = '0';
+    } else {
+      // Scrolling up — show bar
+      bar.style.transform = 'translateY(0)';
+      bar.style.opacity = '1';
+    }
+    lastScrollY = currentY <= 0 ? 0 : currentY;
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(onScroll);
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+</script>
+
+
 
 
 

@@ -2578,3 +2578,108 @@ body.template-collection .tk-subcollection-nav__sep {
   }
 }
 
+/* ============================================================
+   ANNOUNCEMENT BAR — SMOOTH SCROLL HIDE/SHOW
+   ============================================================ */
+
+#shopify-section-announcement-bar,
+.wt-announcement {
+  transition: transform 0.35s ease, opacity 0.35s ease !important;
+  will-change: transform, opacity !important;
+}
+
+/* Announcement bar base styles */
+.wt-announcement__container {
+  font-size: 12px !important;
+  letter-spacing: 0.08em !important;
+  font-weight: 500 !important;
+  padding: 10px 16px !important;
+  color: #fff !important;
+}
+
+.wt-announcement__text a,
+.wt-announcement__body a {
+  color: #fff !important;
+  text-decoration: none !important;
+  opacity: 0.9 !important;
+}
+
+.wt-announcement__text a:hover,
+.wt-announcement__body a:hover {
+  opacity: 1 !important;
+  text-decoration: underline !important;
+}
+
+/* ============================================================
+   COLLECTION PAGE — ADDITIONAL AESTHETIC POLISH
+   ============================================================ */
+
+/* Clean breadcrumb */
+body.template-collection .breadcrumbs {
+  font-size: 12px !important;
+  letter-spacing: 0.06em !important;
+  color: rgba(0,0,0,0.4) !important;
+  padding-top: 16px !important;
+}
+
+body.template-collection .breadcrumbs a {
+  color: rgba(0,0,0,0.4) !important;
+  text-decoration: none !important;
+}
+
+body.template-collection .breadcrumbs a:hover {
+  color: var(--color-foreground, #1a1a1a) !important;
+}
+
+/* Filter accordion group headers */
+body.template-collection .collection__aside .filter-group__title,
+body.template-collection .collection__aside details > summary {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 14px 0 !important;
+  border-bottom: 1px solid rgba(0,0,0,0.08) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  list-style: none !important;
+}
+
+/* Filter checkboxes */
+body.template-collection .collection__aside .f-option__item label,
+body.template-collection .collection__aside .facets__item label {
+  font-size: 13px !important;
+  color: rgba(0,0,0,0.65) !important;
+  cursor: pointer !important;
+  transition: color 0.2s !important;
+}
+
+body.template-collection .collection__aside .f-option__item label:hover,
+body.template-collection .collection__aside .facets__item label:hover {
+  color: var(--color-foreground, #1a1a1a) !important;
+}
+
+/* Product card — cleaner, more minimal */
+body.template-collection .collection__grid__item .card__title {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1.4 !important;
+}
+
+body.template-collection .collection__grid__item .card__price {
+  font-size: 13px !important;
+  color: rgba(0,0,0,0.6) !important;
+}
+
+/* Remove excess padding from collection section */
+body.template-collection .collection-grid-section {
+  padding-top: 0 !important;
+}
+
+/* Ensure collection title has proper padding from header */
+body.template-collection .collection__title {
+  padding-top: 8px !important;
+}
