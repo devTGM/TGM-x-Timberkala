@@ -498,7 +498,7 @@
   }
 {% endstyle %}
 
-{% if section.settings.layout == 'option_inova' %}
+{% if section.settings.layout == 'option_inova' or section.settings.layout == 'option_inline' or template == 'index' or section.settings.layout == 'option_1' or section.settings.layout == 'option_2' %}
   <!-- =========================================================================
        INOVA HEADER: MENU LEFT, LOGO CENTER, CURRENCY + ACTIONS RIGHT
        ========================================================================= -->
@@ -512,9 +512,6 @@
       {% if section.settings.show_line_separator %} wt-header--separator{% endif %}
       {% if section.settings.sticky_header %} wt-header--sticky{% endif %}
     "
-    {% if section.settings.sticky_header %}
-      data-sticky="true"
-    {% endif %}
   >
     <div class="wt-header__body wt-header__body--inova">
       <!-- LEFT: Mobile Menu Button + Inova Desktop Navigation -->
@@ -736,9 +733,9 @@
 
   <script>
     (function() {
-      var header = document.querySelector('.wt-header--inova');
-      var headerSection = document.querySelector('#shopify-section-header, [id*="__header"], .header-section');
-      if (!header) return;
+      var header = document.querySelector('.wt-header--inova, .wt-header');
+      var headerSection = document.querySelector('#shopify-section-header, [id*="__header"], .header-section, .page-header');
+      if (!header && !headerSection) return;
 
       var isTicking = false;
       function checkHeaderStuck() {
@@ -748,15 +745,19 @@
             var rect = target.getBoundingClientRect();
             // When the header reaches the top of the browser window
             if (rect.top <= 1) {
-              header.classList.add('is-stuck');
-              header.classList.add('header-scrolled');
+              if (header) {
+                header.classList.add('is-stuck');
+                header.classList.add('header-scrolled');
+              }
               if (headerSection) {
                 headerSection.classList.add('is-stuck');
                 headerSection.classList.add('header-scrolled');
               }
             } else {
-              header.classList.remove('is-stuck');
-              header.classList.remove('header-scrolled');
+              if (header) {
+                header.classList.remove('is-stuck');
+                header.classList.remove('header-scrolled');
+              }
               if (headerSection) {
                 headerSection.classList.remove('is-stuck');
                 headerSection.classList.remove('header-scrolled');
@@ -790,9 +791,6 @@
       {% if section.settings.show_line_separator %} wt-header--separator{% endif %}
       {% if section.settings.sticky_header %} wt-header--sticky{% endif %}
     "
-    {% if section.settings.sticky_header %}
-      data-sticky="true"
-    {% endif %}
   >
     <div class="wt-header__body wt-header__body--inline">
       <!-- LEFT: Mobile Menu Button + Logo -->

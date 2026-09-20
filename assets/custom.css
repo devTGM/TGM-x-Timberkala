@@ -1309,6 +1309,7 @@ video.inova-media-element,
   top: 0 !important;
   inset-block-start: 0 !important;
   z-index: 100 !important;
+  transform: none !important;
   background-color: #ffffff !important;
   border-top-left-radius: 28px !important;
   border-top-right-radius: 28px !important;
@@ -1321,8 +1322,24 @@ video.inova-media-element,
               box-shadow 0.28s ease !important;
 }
 
-/* Inova Header Element */
-.wt-header--inova {
+/* Neutralize Warehouse theme translateY(-100%) hide-on-scroll */
+.page-header.sticky-enabled,
+.page-header.sticky-enabled.hide,
+.page-header-sticky .page-header,
+.page-header-sticky .page-header.sticky-enabled,
+.page-header-sticky .page-header.sticky-enabled.sticky-show {
+  transform: none !important;
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  inset-block-start: 0 !important;
+  z-index: 100 !important;
+}
+
+/* Header Element (matches all header variants) */
+.wt-header,
+.wt-header--inova,
+.wt-header--inline {
   position: relative !important;
   z-index: 100 !important;
   background-color: var(--header-bg-color, #ffffff) !important;
@@ -1343,12 +1360,19 @@ video.inova-media-element,
 #shopify-section-header.header-scrolled,
 [id*="__header"].is-stuck,
 [id*="__header"].header-scrolled,
+.page-header.is-stuck,
+.page-header.header-scrolled,
 .header-section.header-scrolled,
+.wt-header.is-stuck,
+.wt-header.header-scrolled,
 .wt-header--inova.is-stuck,
 .wt-header--inova.header-scrolled,
+.wt-header--inline.is-stuck,
+.wt-header--inline.header-scrolled,
 body:not(.template-index) #shopify-section-header,
 body:not(.template-index) [id*="__header"],
-body:not(.template-index) .wt-header--inova {
+body:not(.template-index) .page-header,
+body:not(.template-index) .wt-header {
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
   margin-top: 0 !important;
@@ -1368,7 +1392,9 @@ main[role="main"],
 }
 
 #root > .shopify-section:first-child,
+.section-inova-bento,
 .inova-bento-section,
+[id*="inova_collection_grid"],
 [data-section-id*="collage"] {
   margin-top: 0 !important;
   padding-top: 20px !important;
