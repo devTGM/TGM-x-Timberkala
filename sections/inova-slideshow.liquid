@@ -153,22 +153,34 @@
     </div>
   {%- endif -%}
 
-  <!-- Left Floating Social & Promo Dock (Inova Signature - Visible on Desktop & Mobile) -->
+  <!-- Left Floating Social & Promo Dock (Inova Signature - Visible on Desktop & Mobile, Floating All Over Home Page) -->
   {%- if section.settings.show_social_dock -%}
-    <aside class="inova-floating-dock {% if section.settings.show_social_dock_mobile == false %}mobile-dock-hidden{% endif %}" aria-label="Social and Discounts">
+    <aside id="inova-floating-dock" class="inova-floating-dock {% if section.settings.show_social_dock_mobile == false %}mobile-dock-hidden{% endif %}" aria-label="Social and Discounts">
       <div class="inova-dock-socials">
-        <a href="https://facebook.com/shopify" target="_blank" rel="noopener" aria-label="Facebook" class="inova-dock-icon">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
-        </a>
-        <a href="https://twitter.com/shopify" target="_blank" rel="noopener" aria-label="X" class="inova-dock-icon">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        </a>
-        <a href="https://instagram.com/timber.kala" target="_blank" rel="noopener" aria-label="Instagram" class="inova-dock-icon">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        </a>
-        <a href="https://pinterest.com" target="_blank" rel="noopener" aria-label="Pinterest" class="inova-dock-icon">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.79-.17-2 .03-2.86.19-.77 1.2-5.08 1.2-5.08s-.31-.62-.31-1.53c0-1.43.83-2.5 1.87-2.5.88 0 1.3.66 1.3 1.45 0 .88-.56 2.2-.85 3.42-.24 1.03.52 1.87 1.54 1.87 1.85 0 3.27-1.95 3.27-4.77 0-2.49-1.79-4.23-4.35-4.23-2.96 0-4.7 2.22-4.7 4.51 0 .89.34 1.85.77 2.37.09.1.1.19.07.3-.08.33-.26 1.06-.3 1.21-.05.21-.17.26-.39.16-1.46-.68-2.37-2.81-2.37-4.52 0-3.68 2.67-7.06 7.71-7.06 4.05 0 7.2 2.89 7.2 6.75 0 4.03-2.54 7.27-6.07 7.27-1.19 0-2.3-.62-2.68-1.35l-.73 2.78c-.26 1.02-.97 2.3-1.45 3.08C9.58 21.88 10.77 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
-        </a>
+        {%- assign fb_link = settings.social_facebook_link | default: 'https://facebook.com/Timberkala' -%}
+        {%- assign tw_link = settings.social_twitter_link | default: 'https://twitter.com/timberkala' -%}
+        {%- assign ig_link = settings.social_instagram_link | default: 'https://instagram.com/timber.kala/' -%}
+        {%- assign pin_link = settings.social_pinterest_link | default: 'https://pinterest.com' -%}
+        {%- if fb_link != blank -%}
+          <a href="{{ fb_link }}" target="_blank" rel="noopener" aria-label="Facebook" class="inova-dock-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if tw_link != blank -%}
+          <a href="{{ tw_link }}" target="_blank" rel="noopener" aria-label="X" class="inova-dock-icon">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if ig_link != blank -%}
+          <a href="{{ ig_link }}" target="_blank" rel="noopener" aria-label="Instagram" class="inova-dock-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if pin_link != blank -%}
+          <a href="{{ pin_link }}" target="_blank" rel="noopener" aria-label="Pinterest" class="inova-dock-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.24 2.65 7.86 6.39 9.29-.09-.79-.17-2 .03-2.86.19-.77 1.2-5.08 1.2-5.08s-.31-.62-.31-1.53c0-1.43.83-2.5 1.87-2.5.88 0 1.3.66 1.3 1.45 0 .88-.56 2.2-.85 3.42-.24 1.03.52 1.87 1.54 1.87 1.85 0 3.27-1.95 3.27-4.77 0-2.49-1.79-4.23-4.35-4.23-2.96 0-4.7 2.22-4.7 4.51 0 .89.34 1.85.77 2.37.09.1.1.19.07.3-.08.33-.26 1.06-.3 1.21-.05.21-.17.26-.39.16-1.46-.68-2.37-2.81-2.37-4.52 0-3.68 2.67-7.06 7.71-7.06 4.05 0 7.2 2.89 7.2 6.75 0 4.03-2.54 7.27-6.07 7.27-1.19 0-2.3-.62-2.68-1.35l-.73 2.78c-.26 1.02-.97 2.3-1.45 3.08C9.58 21.88 10.77 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          </a>
+        {%- endif -%}
       </div>
 
       <div class="inova-dock-divider"></div>
@@ -177,6 +189,36 @@
         <span>{{ section.settings.dock_discount_text | default: 'GET 20% OFF' }}</span>
       </a>
     </aside>
+
+    <script>
+      (function() {
+        function attachFloatingDock() {
+          var dock = document.getElementById('inova-floating-dock');
+          if (!dock) return;
+          if (dock.parentElement !== document.body) {
+            var allDocks = document.body.querySelectorAll(':scope > #inova-floating-dock');
+            allDocks.forEach(function(el) {
+              if (el !== dock) el.remove();
+            });
+            document.body.appendChild(dock);
+          }
+        }
+        // Run immediately during HTML parsing
+        attachFloatingDock();
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', attachFloatingDock);
+        }
+        window.addEventListener('load', attachFloatingDock);
+        window.addEventListener('pageshow', attachFloatingDock);
+        if (window.Shopify && Shopify.designMode) {
+          document.addEventListener('shopify:section:load', attachFloatingDock);
+          document.addEventListener('shopify:section:unload', function() {
+            var d = document.body.querySelector(':scope > #inova-floating-dock');
+            if (d) d.remove();
+          });
+        }
+      })();
+    </script>
   {%- endif -%}
 
   <!-- Bottom Navigation Bar (Arrows & Dots) -->
@@ -364,70 +406,83 @@
   text-shadow: 0 4px 30px rgba(0, 0, 0, 0.25);
 }
 
-/* Left Floating Social & Promo Dock */
+/* Left Floating Social & Promo Dock (Persistent across home page) */
 .inova-floating-dock {
-  position: absolute;
-  left: 28px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(255, 255, 255, 0.94);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 40px;
-  padding: 22px 9px 18px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  z-index: 20;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  position: fixed !important;
+  left: 24px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-radius: 40px !important;
+  padding: 20px 10px 18px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 14px !important;
+  z-index: 95 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+  pointer-events: auto !important;
+}
+
+.inova-floating-dock:hover {
+  transform: translateY(-50%) scale(1.02) !important;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.08) !important;
 }
 
 .inova-dock-socials {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  align-items: center;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+  align-items: center !important;
 }
 
 .inova-dock-icon {
-  color: #333333;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.25s ease;
-  text-decoration: none;
+  color: #1a1a1a !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  transition: all 0.25s ease !important;
+  text-decoration: none !important;
 }
 
 .inova-dock-icon:hover {
-  color: #7b5454;
-  transform: scale(1.15);
+  color: #d4af37 !important;
+  background-color: rgba(212, 175, 55, 0.1) !important;
+  transform: scale(1.15) !important;
 }
 
 .inova-dock-divider {
-  width: 18px;
-  height: 1px;
-  background: #e0e0e0;
-  margin: 2px 0;
+  width: 18px !important;
+  height: 1px !important;
+  background: rgba(0, 0, 0, 0.12) !important;
+  margin: 2px 0 !important;
 }
 
 .inova-dock-badge {
-  writing-mode: vertical-rl;
-  font-family: 'Jost', sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #1a1a1a;
-  text-decoration: none;
-  padding: 6px 0;
-  white-space: nowrap;
-  transition: color 0.25s ease;
+  writing-mode: vertical-rl !important;
+  text-orientation: upright !important;
+  font-family: 'Jost', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  color: #1a1a1a !important;
+  text-decoration: none !important;
+  padding: 6px 0 !important;
+  white-space: nowrap !important;
+  transition: color 0.25s ease !important;
+  line-height: 1.3 !important;
 }
 
 .inova-dock-badge:hover {
-  color: #7b5454;
+  color: #d4af37 !important;
 }
 
 /* Slide Content (Bottom Row) */
@@ -709,20 +764,28 @@
   /* Left Floating Pill Badge on Mobile ("GET 20% OFF") */
   .inova-floating-dock {
     display: flex !important;
-    position: absolute !important;
-    left: 14px !important;
-    bottom: 240px !important;
+    position: fixed !important;
+    left: 12px !important;
+    bottom: 80px !important;
     top: auto !important;
     transform: none !important;
-    background: rgba(235, 230, 224, 0.92) !important;
+    background: rgba(255, 255, 255, 0.95) !important;
     backdrop-filter: blur(10px) !important;
     -webkit-backdrop-filter: blur(10px) !important;
-    border-radius: 30px !important;
-    padding: 14px 6px !important;
+    border-radius: 28px !important;
+    padding: 12px 6px !important;
     gap: 0 !important;
-    z-index: 25 !important;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18) !important;
-    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    z-index: 95 !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .inova-floating-dock:hover {
+    transform: none !important;
+  }
+
+  .inova-floating-dock.mobile-dock-hidden {
+    display: none !important;
   }
 
   /* Hide social icons inside the pill on mobile so ONLY the clean vertical "GET 20% OFF" badge is shown */
@@ -732,11 +795,14 @@
   }
 
   .inova-dock-badge {
-    font-size: 9px !important;
-    font-weight: 600 !important;
+    writing-mode: vertical-rl !important;
+    text-orientation: upright !important;
+    font-size: 8.5px !important;
+    font-weight: 700 !important;
     letter-spacing: 1.5px !important;
     color: #1a1a1a !important;
     padding: 4px 0 !important;
+    line-height: 1.2 !important;
   }
 
   /* Bottom Content on Mobile */

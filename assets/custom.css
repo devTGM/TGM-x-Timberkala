@@ -1193,13 +1193,123 @@ video.inova-media-element,
   padding: 0 !important;
 }
 
-/* Floating Dock Locked to Viewport Edge Away from Header */
+/* Left Floating Social & Promo Dock - Persistent on Viewport All Over Home Page */
 .inova-floating-dock {
-  position: absolute !important;
+  position: fixed !important;
   left: 24px !important;
   top: 50% !important;
   transform: translateY(-50%) !important;
-  z-index: 25 !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-radius: 40px !important;
+  padding: 20px 10px 18px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 14px !important;
+  z-index: 95 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+  pointer-events: auto !important;
+}
+
+.inova-floating-dock:hover {
+  transform: translateY(-50%) scale(1.02) !important;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+.inova-dock-socials {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+  align-items: center !important;
+}
+
+.inova-dock-icon {
+  color: #1a1a1a !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  transition: all 0.25s ease !important;
+  text-decoration: none !important;
+}
+
+.inova-dock-icon:hover {
+  color: #d4af37 !important;
+  background-color: rgba(212, 175, 55, 0.1) !important;
+  transform: scale(1.15) !important;
+}
+
+.inova-dock-divider {
+  width: 18px !important;
+  height: 1px !important;
+  background: rgba(0, 0, 0, 0.12) !important;
+  margin: 2px 0 !important;
+}
+
+.inova-dock-badge {
+  writing-mode: vertical-rl !important;
+  text-orientation: upright !important;
+  font-family: 'Jost', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  color: #1a1a1a !important;
+  text-decoration: none !important;
+  padding: 6px 0 !important;
+  white-space: nowrap !important;
+  transition: color 0.25s ease !important;
+  line-height: 1.3 !important;
+}
+
+.inova-dock-badge:hover {
+  color: #d4af37 !important;
+}
+
+@media (max-width: 767px) {
+  .inova-floating-dock {
+    position: fixed !important;
+    left: 12px !important;
+    bottom: 80px !important;
+    top: auto !important;
+    transform: none !important;
+    padding: 12px 6px !important;
+    border-radius: 28px !important;
+    gap: 0 !important;
+    z-index: 95 !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .inova-floating-dock:hover {
+    transform: none !important;
+  }
+
+  .inova-floating-dock.mobile-dock-hidden {
+    display: none !important;
+  }
+
+  .inova-dock-socials,
+  .inova-dock-divider {
+    display: none !important;
+  }
+
+  .inova-dock-badge {
+    writing-mode: vertical-rl !important;
+    text-orientation: upright !important;
+    font-size: 8.5px !important;
+    font-weight: 700 !important;
+    letter-spacing: 1.5px !important;
+    color: #1a1a1a !important;
+    padding: 4px 0 !important;
+    line-height: 1.2 !important;
+  }
 }
 
 /* Responsive Overrides for Inova Header */
