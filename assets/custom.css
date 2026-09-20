@@ -1555,6 +1555,11 @@ body {
     margin: 0 auto !important;
   }
 
+  .wt-header--inline .wt-header__body--inline .wt-header__logo__img--mobile,
+  .wt-header--inline .wt-header__body--inline .wt-header__logo__img.wt-header__logo__img--mobile {
+    display: none !important;
+  }
+
   /* Column 3 (Right): Actions (Search, Account, Cart) */
   .wt-header--inline .wt-header__body--inline .wt-header__col--right {
     grid-column: 3 !important;
@@ -1652,14 +1657,17 @@ body {
     justify-content: center !important;
   }
 
-  .wt-header--inline .wt-header__logo__img--mobile,
-  .wt-header--inline .wt-header__logo__img {
+  .wt-header--inline .wt-header__logo__img--mobile {
     display: block !important;
     max-height: 38px !important;
     width: auto !important;
     max-width: 110px !important;
     object-fit: contain !important;
     margin: 0 auto !important;
+  }
+
+  .wt-header--inline .wt-header__logo__img:not(.wt-header__logo__img--mobile) {
+    display: none !important;
   }
 
   .wt-header--inline .wt-header__col--center {
