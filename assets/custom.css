@@ -777,7 +777,7 @@ h1, h2, h3, h4, .wt-title, .section-heading {
   text-transform: uppercase !important;
   letter-spacing: -0.01em !important;
   font-weight: 500 !important;
-  color: #1a1a1a !important;
+  color: inherit;
 }
 
 .section-eyebrow, .inova-eyebrow {
@@ -890,7 +890,7 @@ h1, h2, h3, h4, .wt-title, .section-heading {
   font-weight: 400 !important;
   letter-spacing: 0.5px !important;
   text-transform: uppercase !important;
-  color: #1a1a1a !important;
+  color: inherit;
   margin-top: 10px !important;
 }
 

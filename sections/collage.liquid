@@ -19,7 +19,8 @@
 
   [data-section-id="{{ section.id }}"] .headline__title {
     {% if text_rgb != 'rgba(0, 0, 0, 0.0)' %}
-      --color-custom-text: {{ section.settings.color-body-text }};
+      --color-custom-text: {{ section.settings['color-body-text'] }};
+      color: {{ section.settings['color-body-text'] }} !important;
     {% endif %}
   }
 

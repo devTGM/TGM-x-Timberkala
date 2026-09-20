@@ -4,30 +4,58 @@
 {% assign text_rgb = section.settings['color-body-text'] | color_to_rgb %}
 
 <style>
-  [data-section-id="{{ section.id }}"]
-  {
+  [data-section-id="{{ section.id }}"] {
+    {% if background_rgb != 'rgba(0, 0, 0, 0.0)' %}
+      --color-background: {{ section.settings.background_color }};
+      background-color: {{ section.settings.background_color }};
+    {% endif %}
 
-  {% if background_rgb != 'rgba(0, 0, 0, 0.0)' %}
-    --color-background: {{ section.settings.background_color }};
-  {% endif %}
+    {% if section.settings.margin-top %}
+      --section-gap-top: {{ section.settings.margin-top }}px;
+    {% endif %}
 
-  {% if section.settings.margin-top %}
-  --section-gap-top: {{ section.settings.margin-top }}px;
-  {% endif %}
+    {% if section.settings.margin-bottom %}
+      --section-gap-bottom: {{ section.settings.margin-bottom }}px;
+    {% endif %}
 
-  {% if section.settings.margin-bottom %}
-  --section-gap-bottom: {{ section.settings.margin-bottom }}px;
-  {% endif %}
-
+    {% if text_rgb != 'rgba(0, 0, 0, 0.0)' %}
+      --color-custom-text: {{ section.settings['color-body-text'] }};
+      --color-price: {{ section.settings['color-body-text'] }};
+      --color-brand: {{ section.settings['color-body-text'] }};
+      color: {{ section.settings['color-body-text'] }};
+    {% endif %}
   }
 
-  [data-section-id="{{ section.id }}"]
-  {
-      {% if text_rgb != 'rgba(0, 0, 0, 0.0)' %}
-          --color-custom-text: {{ section.settings.color-body-text }};
-          --color-price: {{ section.settings.color-body-text }};
-          --color-brand: {{ section.settings.color-body-text }};
-      {% endif %}
+  [data-section-id="{{ section.id }}"] .headline__title {
+    {% if text_rgb != 'rgba(0, 0, 0, 0.0)' %}
+      color: {{ section.settings['color-body-text'] }} !important;
+    {% endif %}
+  }
+
+  [data-section-id="{{ section.id }}"] .card__title,
+  [data-section-id="{{ section.id }}"] .card__subtitle,
+  [data-section-id="{{ section.id }}"] .card__price,
+  [data-section-id="{{ section.id }}"] .price,
+  [data-section-id="{{ section.id }}"] .price-item,
+  [data-section-id="{{ section.id }}"] .wt-featured-collection__subheading {
+    {% if text_rgb != 'rgba(0, 0, 0, 0.0)' %}
+      color: {{ section.settings['color-body-text'] }} !important;
+    {% endif %}
+  }
+
+  [data-section-id="{{ section.id }}"] .wt-featured-collection__button-container .hero__button--primary {
+    {% if text_rgb != 'rgba(0, 0, 0, 0.0)' %}
+      border: 1px solid {{ section.settings['color-body-text'] }};
+      color: {{ section.settings['color-body-text'] }};
+      background: transparent;
+    {% endif %}
+  }
+
+  [data-section-id="{{ section.id }}"] .wt-featured-collection__button-container .hero__button--primary:hover {
+    {% if text_rgb != 'rgba(0, 0, 0, 0.0)' %}
+      background: {{ section.settings['color-body-text'] }};
+      color: {{ section.settings.background_color | default: '#1a1a1a' }};
+    {% endif %}
   }
 </style>
 {% if section.settings.enable_quick_add_button %}
