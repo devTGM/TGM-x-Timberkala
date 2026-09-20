@@ -2608,6 +2608,11 @@ body.template-collection .tk-subcollection-nav__sep {
    ANNOUNCEMENT BAR — SMOOTH SCROLL HIDE/SHOW
    ============================================================ */
 
+/* Hide announcement bar on homepage only */
+body.template-index #shopify-section-announcement-bar {
+  display: none !important;
+}
+
 #shopify-section-announcement-bar,
 .wt-announcement {
   transition: transform 0.35s ease, opacity 0.35s ease !important;
