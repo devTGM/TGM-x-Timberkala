@@ -44,8 +44,9 @@
         "category_card_PEFFXN": {
           "type": "category_card",
           "settings": {
-            "collection": "",
-            "title": "ACCESSORIES",
+            "collection": "wall-accents",
+            "image": "shopify://shop_images/117.webp",
+            "title": "Wall Decor",
             "subtitle": "Touches that add character!",
             "button_link": ""
           }
@@ -61,8 +62,8 @@
       "settings": {
         "heading": "LOVE WHERE YOU LIVE",
         "squiggle_color": "#889867",
-        "button_label": "VIEW ALL COLLECTIONS",
-        "button_link": "",
+        "button_label": "SHOP ALL COLLECTIONS",
+        "button_link": "shopify://collections/all",
         "background_color": "#ffffff",
         "padding_top": 50,
         "padding_bottom": 60
