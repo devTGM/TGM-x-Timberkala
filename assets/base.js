@@ -418,18 +418,36 @@ class MegaMenuSection extends HTMLElement {
 
         item.classList.remove(leftSubmenuClass);
 
+        item.querySelectorAll(".submenu-opened").forEach((sub) => {
+          sub.classList.remove("submenu-opened");
+        });
+
         toggleSubmenuDesk(item);
       });
     });
 
-    // Level 2 Submenu Parents (Wall Decor, etc.)
+    // Level 2 Submenu Parents (Wall Decor, Table Decor, Figurines, etc.)
     if (submenuParents) {
       submenuParents.forEach((parent) => {
+        let leaveTimer;
         parent.addEventListener("mouseenter", () => {
+          clearTimeout(leaveTimer);
+          if (parent.parentElement) {
+            parent.parentElement
+              .querySelectorAll(".wt-page-nav-mega__sublist--parent")
+              .forEach((sibling) => {
+                if (sibling !== parent) {
+                  sibling.classList.remove("submenu-opened");
+                }
+              });
+          }
           parent.classList.add("submenu-opened");
         });
+
         parent.addEventListener("mouseleave", () => {
-          parent.classList.remove("submenu-opened");
+          leaveTimer = setTimeout(() => {
+            parent.classList.remove("submenu-opened");
+          }, 180);
         });
       });
     }

@@ -59,10 +59,10 @@
                   class="wt-page-nav-mega__sublist__item wt-page-nav-mega__sublist__item--child wt-page-nav-mega__sublist--parent"
                 >
                   <a
-                    href="{{ link.url }}"
+                    href="{{ childlink.url }}"
                     data-menu-level="2"
                     tabindex="-1"
-                    class="wt-page-nav-mega__sublist__link wt-page-nav-mega__sublist__link--parent {% if link.current %} wt-page-nav-mega__sublist__link--active{% endif %}"
+                    class="wt-page-nav-mega__sublist__link wt-page-nav-mega__sublist__link--parent {% if childlink.current %} wt-page-nav-mega__sublist__link--active{% endif %}"
                   >
                     <span class="wt-page-nav-mega__decorated">{{ childlink.title | escape }} </span>
                     {% render 'icons', id: 'plus' %}
