@@ -372,19 +372,51 @@ class MegaMenuSection extends HTMLElement {
           e.preventDefault();
           this.toggleSubmenuMob(link);
         } else {
+          // On desktop, if the arrow icon specifically is clicked, toggle the flyout
+          const isArrowClick = e.target.closest(".svg-icon--arrow-right") || e.target.closest(".svg-icon--plus");
           const parentLi = link.closest(".wt-page-nav-mega__sublist--parent");
-          if (parentLi && parentLi.querySelector(".wt-page-nav-mega__sublist--nested")) {
+          if (isArrowClick && parentLi && parentLi.querySelector(".wt-page-nav-mega__sublist--nested")) {
             e.preventDefault();
+            e.stopPropagation();
             const isOpen = parentLi.classList.contains("submenu-opened");
             if (parentLi.parentElement) {
               parentLi.parentElement
                 .querySelectorAll(".wt-page-nav-mega__sublist--parent")
                 .forEach((sibling) => {
-                  if (sibling !== parentLi) sibling.classList.remove("submenu-opened");
+                  if (sibling !== parentLi) {
+                    sibling.classList.remove("submenu-opened");
+                    const sibNested = sibling.querySelector(".wt-page-nav-mega__sublist--nested");
+                    if (sibNested) {
+                      sibNested.style.removeProperty("display");
+                      sibNested.style.removeProperty("opacity");
+                      sibNested.style.removeProperty("visibility");
+                      sibNested.style.removeProperty("pointer-events");
+                      sibNested.style.removeProperty("transform");
+                    }
+                  }
                 });
             }
-            parentLi.classList.toggle("submenu-opened", !isOpen);
+            const makeOpen = !isOpen;
+            parentLi.classList.toggle("submenu-opened", makeOpen);
+            const nested = parentLi.querySelector(".wt-page-nav-mega__sublist--nested");
+            if (nested) {
+              if (makeOpen) {
+                nested.style.setProperty("display", "flex", "important");
+                nested.style.setProperty("opacity", "1", "important");
+                nested.style.setProperty("visibility", "visible", "important");
+                nested.style.setProperty("pointer-events", "auto", "important");
+                nested.style.setProperty("transform", "translateX(0)", "important");
+              } else {
+                nested.style.removeProperty("display");
+                nested.style.removeProperty("opacity");
+                nested.style.removeProperty("visibility");
+                nested.style.removeProperty("pointer-events");
+                nested.style.removeProperty("transform");
+              }
+            }
           }
+          // When the category link itself (e.g. Table Decor) is clicked on desktop,
+          // allow standard browser navigation to link.href so the link is fully clickable!
         }
       });
     });
@@ -410,6 +442,21 @@ class MegaMenuSection extends HTMLElement {
       addEventListeners(item, ["mouseover", "focusin"], (e) => {
         document.body.classList.add(classBodyActiveDesk);
         item.classList.add(classParentActiveDesk);
+
+        // Ensure wrapper and sublist have unconstrained height and visible overflow
+        const wrappers = item.querySelectorAll(".wt-page-nav-mega__sublist__wrapper");
+        wrappers.forEach((wrapper) => {
+          wrapper.style.setProperty("overflow", "visible", "important");
+          wrapper.style.setProperty("max-height", "none", "important");
+          wrapper.style.setProperty("height", "auto", "important");
+        });
+        const sublists = item.querySelectorAll(".wt-page-nav-mega__sublist");
+        sublists.forEach((sublist) => {
+          sublist.style.setProperty("overflow", "visible", "important");
+          sublist.style.setProperty("max-height", "none", "important");
+          sublist.style.setProperty("height", "auto", "important");
+        });
+
         const xCoords = item.getBoundingClientRect().x;
         const windowWidth = window.innerWidth;
         const isElementInSecondHalfOfWindow = xCoords > windowWidth / 2;
@@ -435,16 +482,23 @@ class MegaMenuSection extends HTMLElement {
         item.querySelectorAll(".submenu-opened").forEach((sub) => {
           sub.classList.remove("submenu-opened");
         });
+        item.querySelectorAll(".wt-page-nav-mega__sublist--nested").forEach((nested) => {
+          nested.style.removeProperty("display");
+          nested.style.removeProperty("opacity");
+          nested.style.removeProperty("visibility");
+          nested.style.removeProperty("pointer-events");
+          nested.style.removeProperty("transform");
+        });
 
         toggleSubmenuDesk(item);
       });
     });
 
-    // Level 2 Submenu Parents (Wall Decor, Table Decor, Figurines, etc.)
+    // Level 2 Submenu Parents (Wall Decor, Table Decor, Figurines, Furniture, Hangings)
     if (submenuParents) {
       submenuParents.forEach((parent) => {
         let leaveTimer;
-        parent.addEventListener("mouseenter", () => {
+        const showFlyout = () => {
           clearTimeout(leaveTimer);
           if (parent.parentElement) {
             parent.parentElement
@@ -452,17 +506,71 @@ class MegaMenuSection extends HTMLElement {
               .forEach((sibling) => {
                 if (sibling !== parent) {
                   sibling.classList.remove("submenu-opened");
+                  const sibNested = sibling.querySelector(".wt-page-nav-mega__sublist--nested");
+                  if (sibNested) {
+                    sibNested.style.removeProperty("display");
+                    sibNested.style.removeProperty("opacity");
+                    sibNested.style.removeProperty("visibility");
+                    sibNested.style.removeProperty("pointer-events");
+                    sibNested.style.removeProperty("transform");
+                  }
                 }
               });
           }
           parent.classList.add("submenu-opened");
-        });
 
-        parent.addEventListener("mouseleave", () => {
+          // Ensure container does not clip
+          const wrapper = parent.closest(".wt-page-nav-mega__sublist__wrapper");
+          if (wrapper) {
+            wrapper.style.setProperty("overflow", "visible", "important");
+            wrapper.style.setProperty("max-height", "none", "important");
+            wrapper.style.setProperty("height", "auto", "important");
+          }
+          const sublist = parent.closest(".wt-page-nav-mega__sublist");
+          if (sublist) {
+            sublist.style.setProperty("overflow", "visible", "important");
+            sublist.style.setProperty("max-height", "none", "important");
+            sublist.style.setProperty("height", "auto", "important");
+          }
+
+          // Force nested flyout to appear
+          const nested = parent.querySelector(".wt-page-nav-mega__sublist--nested");
+          if (nested) {
+            nested.style.setProperty("display", "flex", "important");
+            nested.style.setProperty("opacity", "1", "important");
+            nested.style.setProperty("visibility", "visible", "important");
+            nested.style.setProperty("pointer-events", "auto", "important");
+            nested.style.setProperty("transform", "translateX(0)", "important");
+            nested.style.setProperty("position", "absolute", "important");
+            nested.style.setProperty("left", "100%", "important");
+            nested.style.setProperty("top", "-8px", "important");
+            nested.style.setProperty("z-index", "10005", "important");
+            nested.style.setProperty("background-color", "#ffffff", "important");
+          }
+        };
+
+        const hideFlyout = () => {
           leaveTimer = setTimeout(() => {
             parent.classList.remove("submenu-opened");
+            const nested = parent.querySelector(".wt-page-nav-mega__sublist--nested");
+            if (nested) {
+              nested.style.removeProperty("display");
+              nested.style.removeProperty("opacity");
+              nested.style.removeProperty("visibility");
+              nested.style.removeProperty("pointer-events");
+              nested.style.removeProperty("transform");
+            }
           }, 250);
-        });
+        };
+
+        parent.addEventListener("mouseenter", showFlyout);
+        parent.addEventListener("mouseleave", hideFlyout);
+
+        const nestedFlyout = parent.querySelector(".wt-page-nav-mega__sublist--nested");
+        if (nestedFlyout) {
+          nestedFlyout.addEventListener("mouseenter", () => clearTimeout(leaveTimer));
+          nestedFlyout.addEventListener("mouseleave", hideFlyout);
+        }
       });
     }
   }
