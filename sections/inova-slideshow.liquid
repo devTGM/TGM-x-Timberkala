@@ -8,7 +8,24 @@
   - Bottom-left slide indicator dots (○ • •) matching mobile preview
 {%- endcomment -%}
 
-{%- if template.name == 'index' or section.settings.show_on_all_pages -%}
+{%- unless template.name == 'index' -%}
+  <style>
+    #shopify-section-{{ section.id }},
+    .inova-slideshow-section,
+    .shopify-section:has(.inova-slideshow-wrapper) {
+      display: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+  </style>
+{%- endunless -%}
+
+{%- if template.name == 'index' -%}
 <div
   id="inova-slideshow-{{ section.id }}"
   class="inova-slideshow-wrapper desktop-height--{{ section.settings.desktop_height_mode | default: 'banner_ratio' }} mobile-height--{{ section.settings.mobile_height_mode | default: 'banner_ratio' }}"
@@ -255,8 +272,8 @@
 /* ==========================================================================
    CONCEPT (INOVA) FULLSCREEN SLIDESHOW
    ========================================================================== */
-.inova-slideshow-section,
-.hero-section {
+body.template-index .inova-slideshow-section,
+body.template-index .hero-section {
   position: -webkit-sticky !important;
   position: sticky !important;
   top: 0 !important;
@@ -268,9 +285,14 @@
   padding-bottom: 0 !important;
 }
 
+body.template-index .inova-slideshow-section.hero-scrolled,
+body.template-index .hero-section.hero-scrolled,
 .inova-slideshow-section.hero-scrolled,
 .hero-section.hero-scrolled {
-  position: static !important;
+  position: relative !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .inova-slideshow-wrapper {
@@ -1043,13 +1065,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Toggle hero-scrolled when fully covered by the rising white sheet (#root)
         var nextSection = document.getElementById('root') || document.querySelector('main[role="main"]');
+        var isCovered = false;
         if (nextSection) {
           var bounding = nextSection.getBoundingClientRect();
-          heroSection.classList.toggle('hero-scrolled', bounding.top < -30);
-        } else if (scrollY >= heroHeight) {
+          isCovered = (bounding.top <= 0) || (scrollY >= heroHeight);
+        } else {
+          isCovered = scrollY >= heroHeight;
+        }
+
+        if (isCovered) {
           heroSection.classList.add('hero-scrolled');
+          heroSection.style.visibility = 'hidden';
+          heroSection.style.pointerEvents = 'none';
         } else {
           heroSection.classList.remove('hero-scrolled');
+          heroSection.style.visibility = 'visible';
+          heroSection.style.pointerEvents = '';
         }
 
         // Parallax translate & smooth fade on watermark

@@ -1658,10 +1658,26 @@ video.inova-media-element,
    The collage continues scrolling up smoothly beneath the sticky header.
    ========================================================================= */
 
-/* Pinned Hero Slideshow */
-.inova-slideshow-section,
-.shopify-section:has(.inova-slideshow-wrapper),
-.hero-section {
+/* Hero Slideshow is strictly Homepage ONLY */
+body:not(.template-index) .inova-slideshow-section,
+body:not(.template-index) .shopify-section:has(.inova-slideshow-wrapper),
+body:not(.template-index) [id*="inova-slideshow"],
+body:not(.template-index) [id*="slideshow"].shopify-section-group-header-group,
+body:not(.template-index) .hero-section {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Pinned Hero Slideshow (Homepage Only) */
+body.template-index .inova-slideshow-section,
+body.template-index .shopify-section:has(.inova-slideshow-wrapper),
+body.template-index .hero-section {
   position: -webkit-sticky !important;
   position: sticky !important;
   top: 0 !important;
@@ -1673,9 +1689,16 @@ video.inova-media-element,
   padding-bottom: 0 !important;
 }
 
+body.template-index .inova-slideshow-section.hero-scrolled,
+body.template-index .shopify-section:has(.inova-slideshow-wrapper).hero-scrolled,
+body.template-index .hero-section.hero-scrolled,
 .inova-slideshow-section.hero-scrolled,
+.shopify-section:has(.inova-slideshow-wrapper).hero-scrolled,
 .hero-section.hero-scrolled {
-  position: static !important;
+  position: relative !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* Sticky Header Section Container */
@@ -1771,6 +1794,22 @@ main[role="main"],
   margin-top: 0 !important;
   padding-top: 0 !important;
   border-top: none !important;
+  min-height: 80vh !important;
+}
+
+/* Footer Group - Solid background and high stacking context */
+.shopify-section-group-footer-group,
+.shopify-section-group-footer-group > .shopify-section,
+.inova-footer,
+#shopify-section-sections--27677581574449__custom_liquid_gem8Nb,
+[id*="__custom_liquid_gem8Nb"],
+[id*="__footer"] {
+  position: relative !important;
+  z-index: 50 !important;
+  background-color: #1a1a1a !important;
+  width: 100% !important;
+  display: block !important;
+  margin-bottom: 0 !important;
 }
 
 #root > .shopify-section:first-child,

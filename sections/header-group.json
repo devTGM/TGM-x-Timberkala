@@ -78,7 +78,7 @@
         "dock_discount_url": "",
         "autoplay": true,
         "autoplay_speed": 5,
-        "show_on_all_pages": true,
+        "show_on_all_pages": false,
         "desktop_height_mode": "fullscreen",
         "desktop_height": 600,
         "mobile_height_mode": "banner_ratio",
