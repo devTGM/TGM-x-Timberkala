@@ -936,23 +936,7 @@ video.inova-media-element,
    ========================================================================= */
 .wt-header--inova {
   background: var(--header-bg-color, #ffffff) !important;
-  border-top-left-radius: 28px !important;
-  border-top-right-radius: 28px !important;
-  margin-top: -30px !important;
-  position: relative !important;
-  z-index: 50 !important;
-  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.05) !important;
-  transition: border-radius 0.25s ease, margin-top 0.25s ease, box-shadow 0.25s ease !important;
   width: 100% !important;
-}
-
-.wt-header--inova.is-sticky,
-.wt-header--inova[data-stuck="true"] {
-  border-radius: 0 !important;
-  margin-top: 0 !important;
-  position: sticky !important;
-  top: 0 !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
 }
 
 .wt-header__body--inova {
@@ -1286,16 +1270,23 @@ video.inova-media-element,
 }
 
 /* =========================================================================
-   CONCEPT (INOVA) SEAMLESS HEADER & BENTO COLLAGE UNIFIED CURTAIN
-   Eliminates all gaps between Header and Collage Section.
-   Both move as one contiguous white surface with no banner peeking through.
+   CONCEPT (INOVA) SIGNATURE STICKY HERO & CURTAIN OVERLAY
+   The slideshow hero is pinned at top: 0 (z-index: 1).
+   The Header (z-index: 100) and Bento Collage (#root, z-index: 20)
+   form ONE continuous white surface with 28px rounded top corners,
+   sliding UP over the pinned slideshow as an overlay bottom sheet.
+   When Header hits top: 0, it pins (sticky) and corners flatten to 0.
+   The collage continues scrolling up smoothly beneath the sticky header.
    ========================================================================= */
 
-/* Normal-flow Hero Slideshow (Prevents banner peeking beneath sticky header) */
+/* Pinned Hero Slideshow */
 .inova-slideshow-section,
 .shopify-section:has(.inova-slideshow-wrapper),
 .hero-section {
-  position: relative !important;
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  inset-block-start: 0 !important;
   display: block !important;
   width: 100% !important;
   z-index: 1 !important;
@@ -1303,23 +1294,34 @@ video.inova-media-element,
   padding-bottom: 0 !important;
 }
 
-/* Header Section Wrapper */
+.inova-slideshow-section.hero-scrolled,
+.hero-section.hero-scrolled {
+  position: static !important;
+}
+
+/* Sticky Header Section Container */
 #shopify-section-header,
 [id*="__header"],
-.page-header {
+.page-header,
+.header-section {
   position: -webkit-sticky !important;
   position: sticky !important;
   top: 0 !important;
   inset-block-start: 0 !important;
   z-index: 100 !important;
   background-color: #ffffff !important;
+  border-top-left-radius: 28px !important;
+  border-top-right-radius: 28px !important;
   margin-top: 0 !important;
   margin-bottom: 0 !important;
-  padding-bottom: 0 !important;
+  padding: 0 !important;
   border-bottom: none !important;
+  box-shadow: none !important;
+  transition: border-radius 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.28s ease !important;
 }
 
-/* Inova Header Styling & Smooth Corner Morphing */
+/* Inova Header Element */
 .wt-header--inova {
   position: relative !important;
   z-index: 100 !important;
@@ -1328,7 +1330,7 @@ video.inova-media-element,
   border-top-right-radius: 28px !important;
   border-bottom: none !important;
   box-shadow: none !important;
-  margin-top: -24px !important;
+  margin-top: 0 !important;
   margin-bottom: 0 !important;
   padding-bottom: 8px !important;
   width: 100% !important;
@@ -1336,9 +1338,16 @@ video.inova-media-element,
               box-shadow 0.28s ease !important;
 }
 
-/* When header reaches top: 0, corners flatten and subtle elevation shadow appears */
+/* When header reaches top: 0, corners flatten to 0 and subtle elevation shadow appears */
+#shopify-section-header.is-stuck,
+#shopify-section-header.header-scrolled,
+[id*="__header"].is-stuck,
+[id*="__header"].header-scrolled,
+.header-section.header-scrolled,
 .wt-header--inova.is-stuck,
 .wt-header--inova.header-scrolled,
+body:not(.template-index) #shopify-section-header,
+body:not(.template-index) [id*="__header"],
 body:not(.template-index) .wt-header--inova {
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
@@ -1368,6 +1377,7 @@ main[role="main"],
 }
 
 /* Suppress empty intermediate sections that could introduce vertical gaps */
+.shopify-section:empty,
 [id*="__announcement-bar"]:empty,
 [id*="__1758544800fa775e6e"]:empty,
 .wt-apps:empty {
