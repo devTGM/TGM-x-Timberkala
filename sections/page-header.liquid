@@ -15,7 +15,7 @@
     --header-max-width: {{ section.settings.header_max_width | default: '1440px' }};
     --header-bg-color: {{ section.settings.header_bg_color | default: '#ffffff' }};
     --header-text-color: {{ section.settings.header_text_color | default: '#1a1a1a' }};
-    --menu-hover-color: {{ section.settings.menu_hover_color | default: '#d4af37' }};
+    --menu-hover-color: {{ section.settings.menu_hover_color | default: '#7b5454' }};
     --header-border-color: {{ section.settings.border_color | default: '#e8e5df' }};
     --menu-font-size: {{ section.settings.menu_font_size | default: 14 }}px;
     --menu-item-spacing: {{ section.settings.menu_item_spacing | default: 26 }}px;
@@ -296,11 +296,18 @@
     height: auto !important;
   }
 
+  .wt-page-nav-mega--inline .wt-page-nav-mega__link__text,
+  .wt-page-nav-mega--inline .wt-page-nav-mega__link__text--underline {
+    background-image: none !important;
+    text-decoration: none !important;
+    border-bottom: none !important;
+  }
+
   .wt-page-nav-mega--inline .wt-page-nav-mega__link:hover,
   .wt-page-nav-mega--inline .wt-page-nav-mega__link--active,
   .wt-page-nav-mega--inline .wt-page-nav-mega__item:hover > .wt-page-nav-mega__link,
   .wt-page-nav-mega--inline .wt-page-nav-mega__item.dropdown-opened > .wt-page-nav-mega__link {
-    color: var(--menu-hover-color, #d4af37) !important;
+    color: var(--menu-hover-color, #7b5454) !important;
   }
 
   .wt-page-nav-mega--inline .wt-page-nav-mega__link__text {
@@ -316,7 +323,7 @@
     left: 0 !important;
     right: 0 !important;
     height: 2px !important;
-    background: var(--menu-hover-color, #d4af37) !important;
+    background: var(--menu-hover-color, #7b5454) !important;
     transform: scaleX(0) !important;
     transform-origin: center !important;
     transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
@@ -424,6 +431,13 @@
       list-style: none !important;
     }
 
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist .wt-page-nav-mega__decorated,
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist__link .wt-page-nav-mega__decorated {
+      background-image: none !important;
+      text-decoration: none !important;
+      border-bottom: none !important;
+    }
+
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist__link {
       display: flex !important;
       align-items: center !important;
@@ -443,8 +457,9 @@
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist__link:hover,
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist--parent:hover > .wt-page-nav-mega__sublist__link,
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist--parent.submenu-opened > .wt-page-nav-mega__sublist__link {
-      background-color: #faf8f5 !important;
-      color: var(--menu-hover-color, #d4af37) !important;
+      background-color: #f5f2eb !important;
+      color: var(--menu-hover-color, #7b5454) !important;
+      font-weight: 600 !important;
       padding-left: 24px !important;
     }
 
@@ -458,15 +473,16 @@
       width: 10px !important;
       height: 10px !important;
       margin-left: 14px !important;
-      opacity: 0.65 !important;
-      transition: transform 0.2s ease, opacity 0.2s ease !important;
+      opacity: 0.75 !important;
+      color: #1a1a1a !important;
+      transition: transform 0.2s ease, opacity 0.2s ease, color 0.2s ease !important;
     }
 
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist--parent:hover > .wt-page-nav-mega__sublist__link .svg-icon--arrow-right,
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist--parent.submenu-opened > .wt-page-nav-mega__sublist__link .svg-icon--arrow-right {
       transform: translateX(3px) !important;
       opacity: 1 !important;
-      color: var(--menu-hover-color, #d4af37) !important;
+      color: var(--menu-hover-color, #7b5454) !important;
     }
 
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist--nested,
@@ -562,7 +578,7 @@
     body:not(.mobile-nav) .wt-page-nav-mega__sublist--nested .wt-page-nav-mega__sublist__link {
       display: block !important;
       padding: 9px 20px !important;
-      color: #222222 !important;
+      color: #1a1a1a !important;
       font-size: 13px !important;
       font-weight: 500 !important;
       letter-spacing: 0.6px !important;
@@ -575,8 +591,9 @@
 
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist--nested .wt-page-nav-mega__sublist__link:hover,
     body:not(.mobile-nav) .wt-page-nav-mega__sublist--nested .wt-page-nav-mega__sublist__link:hover {
-      background-color: #faf8f5 !important;
-      color: var(--menu-hover-color, #d4af37) !important;
+      background-color: #f5f2eb !important;
+      color: var(--menu-hover-color, #7b5454) !important;
+      font-weight: 600 !important;
       padding-left: 24px !important;
     }
 
@@ -638,7 +655,7 @@
 
   .wt-header__col--right .wt-header__search-trigger:hover,
   .wt-header__col--right .wt-header__panel__link:hover {
-    color: var(--menu-hover-color, #d4af37) !important;
+    color: var(--menu-hover-color, #7b5454) !important;
     transform: translateY(-1px) !important;
   }
 
@@ -683,9 +700,9 @@
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background: #000000 !important;
-    color: #d4af37 !important;
-    border: 1px solid #d4af37 !important;
+    background: #7b5454 !important;
+    color: #ffffff !important;
+    border: 1px solid #7b5454 !important;
     border-radius: 50% !important;
     font-size: 10px !important;
     font-weight: 700 !important;
@@ -1659,7 +1676,7 @@
       "type": "color",
       "id": "menu_hover_color",
       "label": "Menu Hover & Accent Color",
-      "default": "#d4af37"
+      "default": "#7b5454"
     },
     {
       "type": "header",
