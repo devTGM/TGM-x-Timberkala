@@ -74,12 +74,16 @@ class PageHeaderSection extends HTMLElement {
         calculateNavbarTopMargin();
       },
       hide: () => {
-        if (this.header) this.header.classList.remove(this.showClass);
-        stickyHeader.visible = false;
+        // Concept Inova: Header remains permanently visible and sticky; never hide on scroll
+        if (this.header) this.header.classList.add(this.showClass);
+        stickyHeader.visible = true;
         stickyHeader.handleBehavior();
       },
       enable: () => {
-        if (this.header) this.header.classList.add(this.enabledClass);
+        if (this.header) {
+          this.header.classList.add(this.enabledClass);
+          this.header.classList.add(this.showClass);
+        }
         stickyHeader.enabled = true;
         stickyHeader.handleBehavior();
       },
@@ -113,11 +117,18 @@ class PageHeaderSection extends HTMLElement {
 
     // Save the scroll handler for later removal
     this.scrollHandler = () => {
+      stickyHeader.show();
       const currentScrollPos = window.pageYOffset;
-      if (prevScrollpos > currentScrollPos) {
-        stickyHeader.show();
-      } else {
-        stickyHeader.hide();
+      const target = this.header || document.querySelector('.page-header, #shopify-section-header, [id*="__header"]');
+      if (target) {
+        const rect = target.getBoundingClientRect();
+        if (rect.top <= 1) {
+          target.classList.add('is-stuck', 'header-scrolled');
+          if (this.header) this.header.classList.add('is-stuck', 'header-scrolled');
+        } else {
+          target.classList.remove('is-stuck', 'header-scrolled');
+          if (this.header) this.header.classList.remove('is-stuck', 'header-scrolled');
+        }
       }
       prevScrollpos = currentScrollPos;
     };

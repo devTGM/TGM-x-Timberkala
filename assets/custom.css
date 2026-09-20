@@ -1416,3 +1416,69 @@ main[role="main"],
   margin: 0 !important;
   padding: 0 !important;
 }
+
+/* Ensure global viewport is the primary scrolling container so position: sticky behaves reliably */
+html {
+  overflow-x: clip !important;
+  height: auto !important;
+}
+body {
+  overflow-x: clip !important;
+  overflow-y: visible !important;
+  height: auto !important;
+  min-height: 100vh !important;
+}
+
+/* Center Logo & Nav Left for Inova Header */
+@media (min-width: 990px) {
+  .wt-header--inline .wt-header__body--inline {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+  .wt-header--inline .wt-header__body--inline .wt-header__col--left {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 10 !important;
+  }
+  .wt-header--inline .wt-header__body--inline .wt-header__col--center {
+    order: 1 !important;
+    flex: 1 1 auto !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    margin: 0 !important;
+    padding-right: 220px !important;
+  }
+  .wt-header--inline .wt-header__body--inline .wt-header__col--right {
+    order: 3 !important;
+    flex: 0 0 auto !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+  }
+}
+
+@media (max-width: 989px) {
+  .wt-header--inline .wt-header__body--inline {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+  }
+  .wt-header--inline .wt-header__body--inline .wt-header__logo {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+  }
+}
+

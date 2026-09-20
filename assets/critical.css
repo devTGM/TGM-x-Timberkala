@@ -1350,7 +1350,10 @@ page-header {
   z-index: 10;
 }
 .page-header-sticky .page-header.sticky-enabled {
-  transform: translateY(-100%);
+  transform: none !important;
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
 }
 @media (max-width: 899px) {
   .page-header-sticky .page-header.sticky-enabled .wt-header--v1 .wt-header__aside {
