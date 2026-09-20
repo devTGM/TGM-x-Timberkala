@@ -1539,17 +1539,18 @@ body {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    height: 60px !important;
-    max-height: 64px !important;
+    height: auto !important;
+    min-height: var(--logo-max-height-desk, 85px) !important;
     width: auto !important;
     margin: 0 !important;
   }
 
   .wt-header--inline .wt-header__body--inline .wt-header__logo__img {
     display: block !important;
-    max-height: 58px !important;
+    height: auto !important;
+    max-height: var(--logo-max-height-desk, 85px) !important;
     width: auto !important;
-    max-width: 170px !important;
+    max-width: var(--logo-width-desk, 240px) !important;
     object-fit: contain !important;
     object-position: center !important;
     margin: 0 auto !important;
@@ -1659,9 +1660,10 @@ body {
 
   .wt-header--inline .wt-header__logo__img--mobile {
     display: block !important;
-    max-height: 44px !important;
+    height: auto !important;
+    max-height: var(--logo-max-height-mob, 50px) !important;
     width: auto !important;
-    max-width: 130px !important;
+    max-width: var(--logo-width-mobile, 160px) !important;
     object-fit: contain !important;
     margin: 0 auto !important;
   }

@@ -5,10 +5,10 @@
 
 {% style %}
   :root {
-    --logo-width: {{ section.settings.mobile_screen_logo_width | default: 140 }}px;
-    --logo-width-mobile: {{ section.settings.mobile_screen_logo_width | default: 140 }}px;
-    --logo-width-desk: {{ section.settings.large_screen_logo_width | default: 220 }}px;
-    --logo-max-height-desk: {{ section.settings.large_screen_logo_max_height | default: 75 }}px;
+    --logo-width: {{ section.settings.mobile_screen_logo_width | default: 160 }}px;
+    --logo-width-mobile: {{ section.settings.mobile_screen_logo_width | default: 160 }}px;
+    --logo-width-desk: {{ section.settings.large_screen_logo_width | default: 240 }}px;
+    --logo-max-height-desk: {{ section.settings.large_screen_logo_max_height | default: 85 }}px;
     --logo-max-height-mob: {{ section.settings.mobile_screen_logo_max_height | default: 50 }}px;
     --header-padding-y-desk: {{ section.settings.header_padding_vertical_desktop | default: 18 }}px;
     --header-padding-y-mob: {{ section.settings.header_padding_vertical_mobile | default: 12 }}px;
@@ -22,6 +22,15 @@
     --menu-font-weight: {{ section.settings.menu_font_weight | default: '500' }};
     --menu-text-transform: {{ section.settings.menu_text_transform | default: 'uppercase' }};
     --menu-letter-spacing: {{ section.settings.menu_letter_spacing | default: 1 }}px;
+  }
+
+  header[id="shopify-section-{{ section.id }}"],
+  .wt-header,
+  .page-header {
+    --logo-width-desk: {{ section.settings.large_screen_logo_width | default: 240 }}px;
+    --logo-max-height-desk: {{ section.settings.large_screen_logo_max_height | default: 85 }}px;
+    --logo-width-mobile: {{ section.settings.mobile_screen_logo_width | default: 160 }}px;
+    --logo-max-height-mob: {{ section.settings.mobile_screen_logo_max_height | default: 50 }}px;
   }
 
   {% if transparent_header_rgb != 'rgba(0, 0, 0, 0.0)' %}
@@ -183,8 +192,8 @@
       align-items: center !important;
       justify-content: center !important;
       width: auto !important;
-      height: 60px !important;
-      max-height: 64px !important;
+      height: auto !important;
+      min-height: var(--logo-max-height-desk, 85px) !important;
       margin: 0 !important;
       text-decoration: none !important;
       color: inherit !important;
@@ -194,8 +203,8 @@
       display: block !important;
       width: auto !important;
       height: auto !important;
-      max-height: 58px !important;
-      max-width: 170px !important;
+      max-height: var(--logo-max-height-desk, 85px) !important;
+      max-width: var(--logo-width-desk, 240px) !important;
       object-fit: contain !important;
       object-position: center !important;
       margin: 0 auto !important;
@@ -542,6 +551,7 @@
       {% if section.settings.show_line_separator %} wt-header--separator{% endif %}
       {% if section.settings.sticky_header %} wt-header--sticky{% endif %}
     "
+    style="--logo-max-height-desk: {{ section.settings.large_screen_logo_max_height | default: 85 }}px; --logo-width-desk: {{ section.settings.large_screen_logo_width | default: 240 }}px; --logo-max-height-mob: {{ section.settings.mobile_screen_logo_max_height | default: 50 }}px; --logo-width-mobile: {{ section.settings.mobile_screen_logo_width | default: 160 }}px;"
   >
     <div class="wt-header__body wt-header__body--inova">
       <!-- LEFT: Mobile Menu Button + Inova Desktop Navigation -->
@@ -821,6 +831,7 @@
       {% if section.settings.show_line_separator %} wt-header--separator{% endif %}
       {% if section.settings.sticky_header %} wt-header--sticky{% endif %}
     "
+    style="--logo-max-height-desk: {{ section.settings.large_screen_logo_max_height | default: 85 }}px; --logo-width-desk: {{ section.settings.large_screen_logo_width | default: 240 }}px; --logo-max-height-mob: {{ section.settings.mobile_screen_logo_max_height | default: 50 }}px; --logo-width-mobile: {{ section.settings.mobile_screen_logo_width | default: 160 }}px;"
   >
     <div class="wt-header__body wt-header__body--inline">
       <!-- LEFT: Mobile Menu Button + Logo -->
@@ -1469,7 +1480,7 @@
     },
     {
       "type": "header",
-      "content": "Brand Logo"
+      "content": "Brand Logo & Sizing Customization"
     },
     {
       "type": "image_picker",
@@ -1478,43 +1489,45 @@
     },
     {
       "type": "range",
-      "id": "large_screen_logo_width",
-      "min": 50,
-      "max": 350,
-      "step": 5,
-      "default": 180,
-      "unit": "px",
-      "label": "Desktop Logo Width"
-    },
-    {
-      "type": "range",
       "id": "large_screen_logo_max_height",
-      "min": 30,
-      "max": 120,
-      "step": 5,
-      "default": 75,
+      "min": 40,
+      "max": 180,
+      "step": 2,
+      "default": 85,
       "unit": "px",
-      "label": "Desktop Logo Max Height"
+      "label": "Desktop Logo Height (Size)",
+      "info": "Drag slider to make the centered logo smaller or larger on desktop"
     },
     {
       "type": "range",
-      "id": "mobile_screen_logo_width",
-      "min": 40,
-      "max": 220,
+      "id": "large_screen_logo_width",
+      "min": 60,
+      "max": 400,
       "step": 5,
-      "default": 140,
+      "default": 240,
       "unit": "px",
-      "label": "Mobile Logo Width"
+      "label": "Desktop Logo Max Width"
     },
     {
       "type": "range",
       "id": "mobile_screen_logo_max_height",
       "min": 20,
-      "max": 80,
+      "max": 100,
       "step": 2,
       "default": 50,
       "unit": "px",
-      "label": "Mobile Logo Max Height"
+      "label": "Mobile Logo Height (Size)",
+      "info": "Drag slider to adjust logo size on mobile screens"
+    },
+    {
+      "type": "range",
+      "id": "mobile_screen_logo_width",
+      "min": 40,
+      "max": 280,
+      "step": 5,
+      "default": 160,
+      "unit": "px",
+      "label": "Mobile Logo Max Width"
     },
     {
       "type": "header",
