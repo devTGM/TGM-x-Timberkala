@@ -371,6 +371,20 @@ class MegaMenuSection extends HTMLElement {
         if (this.isMobileMenu()) {
           e.preventDefault();
           this.toggleSubmenuMob(link);
+        } else {
+          const parentLi = link.closest(".wt-page-nav-mega__sublist--parent");
+          if (parentLi && parentLi.querySelector(".wt-page-nav-mega__sublist--nested")) {
+            e.preventDefault();
+            const isOpen = parentLi.classList.contains("submenu-opened");
+            if (parentLi.parentElement) {
+              parentLi.parentElement
+                .querySelectorAll(".wt-page-nav-mega__sublist--parent")
+                .forEach((sibling) => {
+                  if (sibling !== parentLi) sibling.classList.remove("submenu-opened");
+                });
+            }
+            parentLi.classList.toggle("submenu-opened", !isOpen);
+          }
         }
       });
     });
@@ -447,7 +461,7 @@ class MegaMenuSection extends HTMLElement {
         parent.addEventListener("mouseleave", () => {
           leaveTimer = setTimeout(() => {
             parent.classList.remove("submenu-opened");
-          }, 180);
+          }, 250);
         });
       });
     }

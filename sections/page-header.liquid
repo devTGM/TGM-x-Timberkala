@@ -405,6 +405,17 @@
       overflow: visible !important;
     }
 
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist__wrapper,
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist__wrapper--simple,
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist,
+    body:not(.mobile-nav) .wt-page-nav-mega__sublist__wrapper,
+    body:not(.mobile-nav) .wt-page-nav-mega__sublist__wrapper--simple,
+    body:not(.mobile-nav) .wt-page-nav-mega__sublist,
+    body:not(.mobile-nav) mega-menu-section,
+    body:not(.mobile-nav) .wt-header__desktop-nav {
+      overflow: visible !important;
+    }
+
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent:hover .wt-page-nav-mega__sublist__wrapper--simple,
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent.dropdown-opened .wt-page-nav-mega__sublist__wrapper--simple {
       transform: translateY(0) !important;
@@ -501,12 +512,12 @@
       padding: 8px 0 !important;
       margin: 0 !important;
       list-style: none !important;
-      display: none !important;
+      display: flex !important;
       flex-direction: column !important;
       opacity: 0 !important;
       visibility: hidden !important;
       pointer-events: none !important;
-      transform: translateX(-4px) !important;
+      transform: translateX(-6px) !important;
       transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease !important;
       z-index: 10005 !important;
       max-height: 80vh !important;
@@ -514,32 +525,51 @@
       overflow-x: visible !important;
     }
 
-    /* Invisible hover bridge for flyout */
+    /* Dual invisible hover bridge to eliminate cursor gap */
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist--parent::after,
+    body:not(.mobile-nav) .wt-page-nav-mega__sublist--parent::after {
+      content: '' !important;
+      position: absolute !important;
+      top: 0 !important;
+      bottom: 0 !important;
+      right: -25px !important;
+      width: 30px !important;
+      background: transparent !important;
+      pointer-events: auto !important;
+      z-index: 10002 !important;
+    }
+
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist--nested::before,
     body:not(.mobile-nav) .wt-page-nav-mega__sublist--nested::before {
       content: '' !important;
       position: absolute !important;
       top: 0 !important;
       bottom: 0 !important;
-      left: -20px !important;
-      width: 25px !important;
+      left: -25px !important;
+      width: 30px !important;
       background: transparent !important;
       pointer-events: auto !important;
     }
 
+    /* Showing rules with high specificity */
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist--parent:hover > .wt-page-nav-mega__sublist--nested,
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist--parent.submenu-opened > .wt-page-nav-mega__sublist--nested,
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist--parent:focus-within > .wt-page-nav-mega__sublist--nested,
     body:not(.mobile-nav) .wt-page-nav-mega__sublist--parent:hover > .wt-page-nav-mega__sublist--nested,
     body:not(.mobile-nav) .wt-page-nav-mega__sublist--parent.submenu-opened > .wt-page-nav-mega__sublist--nested,
     body:not(.mobile-nav) .wt-page-nav-mega__sublist--parent:focus-within > .wt-page-nav-mega__sublist--nested,
-    body:not(.mobile-nav) .wt-page-nav-mega__item--parent .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist--parent:hover > .wt-page-nav-mega__sublist--nested,
-    body:not(.mobile-nav) .wt-page-nav-mega__item--parent .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist--parent.submenu-opened > .wt-page-nav-mega__sublist--nested,
-    body:not(.mobile-nav) .wt-page-nav-mega__item--parent .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist--parent:focus-within > .wt-page-nav-mega__sublist--nested,
-    body:not(.mobile-nav) .wt-page-nav-mega__item--parent.dropdown-opened .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist--parent:hover > .wt-page-nav-mega__sublist--nested,
-    body:not(.mobile-nav) .wt-page-nav-mega__item--parent.dropdown-opened .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist--parent:focus-visible > .wt-page-nav-mega__sublist--nested,
-    body:not(.mobile-nav) .wt-page-nav-mega__item--parent.dropdown-opened .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist--parent:focus > .wt-page-nav-mega__sublist--nested,
-    body:not(.mobile-nav) .wt-page-nav-mega__item--parent.dropdown-opened .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist--parent:focus-within > .wt-page-nav-mega__sublist--nested {
+    body:not(.mobile-nav) .wt-page-nav-mega__sublist__item.wt-page-nav-mega__sublist--parent:hover > ul,
+    body:not(.mobile-nav) .wt-page-nav-mega__sublist__item.wt-page-nav-mega__sublist--parent.submenu-opened > ul,
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist__item.wt-page-nav-mega__sublist--parent:hover > ul,
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist__item.wt-page-nav-mega__sublist--parent.submenu-opened > ul,
+    body:not(.mobile-nav) .wt-page-nav-mega__item--parent .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist .wt-page-nav-mega__sublist--parent:hover > .wt-page-nav-mega__sublist--nested,
+    body:not(.mobile-nav) .wt-page-nav-mega__item--parent .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist .wt-page-nav-mega__sublist--parent.submenu-opened > .wt-page-nav-mega__sublist--nested,
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist .wt-page-nav-mega__sublist--parent:hover > .wt-page-nav-mega__sublist--nested,
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist .wt-page-nav-mega__sublist--parent.submenu-opened > .wt-page-nav-mega__sublist--nested,
+    body:not(.mobile-nav) .wt-page-nav-mega__item--parent.dropdown-opened .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist .wt-page-nav-mega__sublist--parent:hover > .wt-page-nav-mega__sublist--nested,
+    body:not(.mobile-nav) .wt-page-nav-mega__item--parent.dropdown-opened .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist .wt-page-nav-mega__sublist--parent.submenu-opened > .wt-page-nav-mega__sublist--nested,
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent.dropdown-opened .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist .wt-page-nav-mega__sublist--parent:hover > .wt-page-nav-mega__sublist--nested,
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent.dropdown-opened .wt-page-nav-mega__sublist__wrapper--simple .wt-page-nav-mega__sublist .wt-page-nav-mega__sublist--parent.submenu-opened > .wt-page-nav-mega__sublist--nested {
       display: flex !important;
       flex-direction: column !important;
       opacity: 1 !important;
@@ -549,6 +579,7 @@
       max-height: 80vh !important;
       overflow-y: auto !important;
       overflow-x: visible !important;
+      z-index: 10005 !important;
     }
 
     /* Support for left-opening submenus if menu is on right half */
@@ -556,11 +587,23 @@
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent.submenu--left .wt-page-nav-mega__sublist--nested {
       left: auto !important;
       right: 100% !important;
+      transform: translateX(6px) !important;
+    }
+    body:not(.mobile-nav) .wt-page-nav-mega__item--parent.submenu--left .wt-page-nav-mega__sublist--parent:hover > .wt-page-nav-mega__sublist--nested,
+    body:not(.mobile-nav) .wt-page-nav-mega__item--parent.submenu--left .wt-page-nav-mega__sublist--parent.submenu-opened > .wt-page-nav-mega__sublist--nested,
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent.submenu--left .wt-page-nav-mega__sublist--parent:hover > .wt-page-nav-mega__sublist--nested,
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent.submenu--left .wt-page-nav-mega__sublist--parent.submenu-opened > .wt-page-nav-mega__sublist--nested {
+      transform: translateX(0) !important;
     }
     body:not(.mobile-nav) .wt-page-nav-mega__item--parent.submenu--left .wt-page-nav-mega__sublist--nested::before,
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent.submenu--left .wt-page-nav-mega__sublist--nested::before {
       left: auto !important;
-      right: -20px !important;
+      right: -25px !important;
+    }
+    body:not(.mobile-nav) .wt-page-nav-mega__item--parent.submenu--left .wt-page-nav-mega__sublist--parent::after,
+    body:not(.mobile-nav) .wt-header .wt-page-nav-mega__item--parent.submenu--left .wt-page-nav-mega__sublist--parent::after {
+      left: -25px !important;
+      right: auto !important;
     }
 
     body:not(.mobile-nav) .wt-header .wt-page-nav-mega__sublist--nested .wt-page-nav-mega__sublist__item,
