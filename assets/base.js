@@ -227,22 +227,12 @@ class MegaMenuSection extends HTMLElement {
   constructor() {
     super();
 
-    this.menuParentItems = this.querySelectorAll(
-      ".wt-page-nav-mega__item--parent",
-    );
-    this.menuParentLinks = this.querySelectorAll(
-      ".wt-page-nav-mega__link--parent",
-    );
-    this.menuSubmenuParentLinks = this.querySelectorAll(
-      ".wt-page-nav-mega__sublist__link--parent",
-    );
-
     this.classParentActiveMobile = "submenu-opened";
     this.classParentActiveDesk = "dropdown-opened";
     this.classBodyActiveDesk = "dropdown-open-desk";
 
     this.isAlwaysMobile = () =>
-      document.querySelector("page-header").dataset.alwaysMobileMenu === "true";
+      document.querySelector("page-header")?.dataset.alwaysMobileMenu === "true";
     this.desktopBreakpoint = 990;
     this.isDesktop = () =>
       window.matchMedia(`(min-width: ${this.desktopBreakpoint}px)`).matches;
@@ -251,7 +241,11 @@ class MegaMenuSection extends HTMLElement {
   }
 
   connectedCallback() {
-    this.init();
+    if (this.children.length === 0) {
+      requestAnimationFrame(() => this.init());
+    } else {
+      this.init();
+    }
   }
 
   toggleParentMob(el) {
@@ -342,6 +336,19 @@ class MegaMenuSection extends HTMLElement {
   }
 
   init() {
+    this.menuParentItems = this.querySelectorAll(
+      ".wt-page-nav-mega__item--parent",
+    );
+    this.menuParentLinks = this.querySelectorAll(
+      ".wt-page-nav-mega__link--parent",
+    );
+    this.menuSubmenuParentLinks = this.querySelectorAll(
+      ".wt-page-nav-mega__sublist__link--parent",
+    );
+    const submenuParents = this.querySelectorAll(
+      ".wt-page-nav-mega__sublist--parent",
+    );
+
     const {
       menuParentLinks,
       menuSubmenuParentLinks,
@@ -361,8 +368,10 @@ class MegaMenuSection extends HTMLElement {
 
     menuSubmenuParentLinks.forEach((link) => {
       link.addEventListener("click", (e) => {
-        e.preventDefault();
-        this.toggleSubmenuMob(link);
+        if (this.isMobileMenu()) {
+          e.preventDefault();
+          this.toggleSubmenuMob(link);
+        }
       });
     });
 
@@ -370,6 +379,7 @@ class MegaMenuSection extends HTMLElement {
 
     const toggleSubmenuDesk = (item) => {
       const parentLink = item.querySelector('a[data-menu-level="1"]');
+      if (!parentLink || !parentLink.nextElementSibling) return;
       const submenuLinks = parentLink.nextElementSibling.querySelectorAll(
         'a[data-menu-level="2"],a[data-menu-level="3"]',
       );
@@ -396,6 +406,9 @@ class MegaMenuSection extends HTMLElement {
       });
 
       addEventListeners(item, ["mouseout", "focusout"], (e) => {
+        if (e.type === "mouseout" && item.contains(e.relatedTarget)) return;
+        if (e.type === "focusout" && item.contains(e.relatedTarget)) return;
+
         document.body.classList.remove(classBodyActiveDesk);
         item.classList.remove(classParentActiveDesk);
 
@@ -408,6 +421,18 @@ class MegaMenuSection extends HTMLElement {
         toggleSubmenuDesk(item);
       });
     });
+
+    // Level 2 Submenu Parents (Wall Decor, etc.)
+    if (submenuParents) {
+      submenuParents.forEach((parent) => {
+        parent.addEventListener("mouseenter", () => {
+          parent.classList.add("submenu-opened");
+        });
+        parent.addEventListener("mouseleave", () => {
+          parent.classList.remove("submenu-opened");
+        });
+      });
+    }
   }
 }
 

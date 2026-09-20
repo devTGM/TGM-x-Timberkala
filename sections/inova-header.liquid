@@ -77,50 +77,15 @@
         {% render 'icons', id: 'bars' %}
       </a>
 
-      {%- assign inova_links_limit = section.settings.max_menu_links | default: 4 -%}
-      <nav class="inova-desktop-nav" aria-label="Main Navigation">
-        <ul class="inova-nav-list">
-          {%- for link in section.settings.menu.links limit: inova_links_limit -%}
-            <li class="inova-nav-item{% if link.links != blank %} inova-nav-item--has-children{% endif %}">
-              <a href="{{ link.url }}" class="inova-nav-link{% if link.current %} inova-nav-link--active{% endif %}">
-                <span>{{ link.title | escape }}</span>
-                {% if link.links != blank %}
-                  <svg class="inova-chevron-down" width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                {% endif %}
-              </a>
-              {% if link.links != blank %}
-                <div class="inova-dropdown">
-                  <ul class="inova-dropdown__list">
-                    {% for childlink in link.links %}
-                      <li class="inova-dropdown__item">
-                        <a href="{{ childlink.url }}" class="inova-dropdown__link">{{ childlink.title | escape }}</a>
-                      </li>
-                    {% endfor %}
-                  </ul>
-                </div>
-              {% endif %}
-            </li>
-          {%- endfor -%}
-
-          {%- if section.settings.menu.links.size > inova_links_limit -%}
-            <li class="inova-nav-item inova-nav-item--more inova-nav-item--has-children">
-              <a href="#" class="inova-nav-link inova-nav-link--more" onclick="return false;">
-                <span>MORE</span>
-                <svg class="inova-chevron-down" width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-              <div class="inova-dropdown">
-                <ul class="inova-dropdown__list">
-                  {% for link in section.settings.menu.links offset: inova_links_limit %}
-                    <li class="inova-dropdown__item">
-                      <a href="{{ link.url }}" class="inova-dropdown__link">{{ link.title | escape }}</a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              </div>
-            </li>
-          {%- endif -%}
-        </ul>
-      </nav>
+      <div class="wt-header__desktop-nav">
+        <mega-menu-section class="mega-menu mega-menu--inline">
+          <nav class="wt-page-nav-mega wt-page-nav-mega--inline">
+            {%- if section.settings.menu != blank -%}
+              {% render 'mega-menu', menu: section.settings.menu, blocks: section.blocks %}
+            {%- endif -%}
+          </nav>
+        </mega-menu-section>
+      </div>
     </div>
 
     <!-- CENTER: Centered Brand Logo -->
