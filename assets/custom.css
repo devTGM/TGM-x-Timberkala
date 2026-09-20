@@ -1302,6 +1302,7 @@ video.inova-media-element,
 /* Sticky Header Section Container */
 #shopify-section-header,
 [id*="__header"],
+.inova-header-section,
 .page-header,
 .header-section {
   position: -webkit-sticky !important;
@@ -1360,6 +1361,8 @@ video.inova-media-element,
 #shopify-section-header.header-scrolled,
 [id*="__header"].is-stuck,
 [id*="__header"].header-scrolled,
+.inova-header-section.is-stuck,
+.inova-header-section.header-scrolled,
 .page-header.is-stuck,
 .page-header.header-scrolled,
 .header-section.header-scrolled,

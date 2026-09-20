@@ -1,0 +1,713 @@
+<script src="{{ 'search-drawer.js' | asset_url }}" defer="defer"></script>
+
+{% assign transparent_header_rgb = section.settings.transparent_header_color | color_to_rgb %}
+
+{% style %}
+  :root {
+    --logo-width: {{ section.settings.mobile_screen_logo_width | default: 140 }}px;
+    --logo-width-mobile: {{ section.settings.mobile_screen_logo_width | default: 140 }}px;
+    --logo-width-desk: {{ section.settings.large_screen_logo_width | default: 220 }}px;
+    --logo-max-height-desk: {{ section.settings.large_screen_logo_max_height | default: 75 }}px;
+    --logo-max-height-mob: {{ section.settings.mobile_screen_logo_max_height | default: 50 }}px;
+    --header-padding-y-desk: {{ section.settings.header_padding_vertical_desktop | default: 18 }}px;
+    --header-padding-y-mob: {{ section.settings.header_padding_vertical_mobile | default: 12 }}px;
+    --header-max-width: {{ section.settings.header_max_width | default: '1440px' }};
+    --header-bg-color: {{ section.settings.header_bg_color | default: '#ffffff' }};
+    --header-text-color: {{ section.settings.header_text_color | default: '#1a1a1a' }};
+    --menu-hover-color: {{ section.settings.menu_hover_color | default: '#d4af37' }};
+    --header-border-color: {{ section.settings.border_color | default: '#e8e5df' }};
+    --menu-font-size: {{ section.settings.menu_font_size | default: 14 }}px;
+    --menu-item-spacing: {{ section.settings.menu_item_spacing | default: 26 }}px;
+    --menu-font-weight: {{ section.settings.menu_font_weight | default: '500' }};
+    --menu-text-transform: {{ section.settings.menu_text_transform | default: 'uppercase' }};
+    --menu-letter-spacing: {{ section.settings.menu_letter_spacing | default: 1 }}px;
+  }
+
+  /* ---------------- Prevent Duplicate Drawer Menu Bar on Desktop ---------------- */
+  @media (min-width: 990px) {
+    .wt-drawer--nav,
+    body:not(.mobile-nav) .wt-drawer--nav,
+    body:not(.mobile-nav) .wt-drawer,
+    body:not(.mobile-nav) .wt-header ~ .wt-drawer--nav,
+    .wt-header ~ .wt-drawer--nav {
+      display: none !important;
+      position: fixed !important;
+      transform: translateX(-100%) !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      height: 0 !important;
+      min-height: 0 !important;
+      max-height: 0 !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+    }
+  }
+{% endstyle %}
+
+<!-- =========================================================================
+     CONCEPT (INOVA) SIGNATURE HEADER: MENU LEFT, LOGO CENTER, ACTIONS RIGHT
+     ========================================================================= -->
+<page-header
+  role="banner"
+  id="header"
+  class="
+    wt-header
+    wt-header--inova
+    {% if section.settings.show_shadow %} wt-header--shadow{% endif %}
+    {% if section.settings.show_line_separator %} wt-header--separator{% endif %}
+    {% if section.settings.sticky_header %} wt-header--sticky{% endif %}
+  "
+>
+  <div class="wt-header__body wt-header__body--inova">
+    <!-- LEFT: Mobile Menu Button + Inova Desktop Navigation -->
+    <div class="wt-header__col wt-header__col--inova-left">
+      <a
+        href="#"
+        class="wt-header__icon wt-header__menu-trigger inova-menu-trigger-mobile wt-icon"
+        rel="toggle-menu"
+        aria-label="{{ 'aria-label.page-header-toggle-menu' | t }}"
+        aria-controls="wt-drawer-nav"
+        aria-expanded="false"
+        role="button"
+        tabindex="0"
+      >
+        {% render 'icons', id: 'bars' %}
+      </a>
+
+      {%- assign inova_links_limit = section.settings.max_menu_links | default: 4 -%}
+      <nav class="inova-desktop-nav" aria-label="Main Navigation">
+        <ul class="inova-nav-list">
+          {%- for link in section.settings.menu.links limit: inova_links_limit -%}
+            <li class="inova-nav-item{% if link.links != blank %} inova-nav-item--has-children{% endif %}">
+              <a href="{{ link.url }}" class="inova-nav-link{% if link.current %} inova-nav-link--active{% endif %}">
+                <span>{{ link.title | escape }}</span>
+                {% if link.links != blank %}
+                  <svg class="inova-chevron-down" width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                {% endif %}
+              </a>
+              {% if link.links != blank %}
+                <div class="inova-dropdown">
+                  <ul class="inova-dropdown__list">
+                    {% for childlink in link.links %}
+                      <li class="inova-dropdown__item">
+                        <a href="{{ childlink.url }}" class="inova-dropdown__link">{{ childlink.title | escape }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              {% endif %}
+            </li>
+          {%- endfor -%}
+
+          {%- if section.settings.menu.links.size > inova_links_limit -%}
+            <li class="inova-nav-item inova-nav-item--more inova-nav-item--has-children">
+              <a href="#" class="inova-nav-link inova-nav-link--more" onclick="return false;">
+                <span>MORE</span>
+                <svg class="inova-chevron-down" width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <div class="inova-dropdown">
+                <ul class="inova-dropdown__list">
+                  {% for link in section.settings.menu.links offset: inova_links_limit %}
+                    <li class="inova-dropdown__item">
+                      <a href="{{ link.url }}" class="inova-dropdown__link">{{ link.title | escape }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            </li>
+          {%- endif -%}
+        </ul>
+      </nav>
+    </div>
+
+    <!-- CENTER: Centered Brand Logo -->
+    <div class="wt-header__col wt-header__col--inova-center">
+      <h1 itemscope itemtype="http://schema.org/Organization" class="wt-header__logo inova-header__logo">
+        <a href="{{ routes.root_url }}" class="wt-header__logo__link inova-logo__link">
+          {%- if section.settings.logo != blank -%}
+            {%- assign large_image_size = section.settings.large_screen_logo_width | default: 220 -%}
+            {%- assign large_image_size_double = large_image_size | times: 2 -%}
+            <img
+              srcset="{{ section.settings.logo | image_url: width: large_image_size }} 1x, {{ section.settings.logo | image_url: width: large_image_size_double }} 2x"
+              src="{{ section.settings.logo | image_url: width: large_image_size }}"
+              loading="lazy"
+              width="{{ section.settings.logo.width }}"
+              height="{{ section.settings.logo.height }}"
+              class="wt-header__logo__img inova-logo-desk"
+              alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+            >
+            {%- assign mobile_image_size = section.settings.mobile_screen_logo_width | default: 140 -%}
+            {%- assign mobile_image_size_double = mobile_image_size | times: 2 -%}
+            <img
+              srcset="{{ section.settings.logo | image_url: width: mobile_image_size }} 1x, {{ section.settings.logo | image_url: width: mobile_image_size_double }} 2x"
+              src="{{ section.settings.logo | image_url: width: mobile_image_size }}"
+              loading="lazy"
+              width="{{ section.settings.logo.width }}"
+              height="{{ section.settings.logo.height }}"
+              class="wt-header__logo__img inova-logo-mob"
+              alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+            >
+          {%- else -%}
+            <span class="wt-header__logo__text inova-brand-text">{{ section.settings.inova_logo_text | default: 'I N O V A' }}</span>
+          {%- endif -%}
+        </a>
+      </h1>
+    </div>
+
+    <!-- RIGHT: Currency Selector Pill + Search + Account + Cart -->
+    <div class="wt-header__col wt-header__col--inova-right">
+      {%- if section.settings.show_currency_selector != false -%}
+        <div class="inova-currency-pill" role="button" tabindex="0" aria-label="Currency: {{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }}">
+          <span class="inova-pill-flag">🇮🇳</span>
+          <span class="inova-pill-code">{{ localization.country.currency.iso_code | default: 'INR' }}</span>
+          <span class="inova-pill-symbol">{{ localization.country.currency.symbol | default: '₹' }}</span>
+          <svg class="inova-pill-caret" width="8" height="5" viewBox="0 0 8 5" fill="none"><path d="M1 1L4 4L7 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      {%- endif -%}
+
+      <!-- Search Drawer Trigger -->
+      <search-drawer
+        class="wt-header__search wt-drawer-search inova-search-trigger"
+        data-loading-text="{{ 'accessibility.searching' | t }}"
+      >
+        <div
+          class="wt-header__icon wt-header__search-trigger wt-icon"
+          rel="toggle-search"
+          tabindex="0"
+          role="button"
+          aria-label="{{ 'aria-label.page-header-open-search' | t }}"
+        >
+          {% render 'icons', id: 'search' %}
+        </div>
+
+        <form
+          class="wt-header__search__body store-search-form"
+          action="{{ routes.search_url }}"
+          method="get"
+          role="search"
+        >
+          <input type="hidden" name="type" value="product">
+
+          <div class="wt-header__search__form">
+            <label class="wt-header__icon wt-header__search__label" for="search-shop-inova-header">
+              {% render 'icons', id: 'search' %}
+              <span class="visually-hidden">{{ 'aria-label.page-header-search' | t }}</span>
+            </label>
+            <input
+              type="text"
+              placeholder="{{ section.settings.typing_search }}"
+              id="search-shop-inova-header"
+              name="q"
+              class="wt-header__search__field"
+              aria-controls="predictive-search-results-list"
+              aria-autocomplete="list"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              spellcheck="false"
+              tabindex="-1"
+              role="combobox"
+              autocorrect="off"
+              autocomplete="off"
+              autocapitalize="off"
+              data-search="true"
+              aria-label="{{ 'aria-label.page-header-search' | t }}"
+            >
+
+            <div class="wt-header__search__clear-button__container">
+              <div
+                class="wt-header__search__clear-button"
+                role="button"
+                aria-label="{{ 'aria-label.page-header-remove-all' | t }}"
+                tabindex="-1"
+              >
+                {% render 'icons', id: 'close' -%}
+                <span class="text">{{ 'aria-label.page-header-toggle-menu' | t }}</span>
+              </div>
+            </div>
+            <button
+              aria-label="{{ 'aria-label.page-header-search' | t }}"
+              class="wt-header__search__button"
+              tabindex="-1"
+            >
+              {% render 'icons', id: 'search' -%}
+              <span class="text">{{ 'aria-label.page-header-search' | t }}</span>
+            </button>
+            <button
+              aria-label="{{ 'aria-label.page-header-close-search' | t }}"
+              class="wt-header__search__close"
+              tabindex="-1"
+            >
+              {% render 'icons', id: 'close' %}
+            </button>
+          </div>
+          <div class="wt-header__search__results">
+            <div class="predictive-search-status">
+              {% render 'search-top' %}
+            </div>
+
+            {% render 'loader' %}
+
+            <div class="search-result-wrapper" data-predictive-search></div>
+          </div>
+        </form>
+      </search-drawer>
+
+      <!-- Account & Cart -->
+      <ul class="wt-header__panel wt-header__panel--no-labels inova-header__panel">
+        {%- if shop.customer_accounts_enabled -%}
+          <li class="wt-header__panel__item wt-header__panel__item--account">
+            <a href="{{ routes.account_url }}" class="wt-header__panel__link wt-icon" aria-label="Account">
+              {% render 'icons', id: 'user' %}
+              <span class="wt-header__panel__label">Account</span>
+            </a>
+          </li>
+        {%- endif -%}
+        <li class="wt-header__panel__item wt-header__panel__item--cart">
+          <a onclick="handleFloCartBtn();" class="wt-header__panel__link wt-icon wt-cart__trigger" style="cursor:pointer;" id="cart-icon-bubble-inova-header" aria-label="Cart">
+            {% render 'icons', id: 'bag' %}
+            {% if cart.item_count != 0 %}
+              <span class="flo-cart-icon-bubble wt-header__panel__counter">{{ cart.item_count }}</span>
+            {% endif %}
+            <span class="wt-header__panel__label">Cart</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</page-header>
+
+<script>
+  (function() {
+    var header = document.querySelector('.wt-header--inova, .wt-header');
+    var headerSection = document.querySelector('.inova-header-section, #shopify-section-header, [id*="__header"], .header-section, .page-header');
+    if (!header && !headerSection) return;
+
+    var isTicking = false;
+    function checkHeaderStuck() {
+      if (!isTicking) {
+        window.requestAnimationFrame(function() {
+          var target = headerSection || header;
+          var rect = target.getBoundingClientRect();
+          if (rect.top <= 1) {
+            if (header) {
+              header.classList.add('is-stuck');
+              header.classList.add('header-scrolled');
+            }
+            if (headerSection) {
+              headerSection.classList.add('is-stuck');
+              headerSection.classList.add('header-scrolled');
+            }
+          } else {
+            if (header) {
+              header.classList.remove('is-stuck');
+              header.classList.remove('header-scrolled');
+            }
+            if (headerSection) {
+              headerSection.classList.remove('is-stuck');
+              headerSection.classList.remove('header-scrolled');
+            }
+          }
+          isTicking = false;
+        });
+        isTicking = true;
+      }
+    }
+
+    window.addEventListener('scroll', checkHeaderStuck, { passive: true });
+    window.addEventListener('resize', checkHeaderStuck, { passive: true });
+    document.addEventListener('DOMContentLoaded', checkHeaderStuck);
+    checkHeaderStuck();
+  })();
+</script>
+
+{%- if request.page_type != 'cart' -%}
+  {%- render 'cart-notification' -%}
+{%- endif -%}
+
+<!-- =========================================================================
+     MOBILE & DRAWER NAVIGATION
+     ========================================================================= -->
+<drawer-nav
+  class="wt-drawer wt-drawer--nav wt-drawer--mobile-nav"
+  id="wt-drawer-nav"
+>
+  <div class="wt-drawer__content">
+    <div class="wt-drawer__title">
+      <div class="wt-drawer__title__text">{{ section.settings.drawer_title }}</div>
+      <div
+        class="wt-drawer__close"
+        tabindex="-1"
+        role="button"
+        aria-label="{{ 'aria-label.page-header-toggle-menu' | t }}"
+        aria-controls="wt-drawer-nav"
+        aria-expanded="false"
+      >
+        {% render 'icons', id: 'close' %}
+      </div>
+    </div>
+
+    <mega-menu-section class="mega-menu">
+      <nav class="wt-page-nav-mega {% if section.settings.show_shadow %} wt-page-nav-mega--shadow{% endif %}">
+        {%- if section.settings.menu != blank -%}
+          {% render 'mega-menu', menu: section.settings.menu, blocks: section.blocks %}
+        {%- endif -%}
+      </nav>
+
+      <aside class="wt-page-nav-mega__aside">
+        <ul class="wt-page-nav-mega__aside-list">
+          <li class="wt-page-nav-mega__aside-list__item">
+            {%- if shop.customer_accounts_enabled -%}
+              <a
+                href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                class="wt-page-nav-mega__aside-list__link"
+                tabindex="-1"
+              >
+                {%- liquid
+                  if customer
+                    echo 'customer.account_fallback' | t
+                  else
+                    echo 'customer.log_in' | t
+                  endif
+                -%}
+              </a>
+            {%- endif -%}
+          </li>
+          {%- for link in section.settings.mobile_footer_menu.links -%}
+            <li class="wt-page-nav-mega__aside-list__item">
+              <a
+                href="{% if link.url %}{{ link.url }}{% else %}#{% endif %}"
+                class="wt-page-nav-mega__aside-list__link"
+                tabindex="-1"
+              >
+                {{- link.title | escape -}}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </aside>
+    </mega-menu-section>
+  </div>
+</drawer-nav>
+
+{% schema %}
+{
+  "name": "Inova Header",
+  "tag": "header",
+  "class": "page-header inova-header-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header Layout & Sizing"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "options": [
+        {
+          "value": "option_inova",
+          "label": "Inova: Menu Left, Logo Center, Currency + Actions Right (Recommended)"
+        },
+        {
+          "value": "option_inline",
+          "label": "Logo Left, Menu Center (Recommended)"
+        }
+      ],
+      "default": "option_inova",
+      "label": "Header Layout Style"
+    },
+    {
+      "type": "range",
+      "id": "header_padding_vertical_desktop",
+      "min": 4,
+      "max": 60,
+      "step": 2,
+      "default": 18,
+      "unit": "px",
+      "label": "Header Vertical Size / Padding (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "header_padding_vertical_mobile",
+      "min": 4,
+      "max": 40,
+      "step": 2,
+      "default": 12,
+      "unit": "px",
+      "label": "Header Vertical Size / Padding (Mobile)"
+    },
+    {
+      "type": "select",
+      "id": "header_max_width",
+      "options": [
+        { "value": "1200px", "label": "Compact (1200px)" },
+        { "value": "1440px", "label": "Standard (1440px)" },
+        { "value": "1600px", "label": "Wide (1600px)" },
+        { "value": "1800px", "label": "Extra Wide (1800px)" },
+        { "value": "100%", "label": "Full Width (100%)" }
+      ],
+      "default": "1440px",
+      "label": "Header Container Width"
+    },
+    {
+      "type": "text",
+      "id": "inova_logo_text",
+      "label": "Inova Center Logo Text (Default: I N O V A)",
+      "default": "I N O V A"
+    },
+    {
+      "type": "range",
+      "id": "max_menu_links",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4,
+      "label": "Max Header Navigation Links (Desktop)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_currency_selector",
+      "default": true,
+      "label": "Show Country/Currency Pill"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "default": true,
+      "label": "Enable Sticky Header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_line_separator",
+      "label": "Show Bottom Border Line",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Bottom Border Color",
+      "default": "#e8e5df"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shadow",
+      "label": "Show Subtle Header Shadow",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors & Aesthetics"
+    },
+    {
+      "type": "color",
+      "id": "header_bg_color",
+      "label": "Header Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "header_text_color",
+      "label": "Header Text & Icon Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "menu_hover_color",
+      "label": "Menu Hover & Accent Color",
+      "default": "#d4af37"
+    },
+    {
+      "type": "header",
+      "content": "Brand Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "large_screen_logo_width",
+      "min": 50,
+      "max": 350,
+      "step": 5,
+      "default": 180,
+      "unit": "px",
+      "label": "Desktop Logo Width"
+    },
+    {
+      "type": "range",
+      "id": "large_screen_logo_max_height",
+      "min": 30,
+      "max": 120,
+      "step": 5,
+      "default": 75,
+      "unit": "px",
+      "label": "Desktop Logo Max Height"
+    },
+    {
+      "type": "range",
+      "id": "mobile_screen_logo_width",
+      "min": 40,
+      "max": 220,
+      "step": 5,
+      "default": 140,
+      "unit": "px",
+      "label": "Mobile Logo Width"
+    },
+    {
+      "type": "range",
+      "id": "mobile_screen_logo_max_height",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "default": 50,
+      "unit": "px",
+      "label": "Mobile Logo Max Height"
+    },
+    {
+      "type": "header",
+      "content": "Navigation Menu Styling"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Main Navigation Menu"
+    },
+    {
+      "type": "range",
+      "id": "menu_font_size",
+      "min": 11,
+      "max": 20,
+      "step": 1,
+      "default": 14,
+      "unit": "px",
+      "label": "Menu Font Size"
+    },
+    {
+      "type": "range",
+      "id": "menu_item_spacing",
+      "min": 12,
+      "max": 50,
+      "step": 2,
+      "default": 26,
+      "unit": "px",
+      "label": "Spacing Between Menu Items"
+    },
+    {
+      "type": "select",
+      "id": "menu_font_weight",
+      "options": [
+        { "value": "400", "label": "Normal (400)" },
+        { "value": "500", "label": "Medium (500)" },
+        { "value": "600", "label": "Semi-Bold (600)" },
+        { "value": "700", "label": "Bold (700)" }
+      ],
+      "default": "500",
+      "label": "Menu Font Weight"
+    },
+    {
+      "type": "select",
+      "id": "menu_text_transform",
+      "options": [
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "capitalize", "label": "Capitalize" },
+        { "value": "none", "label": "Normal (As Typed)" }
+      ],
+      "default": "uppercase",
+      "label": "Menu Text Capitalization"
+    },
+    {
+      "type": "range",
+      "id": "menu_letter_spacing",
+      "min": 0,
+      "max": 3,
+      "step": 0.5,
+      "default": 1,
+      "unit": "px",
+      "label": "Menu Letter Spacing"
+    },
+    {
+      "type": "link_list",
+      "id": "teaser_menu",
+      "default": "main-menu",
+      "label": "Drawer / Teaser Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "mobile_footer_menu",
+      "label": "Mobile Drawer Secondary Menu"
+    },
+    {
+      "type": "header",
+      "content": "Mobile Drawer & Search"
+    },
+    {
+      "type": "text",
+      "id": "drawer_title",
+      "label": "Drawer Menu Title",
+      "default": "Shop by"
+    },
+    {
+      "type": "text",
+      "id": "typing_search",
+      "label": "Search Placeholder Text",
+      "default": "Search products..."
+    },
+    {
+      "type": "text",
+      "id": "suggestions_title",
+      "label": "Search Suggestions Title"
+    },
+    {
+      "type": "link_list",
+      "id": "suggestions_menu",
+      "default": "main-menu",
+      "label": "Search Suggestions Menu"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Mega Menu Category",
+      "settings": [
+        { "id": "title", "type": "text", "label": "Menu Item Trigger" },
+        { "type": "range", "id": "promo_section_width", "min": 2, "max": 6, "step": 1, "default": 4, "label": "Number of columns" },
+        { "type": "header", "content": "Image 1" },
+        { "type": "image_picker", "id": "desktop_image_1", "label": "Image" },
+        { "id": "heading_1", "type": "text", "label": "Heading" },
+        { "id": "text_1", "type": "text", "label": "Caption" },
+        { "id": "link_1", "type": "url", "label": "Link" },
+        { "type": "header", "content": "Image 2" },
+        { "type": "image_picker", "id": "desktop_image_2", "label": "Image" },
+        { "id": "heading_2", "type": "text", "label": "Heading" },
+        { "id": "text_2", "type": "text", "label": "Caption" },
+        { "id": "link_2", "type": "url", "label": "Link" },
+        { "type": "header", "content": "Image 3" },
+        { "type": "image_picker", "id": "desktop_image_3", "label": "Image" },
+        { "id": "heading_3", "type": "text", "label": "Heading" },
+        { "id": "text_3", "type": "text", "label": "Caption" },
+        { "id": "link_3", "type": "url", "label": "Link" },
+        { "type": "header", "content": "Image 4" },
+        { "type": "image_picker", "id": "desktop_image_4", "label": "Image" },
+        { "id": "heading_4", "type": "text", "label": "Heading" },
+        { "id": "text_4", "type": "text", "label": "Caption" },
+        { "id": "link_4", "type": "url", "label": "Link" },
+        { "type": "header", "content": "Image 5" },
+        { "type": "image_picker", "id": "desktop_image_5", "label": "Image" },
+        { "id": "heading_5", "type": "text", "label": "Heading" },
+        { "id": "text_5", "type": "text", "label": "Caption" },
+        { "id": "link_5", "type": "url", "label": "Link" },
+        { "type": "header", "content": "Image 6" },
+        { "type": "image_picker", "id": "desktop_image_6", "label": "Image" },
+        { "id": "heading_6", "type": "text", "label": "Heading" },
+        { "id": "text_6", "type": "text", "label": "Caption" },
+        { "id": "link_6", "type": "url", "label": "Link" }
+      ]
+    }
+  ]
+}
+{% endschema %}

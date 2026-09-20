@@ -87,7 +87,7 @@
       }
     },
     "header": {
-      "type": "page-header",
+      "type": "inova-header",
       "blocks": {
         "column_EyVRRa": {
           "type": "column",
