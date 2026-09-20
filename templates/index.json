@@ -34,8 +34,9 @@
         "category_card_bLP3E8": {
           "type": "category_card",
           "settings": {
-            "collection": "",
-            "title": "LIGHTING",
+            "collection": "hangings-1",
+            "image": "shopify://shop_images/hanging.webp",
+            "title": "HANGING",
             "subtitle": "Light that sets the mood!",
             "button_link": ""
           }
