@@ -169,9 +169,11 @@
                 role="button"
                 aria-expanded="false"
                 aria-controls="wt-filter-drawer"
+                data-show-label="Show filters"
+                data-hide-label="Hide filters"
               >
                 {% render 'icons', id: 'filter' %}
-                {{ 'products.facets.filter_button' | t }}
+                <span class="filter-trigger__label">Show filters</span>
                 {% if total_active_values > 0 %}
                   <span class="wt-filter__trigger__counter">
                     {{ total_active_values }}
@@ -179,6 +181,20 @@
                 {% endif %}
               </div>
             {% endif %}
+
+            {%- comment -%}Subcollection category nav pills{%- endcomment -%}
+            <nav class="tk-subcollection-nav" aria-label="Shop by category">
+              {%- assign categories = "Wall Decor,Table Decor,Figurines,Furniture,Hangings" | split: "," -%}
+              {%- assign handles = "wall-decor,table-decor,figurines,furniture,hangings" | split: "," -%}
+              {%- for cat in categories -%}
+                {%- assign cat_handle = handles[forloop.index0] -%}
+                <a
+                  href="/collections/{{ cat_handle }}"
+                  class="tk-subcollection-nav__link{% if collection.handle == cat_handle %} active{% endif %}"
+                >{{ cat }}</a>
+                {%- unless forloop.last -%}<span class="tk-subcollection-nav__sep" aria-hidden="true">/</span>{%- endunless -%}
+              {%- endfor -%}
+            </nav>
 
             {%- if section.settings.enable_sorting -%}
               {% render 'custom-select',
