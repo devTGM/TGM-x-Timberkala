@@ -15,17 +15,18 @@
         "category_card_eabpgT": {
           "type": "category_card",
           "settings": {
-            "collection": "",
-            "title": "SEATING",
-            "subtitle": "Sit comfortably, feel at home!",
+            "collection": "animal-and-bird-figurines",
+            "title": "Figurines",
+            "subtitle": "",
             "button_link": ""
           }
         },
         "category_card_TPERpN": {
           "type": "category_card",
           "settings": {
-            "collection": "",
-            "title": "SOFAS",
+            "collection": "furniture",
+            "image": "shopify://shop_images/DSC00101.jpg",
+            "title": "Furniture",
             "subtitle": "Create the perfect lounge area!",
             "button_link": ""
           }
