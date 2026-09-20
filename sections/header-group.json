@@ -324,7 +324,7 @@
       ],
       "custom_css": [],
       "settings": {
-        "layout": "option_inline",
+        "layout": "option_inova",
         "header_padding_vertical_desktop": 18,
         "header_padding_vertical_mobile": 12,
         "header_max_width": "1440px",
@@ -357,6 +357,7 @@
     },
     "announcement-bar": {
       "type": "announcement-bar",
+      "disabled": true,
       "settings": {
         "marquee": false,
         "animation_speed": "50",
@@ -403,15 +404,16 @@
     },
     "1758544800fa775e6e": {
       "type": "apps",
+      "disabled": true,
       "settings": {
         "include_margins": true
       }
     }
   },
   "order": [
+    "announcement-bar",
     "slideshow",
     "header",
-    "announcement-bar",
     "custom_liquid_9gjUz7",
     "custom_liquid_DJbfqV",
     "page_header_logo_banner_mEVa4k",

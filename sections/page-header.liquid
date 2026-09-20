@@ -498,7 +498,7 @@
   }
 {% endstyle %}
 
-{% if section.settings.layout == 'option_inova' or section.settings.layout == 'option_inline' or section.settings.layout == 'option_1' or section.settings.layout == 'option_2' %}
+{% if section.settings.layout == 'option_inova' %}
   <!-- =========================================================================
        INOVA HEADER: MENU LEFT, LOGO CENTER, CURRENCY + ACTIONS RIGHT
        ========================================================================= -->
@@ -764,6 +764,8 @@
       checkHeaderStuck();
     })();
   </script>
+
+{% elsif section.settings.layout != 'option_3' and section.settings.layout != 'option_4' %}
   <!-- =========================================================================
        INLINE HEADER: LOGO LEFT, MENU CENTER, ACTIONS RIGHT
        ========================================================================= -->
