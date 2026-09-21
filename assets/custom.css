@@ -2881,12 +2881,12 @@ body.template-collection .collection__title {
    PRODUCT CARDS — TALLER & UNIFORM 3:4 PORTRAIT IMAGES
    ============================================================ */
 
-/* Enforce uniform 3:4 portrait aspect ratio across all product cards */
+/* Enforce uniform 2:3 tall portrait aspect ratio — premium editorial look */
 .card__picture {
   position: relative !important;
   display: block !important;
   width: 100% !important;
-  aspect-ratio: 3 / 4 !important;
+  aspect-ratio: 2 / 3 !important;
   overflow: hidden !important;
   border-radius: var(--border-radius, 8px) !important;
   background-color: #f6f5f2 !important;
@@ -2901,9 +2901,9 @@ body.template-collection .collection__title {
 .card__picture .card__img--empty {
   width: 100% !important;
   height: 100% !important;
-  aspect-ratio: 3 / 4 !important;
+  aspect-ratio: 2 / 3 !important;
   object-fit: cover !important;
-  object-position: center !important;
+  object-position: center top !important;
   display: block !important;
 }
 
@@ -3095,6 +3095,7 @@ color-swatch {
   flex-grow: 1 !important;
   justify-content: flex-start !important;
   padding-top: 4px !important;
+  min-height: 110px !important;  /* ensures text area is same height even with 1-line titles */
 }
 
 /* Vendor subtitle: single line with ellipsis to prevent height divergence */
@@ -3111,7 +3112,7 @@ color-swatch {
   margin-bottom: 2px !important;
 }
 
-/* Title: strictly clamped to 2 lines with uniform min-height & max-height storewide */
+/* Title: strictly clamped to 2 lines — fixed height regardless of content */
 .card__title,
 .card__container .card__title,
 .collection__grid__item .card__title,
@@ -3124,9 +3125,10 @@ body.template-collection .collection__grid__item .card__title {
   font-size: 13px !important;
   font-weight: 500 !important;
   letter-spacing: 0.02em !important;
-  line-height: 1.35 !important;
-  min-height: calc(2 * 1.35em) !important;
-  max-height: calc(2 * 1.35em) !important;
+  line-height: 1.4 !important;
+  height: calc(2 * 1.4em) !important;   /* fixed 2-line height — never taller, never shorter */
+  min-height: calc(2 * 1.4em) !important;
+  max-height: calc(2 * 1.4em) !important;
   margin-top: 4px !important;
   margin-bottom: 4px !important;
   word-break: break-word !important;
