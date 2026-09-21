@@ -2975,14 +2975,13 @@ body.template-collection .collection__title {
   text-decoration: line-through !important;
 }
 
-/* ── REGULAR PRICE (non-sale products — price__regular path) ── */
-.card__price .price__regular {
-  display: inline-flex !important;
-  order: 1 !important;
+/* ── REGULAR PRICE (non-sale products only) ── */
+/* Do NOT set display here — let the theme show/hide it based on .price--on-sale */
+.card__price .price--on-sale .price__regular {
+  display: none !important;   /* re-enforce theme: hide regular price on sale cards */
 }
 
 .card__price .price__regular .price-item--regular {
-  display: inline-flex !important;
   font-weight: 700 !important;
   color: #1a1a1a !important;
   font-size: 13.5px !important;
