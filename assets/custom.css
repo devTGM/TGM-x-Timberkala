@@ -3177,7 +3177,11 @@ body.template-collection .collection__grid__item .card__price {
 
 /* Section backdrop & spacing */
 .shopify-section:has(.jdgm-cards-carousel),
-#shopify-section-template--27677584556337__17804106686f60e9f6 {
+.shopify-section:has(.jdgm-widget),
+[id*="17804106686f60e9f6"],
+[id*="1780411196ee468b48"],
+#shopify-section-template--27677584556337__17804106686f60e9f6,
+#shopify-section-template--27677584589105__1780411196ee468b48 {
   background: linear-gradient(180deg, #faf9f6 0%, #f4f0e8 100%) !important;
   padding: 70px 0 75px !important;
   margin: 30px 0 !important;
@@ -3193,16 +3197,21 @@ body.template-collection .collection__grid__item .card__price {
 }
 
 /* Header & Title */
-.jdgm-cards-carousel .jdgm-header {
+.jdgm-cards-carousel .jdgm-header,
+.jdgm-widget .jdgm-header {
   text-align: center !important;
   margin-bottom: 40px !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   gap: 14px !important;
+  overflow: visible !important;
 }
 
-.jdgm-cards-carousel .jdgm-title {
+.jdgm-cards-carousel .jdgm-title,
+.jdgm-widget .jdgm-title,
+.jdgm-title,
+h2.jdgm-title {
   font-family: 'Cinzel', 'Playfair Display', Georgia, serif !important;
   font-size: clamp(18px, 2.2vw, 28px) !important;
   font-weight: 700 !important;
@@ -3210,12 +3219,14 @@ body.template-collection .collection__grid__item .card__price {
   text-transform: uppercase !important;
   color: #1a1a1a !important;
   margin: 0 !important;
-  line-height: 1.3 !important;
+  line-height: 1.35 !important;
   white-space: normal !important;
   word-break: break-word !important;
   overflow-wrap: break-word !important;
-  max-width: 720px !important;
+  max-width: 100% !important;
+  width: auto !important;
   text-overflow: unset !important;
+  overflow: visible !important;
 }
 
 .jdgm-cards-carousel .jdgm-title::after {
@@ -3481,7 +3492,11 @@ body.template-collection .collection__grid__item .card__price {
 /* ── Tablet (≤ 900px) ── */
 @media (max-width: 900px) {
   .shopify-section:has(.jdgm-cards-carousel),
-  #shopify-section-template--27677584556337__17804106686f60e9f6 {
+  .shopify-section:has(.jdgm-widget),
+  [id*="17804106686f60e9f6"],
+  [id*="1780411196ee468b48"],
+  #shopify-section-template--27677584556337__17804106686f60e9f6,
+  #shopify-section-template--27677584589105__1780411196ee468b48 {
     padding: 52px 0 58px !important;
     margin: 20px 0 !important;
   }
@@ -3490,14 +3505,26 @@ body.template-collection .collection__grid__item .card__price {
     padding: 0 16px !important;
   }
 
-  .jdgm-cards-carousel .jdgm-header {
+  .jdgm-cards-carousel .jdgm-header,
+  .jdgm-widget .jdgm-header {
     margin-bottom: 28px !important;
     gap: 12px !important;
+    overflow: visible !important;
   }
 
-  .jdgm-cards-carousel .jdgm-title {
+  .jdgm-cards-carousel .jdgm-title,
+  .jdgm-widget .jdgm-title,
+  .jdgm-title,
+  h2.jdgm-title {
     font-size: clamp(16px, 4.5vw, 22px) !important;
     letter-spacing: 0.07em !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    max-width: 100% !important;
+    width: auto !important;
   }
 
   .jdgm-cards-carousel .jdgm-title::after {
@@ -3559,7 +3586,11 @@ body.template-collection .collection__grid__item .card__price {
 /* ── Mobile (≤ 600px) ── */
 @media (max-width: 600px) {
   .shopify-section:has(.jdgm-cards-carousel),
-  #shopify-section-template--27677584556337__17804106686f60e9f6 {
+  .shopify-section:has(.jdgm-widget),
+  [id*="17804106686f60e9f6"],
+  [id*="1780411196ee468b48"],
+  #shopify-section-template--27677584556337__17804106686f60e9f6,
+  #shopify-section-template--27677584589105__1780411196ee468b48 {
     padding: 40px 0 48px !important;
     margin: 12px 0 !important;
   }
@@ -3568,17 +3599,28 @@ body.template-collection .collection__grid__item .card__price {
     padding: 0 12px !important;
   }
 
-  .jdgm-cards-carousel .jdgm-header {
+  .jdgm-cards-carousel .jdgm-header,
+  .jdgm-widget .jdgm-header {
     margin-bottom: 20px !important;
     gap: 10px !important;
+    overflow: visible !important;
   }
 
-  /* Title: 2 lines max, centred, readable */
-  .jdgm-cards-carousel .jdgm-title {
+  /* Title: centred, readable, NEVER truncated */
+  .jdgm-cards-carousel .jdgm-title,
+  .jdgm-widget .jdgm-title,
+  .jdgm-title,
+  h2.jdgm-title {
     font-size: clamp(15px, 5.5vw, 20px) !important;
     letter-spacing: 0.05em !important;
     line-height: 1.35 !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
     max-width: 100% !important;
+    width: auto !important;
   }
 
   .jdgm-cards-carousel .jdgm-title::after {
