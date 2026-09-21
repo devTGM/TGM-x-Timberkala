@@ -239,11 +239,9 @@
       data-omit-tabindex
       class="card{% if text_alignment %} card--{{ text_alignment }}{% endif %}"
     >
-      {% if section.settings.show_vendor == true %}
+      {% if section.settings.show_vendor == true and subtitle != blank %}
         <p class="card__subtitle">{{ subtitle }}</p>
-      {% endif %}
-
-      {% if show_vendor_prop == true %}
+      {% elsif show_vendor_prop == true and subtitle != blank %}
         <p class="card__subtitle">{{ subtitle }}</p>
       {% endif %}
 
@@ -271,10 +269,6 @@
         <div class="card__price">
           {% render 'price', product: product, show_compare_at_price: true, price_class: '' %}
         </div>
-      {% endif %}
-
-      {% if rating and reviews %}
-        {% render 'rating', reviews: reviews, text_alignment: text_alignment %}
       {% endif %}
     </a>
 

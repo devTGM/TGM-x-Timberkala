@@ -2919,3 +2919,149 @@ body.template-collection .collection__title {
   line-height: 1.2 !important;
 }
 
+/* ============================================================
+   PRODUCT CARDS — HIDE REVIEWS & RATINGS
+   ============================================================ */
+.card__container .wt-rating,
+.card__container .rating,
+.card__container .card__rating,
+.card__container .jdgm-widget,
+.card__container .jdgm-preview-badge,
+.card__container .shopify-product-reviews-badge,
+.card__container [data-review-id],
+.card__container .yotpo-bottomline,
+.card__container .spr-badge,
+.collection__grid__item .wt-rating,
+.collection__grid__item .jdgm-widget,
+.collection__grid__item .jdgm-preview-badge,
+.product-grid .wt-rating,
+.product-grid .jdgm-widget,
+.product-grid .jdgm-preview-badge {
+  display: none !important;
+}
+
+/* ============================================================
+   PRODUCT CARDS — UNIFORM CARD LENGTH & GRID ALIGNMENT
+   ============================================================ */
+
+/* CSS Grid stretch to guarantee equal row heights */
+.collection__grid {
+  align-items: stretch !important;
+}
+
+/* Grid items and custom elements fill 100% height */
+.collection__grid__item,
+.product-grid .grid__item,
+[data-swiper-slide] {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+.collection__grid__item color-swatch,
+.product-grid .grid__item color-swatch,
+color-swatch {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.card__container,
+.card__container--product {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Product picture container stays fixed 3:4 portrait without stretching or collapsing */
+.card__picture-container {
+  width: 100% !important;
+  position: relative !important;
+  flex-shrink: 0 !important;
+}
+
+/* Text content wrapper takes remaining card height */
+.card__container > a.card {
+  display: flex !important;
+  flex-direction: column !important;
+  flex-grow: 1 !important;
+  justify-content: flex-start !important;
+  padding-top: 4px !important;
+}
+
+/* Vendor subtitle: single line with ellipsis to prevent height divergence */
+.card__container .card__subtitle,
+.collection__grid__item .card__subtitle {
+  font-size: 11px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  line-height: 1.2 !important;
+  margin-top: 6px !important;
+  margin-bottom: 2px !important;
+}
+
+/* Title: strictly clamped to 2 lines with uniform min-height & max-height storewide */
+.card__title,
+.card__container .card__title,
+.collection__grid__item .card__title,
+body.template-collection .collection__grid__item .card__title {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1.35 !important;
+  min-height: calc(2 * 1.35em) !important;
+  max-height: calc(2 * 1.35em) !important;
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
+  word-break: break-word !important;
+}
+
+/* Price row uniform height */
+.card__price,
+.card__container .card__price,
+.collection__grid__item .card__price,
+body.template-collection .collection__grid__item .card__price {
+  min-height: 22px !important;
+  line-height: 1.3 !important;
+  margin-top: 2px !important;
+  margin-bottom: 4px !important;
+}
+
+/* Center prices when card is centered */
+.card--center .card__price,
+.card--center .card__price .price,
+.card--center .card__price .price__container,
+.card--center .card__price .price__sale {
+  justify-content: center !important;
+}
+
+/* Clean swatch container behavior */
+.card__color-swatcher--container:empty,
+.card__color-swatcher--container:not(:has(.color-swatcher--wrapper)) {
+  display: none !important;
+}
+
+.card__container .card__color-swatcher--container {
+  margin-top: 4px !important;
+  margin-bottom: 4px !important;
+}
+
+/* Quick add button on mobile pinned to bottom */
+@media (max-width: 899px) {
+  .card__quick-add-container {
+    margin-top: auto !important;
+  }
+}
+
+
