@@ -3208,10 +3208,16 @@ body.template-collection .collection__grid__item .card__price {
   overflow: visible !important;
 }
 
+.jdgm-testimonials-carousel .jdgm-title,
+.jdgm-videos-carousel .jdgm-title,
 .jdgm-cards-carousel .jdgm-title,
 .jdgm-widget .jdgm-title,
 .jdgm-title,
 h2.jdgm-title {
+  display: block !important;
+  -webkit-line-clamp: unset !important;
+  -webkit-box-orient: unset !important;
+  line-clamp: unset !important;
   font-family: 'Cinzel', 'Playfair Display', Georgia, serif !important;
   font-size: clamp(18px, 2.2vw, 28px) !important;
   font-weight: 700 !important;
@@ -3227,6 +3233,8 @@ h2.jdgm-title {
   width: auto !important;
   text-overflow: unset !important;
   overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
 }
 
 .jdgm-cards-carousel .jdgm-title::after {
@@ -3512,10 +3520,16 @@ h2.jdgm-title {
     overflow: visible !important;
   }
 
+  .jdgm-testimonials-carousel .jdgm-title,
+  .jdgm-videos-carousel .jdgm-title,
   .jdgm-cards-carousel .jdgm-title,
   .jdgm-widget .jdgm-title,
   .jdgm-title,
   h2.jdgm-title {
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    -webkit-box-orient: unset !important;
+    line-clamp: unset !important;
     font-size: clamp(16px, 4.5vw, 22px) !important;
     letter-spacing: 0.07em !important;
     white-space: normal !important;
@@ -3525,6 +3539,8 @@ h2.jdgm-title {
     overflow-wrap: break-word !important;
     max-width: 100% !important;
     width: auto !important;
+    height: auto !important;
+    max-height: none !important;
   }
 
   .jdgm-cards-carousel .jdgm-title::after {
@@ -3607,10 +3623,18 @@ h2.jdgm-title {
   }
 
   /* Title: centred, readable, NEVER truncated */
+  .jdgm-testimonials-carousel .jdgm-title,
+  .jdgm-videos-carousel .jdgm-title,
   .jdgm-cards-carousel .jdgm-title,
   .jdgm-widget .jdgm-title,
   .jdgm-title,
   h2.jdgm-title {
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    -webkit-box-orient: unset !important;
+    line-clamp: unset !important;
+    height: auto !important;
+    max-height: none !important;
     font-size: clamp(15px, 5.5vw, 20px) !important;
     letter-spacing: 0.05em !important;
     line-height: 1.35 !important;
