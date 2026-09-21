@@ -1,0 +1,103 @@
+{% comment %}
+  Individual item row for PDP Upsell
+{% endcomment %}
+{%- liquid
+  assign current_variant = item.first_available_variant | default: item.selected_or_first_available_variant
+  assign has_discount = false
+  if item.compare_at_price > item.price
+    assign has_discount = true
+    assign discount_percent = item.compare_at_price | minus: item.price | times: 100 | divided_by: item.compare_at_price
+  endif
+-%}
+
+<div
+  class="tk-upsell-item"
+  data-product-id="{{ item.id }}"
+  data-variant-id="{{ current_variant.id }}"
+>
+  <a
+    href="{{ item.url }}"
+    class="tk-upsell-item__image-link"
+    aria-label="{{ item.title | escape }}"
+  >
+    {% if item.featured_image %}
+      <img
+        src="{{ item.featured_image | image_url: width: 160 }}"
+        alt="{{ item.featured_image.alt | default: item.title | escape }}"
+        width="66"
+        height="66"
+        loading="lazy"
+        class="tk-upsell-item__image"
+      >
+    {% else %}
+      <div class="tk-upsell-item__image" style="background:#e8dfd1;"></div>
+    {% endif %}
+  </a>
+
+  <div class="tk-upsell-item__details">
+    {% if item.vendor != blank %}
+      <span class="tk-upsell-item__vendor">{{ item.vendor }}</span>
+    {% endif %}
+    <a href="{{ item.url }}" class="tk-upsell-item__title" title="{{ item.title | escape }}">
+      {{ item.title }}
+    </a>
+
+    <div class="tk-upsell-item__price-row">
+      <span class="tk-upsell-item__price">
+        {% if settings.currency_code_enabled %}
+          {{ item.price | money_with_currency }}
+        {% else %}
+          {{ item.price | money }}
+        {% endif %}
+      </span>
+      {% if has_discount %}
+        <s class="tk-upsell-item__compare-price">
+          {% if settings.currency_code_enabled %}
+            {{ item.compare_at_price | money_with_currency }}
+          {% else %}
+            {{ item.compare_at_price | money }}
+          {% endif %}
+        </s>
+        <span class="tk-upsell-item__discount-badge">-{{ discount_percent }}%</span>
+      {% endif %}
+    </div>
+
+    {% unless item.has_only_default_variant %}
+      {% if item.variants.size > 1 %}
+        <select
+          class="tk-upsell-item__variant-select"
+          aria-label="Select variant for {{ item.title | escape }}"
+        >
+          {% for variant in item.variants %}
+            {% if variant.available %}
+              <option
+                value="{{ variant.id }}"
+                data-price="{% if settings.currency_code_enabled %}{{ variant.price | money_with_currency }}{% else %}{{ variant.price | money }}{% endif %}"
+                {% if variant == current_variant %}selected{% endif %}
+              >
+                {{ variant.title }}
+              </option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      {% endif %}
+    {% endunless %}
+  </div>
+
+  <div class="tk-upsell-item__action">
+    <button
+      type="button"
+      class="tk-upsell-item__add-btn"
+      data-variant-id="{{ current_variant.id }}"
+      aria-label="Add {{ item.title | escape }} to cart"
+    >
+      <span class="tk-upsell-btn-text">+ Add</span>
+      <span class="tk-upsell-btn-loading" hidden>
+        <svg class="tk-spinner" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="31.4 31.4"/>
+        </svg>
+      </span>
+      <span class="tk-upsell-btn-added" hidden>✓ Added</span>
+    </button>
+  </div>
+</div>

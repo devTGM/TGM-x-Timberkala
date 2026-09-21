@@ -879,63 +879,7 @@
                                 {{ block.settings.page.content }}
                             </div>
                         {% when 'upsell' %}
-                            <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
-                            <div
-                                    class="wt-product__upsell {% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %}"
-                                    not-quick-add
-                            >
-                                <div class="wt-product__upsell__headline">{{ block.settings.heading }}</div>
-                                {% for product in block.settings.product_upsell %}
-                                    <div class="wt-product__upsell__content">
-                                        {% if product.featured_image %}
-                                            <picture class="wt-product__upsell__picture">
-                                                {% if product.featured_image %}
-                                                    <img
-                                                            srcset="
-                              {% if product.featured_image.width >= 40 %}{{ product.featured_image | image_url: width: 40 }} 40w, {% endif %}
-                              {% if product.featured_image.width >= 80 %}{{ product.featured_image | image_url: width: 80 }} 80w, {% endif %}
-                              {% if product.featured_image.width >= 160 %}{{ product.featured_image | image_url: width: 160 }} 160w, {% endif %}
-                              {% if product.featured_image.width >= 320 %}{{ product.featured_image | image_url: width: 320 }} 320w, {% endif %}
-                              {% if product.featured_image.width >= 640 %}{{ product.featured_image | image_url: width: 640 }} 640w, {% endif %}
-                              {{ product.featured_image | image_url: width: 80 }} 80w
-                            "
-                                                            sizes="(max-width: 320px) 100vw, 240px"
-                                                            src="{{ product.featured_image | image_url: width: 240 }}"
-                                                            alt="{{ product.featured_image.alt | default: product.title | escape }}"
-                                                            class="wt-product__upsell__image"
-                                                            loading="lazy"
-                                                            width="{{ product.featured_image.width }}"
-                                                            height="{{ product.featured_image.height | divided_by: product.featured_image.aspect_ratio }}"
-                                                    >
-                                                {% endif %}
-                                            </picture>
-                                        {% endif %}
-
-                                        <div class="wt-product__upsell__product">
-                                            <div class="card__subtitle">{{ product.vendor }}</div>
-                                            <div class="card__title">
-                                                <a href="{{ product.url }}">{{ product.title }}</a>
-                                            </div>
-                                            {% render 'price', product: product, show_compare_at_price: true, price_class: '' %}
-                                        </div>
-                                        <div class="wt-product__upsell__button">
-                                            <quick-add data-product-handle="{{ product.handle }}">
-                                                <button
-                                                        aria-label="{{ 'aria-label.main-product-add-to-cart' | t }}"
-                                                        class="
-                            hero__button--primary {% if block.settings.button_select != 'primary' %} hero__button--secondary {% endif %}
-                            {% if block.settings.button_select == 'link' %} hero__button--link {% endif %} form__send__button wt-contact__form__send--{{ block.settings.button_select }}
-                          "
-                                                        name="commit"
-                                                        data-product-url="{{ product.url }}"
-                                                >
-                                                    <span class="wt-newsletter__send__text">Add</span>
-                                                </button>
-                                            </quick-add>
-                                        </div>
-                                    </div>
-                                {%- endfor -%}
-                            </div>
+                            {% render 'product-upsell', block: block, product: product, section: section %}
                         {%- when 'variant_picker' -%}
                             <div>
                                 <div class="wt-product__options">
@@ -2738,35 +2682,30 @@
         {
           "type": "text",
           "id": "heading",
-          "label": "t:sections.main-product.blocks.collapsible_tab.settings.heading.label",
-          "default": "Upsell"
+          "label": "Heading",
+          "default": "Frequently Paired With"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Handcrafted pieces that pair beautifully"
         },
         {
           "type": "product_list",
           "id": "product_upsell",
-          "label": "t:sections.main-product.blocks.upsell.settings.product.label",
-          "info": "t:sections.main-product.blocks.upsell.settings.product.info",
+          "label": "Select Upsell Products",
+          "info": "Leave empty for automatic smart recommendations from collection",
           "limit": 4
         },
         {
-          "type": "select",
-          "id": "button_select",
-          "options": [
-            {
-              "value": "primary",
-              "label": "t:sections.settings.settings.button_select.primary.label"
-            },
-            {
-              "value": "secondary",
-              "label": "t:sections.settings.settings.button_select.secondary.label"
-            },
-            {
-              "value": "link",
-              "label": "t:sections.settings.settings.button_select.link.label"
-            }
-          ],
-          "default": "primary",
-          "label": "t:sections.main-product.blocks.upsell.settings.button_select.label"
+          "type": "range",
+          "id": "max_products",
+          "min": 1,
+          "max": 4,
+          "step": 1,
+          "default": 2,
+          "label": "Maximum products to show"
         }
       ]
     }

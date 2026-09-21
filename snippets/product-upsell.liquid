@@ -1,0 +1,529 @@
+{% comment %}
+  Timberkala PDP Upsell / Cross-sell Component
+  Placed immediately before the Add to Cart button on Product pages.
+  Supports manual product selection via block settings with smart
+  automatic fallback to collection/related products and recommendations API.
+{% endcomment %}
+
+{%- liquid
+  assign upsell_heading = block.settings.heading | default: 'Frequently Paired With'
+  assign upsell_subtitle = block.settings.subtitle | default: 'Handcrafted pieces that pair beautifully'
+  assign max_items = block.settings.max_products | default: 2
+  assign manual_products = block.settings.product_upsell
+  assign rendered_count = 0
+-%}
+
+{% capture upsell_items_html %}
+  {% comment %} 1. Try manual products first {% endcomment %}
+  {% if manual_products != blank and manual_products.count > 0 %}
+    {% for item in manual_products %}
+      {% if item.available and item.id != product.id %}
+        {% render 'product-upsell-item', item: item %}
+        {% assign rendered_count = rendered_count | plus: 1 %}
+        {% if rendered_count >= max_items %}{% break %}{% endif %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  {% comment %} 2. Fallback: Find matching products from current product's collections {% endcomment %}
+  {% if rendered_count == 0 %}
+    {% assign target_col = null %}
+    {% for col in product.collections %}
+      {% if col.handle != 'all' and col.handle != 'frontpage' and col.all_products_count > 1 %}
+        {% assign target_col = col %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% if target_col == null and product.collections.first %}
+      {% assign target_col = product.collections.first %}
+    {% endif %}
+
+    {% if target_col != null %}
+      {% for item in target_col.products %}
+        {% if item.available and item.id != product.id %}
+          {% render 'product-upsell-item', item: item %}
+          {% assign rendered_count = rendered_count | plus: 1 %}
+          {% if rendered_count >= max_items %}{% break %}{% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+{% endcapture %}
+
+<div
+  class="tk-pdp-upsell"
+  id="tk-pdp-upsell-{{ block.id }}"
+  data-product-id="{{ product.id }}"
+  data-max-items="{{ max_items }}"
+  {% if rendered_count == 0 %}style="display: none;"{% endif %}
+>
+  <div class="tk-pdp-upsell__card">
+    <div class="tk-pdp-upsell__header">
+      <div class="tk-pdp-upsell__title-wrapper">
+        <span class="tk-pdp-upsell__ornament">✦</span>
+        <h3 class="tk-pdp-upsell__title">{{ upsell_heading }}</h3>
+        <span class="tk-pdp-upsell__ornament">✦</span>
+      </div>
+      {% if upsell_subtitle != blank %}
+        <p class="tk-pdp-upsell__subtitle">{{ upsell_subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <div class="tk-pdp-upsell__list" id="tk-pdp-upsell-list-{{ block.id }}">
+      {{ upsell_items_html }}
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ============================================================
+     TIMBERKALA LUXURY PDP UPSELL / CROSS-SELL WIDGET
+     ============================================================ */
+  .tk-pdp-upsell {
+    margin: 16px 0 20px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .tk-pdp-upsell__card {
+    background: linear-gradient(180deg, #faf9f6 0%, #f5f0e8 100%) !important;
+    border: 1px solid rgba(212, 175, 55, 0.3) !important;
+    border-radius: 14px !important;
+    padding: 16px 16px 14px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(212, 175, 55, 0.08) !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+  }
+
+  .tk-pdp-upsell__header {
+    text-align: center !important;
+    margin-bottom: 12px !important;
+    padding-bottom: 10px !important;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.18) !important;
+  }
+
+  .tk-pdp-upsell__title-wrapper {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+  }
+
+  .tk-pdp-upsell__ornament {
+    color: #d4af37 !important;
+    font-size: 10px !important;
+    line-height: 1 !important;
+  }
+
+  .tk-pdp-upsell__title {
+    font-family: 'Cinzel', 'Playfair Display', Georgia, serif !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    color: #1a1a1a !important;
+    margin: 0 !important;
+    line-height: 1.2 !important;
+  }
+
+  .tk-pdp-upsell__subtitle {
+    font-family: 'Harmonia Sans', 'Jost', -apple-system, sans-serif !important;
+    font-size: 11.5px !important;
+    color: #7d7265 !important;
+    margin: 3px 0 0 !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  .tk-pdp-upsell__list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  /* Item Row */
+  .tk-upsell-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-radius: 10px !important;
+    padding: 10px 12px !important;
+    box-sizing: border-box !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+  }
+
+  .tk-upsell-item:hover {
+    border-color: rgba(212, 175, 55, 0.45) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    transform: translateY(-1px) !important;
+  }
+
+  .tk-upsell-item__image-link {
+    flex-shrink: 0 !important;
+    width: 66px !important;
+    height: 66px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    background: #f4f0e8 !important;
+    display: block !important;
+    text-decoration: none !important;
+    border: 1px solid rgba(0, 0, 0, 0.04) !important;
+  }
+
+  .tk-upsell-item__image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  .tk-upsell-item__details {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+  }
+
+  .tk-upsell-item__vendor {
+    font-size: 10px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.07em !important;
+    color: #8c8275 !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+  }
+
+  .tk-upsell-item__title {
+    font-family: 'Harmonia Sans', 'Jost', system-ui, sans-serif !important;
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+    color: #1a1a1a !important;
+    line-height: 1.35 !important;
+    text-decoration: none !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    transition: color 0.2s ease !important;
+  }
+
+  .tk-upsell-item__title:hover {
+    color: #d4af37 !important;
+  }
+
+  .tk-upsell-item__price-row {
+    display: flex !important;
+    align-items: baseline !important;
+    gap: 6px !important;
+    margin-top: 2px !important;
+  }
+
+  .tk-upsell-item__price {
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    color: #1a1a1a !important;
+    line-height: 1 !important;
+  }
+
+  .tk-upsell-item__compare-price {
+    font-size: 11px !important;
+    color: rgba(0, 0, 0, 0.4) !important;
+    text-decoration: line-through !important;
+    line-height: 1 !important;
+  }
+
+  .tk-upsell-item__discount-badge {
+    font-size: 9.5px !important;
+    font-weight: 700 !important;
+    background: #108474 !important;
+    color: #ffffff !important;
+    padding: 1px 5px !important;
+    border-radius: 4px !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1.2 !important;
+  }
+
+  .tk-upsell-item__variant-select {
+    margin-top: 4px !important;
+    padding: 3px 8px !important;
+    font-size: 11px !important;
+    border: 1px solid rgba(0, 0, 0, 0.15) !important;
+    border-radius: 6px !important;
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    max-width: 140px !important;
+    outline: none !important;
+    cursor: pointer !important;
+  }
+
+  /* Action / Button */
+  .tk-upsell-item__action {
+    flex-shrink: 0 !important;
+  }
+
+  .tk-upsell-item__add-btn {
+    background: #1a1a1a !important;
+    color: #ffffff !important;
+    border: 1px solid #1a1a1a !important;
+    border-radius: 999px !important;
+    padding: 7px 15px !important;
+    font-size: 11.5px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    cursor: pointer !important;
+    transition: all 0.22s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 72px !important;
+    min-height: 34px !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .tk-upsell-item__add-btn:hover {
+    background: #d4af37 !important;
+    border-color: #d4af37 !important;
+    color: #1a1a1a !important;
+    box-shadow: 0 4px 10px rgba(212, 175, 55, 0.25) !important;
+    transform: scale(1.03) !important;
+  }
+
+  .tk-upsell-item__add-btn.tk-loading {
+    opacity: 0.75 !important;
+    cursor: wait !important;
+    pointer-events: none !important;
+  }
+
+  .tk-upsell-item__add-btn.tk-added {
+    background: #108474 !important;
+    border-color: #108474 !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(16, 132, 116, 0.25) !important;
+  }
+
+  .tk-spinner {
+    width: 14px !important;
+    height: 14px !important;
+    animation: tk-spin 0.7s linear infinite !important;
+  }
+
+  @keyframes tk-spin {
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Mobile Tweaks */
+  @media (max-width: 600px) {
+    .tk-pdp-upsell {
+      margin: 14px 0 16px !important;
+    }
+
+    .tk-pdp-upsell__card {
+      padding: 14px 12px 12px !important;
+      border-radius: 12px !important;
+    }
+
+    .tk-upsell-item {
+      padding: 9px 10px !important;
+      gap: 10px !important;
+    }
+
+    .tk-upsell-item__image-link {
+      width: 58px !important;
+      height: 58px !important;
+    }
+
+    .tk-upsell-item__title {
+      font-size: 11.5px !important;
+    }
+
+    .tk-upsell-item__price {
+      font-size: 12px !important;
+    }
+
+    .tk-upsell-item__add-btn {
+      padding: 6px 12px !important;
+      font-size: 11px !important;
+      min-width: 64px !important;
+      min-height: 32px !important;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    var blockId = {{ block.id | json }};
+    var container = document.getElementById('tk-pdp-upsell-' + blockId);
+    var listEl = document.getElementById('tk-pdp-upsell-list-' + blockId);
+    if (!container || !listEl) return;
+
+    var currentProdId = {{ product.id | json }};
+    var maxItems = parseInt(container.getAttribute('data-max-items') || '2', 10);
+    var existingItems = listEl.querySelectorAll('.tk-upsell-item');
+
+    // If server rendered items, attach event listeners
+    if (existingItems.length > 0) {
+      attachUpsellEvents(container);
+    } else {
+      // Client-side fallback: fetch Shopify recommendations
+      fetch('/recommendations/products.json?product_id=' + currentProdId + '&limit=4&intent=related')
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          var products = data.products || [];
+          var count = 0;
+          products.forEach(function(p) {
+            if (count >= maxItems || p.id === currentProdId) return;
+            var availableVariant = p.variants && p.variants.find(function(v) { return v.available; });
+            if (!availableVariant) return;
+
+            var imgUrl = p.featured_image
+              ? p.featured_image.replace(/(\.[^.?]+)(\?.*)?$/, '_160x160$1$2')
+              : '';
+            var priceStr = '₹' + (p.price / 100).toLocaleString('en-IN');
+            var compareStr = p.compare_at_price && p.compare_at_price > p.price
+              ? '₹' + (p.compare_at_price / 100).toLocaleString('en-IN')
+              : '';
+
+            var itemDiv = document.createElement('div');
+            itemDiv.className = 'tk-upsell-item';
+            itemDiv.setAttribute('data-product-id', p.id);
+            itemDiv.setAttribute('data-variant-id', availableVariant.id);
+
+            var optionsHtml = '';
+            if (p.variants.length > 1) {
+              optionsHtml += '<select class="tk-upsell-item__variant-select" aria-label="Select variant">';
+              p.variants.forEach(function(v) {
+                if (v.available) {
+                  optionsHtml += '<option value="' + v.id + '" data-price="₹' + (v.price / 100).toLocaleString('en-IN') + '">' + v.title + '</option>';
+                }
+              });
+              optionsHtml += '</select>';
+            }
+
+            itemDiv.innerHTML =
+              '<a href="' + p.url + '" class="tk-upsell-item__image-link">' +
+                (imgUrl ? '<img src="' + imgUrl + '" alt="" class="tk-upsell-item__image" width="66" height="66" loading="lazy">' : '') +
+              '</a>' +
+              '<div class="tk-upsell-item__details">' +
+                '<span class="tk-upsell-item__vendor">' + (p.vendor || 'TIMBER KALA') + '</span>' +
+                '<a href="' + p.url + '" class="tk-upsell-item__title">' + p.title + '</a>' +
+                '<div class="tk-upsell-item__price-row">' +
+                  '<span class="tk-upsell-item__price">' + priceStr + '</span>' +
+                  (compareStr ? '<s class="tk-upsell-item__compare-price">' + compareStr + '</s>' : '') +
+                '</div>' +
+                optionsHtml +
+              '</div>' +
+              '<div class="tk-upsell-item__action">' +
+                '<button type="button" class="tk-upsell-item__add-btn" data-variant-id="' + availableVariant.id + '">' +
+                  '<span class="tk-upsell-btn-text">+ Add</span>' +
+                  '<span class="tk-upsell-btn-loading" hidden><svg class="tk-spinner" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="31.4 31.4"/></svg></span>' +
+                  '<span class="tk-upsell-btn-added" hidden>✓ Added</span>' +
+                '</button>' +
+              '</div>';
+
+            listEl.appendChild(itemDiv);
+            count++;
+          });
+
+          if (count > 0) {
+            container.style.display = '';
+            attachUpsellEvents(container);
+          } else {
+            container.style.display = 'none';
+          }
+        })
+        .catch(function() {
+          container.style.display = 'none';
+        });
+    }
+
+    function attachUpsellEvents(root) {
+      // Variant select changes
+      root.querySelectorAll('.tk-upsell-item__variant-select').forEach(function(select) {
+        select.addEventListener('change', function() {
+          var item = select.closest('.tk-upsell-item');
+          var btn = item.querySelector('.tk-upsell-item__add-btn');
+          var priceEl = item.querySelector('.tk-upsell-item__price');
+          var selectedOpt = select.options[select.selectedIndex];
+          var newVid = select.value;
+          var newPrice = selectedOpt.getAttribute('data-price');
+          if (btn) btn.setAttribute('data-variant-id', newVid);
+          if (priceEl && newPrice) priceEl.textContent = newPrice;
+        });
+      });
+
+      // Add to Cart click
+      root.querySelectorAll('.tk-upsell-item__add-btn').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          var vid = btn.getAttribute('data-variant-id');
+          if (!vid) return;
+
+          var textSpan = btn.querySelector('.tk-upsell-btn-text');
+          var loadingSpan = btn.querySelector('.tk-upsell-btn-loading');
+          var addedSpan = btn.querySelector('.tk-upsell-btn-added');
+
+          btn.classList.add('tk-loading');
+          if (textSpan) textSpan.hidden = true;
+          if (loadingSpan) loadingSpan.hidden = false;
+
+          var cartDrawer = document.querySelector('cart-drawer');
+          var sectionsToRender = cartDrawer && typeof cartDrawer.getSectionsToRender === 'function'
+            ? cartDrawer.getSectionsToRender()
+            : [];
+
+          var formData = new FormData();
+          formData.append('id', vid);
+          formData.append('quantity', 1);
+          if (sectionsToRender.length) {
+            formData.append('sections', sectionsToRender.map(function(s) { return s.id || s.section; }).join(','));
+            formData.append('sections_url', window.location.pathname);
+          }
+
+          fetch(window.routes && window.routes.cart_add_url ? window.routes.cart_add_url : '/cart/add.js', {
+            method: 'POST',
+            body: formData,
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+          })
+          .then(function(res) { return res.json(); })
+          .then(function(data) {
+            btn.classList.remove('tk-loading');
+            btn.classList.add('tk-added');
+            if (loadingSpan) loadingSpan.hidden = true;
+            if (addedSpan) addedSpan.hidden = false;
+
+            // Render cart drawer if available
+            if (data.sections && cartDrawer && typeof cartDrawer.renderContents === 'function') {
+              cartDrawer.renderContents(data);
+            }
+
+            // Trigger theme cart updates
+            if (window.handleFloCartBtn) {
+              window.handleFloCartBtn();
+            }
+
+            if (typeof publish === 'function' && window.PUB_SUB_EVENTS) {
+              publish(window.PUB_SUB_EVENTS.cartUpdate, { source: 'product-upsell', cartData: data });
+            }
+
+            document.dispatchEvent(new CustomEvent('cart:refresh'));
+
+            setTimeout(function() {
+              btn.classList.remove('tk-added');
+              if (addedSpan) addedSpan.hidden = true;
+              if (textSpan) textSpan.hidden = false;
+            }, 3000);
+          })
+          .catch(function(err) {
+            console.error('Upsell add error:', err);
+            btn.classList.remove('tk-loading');
+            if (loadingSpan) loadingSpan.hidden = true;
+            if (textSpan) textSpan.hidden = false;
+          });
+        });
+      });
+    }
+  })();
+</script>

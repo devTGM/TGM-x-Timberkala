@@ -1,1 +1,780 @@
-{"sections":{"custom_liquid_PwtKtg":{"type":"custom-liquid","disabled":true,"name":"t:sections.custom-liquid.presets.name","settings":{"custom_liquid":"<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Announcement Bar<\/title>\n  <style>\n    body.unique-body-class {\n      margin: 0;\n      font-family: Arial, sans-serif;\n    }\n\n    .unique-announcement-bar {\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      height: 40px;\n      color: white;\n      font-size: 14px;\n      font-weight: bold;\n      background: linear-gradient(90deg, black, #7b5a3a, #e6d5c3, black);\n      background-size: 300% 300%;\n      animation: unique-gradient-shift 6s infinite;\n      overflow: hidden;\n    }\n\n    .unique-countdown-wrapper {\n      position: absolute;\n      right: 15px;\n      display: flex;\n      gap: 8px;\n    }\n\n    .unique-time {\n      background: white;\n      color: black;\n      padding: 3px 8px;\n      border-radius: 3px;\n      font-size: 12px;\n    }\n\n    @keyframes unique-gradient-shift {\n      0% { background-position: 0% 50%; }\n      50% { background-position: 100% 50%; }\n      100% { background-position: 0% 50%; }\n    }\n\n    @media (max-width: 768px) {\n      .unique-announcement-bar {\n        height: 30px;\n        font-size: 12px;\n        justify-content: flex-start;\n        padding-left: 10px;\n      }\n\n      .unique-countdown-wrapper {\n        right: 10px;\n        gap: 5px;\n      }\n\n      .unique-time {\n        padding: 2px 6px;\n        font-size: 10px;\n      }\n    }\n  <\/style>\n<\/head>\n<body class=\"unique-body-class\">\n  <div class=\"unique-announcement-bar\">\n    <div>Black Friday Sales  Ends in<\/div>\n    <div class=\"unique-countdown-wrapper\">\n      <span class=\"unique-time\"><span id=\"unique-days\">00<\/span> DAY<\/span>\n      <span class=\"unique-time\"><span id=\"unique-hours\">00<\/span> HRS<\/span>\n      <span class=\"unique-time\"><span id=\"unique-minutes\">00<\/span> MIN<\/span>\n      <span class=\"unique-time\"><span id=\"unique-seconds\">00<\/span> SEC<\/span>\n    <\/div>\n  <\/div>\n\n  <script>\n    function startCountdown(durationInSeconds) {\n      let remainingTime = durationInSeconds;\n\n      function updateCountdown() {\n        if (remainingTime < 0) {\n          remainingTime = durationInSeconds;\n        }\n\n        const days = Math.floor(remainingTime \/ 86400);\n        const hours = Math.floor((remainingTime % 86400) \/ 3600);\n        const minutes = Math.floor((remainingTime % 3600) \/ 60);\n        const seconds = remainingTime % 60;\n\n        document.getElementById('unique-days').textContent = String(days).padStart(2, '0');\n        document.getElementById('unique-hours').textContent = String(hours).padStart(2, '0');\n        document.getElementById('unique-minutes').textContent = String(minutes).padStart(2, '0');\n        document.getElementById('unique-seconds').textContent = String(seconds).padStart(2, '0');\n\n        remainingTime--;\n      }\n\n      updateCountdown();\n      setInterval(updateCountdown, 1000);\n    }\n\n    \/\/ 1 day 3 hours 21 minutes 32 seconds = 98492 seconds\n    startCountdown(98492);\n  <\/script>\n<\/body>\n<\/html>"}},"breadcrumbs":{"type":"main-breadcrumbs","settings":{"full-width-enabled":true,"text_color":"rgba(0,0,0,0)","background_color":"rgba(0,0,0,0)","margin-top":8,"margin-bottom":8}},"custom_liquid_VerEgL":{"type":"custom-liquid","name":"t:sections.custom-liquid.presets.name","settings":{"custom_liquid":"<div class=\"tk-marquee\">\n  <div class=\"tk-marquee-content\">\n  ✨ OUR BEST OFFER OF THE SEASON — DON’T WAIT FOR MORE. • LIMITED STOCK MEANS NO OFFER MATTERS ONCE YOUR FAVOURITES ARE GONE.\n  <\/div>\n<\/div>\n\n<style>\n.tk-marquee {\n  width: 100%;\n  overflow: hidden;\n  white-space: nowrap;\n  background: #000;\n  color: #fff;\n  border-top: 1px solid rgba(255,255,255,.15);\n  border-bottom: 1px solid rgba(255,255,255,.15);\n  padding: 14px 0;\n}\n\n.tk-marquee-content {\n  display: inline-block;\n  padding-left: 100%;\n  font-size: 16px;\n  font-weight: 700;\n  letter-spacing: .8px;\n  text-transform: uppercase;\n  animation: tk-scroll 16s linear infinite;\n}\n\n@keyframes tk-scroll {\n  0% {\n    transform: translateX(0);\n  }\n  100% {\n    transform: translateX(-100%);\n  }\n}\n\n@media screen and (max-width: 767px) {\n  .tk-marquee {\n    padding: 12px 0;\n  }\n\n  .tk-marquee-content {\n    font-size: 13px;\n    font-weight: 700;\n    letter-spacing: .6px;\n    animation-duration: 28s;\n  }\n}\n<\/style>"}},"custom_liquid_HUczzX":{"type":"custom-liquid","disabled":true,"name":"t:sections.custom-liquid.presets.name","settings":{"custom_liquid":"<style>\n.tk-marquee {\n  width: 100%;\n  background: #000;\n  color: #fff;\n  overflow: hidden;\n  white-space: nowrap;\n  padding: 10px 0;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: 0.5px;\n  position: relative;\n}\n\n.tk-marquee-content {\n  display: inline-block;\n  padding-left: 100%;\n  animation: tk-scroll 25s linear infinite;\n}\n\n@keyframes tk-scroll {\n  0% {\n    transform: translateX(0);\n  }\n  100% {\n    transform: translateX(-100%);\n  }\n}\n<\/style>\n\n<div class=\"tk-marquee\">\n  <div class=\"tk-marquee-content\">\n    ✦ Orders will be fulfilled in 10-15 days due to increase in demand   • Every Timberkala piece is handcrafted with care and packed safely for delivery • Thank you for supporting handmade craftsmanship ✦\n  <\/div>\n<\/div>"}},"main":{"type":"main-product","blocks":{"custom_liquid_zgCqgH":{"type":"custom_liquid","settings":{"custom_liquid":""}},"title":{"type":"title","settings":{"brand":"{{ product.vendor }}","size_text":110,"size_text_mobile":120}},"custom_liquid_H8nd4C":{"type":"custom_liquid","settings":{"custom_liquid":"<style>\n  .promo-banner {\n    background: linear-gradient(135deg, #e8dfd1 0%, #d8c7ae 100%);\n    color: #4a3b2a;\n    padding: 10px 16px;\n    text-align: center;\n    border-radius: 6px;\n    margin-bottom: 12px;\n    border: 1px solid rgba(74, 59, 42, 0.08);\n    position: relative;\n    overflow: hidden;\n  }\n\n  .promo-banner::before {\n    content: '';\n    position: absolute;\n    inset: 0;\n    background: linear-gradient(\n      90deg,\n      transparent,\n      rgba(255,255,255,0.18),\n      transparent\n    );\n    transform: translateX(-100%);\n    animation: shine 5s infinite;\n  }\n\n  .promo-banner-text {\n    position: relative;\n    z-index: 1;\n  }\n\n  .promo-highlight {\n    display: block;\n    font-size: 14px;\n    font-weight: 600;\n    letter-spacing: 0.4px;\n    text-transform: uppercase;\n  }\n\n  .promo-subtext {\n    display: block;\n    margin-top: 2px;\n    font-size: 11px;\n    color: rgba(74, 59, 42, 0.75);\n    letter-spacing: 0.8px;\n    text-transform: uppercase;\n  }\n\n  @keyframes shine {\n    from { transform: translateX(-100%); }\n    to { transform: translateX(100%); }\n  }\n\n  @media (max-width: 768px) {\n    .promo-banner {\n      padding: 9px 14px;\n      margin-bottom: 10px;\n    }\n\n    .promo-highlight {\n      font-size: 13px;\n    }\n\n    .promo-subtext {\n      font-size: 10px;\n    }\n  }\n<\/style>\n\n<div class=\"promo-banner\">\n  <div class=\"promo-banner-text\">\n    <span class=\"promo-highlight\">\n      Extra 10% Off Applied at Checkout\n    <\/span>\n    <span class=\"promo-subtext\">\n      Current Offer Scheduled to End at Midnight\n    <\/span>\n  <\/div>\n<\/div>"}},"rating":{"type":"rating","disabled":true,"settings":{}},"90ea3cd3-aa22-44f6-b6de-365eb7f85b9c":{"type":"separator","settings":{"show-separator-line":false,"color-background":"#ffffff","margin-top":8,"margin-bottom":8}},"price":{"type":"price","settings":{"show_tax_included":false,"size_text":140,"size_text_mobile":130}},"separator_RrKQ4A":{"type":"separator","settings":{"show-separator-line":false,"color-background":"#ffffff","margin-top":8,"margin-bottom":8}},"variant_picker":{"type":"variant_picker","settings":{"picker_type":"button","color_swatch_names":"","variant_picture_swatch_names":"","dropdown_swatch_names":"","margin-top":8,"margin-bottom":8}},"custom_liquid_jBMGDR":{"type":"custom_liquid","settings":{"custom_liquid":"<div style=\"\nbackground:linear-gradient(135deg,#F8F3EC 0%,#E8D9C5 45%,#D2B08A 100%);\npadding:10px 14px;\nborder:1px solid rgba(139,90,43,0.15);\nborder-radius:8px;\nfont-family:'Segoe UI',Arial,sans-serif;\nfont-size:15px;\nfont-weight:500;\ncolor:#3B2A20;\ntext-align:center;\nline-height:1.4;\nbox-shadow:\n0 6px 18px rgba(62,49,39,0.08),\ninset 0 1px 0 rgba(255,255,255,0.5);\nletter-spacing:0.2px;\n\">\nHandcrafted & Handpainted • One-of-a-Kind Pieces • Free Pan-India Shipping\n<\/div>"}},"text_j6RwH3":{"type":"text","disabled":true,"settings":{"heading":"","content":"<h4><strong>Start Saving Now: Add to Cart and Enjoy Discounts of Up to 10% Off.<\/strong><\/h4>","page":""}},"buy_buttons":{"type":"buy_buttons","settings":{"show_dynamic_checkout":true,"show_gift_card_recipient":true,"show_qty_selector":true}},"custom_liquid_f89WQj":{"type":"custom_liquid","name":"STICKER COPY TO CLIP","settings":{"custom_liquid":"<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>Discount Banner<\/title>\n\n<style>\nbody.unique-body-x1234 {\n  font-family: Arial, sans-serif;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  margin: 0;\n  background-color: #f0f2f5;\n}\n\n.discount-banner-x1234 {\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n  background-color: #f5f5f5;\n  padding: 10px 15px;\n  border: 1px solid #dcdcdc;\n  border-radius: 10px;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n  font-size: 12px;\n  width: 100%;\n  animation: fadeIn-x1234 2s ease-in-out;\n  margin: 3px 0;\n}\n\n.discount-banner-x1234 span {\n  color: #333333;\n  display: flex;\n  align-items: center;\n}\n\n.coupon-container-x1234 {\n  display: inline-flex;\n  align-items: center;\n  cursor: pointer;\n  margin-left: 8px;\n}\n\n.coupon-code-x1234 {\n  font-weight: bold;\n  color: #333333;\n}\n\n.copy-button-x1234 {\n  background: none;\n  border: none;\n  cursor: pointer;\n  transition: transform 0.3s ease-in-out;\n  padding: 0;\n}\n\n.copy-button-x1234:hover {\n  transform: scale(1.2);\n}\n\n.copy-button-x1234 img {\n  width: 14px;\n  height: 14px;\n  margin-left: 3px;\n}\n\n@keyframes fadeIn-x1234 {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}\n<\/style>\n<\/head>\n\n<body class=\"unique-body-x1234\">\n\n<div class=\"discount-banner-x1234\">\n\n  <!-- ICON REMOVED -->\n\n  <span>\n    Extra 10% Off On All Products.\n\n    <span class=\"coupon-container-x1234\" id=\"coupon-container-x1234\">\n\n      <strong id=\"coupon-code-x1234\"\n        class=\"coupon-code-x1234\"\n        onclick=\"copyToClipboard(event)\">\n        FLASH10\n      <\/strong>\n\n      <button class=\"copy-button-x1234\"\n        onclick=\"copyToClipboard(event)\">\n        <img src=\"https:\/\/www.svgrepo.com\/show\/520670\/copy-2.svg\" alt=\"Copy\">\n      <\/button>\n\n    <\/span>\n  <\/span>\n\n<\/div>\n\n<script>\nfunction copyToClipboard(event) {\n  event.stopPropagation();\n  const couponCode =\n    document.getElementById(\"coupon-code-x1234\").innerText.trim();\n\n  navigator.clipboard.writeText(couponCode);\n}\n\ndocument.getElementById(\"coupon-container-x1234\")\n.addEventListener(\"click\", copyToClipboard);\n<\/script>\n\n<\/body>\n<\/html>"}},"separator_BtVmRq":{"type":"separator","settings":{"show-separator-line":true,"color-background":"#ffffff","margin-top":8,"margin-bottom":8}},"bulletpoints_iWtDxJ":{"type":"bulletpoints","disabled":true,"settings":{"metafield":"custom.features","default_text":"Exquisite Craftsmanship – Intricately carved wooden wings that capture the beauty of nature.\nPremium Quality – Made from high-quality wood with a rich, natural grain for timeless appeal.\nVersatile Décor – Perfect for walls, shelves, or as a stunning centerpiece in any space.\nSymbol of Transformation – Inspired by the grace of butterflies, bringing serenity and sophistication to your home."}},"separator_HcYGiH":{"type":"separator","disabled":true,"settings":{"show-separator-line":true,"color-background":"#dedede","margin-top":0,"margin-bottom":0}},"custom_liquid_KxY7jd":{"type":"custom_liquid","disabled":true,"settings":{"custom_liquid":"<div class=\"happy-customers\">\n  <div class=\"avatars\">\n    <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0909\/3352\/6833\/files\/tt6.webp?v=1758613293\" alt=\"Customer 1\" class=\"avatar\">\n    <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0909\/3352\/6833\/files\/tt2.webp?v=1758613293\" alt=\"Customer 2\" class=\"avatar\">\n    <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0909\/3352\/6833\/files\/tt5.webp?v=1758613292\" alt=\"Customer 3\" class=\"avatar\">\n  <\/div>\n  <span class=\"text\">10,000+ HAPPY CUSTOMERS<\/span>\n<\/div>\n\n<style>\n.happy-customers {\n  display: flex;\n  align-items: center;\n  border-radius: 8px;\n  padding: 12px 22px;\n  font-family: 'Poppins';\n  font-size: 14px;\n  position: relative;\n  background: #000; \/* Black background for luxury *\/\n  box-shadow: 0 4px 15px rgba(0,0,0,0.6);\n  overflow: hidden;\n  color: #fff;\n}\n\n.avatars {\n  display: flex;\n  margin-right: 12px;\n  margin-left: 6px;\n}\n\n.avatar {\n  width: 26px;\n  height: 26px;\n  border-radius: 50%;\n  border: 2px solid #fff;\n  margin-left: -7px;\n  object-fit: cover;\n  box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);\n}\n\n.text {\n  font-weight: bold;\n  text-transform: uppercase;\n  letter-spacing: 1.2px;\n  font-size: 15px;\n\n  \/* Gold gradient *\/\n  background: linear-gradient(\n    90deg,\n    #b88900,\n    #ffcc00,\n    #fff6d0,\n    #e6b800,\n    #b88900\n  );\n  background-size: 300% auto;\n  color: transparent;\n  background-clip: text;\n  -webkit-background-clip: text;\n\n  position: relative;\n  display: inline-block;\n\n  \/* Gold movement *\/\n  animation: goldshift 6s linear infinite;\n  text-shadow: 0 0 6px rgba(255,215,0,0.6);\n}\n\n\/* Glossy shine stripe *\/\n.text::after {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: -100%;\n  height: 100%;\n  width: 100%;\n  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.7), transparent);\n  transform: skewX(-20deg);\n  animation: shine 3s ease-in-out infinite;\n}\n\n@keyframes goldshift {\n  0% { background-position: 0% center; }\n  100% { background-position: 200% center; }\n}\n\n@keyframes shine {\n  0% { left: -100%; }\n  50% { left: 100%; }\n  100% { left: 100%; }\n}\n<\/style>"}},"custom_liquid_qatFtK":{"type":"custom_liquid","settings":{"custom_liquid":"<div style=\"text-align:center; margin:20px 0;\">\n  <img \n    src=https:\/\/cdn.shopify.com\/s\/files\/1\/0909\/3352\/6833\/files\/product_badges_2.png?v=1758540032?v=1758522609?v=1758521994\" \n    alt=\"Planten Logo\" \n    style=\"max-width:100%; height:auto;\"\n  >\n<\/div>"}},"description":{"type":"description","settings":{"is_open":true,"icon":"box"}},"collapsible_tab_JGWjWW":{"type":"collapsible_tab","settings":{"heading":"Materials","content":"<p>Handcrafted from natural wood and hand-painted by skilled artisans. Each piece may have slight variations in wood grain, texture, colour, brushwork, and finish due to its handmade nature. These subtle imperfections are natural characteristics of handcrafted products and make every piece unique.<br\/>Every product undergoes a thorough in-house quality check before dispatch to ensure a complete, well-finished and aesthetically pleasing piece reaches you.<\/p>","page":"","icon":"heart"}},"a05fcf3e-8e1a-4f1f-8d97-2055eb17138d":{"type":"separator","settings":{"show-separator-line":true,"color-background":"#dedede","margin-top":0,"margin-bottom":0}},"collapsible_tab_CTNcpC":{"type":"collapsible_tab","settings":{"heading":"Dimension","content":"<p>{{ product.metafields.custom.dimensions.value }}<\/p>","page":"","icon":"ruler"}},"separator_84Bf8j":{"type":"separator","settings":{"show-separator-line":true,"color-background":"#dedede","margin-top":0,"margin-bottom":0}},"collapsible_tab_FeGmCP":{"type":"collapsible_tab","settings":{"heading":"Effortless Care","content":"<p>To keep your wooden decor pieces looking their best, dust gently using  a soft, dry cloth to wipe away dust and debris.<br\/>Keep decor pieces away from direct sunlight, high humidity, and water exposure to prevent damage.<\/p>","page":"","icon":"check_mark"}},"separator_xAPRbc":{"type":"separator","settings":{"show-separator-line":true,"color-background":"#dedede","margin-top":0,"margin-bottom":0}},"collapsible_tab_Q7UFgL":{"type":"collapsible_tab","settings":{"heading":"Shipping and Delivery","content":"<ul><li>Orders are processed and delivered within <strong>7 business days<\/strong>.<\/li><li>Delivery times depend on the <strong>shipping partner<\/strong> selected.<\/li><li>We work with <strong>trusted couriers<\/strong> to ensure safe and timely delivery.<\/li><li>Tracking details will be shared once your order is dispatched.<\/li><li>For questions, reach us at <a><strong>wecare@timberkala.com<\/strong><\/a>.<\/li><\/ul>","page":"","icon":"truck"}},"separator_gDwzxi":{"type":"separator","settings":{"show-separator-line":true,"color-background":"#dedede","margin-top":0,"margin-bottom":0}},"collapsible_tab_Yxj6UT":{"type":"collapsible_tab","settings":{"heading":"Embracing Wabi-Sabi:","content":"<p>The Beauty of Imperfection<br\/>Our sustainable creations celebrate the Japanese philosophy of Wabi-Sabi, finding beauty in imperfection and impermanence. Each piece is crafted with love, embracing the unique character of natural materials and the subtle nuances of handmade production. By valuing the imperfect and the impermanent, we invite you to slow down, appreciate the beauty of simplicity, and live in harmony with nature. Our Wabi-Sabi inspired pieces are not just decor, but a reflection of a mindful and sustainable way of living.<\/p>","page":"","icon":"leaf"}},"separator_qDx9HV":{"type":"separator","settings":{"show-separator-line":true,"color-background":"#dedede","margin-top":0,"margin-bottom":0}},"share_buttons_Ct9CXx":{"type":"share_buttons","settings":{"heading":"Share","social_facebook_link":true,"social_twitter_link":false,"social_pinterest_link":true,"mail_link":true}},"judge_me_reviews_testimonials_carousel_yzr3a7":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/testimonials_carousel\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{"show_sample_reviews":true,"reviews_selection":"all","products":[],"filter_pinned":false,"filter_featured":false,"filter_custom_tags":"","star_rating":"4_to_5_star","max_reviews":30,"quote_marks_size":"small","product_name_text_size":"small","verified_badge_style":"icon","card_height":"compact","text_size":"extra_small","stars_size":"medium","arrows_position":"bottom","max_width":1100,"corner_styling":"soft","quote_marks_style":"serif","card_color":"#F9F9F9","stars_and_quote_marks_color":"#108474","text_color":"#000000","arrows_color":"#000000","show_border":true,"border_color":"#108474","show_drop_shadow":true,"transition_speed":4,"header_text":"The Timberkala Experience","show_average_rating":true,"rating_display":"default"}}},"block_order":["custom_liquid_zgCqgH","title","custom_liquid_H8nd4C","rating","90ea3cd3-aa22-44f6-b6de-365eb7f85b9c","price","separator_RrKQ4A","variant_picker","custom_liquid_jBMGDR","text_j6RwH3","buy_buttons","custom_liquid_f89WQj","separator_BtVmRq","bulletpoints_iWtDxJ","separator_HcYGiH","custom_liquid_KxY7jd","custom_liquid_qatFtK","description","collapsible_tab_JGWjWW","a05fcf3e-8e1a-4f1f-8d97-2055eb17138d","collapsible_tab_CTNcpC","separator_84Bf8j","collapsible_tab_FeGmCP","separator_xAPRbc","collapsible_tab_Q7UFgL","separator_gDwzxi","collapsible_tab_Yxj6UT","separator_qDx9HV","share_buttons_Ct9CXx","judge_me_reviews_testimonials_carousel_yzr3a7"],"custom_css":[".shopify-payment-button__button--unbranded {background: #000 !important; color: #fff !important; border: 3px solid transparent; border-radius: 0; padding: 12px 20px; font-weight: 700; position: relative; overflow: hidden; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25); transition: transform 0.2s, box-shadow 0.2s; border-image: linear-gradient(90deg, #fff, #fff, #fff) 1; border-image-slice: 1;}",".shopify-payment-button__button--unbranded:hover {transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);}"],"settings":{"full-width-enabled":false,"desktop-media-size":"normal","desktop-layout":"collage","desktop-image-ratio":"original","enable_video_looping":true,"enable-image-zoom":true,"mobile-image":"small","margin-top":12,"margin-bottom":0}},"featured_collection_UFRnBB":{"type":"featured-collection","name":"t:sections.featured-collection.presets.name","settings":{"title":"TIMBERकला — Songs of the Wind","disable_on_mobile":false,"collection":"timberकला-songs-of-the-wind","products_to_show":4,"show_view_all":true,"button_select":"primary","number_of_column_desktop":4,"spacing_desktop":"16","make_products_full_width":true,"number_of_column_mobile":2.5,"text_alignment":"left","image_ratio":"square","show_video":false,"show_secondary_image":false,"show_vendor":true,"show_product_rating":true,"enable_quick_add_button":false,"color-body-text":"transparent","background_color":"transparent","margin-top":20,"margin-bottom":20}},"ec5a6457-3cb6-4605-94df-ac6400f950f1":{"type":"featured-collection","settings":{"title":"TIMBERकला — The Gentle Wild","disable_on_mobile":false,"collection":"timberकला-the-gentle-wild","products_to_show":16,"show_view_all":true,"button_select":"primary","number_of_column_desktop":4,"spacing_desktop":"8","make_products_full_width":false,"number_of_column_mobile":2.5,"text_alignment":"left","image_ratio":"square","show_video":false,"show_secondary_image":false,"show_vendor":true,"show_product_rating":false,"enable_quick_add_button":false,"color-body-text":"rgba(0,0,0,0)","background_color":"rgba(0,0,0,0)","margin-top":20,"margin-bottom":20}},"featured_collection_DHQYy7":{"type":"featured-collection","settings":{"title":"The Curated Collection","disable_on_mobile":false,"collection":"ducks","products_to_show":5,"show_view_all":true,"button_select":"primary","number_of_column_desktop":4,"spacing_desktop":"16","make_products_full_width":true,"number_of_column_mobile":2.1,"text_alignment":"left","image_ratio":"square","show_video":false,"show_secondary_image":false,"show_vendor":true,"show_product_rating":true,"enable_quick_add_button":false,"color-body-text":"rgba(0,0,0,0)","background_color":"rgba(0,0,0,0)","margin-top":20,"margin-bottom":20}},"1742801459d32d7059":{"type":"apps","settings":{"include_margins":true}},"17804109762a4efaa7":{"type":"apps","settings":{"include_margins":true}},"178041113359727dfb":{"type":"apps","settings":{"include_margins":true}},"1780411171aa4b987f":{"type":"apps","settings":{"include_margins":true}},"1780411196ee468b48":{"type":"apps","blocks":{"judge_me_reviews_cards_carousel_gnHqYh":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/cards_carousel\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{"show_sample_reviews":true,"reviews_selection":"all","products":[],"filter_pinned":false,"filter_featured":false,"filter_custom_tags":"","star_rating":"4_to_5_star","show_review_media":true,"display_order":"media_first","no_image_fallback":"review_text_only","max_reviews":20,"review_length":"large","text_size":"small","image_ratio":"1","reviews_shown":4,"show_reviewer_name":true,"show_product_name":true,"hide_arrows_mobile":true,"arrows_position":"sides","max_width":1100,"corner_styling":"soft","header_text_color":"#000000","text_color":"#000000","card_color":"#f9f9f9","stars_color":"","arrows_color":"#000000","transition_speed":3,"header_text":"Our trust !","show_average_rating":true,"rating_display":"default"}}},"block_order":["judge_me_reviews_cards_carousel_gnHqYh"],"settings":{"include_margins":true}},"background_video_AKf7Nz":{"type":"background-video","name":"t:sections.background-video.presets.name","settings":{"heading":"Crafting Timeless Decor, Sustainably","full-width-enabled":true,"video_hosted":"shopify:\/\/files\/videos\/Timber kala brand (1).mp4","autoplay":true,"video_controls":false,"video_url":"","original_ratio":"fixed_height","desktop_fixed_height":560,"mobile_fixed_height":300,"color-body-heading":"rgba(0,0,0,0)","color-overlay":"rgba(0,0,0,0)","color-overlay-opacity":100,"color-body-text":"rgba(0,0,0,0)","desktop_text_horizontal_position":"center","mobile_text_horizontal_position":"center","margin-top":20,"margin-bottom":20}},"rich_text_DNpKEX":{"type":"rich-text","blocks":{"text_qAXXrj":{"type":"text","settings":{"text":"<p>At Timber Kala, every piece tells a story. With over 400+ handcrafted decor products, we celebrate artistry and sustainability. No trees are cut to make our creations each product is made using recycled wood, ensuring beauty with responsibility.<br\/><br\/>Our artisans pour soul into their work, making every design unique. From elegant accents to statement decor, Timber Kala brings you products that are not just handmade, but heart-made.<\/p>","disable_on_mobile":false}},"button_Ft484g":{"type":"button","settings":{"button_select":"primary","button_label":"Shop All","button_link":"shopify:\/\/collections\/all-products","disable_on_mobile":false}}},"block_order":["text_qAXXrj","button_Ft484g"],"name":"t:sections.rich-text.presets.name","settings":{"section_width":"regular","desktop_text_horizontal_position":"center","color-body-text":"rgba(0,0,0,0)","background_color":"rgba(0,0,0,0)","margin-top":20,"margin-bottom":20}},"image_banner_QEq9Aw":{"type":"image-banner","name":"t:sections.image-banner.presets.name","settings":{"heading":"","full-width-enabled":false,"slide_height":"adapt_to_first_image","desktop_fixed_height":320,"mobile_fixed_height":460,"desktop_image":"shopify:\/\/shop_images\/Untitled_design_44.webp","desktop_text_vertical_position":"center","desktop_text_horizontal_position":"center","mobile_image":"shopify:\/\/shop_images\/Untitled_design_44.webp","mobile_text_vertical_position":"center","mobile_text_horizontal_position":"center","color-heading":"rgba(0,0,0,0)","section-color-overlay":"rgba(0,0,0,0)","section-color-overlay-opacity":100,"color-body-text":"rgba(0,0,0,0)","text-container-color":"rgba(0,0,0,0)","color-overlay-opacity":100,"margin-top":20,"margin-bottom":20}},"custom_liquid_j4Hcxf":{"type":"custom-liquid","name":"t:sections.custom-liquid.presets.name","settings":{"custom_liquid":"<!-- ZERO-LEAK: Namespaced Parallax Stats (no blue leak) -->\n<section class=\"tk-parallax\" aria-label=\"Satisfaction stats — Timberkala\">\n  <div class=\"tk-parallax__bg\" role=\"img\" aria-hidden=\"true\"><\/div>\n\n  <div class=\"tk-parallax__content\" aria-label=\"Satisfaction stats\">\n    <h2 class=\"tk-parallax__title\">100% Satisfaction Guarantee<\/h2>\n    <p class=\"tk-parallax__subtitle\">Great quality takes time to build, but it lasts forever.<\/p>\n\n    <div class=\"tk-parallax__stats\" role=\"list\">\n      <div class=\"tk-stat\" role=\"listitem\">\n        <div class=\"tk-stat__num\"><span class=\"tk-keyword tk-keyword--shine\">Exclusive<\/span><\/div>\n        <div class=\"tk-stat__label\">Handcrafted Creations<\/div>\n      <\/div>\n\n      <div class=\"tk-stat\" role=\"listitem\">\n        <div class=\"tk-stat__num\"><span class=\"tk-keyword tk-keyword--shine\">Nationwide<\/span><\/div>\n        <div class=\"tk-stat__label\">Sustainably Crafted<\/div>\n      <\/div>\n\n      <div class=\"tk-stat\" role=\"listitem\">\n        <div class=\"tk-stat__num\"><span class=\"tk-keyword tk-keyword--shine\">Timeless<\/span><\/div>\n        <div class=\"tk-stat__label\">Heritage Redefined<\/div>\n      <\/div>\n\n      <div class=\"tk-stat\" role=\"listitem\">\n        <div class=\"tk-stat__num\"><span class=\"tk-keyword tk-keyword--shine\">Trusted<\/span><\/div>\n        <div class=\"tk-stat__label\">Craftsmanship Meets Legacy<\/div>\n      <\/div>\n    <\/div>\n  <\/div>\n<\/section>\n\n<style>\n\/* ---- Scoped variables inside wrapper only ---- *\/\n.tk-parallax {\n  --tk-accent: #ffd700;       \/* gold *\/\n  --tk-fg:     #ffffff;       \/* main text color *\/\n  --tk-card:   rgba(0,0,0,.45);\n  --tk-box:    rgba(255,255,255,.08);\n  --tk-bd:     rgba(255,255,255,.2);\n  --tk-radius: 18px;\n  --tk-gap: 16px;\n  font-family: system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\n\/* Prevent any outside rule (like link color) from leaking in:\n   all interactive\/color-affecting elements inside use inherit\/currentColor explicitly *\/\n.tk-parallax, \n.tk-parallax * {\n  box-sizing: border-box;\n  color: inherit;\n}\n\n\/* reset for anchors\/SVGs inside this block only (avoid global effects) *\/\n.tk-parallax a { color: inherit; text-decoration: none; }\n.tk-parallax svg { fill: currentColor; }\n\n\/* Load font for keywords only (scoped usage OK) *\/\n@import url('https:\/\/fonts.googleapis.com\/css2?family=Cinzel:wght@600;700&display=swap');\n\n\/* Section layout *\/\n.tk-parallax {\n  position: relative;\n  min-height: 480px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0 16px;\n  overflow: hidden;\n  color: var(--tk-fg);\n}\n\n\/* Background (scoped element) *\/\n.tk-parallax__bg {\n  position: absolute;\n  inset: 0;\n  background:\n    linear-gradient(rgba(20,20,20,.55), rgba(20,20,20,.35)),\n    url('https:\/\/www.timberkala.com\/cdn\/shop\/files\/DSC08601_1.jpg?v=1740853350&width=3840');\n  background-size: cover;\n  background-position: center;\n  background-attachment: fixed;\n  z-index: -1;\n}\n\n\/* Glassmorphic card (content) *\/\n.tk-parallax__content {\n  position: relative;\n  background: var(--tk-card);\n  backdrop-filter: blur(12px) saturate(160%);\n  -webkit-backdrop-filter: blur(12px) saturate(160%);\n  padding: 40px 24px;\n  border-radius: var(--tk-radius);\n  border: 1px solid var(--tk-bd);\n  box-shadow: 0 8px 32px rgba(0,0,0,.4);\n  width: 100%;\n  max-width: 1100px;\n  text-align: center;\n  z-index: 2;\n}\n\n\/* Title & subtitle *\/\n.tk-parallax__title {\n  font-size: clamp(1.4rem, 2.6vw, 2.15rem);\n  font-weight: 800;\n  margin-bottom: 8px;\n  letter-spacing: .2px;\n  color: var(--tk-fg);\n}\n.tk-parallax__subtitle {\n  font-size: clamp(.95rem, 1.5vw, 1.1rem);\n  margin-bottom: 26px;\n  color: var(--tk-accent);\n  font-style: italic;\n}\n\n\/* Stats grid *\/\n.tk-parallax__stats {\n  display: grid;\n  gap: var(--tk-gap);\n  align-items: stretch;\n  grid-template-columns: repeat(4, minmax(0, 1fr));\n}\n@media (max-width: 992px) { .tk-parallax__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }\n@media (max-width: 520px) { .tk-parallax__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } }\n\n\/* stat box *\/\n.tk-stat {\n  background: var(--tk-box);\n  backdrop-filter: blur(8px);\n  -webkit-backdrop-filter: blur(8px);\n  border: 1px solid var(--tk-bd);\n  border-radius: 14px;\n  padding: 20px 14px;\n  box-shadow: 0 4px 16px rgba(0,0,0,.25);\n  transition: box-shadow .28s ease, border-color .28s ease, transform .28s ease;\n  color: var(--tk-fg); \/* ensure text inside is white *\/\n}\n.tk-stat:hover {\n  box-shadow: 0 0 18px rgba(255,215,0,.35);\n  border-color: rgba(255,215,0,.45);\n  transform: translateY(-6px);\n}\n\n\/* number \/ keyword *\/\n.tk-stat__num {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-bottom: 6px;\n}\n.tk-keyword {\n  font-family: 'Cinzel', serif;\n  font-size: clamp(1.4rem, 2.6vw, 1.8rem);\n  font-weight: 700;\n  background: linear-gradient(90deg, #ffd86b, #ffb347);\n  -webkit-background-clip: text;\n  background-clip: text;\n  -webkit-text-fill-color: transparent;\n  color: transparent;\n  letter-spacing: .5px;\n  text-transform: uppercase;\n  position: relative;\n  overflow: hidden;\n}\n\n\/* Shine animation (single pseudo), scoped to avoid leaks *\/\n.tk-keyword--shine::after {\n  content: \"\";\n  position: absolute;\n  top: 0; left: -75%;\n  width: 50%; height: 100%;\n  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.8), transparent);\n  transform: skewX(-20deg);\n  animation: tk-shine 4s infinite;\n}\n@keyframes tk-shine {\n  0% { left: -75%; }\n  60% { left: 125%; }\n  100% { left: 125%; }\n}\n\n\/* label *\/\n.tk-stat__label {\n  font-size: .98rem;\n  opacity: .95;\n  color: var(--tk-fg);\n}\n\n\/* Mobile performance tweak *\/\n@media (max-width: 600px) {\n  .tk-parallax__content { padding: 26px 12px; }\n  .tk-parallax__bg { background-attachment: scroll; } \/* iOS friendly *\/\n}\n\n\/* Respect reduced motion *\/\n@media (prefers-reduced-motion: reduce) {\n  .tk-keyword--shine::after { display: none; animation: none; }\n}\n\n\/* Extra safety: override any stray global link colors inside wrapper *\/\n.tk-parallax a, .tk-parallax a:visited, .tk-parallax a:hover, .tk-parallax a:focus {\n  color: inherit !important;\n  text-decoration: none !important;\n}\n\n\/* Extra safety: ensure no global filter\/blue tint applied via SVG or images *\/\n.tk-parallax img, .tk-parallax svg {\n  filter: none !important;\n  mix-blend-mode: normal !important;\n}\n<\/style>"}},"custom_liquid_ckGD7m":{"type":"custom-liquid","name":"t:sections.custom-liquid.presets.name","settings":{"custom_liquid":"<div class=\"timberkala-india-reviews\" style=\"padding: 60px 20px; font-family: 'Georgia','Times New Roman', serif;\">\n  <h2 class=\"section-heading\" style=\"text-align: center; color: #fff; margin-bottom: 15px; font-weight: 600; letter-spacing: -0.5px;\">\n    Stories of Craft & Legacy\n  <\/h2>\n  <p style=\"text-align: center; color: #fcefdc; font-style: italic; margin-bottom: 50px;\">\n    From timeless havelis to modern homes, TimberKala lives in every corner of India.\n  <\/p>\n\n  <style>\n    \/* Desktop heading font size *\/\n    .section-heading {\n      font-size: 38px;\n    }\n\n    \/* Background animation - luxury gradient *\/\n    .timberkala-india-reviews {\n      background: linear-gradient(135deg, #9c6b44, #b4855c, #c29b74, #9c6b44);\n      background-size: 300% 300%;\n      animation: timberKalaBg 20s ease infinite;\n      color: #fff;\n    }\n\n    @keyframes timberKalaBg {\n      0% { background-position: 0% 50%; }\n      50% { background-position: 100% 50%; }\n      100% { background-position: 0% 50%; }\n    }\n\n    .india-carousel-container {\n      overflow: hidden;\n      padding: 20px 0;\n    }\n\n    .india-carousel-track {\n      display: flex;\n      gap: 28px;\n      animation: slideLeftIndia 38s linear infinite;\n    }\n\n    .india-review-card {\n      min-width: 310px;\n      max-width: 310px;\n      background: #fff;\n      border-radius: 18px;\n      padding: 24px;\n      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), 0 6px 18px rgba(255, 255, 255, 0.1);\n      transition: transform 0.4s, box-shadow 0.4s;\n    }\n\n    .india-review-card:hover {\n      transform: translateY(-8px);\n      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.55), 0 10px 25px rgba(255, 255, 255, 0.15);\n    }\n\n    .review-header {\n      display: flex;\n      align-items: center;\n      margin-bottom: 14px;\n    }\n\n    .review-header img {\n      width: 66px;\n      height: 66px;\n      border-radius: 50%;\n      object-fit: cover;\n      border: 2.5px solid #a67c52;\n      margin-right: 16px;\n    }\n\n    .review-name {\n      font-weight: bold;\n      color: #1e0e00;\n      font-size: 17px;\n      margin: 0;\n    }\n\n    .review-location {\n      font-size: 13px;\n      color: #777;\n    }\n\n    .review-stars {\n      color: #000;\n      font-size: 19px;\n      margin: 6px 0;\n    }\n\n    .review-text {\n      font-style: italic;\n      color: #444;\n      font-size: 15px;\n      line-height: 1.6;\n      margin: 10px 0;\n    }\n\n    .review-tag {\n      display: inline-block;\n      background: #704214;\n      color: #fff;\n      font-size: 11px;\n      font-weight: 500;\n      padding: 5px 11px;\n      border-radius: 20px;\n    }\n\n    @keyframes slideLeftIndia {\n      0% { transform: translateX(0); }\n      100% { transform: translateX(-50%); }\n    }\n\n    .india-carousel-track:hover {\n      animation-play-state: paused;\n    }\n\n    \/* Responsive design *\/\n    @media (max-width: 1024px) {\n      .india-review-card { min-width: 280px; }\n    }\n\n    @media (max-width: 768px) {\n      .india-review-card {\n        min-width: 260px;\n        padding: 20px;\n      }\n      \/* Heading size for tablets\/small laptops *\/\n      .section-heading { font-size: 30px; }\n      .timberkala-india-reviews p { font-size: 14px; }\n    }\n\n    @media (max-width: 480px) {\n      .india-review-card {\n        min-width: 240px;\n        padding: 18px;\n      }\n      \/* Heading size for mobile phones *\/\n      .section-heading { font-size: 26px; }\n      .timberkala-india-reviews p { font-size: 13px; }\n    }\n  <\/style>\n\n  <div class=\"india-carousel-container\">\n    <div class=\"india-carousel-track\">\n\n      <div class=\"india-review-card\">\n        <div class=\"review-header\">\n          <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0909\/3352\/6833\/files\/Ananya.jpg?v=1758714740\" alt=\"Ananya\">\n          <div>\n            <p class=\"review-name\">Ananya<\/p>\n            <p class=\"review-location\">Mumbai<\/p>\n          <\/div>\n        <\/div>\n        <div class=\"review-stars\">★★★★★<\/div>\n        <p class=\"review-text\">\"The hand made animal figurines i bought from timberkala. it brought heritage into modern luxury.\"<\/p>\n        <span class=\"review-tag\">Interior Designer<\/span>\n      <\/div>\n\n      <div class=\"india-review-card\">\n        <div class=\"review-header\">\n          <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0909\/3352\/6833\/files\/Arjun.jpg?v=1758714741\" alt=\"Arjun\">\n          <div>\n            <p class=\"review-name\">Arjun<\/p>\n            <p class=\"review-location\">Delhi<\/p>\n          <\/div>\n        <\/div>\n        <div class=\"review-stars\">★★★★★<\/div>\n        <p class=\"review-text\">\"I wanted something traditional yet elegant for my farmhouse. The buddha wall accent is a masterpiece. 10\/10.\"<\/p>\n        <span class=\"review-tag\">Entrepreneur<\/span>\n      <\/div>\n\n      <div class=\"india-review-card\">\n        <div class=\"review-header\">\n          <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0909\/3352\/6833\/files\/tt6.webp?v=1758613293\" alt=\"Riya\">\n          <div>\n            <p class=\"review-name\">Riya<\/p>\n            <p class=\"review-location\">Jaipur<\/p>\n          <\/div>\n        <\/div>\n        <div class=\"review-stars\">★★★★★<\/div>\n        <p class=\"review-text\">\"The candles are so auspicious. It feels like piece lives here again.\"<\/p>\n        <span class=\"review-tag\">Architect<\/span>\n      <\/div>\n\n      <div class=\"india-review-card\">\n        <div class=\"review-header\">\n          <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0909\/3352\/6833\/files\/tt5.webp?v=1758613292\" alt=\"Kabir\">\n          <div>\n            <p class=\"review-name\">Kabir<\/p>\n            <p class=\"review-location\">Hyderabad<\/p>\n          <\/div>\n        <\/div>\n        <div class=\"review-stars\">★★★★★<\/div>\n        <p class=\"review-text\">\"We chose TimberKala for our new home. The decor stuff is amazing - every guest compliments it.\"<\/p>\n        <span class=\"review-tag\">Corporate Client<\/span>\n      <\/div>\n\n      <div class=\"india-review-card\">\n        <div class=\"review-header\">\n          <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0909\/3352\/6833\/files\/tt8.webp?v=1758613292\" alt=\"Sayema\">\n          <div>\n            <p class=\"review-name\">Sayema<\/p>\n            <p class=\"review-location\">Kolkata<\/p>\n          <\/div>\n        <\/div>\n        <div class=\"review-stars\">★★★★★<\/div>\n        <p class=\"review-text\">\"The boat rack is such an antique piece. My guests always ask where it’s from.\"<\/p>\n        <span class=\"review-tag\">Homeowner<\/span>\n      <\/div>\n\n      <div class=\"india-review-card\">\n        <div class=\"review-header\">\n          <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0909\/3352\/6833\/files\/Manav.jpg?v=1758714440\" alt=\"Manav\">\n          <div>\n            <p class=\"review-name\">Manav<\/p>\n            <p class=\"review-location\">Bangalore<\/p>\n          <\/div>\n        <\/div>\n        <div class=\"review-stars\">★★★★★<\/div>\n        <p class=\"review-text\">\"I gifted my friend a hanging wind chime from TimberKala. He liked it so much.\"<\/p>\n        <span class=\"review-tag\">Software Engineer<\/span>\n      <\/div>\n\n    <\/div>\n  <\/div>\n<\/div>"}},"custom_liquid_mhkbde":{"type":"custom-liquid","name":"t:sections.custom-liquid.presets.name","settings":{"custom_liquid":"<!-- ULTRA PREMIUM: Instagram Follow — Timberkala (Shopify ready, pure white bg) -->\n<style>\n\/* Fonts *\/\n@import url('https:\/\/fonts.googleapis.com\/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap');\n\n:root{\n  --ink: #0f1113;\n  --muted: #6b6f73;\n  --glass-border: rgba(255,250,244,0.55);\n  --gold-1: #e6c36a;\n  --gold-2: #ae8a34;\n  --accent: #6b5bff;\n}\n\n\/* Container *\/\n.ig-premium-wrap {\n  width:100%;\n  display:flex;\n  align-items:center;\n  justify-content:center;\n  padding:56px 18px;\n  box-sizing:border-box;\n  background:#ffffff; \/* pure white fix *\/\n  -webkit-font-smoothing:antialiased;\n}\n\n\/* Inner column *\/\n.ig-premium-inner {\n  width:100%;\n  max-width:920px;\n  display:flex;\n  flex-direction:column;\n  align-items:center;\n  gap:20px;\n}\n\n\/* Headline *\/\n.ig-premium-head {\n  font-family: \"Playfair Display\", Georgia, serif;\n  font-weight:700;\n  font-size: clamp(32px, 4.8vw, 64px);\n  line-height:1;\n  margin:0;\n  text-align:center;\n  letter-spacing: -0.8px;\n  background: linear-gradient(90deg, #f2b66f 10%, #e86aa7 45%, #7b57ff 90%);\n  -webkit-background-clip: text;\n  background-clip: text;\n  color: transparent;\n  padding-top:4px;\n  transform: translateZ(0);\n  filter: drop-shadow(0 6px 20px rgba(0,0,0,0.06));\n}\n\n\/* Subline *\/\n.ig-premium-sub {\n  font-family:\"Inter\",sans-serif;\n  color:var(--muted);\n  font-size:15px;\n  margin:0;\n  text-align:center;\n}\n\n\/* Glass card *\/\n.ig-premium-card {\n  width:100%;\n  max-width:720px;\n  display:flex;\n  align-items:center;\n  gap:22px;\n  padding:18px 26px;\n  border-radius:16px;\n  background:#ffffff; \/* solid white *\/\n  border: 1px solid var(--glass-border);\n  box-shadow: 0 12px 40px rgba(12,12,12,0.08), inset 0 1px 0 rgba(255,255,255,0.5);\n  transition: transform .26s cubic-bezier(.2,.95,.28,1), box-shadow .26s ease;\n  position:relative;\n  overflow:visible;\n}\n\n\/* Gold frame accent *\/\n.ig-premium-card::after {\n  content: \"\";\n  position:absolute;\n  inset: -6px;\n  border-radius:20px;\n  pointer-events:none;\n  background: linear-gradient(90deg, rgba(230,195,106,0.08), rgba(174,138,52,0.04));\n  box-shadow: 0 18px 60px rgba(174,138,52,0.06);\n  z-index:0;\n}\n\n\/* Hover effect *\/\n.ig-premium-card:hover {\n  transform: translateY(-10px);\n  box-shadow: 0 30px 90px rgba(12,12,12,0.14), inset 0 1px 0 rgba(255,255,255,0.6);\n}\n\n\/* Icon tile *\/\n.ig-premium-icon {\n  width:72px; height:72px; min-width:72px;\n  border-radius:16px;\n  display:flex; align-items:center; justify-content:center;\n  background:#ffffff;\n  box-shadow: 0 14px 40px rgba(9,10,12,0.06), inset 0 1px 0 rgba(255,255,255,0.85);\n  border: 1px solid rgba(0,0,0,0.05);\n  transform: translateZ(0);\n  z-index:2;\n}\n\n\/* Instagram glyph *\/\n.ig-premium-icon svg { width:40px; height:40px; display:block; }\n\n\/* Body *\/\n.ig-premium-body {\n  display:flex;\n  flex-direction:column;\n  gap:6px;\n  min-width:0;\n  z-index:2;\n}\n\n\/* Handle *\/\n.ig-premium-handle {\n  display:flex;\n  align-items:center;\n  gap:12px;\n  font-family:\"Inter\",sans-serif;\n  font-weight:700;\n  font-size:18px;\n  color:var(--ink);\n}\n\n\/* Verified badge *\/\n.ig-premium-verified {\n  width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center;\n  border-radius:50%;\n  background: linear-gradient(180deg,var(--accent), #1464ff);\n  box-shadow: 0 8px 20px rgba(107,91,255,0.12), 0 2px 6px rgba(0,0,0,0.06);\n  transform: translateZ(0);\n  position:relative;\n  overflow:visible;\n}\n.ig-premium-verified::after {\n  content:\"\";\n  position:absolute; inset:-8px;\n  border-radius:50%;\n  background: radial-gradient(circle at center, rgba(107,91,255,0.12), rgba(107,91,255,0.02) 30%, rgba(0,0,0,0));\n  filter: blur(6px);\n  opacity:0;\n  animation: haloPulse 3.6s ease-in-out infinite;\n}\n@keyframes haloPulse {\n  0% { opacity:0; transform: scale(0.95); }\n  50% { opacity:1; transform: scale(1.05); }\n  100% { opacity:0; transform: scale(0.95); }\n}\n\n\/* Meta *\/\n.ig-premium-meta {\n  font-family:\"Inter\",sans-serif;\n  font-size:13px;\n  color:var(--muted);\n  opacity:0.95;\n}\n\n\/* CTA *\/\n.ig-premium-cta {\n  margin-left:auto;\n  display:flex;\n  align-items:center;\n  gap:10px;\n  z-index:2;\n}\n.ig-premium-cta a {\n  display:inline-flex;\n  align-items:center;\n  gap:10px;\n  color:var(--ink);\n  text-decoration:none;\n  font-weight:600;\n  padding:8px 14px;\n  border-radius:999px;\n  border:1px solid rgba(0,0,0,0.05);\n  background:#ffffff;\n  box-shadow: 0 8px 22px rgba(0,0,0,0.06);\n  transition: transform .18s ease, box-shadow .18s ease;\n}\n.ig-premium-cta a:hover { transform: translateY(-3px); box-shadow:0 18px 50px rgba(0,0,0,0.09); }\n\n\/* Responsive *\/\n@media (max-width:720px){\n  .ig-premium-card { padding:14px 18px; border-radius:12px; gap:14px; width: calc(100% - 32px); }\n  .ig-premium-icon{ width:56px; height:56px; min-width:56px; border-radius:12px; }\n  .ig-premium-handle{ font-size:16px; }\n  .ig-premium-head { font-size: clamp(22px, 8vw, 36px); }\n  .ig-premium-body { gap:4px; }\n  .ig-premium-cta { margin-left:8px; }\n}\n@media (max-width:420px){\n  .ig-premium-inner { gap:12px; }\n  .ig-premium-card { padding:12px 12px; gap:10px; }\n  .ig-premium-handle { font-size:15px; }\n  .ig-premium-meta { font-size:12px; }\n}\n<\/style>\n\n<div class=\"ig-premium-wrap\" role=\"region\" aria-label=\"Follow Timberkala on Instagram\">\n  <div class=\"ig-premium-inner\">\n    <h2 class=\"ig-premium-head\">Follow us on Instagram<\/h2>\n    <p class=\"ig-premium-sub\">Discover curated rooms, artisan craft and seasonal drops<\/p>\n\n    <a class=\"ig-premium-card\" href=\"https:\/\/www.instagram.com\/timber.kala\/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Open Timberkala Instagram profile in a new tab\">\n      <span class=\"ig-premium-icon\" aria-hidden=\"true\">\n        <svg viewBox=\"0 0 512 512\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" role=\"img\" aria-hidden=\"true\">\n          <defs>\n            <linearGradient id=\"premiumIG\" x1=\"0\" x2=\"1\">\n              <stop offset=\"0\" stop-color=\"#f58529\"\/>\n              <stop offset=\"0.45\" stop-color=\"#dd2a7b\"\/>\n              <stop offset=\"1\" stop-color=\"#515bd4\"\/>\n            <\/linearGradient>\n          <\/defs>\n          <rect x=\"64\" y=\"64\" width=\"384\" height=\"384\" rx=\"96\" fill=\"url(#premiumIG)\"\/>\n          <g fill=\"#fff\" opacity=\"0.98\">\n            <path d=\"M366 162.5h-12.5c-6.6 0-12 5.4-12 12v12.5c0 6.6 5.4 12 12 12H366c6.6 0 12-5.4 12-12V174.5c0-6.6-5.4-12-12-12z\"\/>\n            <path d=\"M256 174.5c-45.1 0-81.7 36.6-81.7 81.7S210.9 337.9 256 337.9s81.7-36.6 81.7-81.7S301.1 174.5 256 174.5zm0 137.9c-31.9 0-57.7-25.9-57.7-57.7S224.1 197 256 197s57.7 25.9 57.7 57.7S287.9 312.4 256 312.4z\"\/>\n          <\/g>\n        <\/svg>\n      <\/span>\n\n      <span class=\"ig-premium-body\">\n        <span class=\"ig-premium-handle\">\n          <span class=\"handle-text\">@timber.kala<\/span>\n          <span class=\"ig-premium-verified\" aria-hidden=\"true\" title=\"Verified account\">\n            <svg width=\"12\" height=\"12\" viewBox=\"0 0 12 12\" fill=\"none\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\"><path d=\"M3.6 6.2L5.1 7.6l3.3-3.8\" stroke=\"#fff\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"\/><\/svg>\n          <\/span>\n        <\/span>\n        <span class=\"ig-premium-meta\">Official account • Handcrafted interiors & curated collections<\/span>\n      <\/span>\n\n      <span class=\"ig-premium-cta\" aria-hidden=\"true\">\n        <a href=\"https:\/\/www.instagram.com\/timber.kala\/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Open Instagram\">\n          View profile\n        <\/a>\n      <\/span>\n    <\/a>\n  <\/div>\n<\/div>"}},"image_with_text_6eHa6t":{"type":"image-with-text","blocks":{"subheading_pcbKAV":{"type":"subheading","settings":{"subheading":"Tell you story","subheading_disable_on_mobile":false}},"heading_D3AMnB":{"type":"heading","settings":{"heading":"Image with text","disable_on_mobile":false,"size_heading":100,"size_heading_mobile":100}},"text_m4Jtpa":{"type":"text","settings":{"text":"<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.<\/p>","text_style":"body","disable_on_mobile":false}},"button_Mcp9Rh":{"type":"button","settings":{"button_select":"primary","button_label":"Button label","button_link":"\/","disable_on_mobile":false}}},"block_order":["subheading_pcbKAV","heading_D3AMnB","text_m4Jtpa","button_Mcp9Rh"],"disabled":true,"settings":{"title":"","layout":"image_first","desktop-percentage-image-width":50,"full-width-enabled":false,"slide_height":"adapt_to_first_image","desktop_fixed_height":320,"mobile_fixed_height":460,"section-color-body-text":"rgba(0,0,0,0)","section-color-overlay":"rgba(0,0,0,0)","section-color-overlay-opacity":100,"color-body-text":"rgba(0,0,0,0)","color-overlay":"rgba(0,0,0,0)","color-overlay-opacity":100,"desktop_text_vertical_position":"center","desktop_text_horizontal_position":"center","mobile_text_horizontal_position":"center","margin-top":20,"margin-bottom":80}},"custom_liquid_wjH9am":{"type":"custom-liquid","custom_css":[],"name":"t:sections.custom-liquid.presets.name","settings":{"custom_liquid":"<!-- ZERO-LEAK: Namespaced Premium Features (paste only AFTER removing old features block) -->\n<link rel=\"stylesheet\" href=\"https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/font-awesome\/5.15.4\/css\/all.min.css\">\n\n<div class=\"tk-features\" aria-label=\"Premium features — Timberkala\">\n  <section class=\"tk-features__wrap\" aria-labelledby=\"tk-features-heading\">\n    <h2 id=\"tk-features-heading\" class=\"tk-features__sr-only\">Premium Features<\/h2>\n\n    <div class=\"tk-features__row\" role=\"list\">\n      \n      <!-- Free Shipping -->\n      <article class=\"tk-feature\" role=\"listitem\" aria-label=\"Free Shipping\">\n        <div class=\"tk-feature__icon\" aria-hidden=\"true\"><i class=\"fas fa-truck\"><\/i><\/div>\n        <div class=\"tk-feature__content\">\n          <h3 class=\"tk-feature__title\">Free Shipping<\/h3>\n          <p class=\"tk-feature__desc\">Free Shipping Above ₹2000 All Over India<\/p>\n        <\/div>\n      <\/article>\n\n      <!-- 100% Recycled Wood -->\n      <article class=\"tk-feature\" role=\"listitem\" aria-label=\"100% Recycled Wood\">\n        <div class=\"tk-feature__icon\" aria-hidden=\"true\"><i class=\"fas fa-tree\"><\/i><\/div>\n        <div class=\"tk-feature__content\">\n          <h3 class=\"tk-feature__title\">100% Recycled Wood<\/h3>\n          <p class=\"tk-feature__desc\">Eco-friendly & Sustainable Materials<\/p>\n        <\/div>\n      <\/article>\n\n      <!-- 5000+ Families Trust -->\n      <article class=\"tk-feature\" role=\"listitem\" aria-label=\"5000+ Families Trust\">\n        <div class=\"tk-feature__icon\" aria-hidden=\"true\"><i class=\"fas fa-users\"><\/i><\/div>\n        <div class=\"tk-feature__content\">\n          <h3 class=\"tk-feature__title\">5000+ Families Trust<\/h3>\n          <p class=\"tk-feature__desc\">Trusted by Families Across India<\/p>\n        <\/div>\n      <\/article>\n\n      <!-- Flexible Payment -->\n      <article class=\"tk-feature\" role=\"listitem\" aria-label=\"Flexible Payment\">\n        <div class=\"tk-feature__icon\" aria-hidden=\"true\"><i class=\"fas fa-credit-card\"><\/i><\/div>\n        <div class=\"tk-feature__content\">\n          <h3 class=\"tk-feature__title\">Flexible Payment<\/h3>\n          <p class=\"tk-feature__desc\">Pay with Multiple Credit Cards<\/p>\n        <\/div>\n      <\/article>\n\n    <\/div>\n  <\/section>\n<\/div>\n\n<style>\n\/* --- All styles strictly scoped under .tk-features --- *\/\n.tk-features { \n  --tk-max-width: 1200px;\n  --tk-bg-box: #000;\n  --tk-text: #fff;\n  --tk-muted: #d1d1d1;\n  --tk-gap: 18px;\n  display: block;\n  box-sizing: border-box;\n  margin: 0;\n  font-family: system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;\n}\n\n.tk-features__sr-only {\n  position: absolute !important;\n  width: 1px; height: 1px;\n  padding: 0; margin: -1px;\n  overflow: hidden; clip: rect(0 0 0 0);\n  white-space: nowrap; border: 0;\n}\n\n.tk-features__wrap {\n  background: transparent;\n  padding: 36px 16px;\n  box-sizing: border-box;\n}\n\n.tk-features__row {\n  max-width: var(--tk-max-width);\n  margin: 0 auto;\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: var(--tk-gap);\n  align-items: stretch;\n  box-sizing: border-box;\n}\n\n.tk-feature {\n  display: flex;\n  gap: 16px;\n  align-items: center;\n  background: var(--tk-bg-box);\n  color: var(--tk-text);\n  padding: 20px;\n  box-sizing: border-box;\n  width: 100%;\n  min-height: 84px;\n  border-radius: 14px; \/* smoother rounded edges *\/\n  border: 0;\n  text-align: left;\n  transition: transform .28s ease, box-shadow .28s ease;\n}\n\n.tk-feature:hover {\n  transform: translateY(-6px);\n  box-shadow: 0 14px 36px rgba(0,0,0,0.15);\n}\n\n.tk-feature__icon {\n  width: 56px;\n  height: 40px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  background: #111;\n  color: var(--tk-text);\n  font-size: 22px;\n  flex-shrink: 0;\n  border-radius: 10px; \/* soft rounded corners *\/\n}\n\n.tk-feature__content { min-width:0; }\n.tk-feature__title {\n  margin: 0 0 6px 0;\n  font-size: 16px;\n  font-weight: 600;\n  color: var(--tk-text);\n  line-height: 1.15;\n}\n.tk-feature__desc {\n  margin: 0;\n  font-size: 13px;\n  color: var(--tk-muted);\n  line-height: 1.3;\n}\n\n.tk-feature:focus-within,\n.tk-feature:focus {\n  outline: 3px solid rgba(255,215,120,0.15);\n  outline-offset: 2px;\n}\n\n@media (max-width: 900px) {\n  .tk-feature { min-height: 76px; padding: 16px; border-radius: 12px; }\n  .tk-feature__icon { width: 52px; height: 36px; font-size: 20px; border-radius: 8px; }\n}\n@media (max-width: 560px) {\n  .tk-features__wrap { padding: 20px 12px; }\n  .tk-feature { padding: 12px; min-height: 64px; gap: 12px; border-radius: 10px; }\n  .tk-feature__icon { width: 48px; height: 36px; font-size: 18px; border-radius: 6px; }\n  .tk-feature__title { font-size: 15px; }\n  .tk-feature__desc { font-size: 12px; }\n}\n<\/style>"}},"17586913634908d742":{"type":"apps","settings":{"include_margins":true}},"1758268780504378b7":{"type":"apps","settings":{"include_margins":true}},"1758267748f7e0044d":{"type":"apps","settings":{"include_margins":true}},"newsletter_pEcrBa":{"type":"newsletter","blocks":{"heading_mLFMeW":{"type":"heading","settings":{"heading":"Subscribe to our emails","heading_disable_on_mobile":false,"size_heading":100,"size_heading_mobile":100}},"paragraph_d8VNPK":{"type":"paragraph","settings":{"paragraph":"<p>Be the first to know about new collections and exclusive offers.<\/p>","text_disable_on_mobile":false}},"email_form_gTPAyG":{"type":"email_form","settings":{"button_select":"primary"}}},"block_order":["heading_mLFMeW","paragraph_d8VNPK","email_form_gTPAyG"],"settings":{"color-body-text":"rgba(0,0,0,0)","background_color":"rgba(0,0,0,0)","margin-top":60,"margin-bottom":60}}},"order":["custom_liquid_PwtKtg","breadcrumbs","custom_liquid_VerEgL","custom_liquid_HUczzX","main","featured_collection_UFRnBB","ec5a6457-3cb6-4605-94df-ac6400f950f1","featured_collection_DHQYy7","1742801459d32d7059","17804109762a4efaa7","178041113359727dfb","1780411171aa4b987f","1780411196ee468b48","background_video_AKf7Nz","rich_text_DNpKEX","image_banner_QEq9Aw","custom_liquid_j4Hcxf","custom_liquid_ckGD7m","custom_liquid_mhkbde","image_with_text_6eHa6t","custom_liquid_wjH9am","17586913634908d742","1758268780504378b7","1758267748f7e0044d","newsletter_pEcrBa"]}
+{
+  "sections": {
+    "custom_liquid_PwtKtg": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <title>Announcement Bar</title>\n  <style>\n    body.unique-body-class {\n      margin: 0;\n      font-family: Arial, sans-serif;\n    }\n\n    .unique-announcement-bar {\n      position: relative;\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      height: 40px;\n      color: white;\n      font-size: 14px;\n      font-weight: bold;\n      background: linear-gradient(90deg, black, #7b5a3a, #e6d5c3, black);\n      background-size: 300% 300%;\n      animation: unique-gradient-shift 6s infinite;\n      overflow: hidden;\n    }\n\n    .unique-countdown-wrapper {\n      position: absolute;\n      right: 15px;\n      display: flex;\n      gap: 8px;\n    }\n\n    .unique-time {\n      background: white;\n      color: black;\n      padding: 3px 8px;\n      border-radius: 3px;\n      font-size: 12px;\n    }\n\n    @keyframes unique-gradient-shift {\n      0% { background-position: 0% 50%; }\n      50% { background-position: 100% 50%; }\n      100% { background-position: 0% 50%; }\n    }\n\n    @media (max-width: 768px) {\n      .unique-announcement-bar {\n        height: 30px;\n        font-size: 12px;\n        justify-content: flex-start;\n        padding-left: 10px;\n      }\n\n      .unique-countdown-wrapper {\n        right: 10px;\n        gap: 5px;\n      }\n\n      .unique-time {\n        padding: 2px 6px;\n        font-size: 10px;\n      }\n    }\n  </style>\n</head>\n<body class=\"unique-body-class\">\n  <div class=\"unique-announcement-bar\">\n    <div>Black Friday Sales  Ends in</div>\n    <div class=\"unique-countdown-wrapper\">\n      <span class=\"unique-time\"><span id=\"unique-days\">00</span> DAY</span>\n      <span class=\"unique-time\"><span id=\"unique-hours\">00</span> HRS</span>\n      <span class=\"unique-time\"><span id=\"unique-minutes\">00</span> MIN</span>\n      <span class=\"unique-time\"><span id=\"unique-seconds\">00</span> SEC</span>\n    </div>\n  </div>\n\n  <script>\n    function startCountdown(durationInSeconds) {\n      let remainingTime = durationInSeconds;\n\n      function updateCountdown() {\n        if (remainingTime < 0) {\n          remainingTime = durationInSeconds;\n        }\n\n        const days = Math.floor(remainingTime / 86400);\n        const hours = Math.floor((remainingTime % 86400) / 3600);\n        const minutes = Math.floor((remainingTime % 3600) / 60);\n        const seconds = remainingTime % 60;\n\n        document.getElementById('unique-days').textContent = String(days).padStart(2, '0');\n        document.getElementById('unique-hours').textContent = String(hours).padStart(2, '0');\n        document.getElementById('unique-minutes').textContent = String(minutes).padStart(2, '0');\n        document.getElementById('unique-seconds').textContent = String(seconds).padStart(2, '0');\n\n        remainingTime--;\n      }\n\n      updateCountdown();\n      setInterval(updateCountdown, 1000);\n    }\n\n    // 1 day 3 hours 21 minutes 32 seconds = 98492 seconds\n    startCountdown(98492);\n  </script>\n</body>\n</html>"
+      }
+    },
+    "breadcrumbs": {
+      "type": "main-breadcrumbs",
+      "settings": {
+        "full-width-enabled": true,
+        "text_color": "rgba(0,0,0,0)",
+        "background_color": "rgba(0,0,0,0)",
+        "margin-top": 8,
+        "margin-bottom": 8
+      }
+    },
+    "custom_liquid_VerEgL": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<div class=\"tk-marquee\">\n  <div class=\"tk-marquee-content\">\n  ✨ OUR BEST OFFER OF THE SEASON — DON’T WAIT FOR MORE. • LIMITED STOCK MEANS NO OFFER MATTERS ONCE YOUR FAVOURITES ARE GONE.\n  </div>\n</div>\n\n<style>\n.tk-marquee {\n  width: 100%;\n  overflow: hidden;\n  white-space: nowrap;\n  background: #000;\n  color: #fff;\n  border-top: 1px solid rgba(255,255,255,.15);\n  border-bottom: 1px solid rgba(255,255,255,.15);\n  padding: 14px 0;\n}\n\n.tk-marquee-content {\n  display: inline-block;\n  padding-left: 100%;\n  font-size: 16px;\n  font-weight: 700;\n  letter-spacing: .8px;\n  text-transform: uppercase;\n  animation: tk-scroll 16s linear infinite;\n}\n\n@keyframes tk-scroll {\n  0% {\n    transform: translateX(0);\n  }\n  100% {\n    transform: translateX(-100%);\n  }\n}\n\n@media screen and (max-width: 767px) {\n  .tk-marquee {\n    padding: 12px 0;\n  }\n\n  .tk-marquee-content {\n    font-size: 13px;\n    font-weight: 700;\n    letter-spacing: .6px;\n    animation-duration: 28s;\n  }\n}\n</style>"
+      }
+    },
+    "custom_liquid_HUczzX": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<style>\n.tk-marquee {\n  width: 100%;\n  background: #000;\n  color: #fff;\n  overflow: hidden;\n  white-space: nowrap;\n  padding: 10px 0;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: 0.5px;\n  position: relative;\n}\n\n.tk-marquee-content {\n  display: inline-block;\n  padding-left: 100%;\n  animation: tk-scroll 25s linear infinite;\n}\n\n@keyframes tk-scroll {\n  0% {\n    transform: translateX(0);\n  }\n  100% {\n    transform: translateX(-100%);\n  }\n}\n</style>\n\n<div class=\"tk-marquee\">\n  <div class=\"tk-marquee-content\">\n    ✦ Orders will be fulfilled in 10-15 days due to increase in demand   • Every Timberkala piece is handcrafted with care and packed safely for delivery • Thank you for supporting handmade craftsmanship ✦\n  </div>\n</div>"
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "custom_liquid_zgCqgH": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": ""
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {
+            "brand": "{{ product.vendor }}",
+            "size_text": 110,
+            "size_text_mobile": 120
+          }
+        },
+        "custom_liquid_H8nd4C": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<style>\n  .promo-banner {\n    background: linear-gradient(135deg, #e8dfd1 0%, #d8c7ae 100%);\n    color: #4a3b2a;\n    padding: 10px 16px;\n    text-align: center;\n    border-radius: 6px;\n    margin-bottom: 12px;\n    border: 1px solid rgba(74, 59, 42, 0.08);\n    position: relative;\n    overflow: hidden;\n  }\n\n  .promo-banner::before {\n    content: '';\n    position: absolute;\n    inset: 0;\n    background: linear-gradient(\n      90deg,\n      transparent,\n      rgba(255,255,255,0.18),\n      transparent\n    );\n    transform: translateX(-100%);\n    animation: shine 5s infinite;\n  }\n\n  .promo-banner-text {\n    position: relative;\n    z-index: 1;\n  }\n\n  .promo-highlight {\n    display: block;\n    font-size: 14px;\n    font-weight: 600;\n    letter-spacing: 0.4px;\n    text-transform: uppercase;\n  }\n\n  .promo-subtext {\n    display: block;\n    margin-top: 2px;\n    font-size: 11px;\n    color: rgba(74, 59, 42, 0.75);\n    letter-spacing: 0.8px;\n    text-transform: uppercase;\n  }\n\n  @keyframes shine {\n    from { transform: translateX(-100%); }\n    to { transform: translateX(100%); }\n  }\n\n  @media (max-width: 768px) {\n    .promo-banner {\n      padding: 9px 14px;\n      margin-bottom: 10px;\n    }\n\n    .promo-highlight {\n      font-size: 13px;\n    }\n\n    .promo-subtext {\n      font-size: 10px;\n    }\n  }\n</style>\n\n<div class=\"promo-banner\">\n  <div class=\"promo-banner-text\">\n    <span class=\"promo-highlight\">\n      Extra 10% Off Applied at Checkout\n    </span>\n    <span class=\"promo-subtext\">\n      Current Offer Scheduled to End at Midnight\n    </span>\n  </div>\n</div>"
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "disabled": true,
+          "settings": {}
+        },
+        "90ea3cd3-aa22-44f6-b6de-365eb7f85b9c": {
+          "type": "separator",
+          "settings": {
+            "show-separator-line": false,
+            "color-background": "#ffffff",
+            "margin-top": 8,
+            "margin-bottom": 8
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "show_tax_included": false,
+            "size_text": 140,
+            "size_text_mobile": 130
+          }
+        },
+        "separator_RrKQ4A": {
+          "type": "separator",
+          "settings": {
+            "show-separator-line": false,
+            "color-background": "#ffffff",
+            "margin-top": 8,
+            "margin-bottom": 8
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "color_swatch_names": "",
+            "variant_picture_swatch_names": "",
+            "dropdown_swatch_names": "",
+            "margin-top": 8,
+            "margin-bottom": 8
+          }
+        },
+        "custom_liquid_jBMGDR": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div style=\"\nbackground:linear-gradient(135deg,#F8F3EC 0%,#E8D9C5 45%,#D2B08A 100%);\npadding:10px 14px;\nborder:1px solid rgba(139,90,43,0.15);\nborder-radius:8px;\nfont-family:'Segoe UI',Arial,sans-serif;\nfont-size:15px;\nfont-weight:500;\ncolor:#3B2A20;\ntext-align:center;\nline-height:1.4;\nbox-shadow:\n0 6px 18px rgba(62,49,39,0.08),\ninset 0 1px 0 rgba(255,255,255,0.5);\nletter-spacing:0.2px;\n\">\nHandcrafted & Handpainted • One-of-a-Kind Pieces • Free Pan-India Shipping\n</div>"
+          }
+        },
+        "text_j6RwH3": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "heading": "",
+            "content": "<h4><strong>Start Saving Now: Add to Cart and Enjoy Discounts of Up to 10% Off.</strong></h4>",
+            "page": ""
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true,
+            "show_qty_selector": true
+          }
+        },
+        "custom_liquid_f89WQj": {
+          "type": "custom_liquid",
+          "name": "STICKER COPY TO CLIP",
+          "settings": {
+            "custom_liquid": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n<title>Discount Banner</title>\n\n<style>\nbody.unique-body-x1234 {\n  font-family: Arial, sans-serif;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  height: 100vh;\n  margin: 0;\n  background-color: #f0f2f5;\n}\n\n.discount-banner-x1234 {\n  display: flex;\n  align-items: center;\n  justify-content: flex-start;\n  background-color: #f5f5f5;\n  padding: 10px 15px;\n  border: 1px solid #dcdcdc;\n  border-radius: 10px;\n  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n  font-size: 12px;\n  width: 100%;\n  animation: fadeIn-x1234 2s ease-in-out;\n  margin: 3px 0;\n}\n\n.discount-banner-x1234 span {\n  color: #333333;\n  display: flex;\n  align-items: center;\n}\n\n.coupon-container-x1234 {\n  display: inline-flex;\n  align-items: center;\n  cursor: pointer;\n  margin-left: 8px;\n}\n\n.coupon-code-x1234 {\n  font-weight: bold;\n  color: #333333;\n}\n\n.copy-button-x1234 {\n  background: none;\n  border: none;\n  cursor: pointer;\n  transition: transform 0.3s ease-in-out;\n  padding: 0;\n}\n\n.copy-button-x1234:hover {\n  transform: scale(1.2);\n}\n\n.copy-button-x1234 img {\n  width: 14px;\n  height: 14px;\n  margin-left: 3px;\n}\n\n@keyframes fadeIn-x1234 {\n  from { opacity: 0; }\n  to { opacity: 1; }\n}\n</style>\n</head>\n\n<body class=\"unique-body-x1234\">\n\n<div class=\"discount-banner-x1234\">\n\n  <!-- ICON REMOVED -->\n\n  <span>\n    Extra 10% Off On All Products.\n\n    <span class=\"coupon-container-x1234\" id=\"coupon-container-x1234\">\n\n      <strong id=\"coupon-code-x1234\"\n        class=\"coupon-code-x1234\"\n        onclick=\"copyToClipboard(event)\">\n        FLASH10\n      </strong>\n\n      <button class=\"copy-button-x1234\"\n        onclick=\"copyToClipboard(event)\">\n        <img src=\"https://www.svgrepo.com/show/520670/copy-2.svg\" alt=\"Copy\">\n      </button>\n\n    </span>\n  </span>\n\n</div>\n\n<script>\nfunction copyToClipboard(event) {\n  event.stopPropagation();\n  const couponCode =\n    document.getElementById(\"coupon-code-x1234\").innerText.trim();\n\n  navigator.clipboard.writeText(couponCode);\n}\n\ndocument.getElementById(\"coupon-container-x1234\")\n.addEventListener(\"click\", copyToClipboard);\n</script>\n\n</body>\n</html>"
+          }
+        },
+        "separator_BtVmRq": {
+          "type": "separator",
+          "settings": {
+            "show-separator-line": true,
+            "color-background": "#ffffff",
+            "margin-top": 8,
+            "margin-bottom": 8
+          }
+        },
+        "bulletpoints_iWtDxJ": {
+          "type": "bulletpoints",
+          "disabled": true,
+          "settings": {
+            "metafield": "custom.features",
+            "default_text": "Exquisite Craftsmanship – Intricately carved wooden wings that capture the beauty of nature.\nPremium Quality – Made from high-quality wood with a rich, natural grain for timeless appeal.\nVersatile Décor – Perfect for walls, shelves, or as a stunning centerpiece in any space.\nSymbol of Transformation – Inspired by the grace of butterflies, bringing serenity and sophistication to your home."
+          }
+        },
+        "separator_HcYGiH": {
+          "type": "separator",
+          "disabled": true,
+          "settings": {
+            "show-separator-line": true,
+            "color-background": "#dedede",
+            "margin-top": 0,
+            "margin-bottom": 0
+          }
+        },
+        "custom_liquid_KxY7jd": {
+          "type": "custom_liquid",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": "<div class=\"happy-customers\">\n  <div class=\"avatars\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/tt6.webp?v=1758613293\" alt=\"Customer 1\" class=\"avatar\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/tt2.webp?v=1758613293\" alt=\"Customer 2\" class=\"avatar\">\n    <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/tt5.webp?v=1758613292\" alt=\"Customer 3\" class=\"avatar\">\n  </div>\n  <span class=\"text\">10,000+ HAPPY CUSTOMERS</span>\n</div>\n\n<style>\n.happy-customers {\n  display: flex;\n  align-items: center;\n  border-radius: 8px;\n  padding: 12px 22px;\n  font-family: 'Poppins';\n  font-size: 14px;\n  position: relative;\n  background: #000; /* Black background for luxury */\n  box-shadow: 0 4px 15px rgba(0,0,0,0.6);\n  overflow: hidden;\n  color: #fff;\n}\n\n.avatars {\n  display: flex;\n  margin-right: 12px;\n  margin-left: 6px;\n}\n\n.avatar {\n  width: 26px;\n  height: 26px;\n  border-radius: 50%;\n  border: 2px solid #fff;\n  margin-left: -7px;\n  object-fit: cover;\n  box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);\n}\n\n.text {\n  font-weight: bold;\n  text-transform: uppercase;\n  letter-spacing: 1.2px;\n  font-size: 15px;\n\n  /* Gold gradient */\n  background: linear-gradient(\n    90deg,\n    #b88900,\n    #ffcc00,\n    #fff6d0,\n    #e6b800,\n    #b88900\n  );\n  background-size: 300% auto;\n  color: transparent;\n  background-clip: text;\n  -webkit-background-clip: text;\n\n  position: relative;\n  display: inline-block;\n\n  /* Gold movement */\n  animation: goldshift 6s linear infinite;\n  text-shadow: 0 0 6px rgba(255,215,0,0.6);\n}\n\n/* Glossy shine stripe */\n.text::after {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  left: -100%;\n  height: 100%;\n  width: 100%;\n  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.7), transparent);\n  transform: skewX(-20deg);\n  animation: shine 3s ease-in-out infinite;\n}\n\n@keyframes goldshift {\n  0% { background-position: 0% center; }\n  100% { background-position: 200% center; }\n}\n\n@keyframes shine {\n  0% { left: -100%; }\n  50% { left: 100%; }\n  100% { left: 100%; }\n}\n</style>"
+          }
+        },
+        "custom_liquid_qatFtK": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div style=\"text-align:center; margin:20px 0;\">\n  <img \n    src=https://cdn.shopify.com/s/files/1/0909/3352/6833/files/product_badges_2.png?v=1758540032?v=1758522609?v=1758521994\" \n    alt=\"Planten Logo\" \n    style=\"max-width:100%; height:auto;\"\n  >\n</div>"
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "is_open": true,
+            "icon": "box"
+          }
+        },
+        "collapsible_tab_JGWjWW": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Materials",
+            "content": "<p>Handcrafted from natural wood and hand-painted by skilled artisans. Each piece may have slight variations in wood grain, texture, colour, brushwork, and finish due to its handmade nature. These subtle imperfections are natural characteristics of handcrafted products and make every piece unique.<br/>Every product undergoes a thorough in-house quality check before dispatch to ensure a complete, well-finished and aesthetically pleasing piece reaches you.</p>",
+            "page": "",
+            "icon": "heart"
+          }
+        },
+        "a05fcf3e-8e1a-4f1f-8d97-2055eb17138d": {
+          "type": "separator",
+          "settings": {
+            "show-separator-line": true,
+            "color-background": "#dedede",
+            "margin-top": 0,
+            "margin-bottom": 0
+          }
+        },
+        "collapsible_tab_CTNcpC": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Dimension",
+            "content": "<p>{{ product.metafields.custom.dimensions.value }}</p>",
+            "page": "",
+            "icon": "ruler"
+          }
+        },
+        "separator_84Bf8j": {
+          "type": "separator",
+          "settings": {
+            "show-separator-line": true,
+            "color-background": "#dedede",
+            "margin-top": 0,
+            "margin-bottom": 0
+          }
+        },
+        "collapsible_tab_FeGmCP": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Effortless Care",
+            "content": "<p>To keep your wooden decor pieces looking their best, dust gently using  a soft, dry cloth to wipe away dust and debris.<br/>Keep decor pieces away from direct sunlight, high humidity, and water exposure to prevent damage.</p>",
+            "page": "",
+            "icon": "check_mark"
+          }
+        },
+        "separator_xAPRbc": {
+          "type": "separator",
+          "settings": {
+            "show-separator-line": true,
+            "color-background": "#dedede",
+            "margin-top": 0,
+            "margin-bottom": 0
+          }
+        },
+        "collapsible_tab_Q7UFgL": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping and Delivery",
+            "content": "<ul><li>Orders are processed and delivered within <strong>7 business days</strong>.</li><li>Delivery times depend on the <strong>shipping partner</strong> selected.</li><li>We work with <strong>trusted couriers</strong> to ensure safe and timely delivery.</li><li>Tracking details will be shared once your order is dispatched.</li><li>For questions, reach us at <a><strong>wecare@timberkala.com</strong></a>.</li></ul>",
+            "page": "",
+            "icon": "truck"
+          }
+        },
+        "separator_gDwzxi": {
+          "type": "separator",
+          "settings": {
+            "show-separator-line": true,
+            "color-background": "#dedede",
+            "margin-top": 0,
+            "margin-bottom": 0
+          }
+        },
+        "collapsible_tab_Yxj6UT": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Embracing Wabi-Sabi:",
+            "content": "<p>The Beauty of Imperfection<br/>Our sustainable creations celebrate the Japanese philosophy of Wabi-Sabi, finding beauty in imperfection and impermanence. Each piece is crafted with love, embracing the unique character of natural materials and the subtle nuances of handmade production. By valuing the imperfect and the impermanent, we invite you to slow down, appreciate the beauty of simplicity, and live in harmony with nature. Our Wabi-Sabi inspired pieces are not just decor, but a reflection of a mindful and sustainable way of living.</p>",
+            "page": "",
+            "icon": "leaf"
+          }
+        },
+        "separator_qDx9HV": {
+          "type": "separator",
+          "settings": {
+            "show-separator-line": true,
+            "color-background": "#dedede",
+            "margin-top": 0,
+            "margin-bottom": 0
+          }
+        },
+        "share_buttons_Ct9CXx": {
+          "type": "share_buttons",
+          "settings": {
+            "heading": "Share",
+            "social_facebook_link": true,
+            "social_twitter_link": false,
+            "social_pinterest_link": true,
+            "mail_link": true
+          }
+        },
+        "judge_me_reviews_testimonials_carousel_yzr3a7": {
+          "type": "shopify://apps/judge-me-reviews/blocks/testimonials_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "show_sample_reviews": true,
+            "reviews_selection": "all",
+            "products": [],
+            "filter_pinned": false,
+            "filter_featured": false,
+            "filter_custom_tags": "",
+            "star_rating": "4_to_5_star",
+            "max_reviews": 30,
+            "quote_marks_size": "small",
+            "product_name_text_size": "small",
+            "verified_badge_style": "icon",
+            "card_height": "compact",
+            "text_size": "extra_small",
+            "stars_size": "medium",
+            "arrows_position": "bottom",
+            "max_width": 1100,
+            "corner_styling": "soft",
+            "quote_marks_style": "serif",
+            "card_color": "#F9F9F9",
+            "stars_and_quote_marks_color": "#108474",
+            "text_color": "#000000",
+            "arrows_color": "#000000",
+            "show_border": true,
+            "border_color": "#108474",
+            "show_drop_shadow": true,
+            "transition_speed": 4,
+            "header_text": "The Timberkala Experience",
+            "show_average_rating": true,
+            "rating_display": "default"
+          }
+        },
+        "upsell_pdp": {
+          "type": "upsell",
+          "settings": {
+            "heading": "Complete The Look",
+            "subtitle": "Handcrafted pieces that pair beautifully",
+            "product_upsell": [],
+            "max_products": 2
+          }
+        }
+      },
+      "block_order": [
+        "custom_liquid_zgCqgH",
+        "title",
+        "custom_liquid_H8nd4C",
+        "rating",
+        "90ea3cd3-aa22-44f6-b6de-365eb7f85b9c",
+        "price",
+        "separator_RrKQ4A",
+        "variant_picker",
+        "custom_liquid_jBMGDR",
+        "text_j6RwH3",
+        "upsell_pdp",
+        "buy_buttons",
+        "custom_liquid_f89WQj",
+        "separator_BtVmRq",
+        "bulletpoints_iWtDxJ",
+        "separator_HcYGiH",
+        "custom_liquid_KxY7jd",
+        "custom_liquid_qatFtK",
+        "description",
+        "collapsible_tab_JGWjWW",
+        "a05fcf3e-8e1a-4f1f-8d97-2055eb17138d",
+        "collapsible_tab_CTNcpC",
+        "separator_84Bf8j",
+        "collapsible_tab_FeGmCP",
+        "separator_xAPRbc",
+        "collapsible_tab_Q7UFgL",
+        "separator_gDwzxi",
+        "collapsible_tab_Yxj6UT",
+        "separator_qDx9HV",
+        "share_buttons_Ct9CXx",
+        "judge_me_reviews_testimonials_carousel_yzr3a7"
+      ],
+      "custom_css": [
+        ".shopify-payment-button__button--unbranded {background: #000 !important; color: #fff !important; border: 3px solid transparent; border-radius: 0; padding: 12px 20px; font-weight: 700; position: relative; overflow: hidden; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25); transition: transform 0.2s, box-shadow 0.2s; border-image: linear-gradient(90deg, #fff, #fff, #fff) 1; border-image-slice: 1;}",
+        ".shopify-payment-button__button--unbranded:hover {transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);}"
+      ],
+      "settings": {
+        "full-width-enabled": false,
+        "desktop-media-size": "normal",
+        "desktop-layout": "collage",
+        "desktop-image-ratio": "original",
+        "enable_video_looping": true,
+        "enable-image-zoom": true,
+        "mobile-image": "small",
+        "margin-top": 12,
+        "margin-bottom": 0
+      }
+    },
+    "featured_collection_UFRnBB": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "title": "TIMBERकला — Songs of the Wind",
+        "disable_on_mobile": false,
+        "collection": "timberकला-songs-of-the-wind",
+        "products_to_show": 4,
+        "show_view_all": true,
+        "button_select": "primary",
+        "number_of_column_desktop": 4,
+        "spacing_desktop": "16",
+        "make_products_full_width": true,
+        "number_of_column_mobile": 2.5,
+        "text_alignment": "left",
+        "image_ratio": "square",
+        "show_video": false,
+        "show_secondary_image": false,
+        "show_vendor": true,
+        "show_product_rating": true,
+        "enable_quick_add_button": false,
+        "color-body-text": "transparent",
+        "background_color": "transparent",
+        "margin-top": 20,
+        "margin-bottom": 20
+      }
+    },
+    "ec5a6457-3cb6-4605-94df-ac6400f950f1": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "TIMBERकला — The Gentle Wild",
+        "disable_on_mobile": false,
+        "collection": "timberकला-the-gentle-wild",
+        "products_to_show": 16,
+        "show_view_all": true,
+        "button_select": "primary",
+        "number_of_column_desktop": 4,
+        "spacing_desktop": "8",
+        "make_products_full_width": false,
+        "number_of_column_mobile": 2.5,
+        "text_alignment": "left",
+        "image_ratio": "square",
+        "show_video": false,
+        "show_secondary_image": false,
+        "show_vendor": true,
+        "show_product_rating": false,
+        "enable_quick_add_button": false,
+        "color-body-text": "rgba(0,0,0,0)",
+        "background_color": "rgba(0,0,0,0)",
+        "margin-top": 20,
+        "margin-bottom": 20
+      }
+    },
+    "featured_collection_DHQYy7": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "The Curated Collection",
+        "disable_on_mobile": false,
+        "collection": "ducks",
+        "products_to_show": 5,
+        "show_view_all": true,
+        "button_select": "primary",
+        "number_of_column_desktop": 4,
+        "spacing_desktop": "16",
+        "make_products_full_width": true,
+        "number_of_column_mobile": 2.1,
+        "text_alignment": "left",
+        "image_ratio": "square",
+        "show_video": false,
+        "show_secondary_image": false,
+        "show_vendor": true,
+        "show_product_rating": true,
+        "enable_quick_add_button": false,
+        "color-body-text": "rgba(0,0,0,0)",
+        "background_color": "rgba(0,0,0,0)",
+        "margin-top": 20,
+        "margin-bottom": 20
+      }
+    },
+    "1742801459d32d7059": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "17804109762a4efaa7": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "178041113359727dfb": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "1780411171aa4b987f": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "1780411196ee468b48": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_cards_carousel_gnHqYh": {
+          "type": "shopify://apps/judge-me-reviews/blocks/cards_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "show_sample_reviews": true,
+            "reviews_selection": "all",
+            "products": [],
+            "filter_pinned": false,
+            "filter_featured": false,
+            "filter_custom_tags": "",
+            "star_rating": "4_to_5_star",
+            "show_review_media": true,
+            "display_order": "media_first",
+            "no_image_fallback": "review_text_only",
+            "max_reviews": 20,
+            "review_length": "large",
+            "text_size": "small",
+            "image_ratio": "1",
+            "reviews_shown": 4,
+            "show_reviewer_name": true,
+            "show_product_name": true,
+            "hide_arrows_mobile": true,
+            "arrows_position": "sides",
+            "max_width": 1100,
+            "corner_styling": "soft",
+            "header_text_color": "#000000",
+            "text_color": "#000000",
+            "card_color": "#f9f9f9",
+            "stars_color": "",
+            "arrows_color": "#000000",
+            "transition_speed": 3,
+            "header_text": "Our trust !",
+            "show_average_rating": true,
+            "rating_display": "default"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_cards_carousel_gnHqYh"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "background_video_AKf7Nz": {
+      "type": "background-video",
+      "name": "t:sections.background-video.presets.name",
+      "settings": {
+        "heading": "Crafting Timeless Decor, Sustainably",
+        "full-width-enabled": true,
+        "video_hosted": "shopify://files/videos/Timber kala brand (1).mp4",
+        "autoplay": true,
+        "video_controls": false,
+        "video_url": "",
+        "original_ratio": "fixed_height",
+        "desktop_fixed_height": 560,
+        "mobile_fixed_height": 300,
+        "color-body-heading": "rgba(0,0,0,0)",
+        "color-overlay": "rgba(0,0,0,0)",
+        "color-overlay-opacity": 100,
+        "color-body-text": "rgba(0,0,0,0)",
+        "desktop_text_horizontal_position": "center",
+        "mobile_text_horizontal_position": "center",
+        "margin-top": 20,
+        "margin-bottom": 20
+      }
+    },
+    "rich_text_DNpKEX": {
+      "type": "rich-text",
+      "blocks": {
+        "text_qAXXrj": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At Timber Kala, every piece tells a story. With over 400+ handcrafted decor products, we celebrate artistry and sustainability. No trees are cut to make our creations each product is made using recycled wood, ensuring beauty with responsibility.<br/><br/>Our artisans pour soul into their work, making every design unique. From elegant accents to statement decor, Timber Kala brings you products that are not just handmade, but heart-made.</p>",
+            "disable_on_mobile": false
+          }
+        },
+        "button_Ft484g": {
+          "type": "button",
+          "settings": {
+            "button_select": "primary",
+            "button_label": "Shop All",
+            "button_link": "shopify://collections/all-products",
+            "disable_on_mobile": false
+          }
+        }
+      },
+      "block_order": [
+        "text_qAXXrj",
+        "button_Ft484g"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "section_width": "regular",
+        "desktop_text_horizontal_position": "center",
+        "color-body-text": "rgba(0,0,0,0)",
+        "background_color": "rgba(0,0,0,0)",
+        "margin-top": 20,
+        "margin-bottom": 20
+      }
+    },
+    "image_banner_QEq9Aw": {
+      "type": "image-banner",
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "heading": "",
+        "full-width-enabled": false,
+        "slide_height": "adapt_to_first_image",
+        "desktop_fixed_height": 320,
+        "mobile_fixed_height": 460,
+        "desktop_image": "shopify://shop_images/Untitled_design_44.webp",
+        "desktop_text_vertical_position": "center",
+        "desktop_text_horizontal_position": "center",
+        "mobile_image": "shopify://shop_images/Untitled_design_44.webp",
+        "mobile_text_vertical_position": "center",
+        "mobile_text_horizontal_position": "center",
+        "color-heading": "rgba(0,0,0,0)",
+        "section-color-overlay": "rgba(0,0,0,0)",
+        "section-color-overlay-opacity": 100,
+        "color-body-text": "rgba(0,0,0,0)",
+        "text-container-color": "rgba(0,0,0,0)",
+        "color-overlay-opacity": 100,
+        "margin-top": 20,
+        "margin-bottom": 20
+      }
+    },
+    "custom_liquid_j4Hcxf": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<!-- ZERO-LEAK: Namespaced Parallax Stats (no blue leak) -->\n<section class=\"tk-parallax\" aria-label=\"Satisfaction stats — Timberkala\">\n  <div class=\"tk-parallax__bg\" role=\"img\" aria-hidden=\"true\"></div>\n\n  <div class=\"tk-parallax__content\" aria-label=\"Satisfaction stats\">\n    <h2 class=\"tk-parallax__title\">100% Satisfaction Guarantee</h2>\n    <p class=\"tk-parallax__subtitle\">Great quality takes time to build, but it lasts forever.</p>\n\n    <div class=\"tk-parallax__stats\" role=\"list\">\n      <div class=\"tk-stat\" role=\"listitem\">\n        <div class=\"tk-stat__num\"><span class=\"tk-keyword tk-keyword--shine\">Exclusive</span></div>\n        <div class=\"tk-stat__label\">Handcrafted Creations</div>\n      </div>\n\n      <div class=\"tk-stat\" role=\"listitem\">\n        <div class=\"tk-stat__num\"><span class=\"tk-keyword tk-keyword--shine\">Nationwide</span></div>\n        <div class=\"tk-stat__label\">Sustainably Crafted</div>\n      </div>\n\n      <div class=\"tk-stat\" role=\"listitem\">\n        <div class=\"tk-stat__num\"><span class=\"tk-keyword tk-keyword--shine\">Timeless</span></div>\n        <div class=\"tk-stat__label\">Heritage Redefined</div>\n      </div>\n\n      <div class=\"tk-stat\" role=\"listitem\">\n        <div class=\"tk-stat__num\"><span class=\"tk-keyword tk-keyword--shine\">Trusted</span></div>\n        <div class=\"tk-stat__label\">Craftsmanship Meets Legacy</div>\n      </div>\n    </div>\n  </div>\n</section>\n\n<style>\n/* ---- Scoped variables inside wrapper only ---- */\n.tk-parallax {\n  --tk-accent: #ffd700;       /* gold */\n  --tk-fg:     #ffffff;       /* main text color */\n  --tk-card:   rgba(0,0,0,.45);\n  --tk-box:    rgba(255,255,255,.08);\n  --tk-bd:     rgba(255,255,255,.2);\n  --tk-radius: 18px;\n  --tk-gap: 16px;\n  font-family: system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;\n  box-sizing: border-box;\n  margin: 0;\n  padding: 0;\n}\n\n/* Prevent any outside rule (like link color) from leaking in:\n   all interactive/color-affecting elements inside use inherit/currentColor explicitly */\n.tk-parallax, \n.tk-parallax * {\n  box-sizing: border-box;\n  color: inherit;\n}\n\n/* reset for anchors/SVGs inside this block only (avoid global effects) */\n.tk-parallax a { color: inherit; text-decoration: none; }\n.tk-parallax svg { fill: currentColor; }\n\n/* Load font for keywords only (scoped usage OK) */\n@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&display=swap');\n\n/* Section layout */\n.tk-parallax {\n  position: relative;\n  min-height: 480px;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  padding: 0 16px;\n  overflow: hidden;\n  color: var(--tk-fg);\n}\n\n/* Background (scoped element) */\n.tk-parallax__bg {\n  position: absolute;\n  inset: 0;\n  background:\n    linear-gradient(rgba(20,20,20,.55), rgba(20,20,20,.35)),\n    url('https://www.timberkala.com/cdn/shop/files/DSC08601_1.jpg?v=1740853350&width=3840');\n  background-size: cover;\n  background-position: center;\n  background-attachment: fixed;\n  z-index: -1;\n}\n\n/* Glassmorphic card (content) */\n.tk-parallax__content {\n  position: relative;\n  background: var(--tk-card);\n  backdrop-filter: blur(12px) saturate(160%);\n  -webkit-backdrop-filter: blur(12px) saturate(160%);\n  padding: 40px 24px;\n  border-radius: var(--tk-radius);\n  border: 1px solid var(--tk-bd);\n  box-shadow: 0 8px 32px rgba(0,0,0,.4);\n  width: 100%;\n  max-width: 1100px;\n  text-align: center;\n  z-index: 2;\n}\n\n/* Title & subtitle */\n.tk-parallax__title {\n  font-size: clamp(1.4rem, 2.6vw, 2.15rem);\n  font-weight: 800;\n  margin-bottom: 8px;\n  letter-spacing: .2px;\n  color: var(--tk-fg);\n}\n.tk-parallax__subtitle {\n  font-size: clamp(.95rem, 1.5vw, 1.1rem);\n  margin-bottom: 26px;\n  color: var(--tk-accent);\n  font-style: italic;\n}\n\n/* Stats grid */\n.tk-parallax__stats {\n  display: grid;\n  gap: var(--tk-gap);\n  align-items: stretch;\n  grid-template-columns: repeat(4, minmax(0, 1fr));\n}\n@media (max-width: 992px) { .tk-parallax__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }\n@media (max-width: 520px) { .tk-parallax__stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } }\n\n/* stat box */\n.tk-stat {\n  background: var(--tk-box);\n  backdrop-filter: blur(8px);\n  -webkit-backdrop-filter: blur(8px);\n  border: 1px solid var(--tk-bd);\n  border-radius: 14px;\n  padding: 20px 14px;\n  box-shadow: 0 4px 16px rgba(0,0,0,.25);\n  transition: box-shadow .28s ease, border-color .28s ease, transform .28s ease;\n  color: var(--tk-fg); /* ensure text inside is white */\n}\n.tk-stat:hover {\n  box-shadow: 0 0 18px rgba(255,215,0,.35);\n  border-color: rgba(255,215,0,.45);\n  transform: translateY(-6px);\n}\n\n/* number / keyword */\n.tk-stat__num {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  margin-bottom: 6px;\n}\n.tk-keyword {\n  font-family: 'Cinzel', serif;\n  font-size: clamp(1.4rem, 2.6vw, 1.8rem);\n  font-weight: 700;\n  background: linear-gradient(90deg, #ffd86b, #ffb347);\n  -webkit-background-clip: text;\n  background-clip: text;\n  -webkit-text-fill-color: transparent;\n  color: transparent;\n  letter-spacing: .5px;\n  text-transform: uppercase;\n  position: relative;\n  overflow: hidden;\n}\n\n/* Shine animation (single pseudo), scoped to avoid leaks */\n.tk-keyword--shine::after {\n  content: \"\";\n  position: absolute;\n  top: 0; left: -75%;\n  width: 50%; height: 100%;\n  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.8), transparent);\n  transform: skewX(-20deg);\n  animation: tk-shine 4s infinite;\n}\n@keyframes tk-shine {\n  0% { left: -75%; }\n  60% { left: 125%; }\n  100% { left: 125%; }\n}\n\n/* label */\n.tk-stat__label {\n  font-size: .98rem;\n  opacity: .95;\n  color: var(--tk-fg);\n}\n\n/* Mobile performance tweak */\n@media (max-width: 600px) {\n  .tk-parallax__content { padding: 26px 12px; }\n  .tk-parallax__bg { background-attachment: scroll; } /* iOS friendly */\n}\n\n/* Respect reduced motion */\n@media (prefers-reduced-motion: reduce) {\n  .tk-keyword--shine::after { display: none; animation: none; }\n}\n\n/* Extra safety: override any stray global link colors inside wrapper */\n.tk-parallax a, .tk-parallax a:visited, .tk-parallax a:hover, .tk-parallax a:focus {\n  color: inherit !important;\n  text-decoration: none !important;\n}\n\n/* Extra safety: ensure no global filter/blue tint applied via SVG or images */\n.tk-parallax img, .tk-parallax svg {\n  filter: none !important;\n  mix-blend-mode: normal !important;\n}\n</style>"
+      }
+    },
+    "custom_liquid_ckGD7m": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<div class=\"timberkala-india-reviews\" style=\"padding: 60px 20px; font-family: 'Georgia','Times New Roman', serif;\">\n  <h2 class=\"section-heading\" style=\"text-align: center; color: #fff; margin-bottom: 15px; font-weight: 600; letter-spacing: -0.5px;\">\n    Stories of Craft & Legacy\n  </h2>\n  <p style=\"text-align: center; color: #fcefdc; font-style: italic; margin-bottom: 50px;\">\n    From timeless havelis to modern homes, TimberKala lives in every corner of India.\n  </p>\n\n  <style>\n    /* Desktop heading font size */\n    .section-heading {\n      font-size: 38px;\n    }\n\n    /* Background animation - luxury gradient */\n    .timberkala-india-reviews {\n      background: linear-gradient(135deg, #9c6b44, #b4855c, #c29b74, #9c6b44);\n      background-size: 300% 300%;\n      animation: timberKalaBg 20s ease infinite;\n      color: #fff;\n    }\n\n    @keyframes timberKalaBg {\n      0% { background-position: 0% 50%; }\n      50% { background-position: 100% 50%; }\n      100% { background-position: 0% 50%; }\n    }\n\n    .india-carousel-container {\n      overflow: hidden;\n      padding: 20px 0;\n    }\n\n    .india-carousel-track {\n      display: flex;\n      gap: 28px;\n      animation: slideLeftIndia 38s linear infinite;\n    }\n\n    .india-review-card {\n      min-width: 310px;\n      max-width: 310px;\n      background: #fff;\n      border-radius: 18px;\n      padding: 24px;\n      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), 0 6px 18px rgba(255, 255, 255, 0.1);\n      transition: transform 0.4s, box-shadow 0.4s;\n    }\n\n    .india-review-card:hover {\n      transform: translateY(-8px);\n      box-shadow: 0 16px 35px rgba(0, 0, 0, 0.55), 0 10px 25px rgba(255, 255, 255, 0.15);\n    }\n\n    .review-header {\n      display: flex;\n      align-items: center;\n      margin-bottom: 14px;\n    }\n\n    .review-header img {\n      width: 66px;\n      height: 66px;\n      border-radius: 50%;\n      object-fit: cover;\n      border: 2.5px solid #a67c52;\n      margin-right: 16px;\n    }\n\n    .review-name {\n      font-weight: bold;\n      color: #1e0e00;\n      font-size: 17px;\n      margin: 0;\n    }\n\n    .review-location {\n      font-size: 13px;\n      color: #777;\n    }\n\n    .review-stars {\n      color: #000;\n      font-size: 19px;\n      margin: 6px 0;\n    }\n\n    .review-text {\n      font-style: italic;\n      color: #444;\n      font-size: 15px;\n      line-height: 1.6;\n      margin: 10px 0;\n    }\n\n    .review-tag {\n      display: inline-block;\n      background: #704214;\n      color: #fff;\n      font-size: 11px;\n      font-weight: 500;\n      padding: 5px 11px;\n      border-radius: 20px;\n    }\n\n    @keyframes slideLeftIndia {\n      0% { transform: translateX(0); }\n      100% { transform: translateX(-50%); }\n    }\n\n    .india-carousel-track:hover {\n      animation-play-state: paused;\n    }\n\n    /* Responsive design */\n    @media (max-width: 1024px) {\n      .india-review-card { min-width: 280px; }\n    }\n\n    @media (max-width: 768px) {\n      .india-review-card {\n        min-width: 260px;\n        padding: 20px;\n      }\n      /* Heading size for tablets/small laptops */\n      .section-heading { font-size: 30px; }\n      .timberkala-india-reviews p { font-size: 14px; }\n    }\n\n    @media (max-width: 480px) {\n      .india-review-card {\n        min-width: 240px;\n        padding: 18px;\n      }\n      /* Heading size for mobile phones */\n      .section-heading { font-size: 26px; }\n      .timberkala-india-reviews p { font-size: 13px; }\n    }\n  </style>\n\n  <div class=\"india-carousel-container\">\n    <div class=\"india-carousel-track\">\n\n      <div class=\"india-review-card\">\n        <div class=\"review-header\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/Ananya.jpg?v=1758714740\" alt=\"Ananya\">\n          <div>\n            <p class=\"review-name\">Ananya</p>\n            <p class=\"review-location\">Mumbai</p>\n          </div>\n        </div>\n        <div class=\"review-stars\">★★★★★</div>\n        <p class=\"review-text\">\"The hand made animal figurines i bought from timberkala. it brought heritage into modern luxury.\"</p>\n        <span class=\"review-tag\">Interior Designer</span>\n      </div>\n\n      <div class=\"india-review-card\">\n        <div class=\"review-header\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/Arjun.jpg?v=1758714741\" alt=\"Arjun\">\n          <div>\n            <p class=\"review-name\">Arjun</p>\n            <p class=\"review-location\">Delhi</p>\n          </div>\n        </div>\n        <div class=\"review-stars\">★★★★★</div>\n        <p class=\"review-text\">\"I wanted something traditional yet elegant for my farmhouse. The buddha wall accent is a masterpiece. 10/10.\"</p>\n        <span class=\"review-tag\">Entrepreneur</span>\n      </div>\n\n      <div class=\"india-review-card\">\n        <div class=\"review-header\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/tt6.webp?v=1758613293\" alt=\"Riya\">\n          <div>\n            <p class=\"review-name\">Riya</p>\n            <p class=\"review-location\">Jaipur</p>\n          </div>\n        </div>\n        <div class=\"review-stars\">★★★★★</div>\n        <p class=\"review-text\">\"The candles are so auspicious. It feels like piece lives here again.\"</p>\n        <span class=\"review-tag\">Architect</span>\n      </div>\n\n      <div class=\"india-review-card\">\n        <div class=\"review-header\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/tt5.webp?v=1758613292\" alt=\"Kabir\">\n          <div>\n            <p class=\"review-name\">Kabir</p>\n            <p class=\"review-location\">Hyderabad</p>\n          </div>\n        </div>\n        <div class=\"review-stars\">★★★★★</div>\n        <p class=\"review-text\">\"We chose TimberKala for our new home. The decor stuff is amazing - every guest compliments it.\"</p>\n        <span class=\"review-tag\">Corporate Client</span>\n      </div>\n\n      <div class=\"india-review-card\">\n        <div class=\"review-header\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/tt8.webp?v=1758613292\" alt=\"Sayema\">\n          <div>\n            <p class=\"review-name\">Sayema</p>\n            <p class=\"review-location\">Kolkata</p>\n          </div>\n        </div>\n        <div class=\"review-stars\">★★★★★</div>\n        <p class=\"review-text\">\"The boat rack is such an antique piece. My guests always ask where it’s from.\"</p>\n        <span class=\"review-tag\">Homeowner</span>\n      </div>\n\n      <div class=\"india-review-card\">\n        <div class=\"review-header\">\n          <img src=\"https://cdn.shopify.com/s/files/1/0909/3352/6833/files/Manav.jpg?v=1758714440\" alt=\"Manav\">\n          <div>\n            <p class=\"review-name\">Manav</p>\n            <p class=\"review-location\">Bangalore</p>\n          </div>\n        </div>\n        <div class=\"review-stars\">★★★★★</div>\n        <p class=\"review-text\">\"I gifted my friend a hanging wind chime from TimberKala. He liked it so much.\"</p>\n        <span class=\"review-tag\">Software Engineer</span>\n      </div>\n\n    </div>\n  </div>\n</div>"
+      }
+    },
+    "custom_liquid_mhkbde": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<!-- ULTRA PREMIUM: Instagram Follow — Timberkala (Shopify ready, pure white bg) -->\n<style>\n/* Fonts */\n@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap');\n\n:root{\n  --ink: #0f1113;\n  --muted: #6b6f73;\n  --glass-border: rgba(255,250,244,0.55);\n  --gold-1: #e6c36a;\n  --gold-2: #ae8a34;\n  --accent: #6b5bff;\n}\n\n/* Container */\n.ig-premium-wrap {\n  width:100%;\n  display:flex;\n  align-items:center;\n  justify-content:center;\n  padding:56px 18px;\n  box-sizing:border-box;\n  background:#ffffff; /* pure white fix */\n  -webkit-font-smoothing:antialiased;\n}\n\n/* Inner column */\n.ig-premium-inner {\n  width:100%;\n  max-width:920px;\n  display:flex;\n  flex-direction:column;\n  align-items:center;\n  gap:20px;\n}\n\n/* Headline */\n.ig-premium-head {\n  font-family: \"Playfair Display\", Georgia, serif;\n  font-weight:700;\n  font-size: clamp(32px, 4.8vw, 64px);\n  line-height:1;\n  margin:0;\n  text-align:center;\n  letter-spacing: -0.8px;\n  background: linear-gradient(90deg, #f2b66f 10%, #e86aa7 45%, #7b57ff 90%);\n  -webkit-background-clip: text;\n  background-clip: text;\n  color: transparent;\n  padding-top:4px;\n  transform: translateZ(0);\n  filter: drop-shadow(0 6px 20px rgba(0,0,0,0.06));\n}\n\n/* Subline */\n.ig-premium-sub {\n  font-family:\"Inter\",sans-serif;\n  color:var(--muted);\n  font-size:15px;\n  margin:0;\n  text-align:center;\n}\n\n/* Glass card */\n.ig-premium-card {\n  width:100%;\n  max-width:720px;\n  display:flex;\n  align-items:center;\n  gap:22px;\n  padding:18px 26px;\n  border-radius:16px;\n  background:#ffffff; /* solid white */\n  border: 1px solid var(--glass-border);\n  box-shadow: 0 12px 40px rgba(12,12,12,0.08), inset 0 1px 0 rgba(255,255,255,0.5);\n  transition: transform .26s cubic-bezier(.2,.95,.28,1), box-shadow .26s ease;\n  position:relative;\n  overflow:visible;\n}\n\n/* Gold frame accent */\n.ig-premium-card::after {\n  content: \"\";\n  position:absolute;\n  inset: -6px;\n  border-radius:20px;\n  pointer-events:none;\n  background: linear-gradient(90deg, rgba(230,195,106,0.08), rgba(174,138,52,0.04));\n  box-shadow: 0 18px 60px rgba(174,138,52,0.06);\n  z-index:0;\n}\n\n/* Hover effect */\n.ig-premium-card:hover {\n  transform: translateY(-10px);\n  box-shadow: 0 30px 90px rgba(12,12,12,0.14), inset 0 1px 0 rgba(255,255,255,0.6);\n}\n\n/* Icon tile */\n.ig-premium-icon {\n  width:72px; height:72px; min-width:72px;\n  border-radius:16px;\n  display:flex; align-items:center; justify-content:center;\n  background:#ffffff;\n  box-shadow: 0 14px 40px rgba(9,10,12,0.06), inset 0 1px 0 rgba(255,255,255,0.85);\n  border: 1px solid rgba(0,0,0,0.05);\n  transform: translateZ(0);\n  z-index:2;\n}\n\n/* Instagram glyph */\n.ig-premium-icon svg { width:40px; height:40px; display:block; }\n\n/* Body */\n.ig-premium-body {\n  display:flex;\n  flex-direction:column;\n  gap:6px;\n  min-width:0;\n  z-index:2;\n}\n\n/* Handle */\n.ig-premium-handle {\n  display:flex;\n  align-items:center;\n  gap:12px;\n  font-family:\"Inter\",sans-serif;\n  font-weight:700;\n  font-size:18px;\n  color:var(--ink);\n}\n\n/* Verified badge */\n.ig-premium-verified {\n  width:22px; height:22px; display:inline-flex; align-items:center; justify-content:center;\n  border-radius:50%;\n  background: linear-gradient(180deg,var(--accent), #1464ff);\n  box-shadow: 0 8px 20px rgba(107,91,255,0.12), 0 2px 6px rgba(0,0,0,0.06);\n  transform: translateZ(0);\n  position:relative;\n  overflow:visible;\n}\n.ig-premium-verified::after {\n  content:\"\";\n  position:absolute; inset:-8px;\n  border-radius:50%;\n  background: radial-gradient(circle at center, rgba(107,91,255,0.12), rgba(107,91,255,0.02) 30%, rgba(0,0,0,0));\n  filter: blur(6px);\n  opacity:0;\n  animation: haloPulse 3.6s ease-in-out infinite;\n}\n@keyframes haloPulse {\n  0% { opacity:0; transform: scale(0.95); }\n  50% { opacity:1; transform: scale(1.05); }\n  100% { opacity:0; transform: scale(0.95); }\n}\n\n/* Meta */\n.ig-premium-meta {\n  font-family:\"Inter\",sans-serif;\n  font-size:13px;\n  color:var(--muted);\n  opacity:0.95;\n}\n\n/* CTA */\n.ig-premium-cta {\n  margin-left:auto;\n  display:flex;\n  align-items:center;\n  gap:10px;\n  z-index:2;\n}\n.ig-premium-cta a {\n  display:inline-flex;\n  align-items:center;\n  gap:10px;\n  color:var(--ink);\n  text-decoration:none;\n  font-weight:600;\n  padding:8px 14px;\n  border-radius:999px;\n  border:1px solid rgba(0,0,0,0.05);\n  background:#ffffff;\n  box-shadow: 0 8px 22px rgba(0,0,0,0.06);\n  transition: transform .18s ease, box-shadow .18s ease;\n}\n.ig-premium-cta a:hover { transform: translateY(-3px); box-shadow:0 18px 50px rgba(0,0,0,0.09); }\n\n/* Responsive */\n@media (max-width:720px){\n  .ig-premium-card { padding:14px 18px; border-radius:12px; gap:14px; width: calc(100% - 32px); }\n  .ig-premium-icon{ width:56px; height:56px; min-width:56px; border-radius:12px; }\n  .ig-premium-handle{ font-size:16px; }\n  .ig-premium-head { font-size: clamp(22px, 8vw, 36px); }\n  .ig-premium-body { gap:4px; }\n  .ig-premium-cta { margin-left:8px; }\n}\n@media (max-width:420px){\n  .ig-premium-inner { gap:12px; }\n  .ig-premium-card { padding:12px 12px; gap:10px; }\n  .ig-premium-handle { font-size:15px; }\n  .ig-premium-meta { font-size:12px; }\n}\n</style>\n\n<div class=\"ig-premium-wrap\" role=\"region\" aria-label=\"Follow Timberkala on Instagram\">\n  <div class=\"ig-premium-inner\">\n    <h2 class=\"ig-premium-head\">Follow us on Instagram</h2>\n    <p class=\"ig-premium-sub\">Discover curated rooms, artisan craft and seasonal drops</p>\n\n    <a class=\"ig-premium-card\" href=\"https://www.instagram.com/timber.kala/\" target=\"_blank\" rel=\"noopener noreferrer\" aria-label=\"Open Timberkala Instagram profile in a new tab\">\n      <span class=\"ig-premium-icon\" aria-hidden=\"true\">\n        <svg viewBox=\"0 0 512 512\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-hidden=\"true\">\n          <defs>\n            <linearGradient id=\"premiumIG\" x1=\"0\" x2=\"1\">\n              <stop offset=\"0\" stop-color=\"#f58529\"/>\n              <stop offset=\"0.45\" stop-color=\"#dd2a7b\"/>\n              <stop offset=\"1\" stop-color=\"#515bd4\"/>\n            </linearGradient>\n          </defs>\n          <rect x=\"64\" y=\"64\" width=\"384\" height=\"384\" rx=\"96\" fill=\"url(#premiumIG)\"/>\n          <g fill=\"#fff\" opacity=\"0.98\">\n            <path d=\"M366 162.5h-12.5c-6.6 0-12 5.4-12 12v12.5c0 6.6 5.4 12 12 12H366c6.6 0 12-5.4 12-12V174.5c0-6.6-5.4-12-12-12z\"/>\n            <path d=\"M256 174.5c-45.1 0-81.7 36.6-81.7 81.7S210.9 337.9 256 337.9s81.7-36.6 81.7-81.7S301.1 174.5 256 174.5zm0 137.9c-31.9 0-57.7-25.9-57.7-57.7S224.1 197 256 197s57.7 25.9 57.7 57.7S287.9 312.4 256 312.4z\"/>\n          </g>\n        </svg>\n      </span>\n\n      <span class=\"ig-premium-body\">\n        <span class=\"ig-premium-handle\">\n          <span class=\"handle-text\">@timber.kala</span>\n          <span class=\"ig-premium-verified\" aria-hidden=\"true\" title=\"Verified account\">\n            <svg width=\"12\" height=\"12\" viewBox=\"0 0 12 12\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M3.6 6.2L5.1 7.6l3.3-3.8\" stroke=\"#fff\" stroke-width=\"1.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>\n          </span>\n        </span>\n        <span class=\"ig-premium-meta\">Official account • Handcrafted interiors & curated collections</span>\n      </span>\n\n      <span class=\"ig-premium-cta\" aria-hidden=\"true\">\n        <a href=\"https://www.instagram.com/timber.kala/\" target=\"_blank\" rel=\"noopener noreferrer\" title=\"Open Instagram\">\n          View profile\n        </a>\n      </span>\n    </a>\n  </div>\n</div>"
+      }
+    },
+    "image_with_text_6eHa6t": {
+      "type": "image-with-text",
+      "blocks": {
+        "subheading_pcbKAV": {
+          "type": "subheading",
+          "settings": {
+            "subheading": "Tell you story",
+            "subheading_disable_on_mobile": false
+          }
+        },
+        "heading_D3AMnB": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image with text",
+            "disable_on_mobile": false,
+            "size_heading": 100,
+            "size_heading_mobile": 100
+          }
+        },
+        "text_m4Jtpa": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text_style": "body",
+            "disable_on_mobile": false
+          }
+        },
+        "button_Mcp9Rh": {
+          "type": "button",
+          "settings": {
+            "button_select": "primary",
+            "button_label": "Button label",
+            "button_link": "/",
+            "disable_on_mobile": false
+          }
+        }
+      },
+      "block_order": [
+        "subheading_pcbKAV",
+        "heading_D3AMnB",
+        "text_m4Jtpa",
+        "button_Mcp9Rh"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "",
+        "layout": "image_first",
+        "desktop-percentage-image-width": 50,
+        "full-width-enabled": false,
+        "slide_height": "adapt_to_first_image",
+        "desktop_fixed_height": 320,
+        "mobile_fixed_height": 460,
+        "section-color-body-text": "rgba(0,0,0,0)",
+        "section-color-overlay": "rgba(0,0,0,0)",
+        "section-color-overlay-opacity": 100,
+        "color-body-text": "rgba(0,0,0,0)",
+        "color-overlay": "rgba(0,0,0,0)",
+        "color-overlay-opacity": 100,
+        "desktop_text_vertical_position": "center",
+        "desktop_text_horizontal_position": "center",
+        "mobile_text_horizontal_position": "center",
+        "margin-top": 20,
+        "margin-bottom": 80
+      }
+    },
+    "custom_liquid_wjH9am": {
+      "type": "custom-liquid",
+      "custom_css": [],
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<!-- ZERO-LEAK: Namespaced Premium Features (paste only AFTER removing old features block) -->\n<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css\">\n\n<div class=\"tk-features\" aria-label=\"Premium features — Timberkala\">\n  <section class=\"tk-features__wrap\" aria-labelledby=\"tk-features-heading\">\n    <h2 id=\"tk-features-heading\" class=\"tk-features__sr-only\">Premium Features</h2>\n\n    <div class=\"tk-features__row\" role=\"list\">\n      \n      <!-- Free Shipping -->\n      <article class=\"tk-feature\" role=\"listitem\" aria-label=\"Free Shipping\">\n        <div class=\"tk-feature__icon\" aria-hidden=\"true\"><i class=\"fas fa-truck\"></i></div>\n        <div class=\"tk-feature__content\">\n          <h3 class=\"tk-feature__title\">Free Shipping</h3>\n          <p class=\"tk-feature__desc\">Free Shipping Above ₹2000 All Over India</p>\n        </div>\n      </article>\n\n      <!-- 100% Recycled Wood -->\n      <article class=\"tk-feature\" role=\"listitem\" aria-label=\"100% Recycled Wood\">\n        <div class=\"tk-feature__icon\" aria-hidden=\"true\"><i class=\"fas fa-tree\"></i></div>\n        <div class=\"tk-feature__content\">\n          <h3 class=\"tk-feature__title\">100% Recycled Wood</h3>\n          <p class=\"tk-feature__desc\">Eco-friendly & Sustainable Materials</p>\n        </div>\n      </article>\n\n      <!-- 5000+ Families Trust -->\n      <article class=\"tk-feature\" role=\"listitem\" aria-label=\"5000+ Families Trust\">\n        <div class=\"tk-feature__icon\" aria-hidden=\"true\"><i class=\"fas fa-users\"></i></div>\n        <div class=\"tk-feature__content\">\n          <h3 class=\"tk-feature__title\">5000+ Families Trust</h3>\n          <p class=\"tk-feature__desc\">Trusted by Families Across India</p>\n        </div>\n      </article>\n\n      <!-- Flexible Payment -->\n      <article class=\"tk-feature\" role=\"listitem\" aria-label=\"Flexible Payment\">\n        <div class=\"tk-feature__icon\" aria-hidden=\"true\"><i class=\"fas fa-credit-card\"></i></div>\n        <div class=\"tk-feature__content\">\n          <h3 class=\"tk-feature__title\">Flexible Payment</h3>\n          <p class=\"tk-feature__desc\">Pay with Multiple Credit Cards</p>\n        </div>\n      </article>\n\n    </div>\n  </section>\n</div>\n\n<style>\n/* --- All styles strictly scoped under .tk-features --- */\n.tk-features { \n  --tk-max-width: 1200px;\n  --tk-bg-box: #000;\n  --tk-text: #fff;\n  --tk-muted: #d1d1d1;\n  --tk-gap: 18px;\n  display: block;\n  box-sizing: border-box;\n  margin: 0;\n  font-family: system-ui, -apple-system, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;\n}\n\n.tk-features__sr-only {\n  position: absolute !important;\n  width: 1px; height: 1px;\n  padding: 0; margin: -1px;\n  overflow: hidden; clip: rect(0 0 0 0);\n  white-space: nowrap; border: 0;\n}\n\n.tk-features__wrap {\n  background: transparent;\n  padding: 36px 16px;\n  box-sizing: border-box;\n}\n\n.tk-features__row {\n  max-width: var(--tk-max-width);\n  margin: 0 auto;\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\n  gap: var(--tk-gap);\n  align-items: stretch;\n  box-sizing: border-box;\n}\n\n.tk-feature {\n  display: flex;\n  gap: 16px;\n  align-items: center;\n  background: var(--tk-bg-box);\n  color: var(--tk-text);\n  padding: 20px;\n  box-sizing: border-box;\n  width: 100%;\n  min-height: 84px;\n  border-radius: 14px; /* smoother rounded edges */\n  border: 0;\n  text-align: left;\n  transition: transform .28s ease, box-shadow .28s ease;\n}\n\n.tk-feature:hover {\n  transform: translateY(-6px);\n  box-shadow: 0 14px 36px rgba(0,0,0,0.15);\n}\n\n.tk-feature__icon {\n  width: 56px;\n  height: 40px;\n  display: inline-flex;\n  align-items: center;\n  justify-content: center;\n  background: #111;\n  color: var(--tk-text);\n  font-size: 22px;\n  flex-shrink: 0;\n  border-radius: 10px; /* soft rounded corners */\n}\n\n.tk-feature__content { min-width:0; }\n.tk-feature__title {\n  margin: 0 0 6px 0;\n  font-size: 16px;\n  font-weight: 600;\n  color: var(--tk-text);\n  line-height: 1.15;\n}\n.tk-feature__desc {\n  margin: 0;\n  font-size: 13px;\n  color: var(--tk-muted);\n  line-height: 1.3;\n}\n\n.tk-feature:focus-within,\n.tk-feature:focus {\n  outline: 3px solid rgba(255,215,120,0.15);\n  outline-offset: 2px;\n}\n\n@media (max-width: 900px) {\n  .tk-feature { min-height: 76px; padding: 16px; border-radius: 12px; }\n  .tk-feature__icon { width: 52px; height: 36px; font-size: 20px; border-radius: 8px; }\n}\n@media (max-width: 560px) {\n  .tk-features__wrap { padding: 20px 12px; }\n  .tk-feature { padding: 12px; min-height: 64px; gap: 12px; border-radius: 10px; }\n  .tk-feature__icon { width: 48px; height: 36px; font-size: 18px; border-radius: 6px; }\n  .tk-feature__title { font-size: 15px; }\n  .tk-feature__desc { font-size: 12px; }\n}\n</style>"
+      }
+    },
+    "17586913634908d742": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "1758268780504378b7": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "1758267748f7e0044d": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "newsletter_pEcrBa": {
+      "type": "newsletter",
+      "blocks": {
+        "heading_mLFMeW": {
+          "type": "heading",
+          "settings": {
+            "heading": "Subscribe to our emails",
+            "heading_disable_on_mobile": false,
+            "size_heading": 100,
+            "size_heading_mobile": 100
+          }
+        },
+        "paragraph_d8VNPK": {
+          "type": "paragraph",
+          "settings": {
+            "paragraph": "<p>Be the first to know about new collections and exclusive offers.</p>",
+            "text_disable_on_mobile": false
+          }
+        },
+        "email_form_gTPAyG": {
+          "type": "email_form",
+          "settings": {
+            "button_select": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_mLFMeW",
+        "paragraph_d8VNPK",
+        "email_form_gTPAyG"
+      ],
+      "settings": {
+        "color-body-text": "rgba(0,0,0,0)",
+        "background_color": "rgba(0,0,0,0)",
+        "margin-top": 60,
+        "margin-bottom": 60
+      }
+    }
+  },
+  "order": [
+    "custom_liquid_PwtKtg",
+    "breadcrumbs",
+    "custom_liquid_VerEgL",
+    "custom_liquid_HUczzX",
+    "main",
+    "featured_collection_UFRnBB",
+    "ec5a6457-3cb6-4605-94df-ac6400f950f1",
+    "featured_collection_DHQYy7",
+    "1742801459d32d7059",
+    "17804109762a4efaa7",
+    "178041113359727dfb",
+    "1780411171aa4b987f",
+    "1780411196ee468b48",
+    "background_video_AKf7Nz",
+    "rich_text_DNpKEX",
+    "image_banner_QEq9Aw",
+    "custom_liquid_j4Hcxf",
+    "custom_liquid_ckGD7m",
+    "custom_liquid_mhkbde",
+    "image_with_text_6eHa6t",
+    "custom_liquid_wjH9am",
+    "17586913634908d742",
+    "1758268780504378b7",
+    "1758267748f7e0044d",
+    "newsletter_pEcrBa"
+  ]
+}
