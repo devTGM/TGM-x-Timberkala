@@ -359,16 +359,20 @@ btn.addEventListener("click", () => {
 });
 </script>
 
-<!-- Announcement bar: hide on scroll down, show on scroll up -->
+<!-- Announcement bar: hide on scroll down, show on scroll up (collection & product pages) -->
 <script>
 (function() {
+  if (document.body.classList.contains('template-index')) return;
+
   var annBar = null;
-  var lastScrollY = 0;
+  var lastScrollY = window.scrollY || window.pageYOffset;
   var ticking = false;
 
   function getBar() {
     if (!annBar) {
-      annBar = document.getElementById('shopify-section-announcement-bar') ||
+      annBar = document.querySelector('[id*="__announcement-bar"]') ||
+               document.querySelector('.topbar-section') ||
+               document.querySelector('announcement-bar') ||
                document.querySelector('.wt-announcement');
     }
     return annBar;
@@ -378,14 +382,15 @@ btn.addEventListener("click", () => {
     var bar = getBar();
     if (!bar) return;
     var currentY = window.scrollY || window.pageYOffset;
-    if (currentY > lastScrollY && currentY > 80) {
+
+    if (currentY > lastScrollY && currentY > 60) {
       // Scrolling down — hide bar
-      bar.style.transform = 'translateY(-100%)';
-      bar.style.opacity = '0';
-    } else {
+      bar.classList.add('announcement-bar--hidden');
+      bar.classList.remove('announcement-bar--visible');
+    } else if (currentY < lastScrollY) {
       // Scrolling up — show bar
-      bar.style.transform = 'translateY(0)';
-      bar.style.opacity = '1';
+      bar.classList.remove('announcement-bar--hidden');
+      bar.classList.add('announcement-bar--visible');
     }
     lastScrollY = currentY <= 0 ? 0 : currentY;
     ticking = false;

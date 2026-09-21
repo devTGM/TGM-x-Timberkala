@@ -1774,10 +1774,10 @@ body.template-index .hero-section.hero-scrolled,
 .wt-header--inova.header-scrolled,
 .wt-header--inline.is-stuck,
 .wt-header--inline.header-scrolled,
-body:not(.template-index) #shopify-section-header,
-body:not(.template-index) [id*="__header"],
-body:not(.template-index) .page-header,
-body:not(.template-index) .wt-header {
+body:not(.template-index):not(.template-collection):not(.template-product) #shopify-section-header,
+body:not(.template-index):not(.template-collection):not(.template-product) [id*="__header"],
+body:not(.template-index):not(.template-collection):not(.template-product) .page-header,
+body:not(.template-index):not(.template-collection):not(.template-product) .wt-header {
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
   margin-top: 0 !important;
@@ -2605,61 +2605,148 @@ body.template-collection .tk-subcollection-nav__sep {
 }
 
 /* ============================================================
-   ANNOUNCEMENT BAR — SMOOTH SCROLL HIDE/SHOW
+   ANNOUNCEMENT BAR — ELEGANT MARQUEE & SCROLL BEHAVIOR
    ============================================================ */
 
-/* Hide announcement bar on homepage only */
-body.template-index #shopify-section-announcement-bar {
+/* Hide announcement bar on homepage unconditionally */
+body.template-index .topbar-section,
+body.template-index [id*="__announcement-bar"],
+body.template-index announcement-bar,
+body.template-index .wt-announcement {
   display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
-#shopify-section-announcement-bar,
+/* Ensure announcement bar displays cleanly on collection & product pages */
+body.template-collection .topbar-section,
+body.template-collection [id*="__announcement-bar"],
+body.template-collection announcement-bar,
+body.template-collection .wt-announcement,
+body.template-product .topbar-section,
+body.template-product [id*="__announcement-bar"],
+body.template-product announcement-bar,
+body.template-product .wt-announcement {
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Announcement bar styling: rich luxury earthy mocha background, clean white typography */
+[id*="__announcement-bar"],
+.topbar-section,
 .wt-announcement {
-  transition: transform 0.35s ease, opacity 0.35s ease !important;
+  background-color: #5c4c3d !important;
+  color: #ffffff !important;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.28s ease !important;
   will-change: transform, opacity !important;
 }
 
-/* Announcement bar base styles */
 .wt-announcement__container {
-  font-size: 12px !important;
-  letter-spacing: 0.08em !important;
+  background-color: #5c4c3d !important;
+  font-size: 12.5px !important;
+  letter-spacing: 0.04em !important;
   font-weight: 500 !important;
-  padding: 10px 16px !important;
-  color: #fff !important;
+  padding: 8px 16px !important;
+  color: #ffffff !important;
+  min-height: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.wt-announcement__body,
+.wt-announcement__text {
+  color: #ffffff !important;
+  font-size: 12.5px !important;
+  letter-spacing: 0.04em !important;
+  white-space: nowrap !important;
+  padding: 0 14px !important;
 }
 
 .wt-announcement__text a,
 .wt-announcement__body a {
-  color: #fff !important;
-  text-decoration: none !important;
-  opacity: 0.9 !important;
+  color: #ffffff !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+  opacity: 0.95 !important;
+  transition: opacity 0.2s !important;
 }
 
 .wt-announcement__text a:hover,
 .wt-announcement__body a:hover {
   opacity: 1 !important;
-  text-decoration: underline !important;
+}
+
+/* Hide close button on announcement bar */
+.wt-announcement__close {
+  display: none !important;
+}
+
+/* Announcement bar scroll-hide / reveal states */
+.announcement-bar--hidden {
+  transform: translateY(-100%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.announcement-bar--visible {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 /* ============================================================
-   COLLECTION PAGE — ADDITIONAL AESTHETIC POLISH
+   COLLECTION & PRODUCT HEADER — INOVA CARD DESIGN
+   (Rounded white header card meeting the announcement bar)
    ============================================================ */
 
-/* Clean breadcrumb */
-body.template-collection .breadcrumbs {
-  font-size: 12px !important;
-  letter-spacing: 0.06em !important;
-  color: rgba(0,0,0,0.4) !important;
-  padding-top: 16px !important;
+body.template-collection #shopify-section-header,
+body.template-collection [id*="__header"],
+body.template-collection .page-header,
+body.template-product #shopify-section-header,
+body.template-product [id*="__header"],
+body.template-product .page-header {
+  background-color: #5c4c3d !important;
 }
 
-body.template-collection .breadcrumbs a {
-  color: rgba(0,0,0,0.4) !important;
+body.template-collection .wt-header,
+body.template-product .wt-header {
+  background-color: #ffffff !important;
+  border-top-left-radius: 24px !important;
+  border-top-right-radius: 24px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Header navigation links — elegant dark espresso uppercase */
+body.template-collection .wt-header .wt-page-nav-mega__link,
+body.template-product .wt-header .wt-page-nav-mega__link {
+  color: #3c2c20 !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.08em !important;
+}
+
+/* Breadcrumbs — subtle refined earth tone with small spacing */
+body.template-collection .breadcrumbs,
+body.template-product .breadcrumbs {
+  font-size: 13px !important;
+  letter-spacing: 0.04em !important;
+  color: #8c7368 !important;
+  padding: 14px 0 6px !important;
+}
+
+body.template-collection .breadcrumbs a,
+body.template-product .breadcrumbs a {
+  color: #8c7368 !important;
   text-decoration: none !important;
+  transition: color 0.2s !important;
 }
 
-body.template-collection .breadcrumbs a:hover {
-  color: var(--color-foreground, #1a1a1a) !important;
+body.template-collection .breadcrumbs a:hover,
+body.template-product .breadcrumbs a:hover {
+  color: #3c2c20 !important;
 }
 
 /* Filter accordion group headers */

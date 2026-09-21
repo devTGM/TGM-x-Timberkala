@@ -358,35 +358,42 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
+        "ann_sale": {
+          "type": "announcement",
+          "settings": {
+            "text": "✦ Special Offer: Handcrafted Wooden Décor — Flat 10% Off •",
+            "link": "/collections/all-products"
+          }
+        },
+        "ann_contact": {
+          "type": "announcement",
+          "settings": {
+            "text": "✉ A question? Visit our Contact page •",
+            "link": "/pages/contact"
+          }
+        },
         "ann_shipping": {
           "type": "announcement",
           "settings": {
-            "text": "✦ Free Shipping on orders above ₹2000 across India",
+            "text": "✦ Free shipping on orders over ₹2000 across India •",
             "link": "/collections/all-products"
           }
         },
         "ann_wood": {
           "type": "announcement",
           "settings": {
-            "text": "✦ 100% Recycled Wood — Sustainably Crafted with Love",
-            "link": ""
-          }
-        },
-        "ann_promo": {
-          "type": "announcement",
-          "settings": {
-            "text": "✦ Handcrafted Décor by Timberkala — Unique Pieces for Every Home",
+            "text": "✦ 100% Recycled Wood — Sustainably Handcrafted with Love •",
             "link": "/collections/all-products"
           }
         }
       },
-      "block_order": ["ann_shipping", "ann_wood", "ann_promo"],
+      "block_order": ["ann_sale", "ann_contact", "ann_shipping", "ann_wood"],
       "settings": {
         "marquee": true,
-        "animation_speed": "100",
+        "animation_speed": "80",
         "checkbox_close_announcement": false,
         "color-body-text": "#ffffff",
-        "background_color": "#1a1a1a"
+        "background_color": "#5c4c3d"
       }
     },
     "custom_liquid_9gjUz7": {

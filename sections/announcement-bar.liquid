@@ -15,7 +15,26 @@
 
 <script src="{{ 'announcement-bar.js' | asset_url }}" defer="defer"></script>
 
-{% if section.blocks.size > 0 %}
+{% if template.name == 'index' %}
+  {% unless request.design_mode %}
+    <style>
+      #shopify-section-{{ section.id }},
+      .topbar-section,
+      div[id*="__announcement-bar"],
+      announcement-bar,
+      .wt-announcement {
+        display: none !important;
+        height: 0 !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+    </style>
+  {% endunless %}
+{% endif %}
+
+{% if section.blocks.size > 0 and template.name != 'index' or request.design_mode %}
 <announcement-bar>
   <div
     data-section-id="{{ section.id }}"
