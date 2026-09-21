@@ -1,15 +1,17 @@
 {%- liquid
-  assign ratio = auto
+  assign ratio = '3/4'
   if media_aspect_ratio == 'portrait'
-    assign ratio = 0.8
+    assign ratio = '3/4'
   elsif card_product.featured_media and media_aspect_ratio == 'adapt'
-    assign ratio = card_product.featured_media.aspect_ratio
+    assign ratio = '3/4'
   elsif media_aspect_ratio == 'square'
     assign ratio = '1/1'
+  else
+    assign ratio = '3/4'
   endif
 
   if ratio == 0 or ratio == null
-    assign ratio = auto
+    assign ratio = '3/4'
   endif
 
   if lazy_load
@@ -21,18 +23,16 @@
 
 {%- assign title_tag = title_tag | default: 'h3' -%}
 
-{% if media_aspect_ratio %}
-  <style>
-    [data-uri="{{ uri }}"] .card__img, [data-uri="{{ uri }}"] .card__video{
-        --aspect-ratio: {{ ratio }};
-    }
-  </style>
-{% endif %}
+<style>
+  [data-uri="{{ uri }}"] .card__img, [data-uri="{{ uri }}"] .card__video, [data-uri="{{ uri }}"] {
+      --aspect-ratio: {{ ratio }};
+  }
+</style>
 
 {% assign placeholder_title = 'sections.card.placeholder_title' | t %}
 
 <color-swatch>
-  <div class="card__container">
+  <div class="card__container{% if collection_list %} card__container--collection{% else %} card__container--product{% endif %}">
     <div class="card__picture-container">
       <a
         href="{{ url | default: '#' }}"
@@ -151,6 +151,23 @@
             <a href="#">[]</a>
           {% endif %}
           <div class="card__badges">
+            {% assign current_card_prod = card_product | default: product %}
+            {% if current_card_prod and current_card_prod.compare_at_price > current_card_prod.price and current_card_prod.available %}
+              {% assign discount_pct = current_card_prod.compare_at_price | minus: current_card_prod.price | times: 100.0 | divided_by: current_card_prod.compare_at_price | round %}
+              {% if discount_pct > 0 %}
+                <div class="card__badges--item card__badge--sale" data-custom-badge="sale">
+                  {{ discount_pct }}% OFF
+                </div>
+              {% endif %}
+            {% elsif price_old and price and price_old > price %}
+              {% assign discount_pct = price_old | minus: price | times: 100.0 | divided_by: price_old | round %}
+              {% if discount_pct > 0 %}
+                <div class="card__badges--item card__badge--sale" data-custom-badge="sale">
+                  {{ discount_pct }}% OFF
+                </div>
+              {% endif %}
+            {% endif %}
+
             {% assign custom-badge-1-input = settings['custom-badge-1-input'] | downcase %}
             {% assign custom-badge-2-input = settings['custom-badge-2-input'] | downcase %}
             {% assign custom-badge-3-input = settings['custom-badge-3-input'] | downcase %}
@@ -239,14 +256,16 @@
       </{{ title_tag }}>
       {% if price and collection_list != true %}
         <div class="card__price">
+          <span class="card__price__current wt-product__price__final">
+            {% if settings.currency_code_enabled %}
+              {{ price | money_with_currency }}
+            {% else %}
+              {{ price | money }}
+            {% endif %}
+          </span>
           {% if price_old -%}
-            <span class="card__price__old">{{ price_old }}</span>
+            <s class="card__price__old wt-product__price__compare">{{ price_old }}</s>
           {%- endif %}
-          {% if settings.currency_code_enabled %}
-            {{ price | money_with_currency }}
-          {% else %}
-            {{ price | money }}
-          {% endif %}
         </div>
       {% elsif product and collection_list != true %}
         <div class="card__price">

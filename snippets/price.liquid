@@ -76,7 +76,7 @@
         <span class="price-item price-item--sale price-item--last wt-product__price__final">
           {{ money_price }}
         </span>
-        {% if compare_at_price > price %}
+        {% if compare_at_price > price and main_product %}
           <span class="price-item--percent">
             -{{ compare_at_price | minus: price | times: 100 | divided_by: compare_at_price }}%
           </span>

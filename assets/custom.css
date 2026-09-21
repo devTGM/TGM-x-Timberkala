@@ -2801,3 +2801,121 @@ body.template-collection .collection-grid-section {
 body.template-collection .collection__title {
   padding-top: 8px !important;
 }
+
+/* ============================================================
+   PRODUCT CARDS — TALLER & UNIFORM 3:4 PORTRAIT IMAGES
+   ============================================================ */
+
+/* Enforce uniform 3:4 portrait aspect ratio across all product cards */
+.card__picture {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  aspect-ratio: 3 / 4 !important;
+  overflow: hidden !important;
+  border-radius: var(--border-radius, 8px) !important;
+  background-color: #f6f5f2 !important;
+}
+
+.card__img,
+.card__video,
+.card__img--hover,
+.card__video--hover,
+.card__picture img,
+.card__picture picture,
+.card__picture .card__img--empty {
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 3 / 4 !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+}
+
+/* Ensure picture container stays uniform */
+.card__picture-container {
+  width: 100% !important;
+  position: relative !important;
+}
+
+/* ============================================================
+   PRODUCT CARDS — PRICE ORDERING (ACTUAL PRICE FIRST)
+   ============================================================ */
+
+/* Price layout: Actual Price first, then Compare-at price (strikethrough) */
+.card__price,
+.card__price .price,
+.card__price .price__container,
+.card__price .price__sale,
+.card__price .price__sale.visible {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: baseline !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+}
+
+/* Actual Selling Price — bold and prominent */
+.card__price .price__sale__details-wrapper,
+.card__price .card__price__current,
+.card__price .wt-product__price__final {
+  order: 1 !important;
+  display: inline-flex !important;
+  align-items: baseline !important;
+  font-weight: 600 !important;
+  color: var(--color-foreground, #1a1a1a) !important;
+  font-size: 14px !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Compare-At Price — strike-through, muted, placed SECOND */
+.card__price .wt-product__price__compare,
+.card__price .card__price__old,
+.card__price span:has(.wt-product__price__compare) {
+  order: 2 !important;
+  display: inline-flex !important;
+  align-items: baseline !important;
+  color: rgba(0, 0, 0, 0.42) !important;
+  font-size: 12.5px !important;
+  font-weight: 400 !important;
+  text-decoration: line-through !important;
+}
+
+/* Hide the percentage badge from the price row on product cards */
+.card__price .price-item--percent {
+  display: none !important;
+}
+
+/* ============================================================
+   PRODUCT CARDS — "XX% OFF" SALE BADGE ON CARD IMAGE
+   ============================================================ */
+
+/* Badges wrapper on product card */
+.card__badges {
+  position: absolute !important;
+  top: 10px !important;
+  left: 10px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 6px !important;
+  z-index: 5 !important;
+  pointer-events: none !important;
+}
+
+/* "XX% Off" Badge styling — elegant pill badge */
+.card__badges .card__badge--sale,
+.card__badges--item.card__badge--sale {
+  background-color: var(--color-sale-badge-background, #7b5454) !important;
+  color: var(--color-sale-badge-text, #ffffff) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  padding: 4px 9px !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16) !important;
+  line-height: 1.2 !important;
+}
+
