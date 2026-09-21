@@ -64,6 +64,259 @@
 
     {{ content_for_header }}
 
+    {%- comment -%}
+      Judge.me CDN CSS loads via content_for_header above and overrides custom.css.
+      This inline <style> block appears AFTER that link tag in the cascade, so our
+      rules always win — even against Judge.me's own !important declarations.
+    {%- endcomment -%}
+    <style>
+      /* ── TIMBERKALA: Judge.me Review Carousel Overrides ── */
+
+      /* Section backdrop */
+      .shopify-section:has(.jdgm-cards-carousel),
+      .shopify-section:has(.jdgm-widget) {
+        background: linear-gradient(180deg, #faf9f6 0%, #f4f0e8 100%) !important;
+        padding: 70px 0 75px !important;
+        margin: 30px 0 !important;
+        border-top: 1px solid rgba(212,175,55,0.15) !important;
+        border-bottom: 1px solid rgba(212,175,55,0.15) !important;
+      }
+
+      /* Title: never truncated */
+      .jdgm-testimonials-carousel .jdgm-title,
+      .jdgm-videos-carousel .jdgm-title,
+      .jdgm-cards-carousel .jdgm-title,
+      .jdgm-widget .jdgm-title,
+      .jdgm-title,
+      h2.jdgm-title {
+        display: block !important;
+        -webkit-line-clamp: unset !important;
+        -webkit-box-orient: unset !important;
+        line-clamp: unset !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        text-overflow: unset !important;
+        white-space: normal !important;
+        font-family: 'Cinzel', 'Playfair Display', Georgia, serif !important;
+        font-size: clamp(18px, 2.2vw, 28px) !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.08em !important;
+        text-transform: uppercase !important;
+        color: #1a1a1a !important;
+        margin: 0 !important;
+        line-height: 1.35 !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+        max-width: 100% !important;
+        width: auto !important;
+      }
+
+      /* Rating pill */
+      .jdgm-cards-carousel .jdgm-header-info {
+        background: #ffffff !important;
+        border: 1px solid rgba(212,175,55,0.35) !important;
+        border-radius: 999px !important;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.05) !important;
+        padding: 9px 22px !important;
+      }
+
+      /* Stars in header pill */
+      .jdgm-cards-carousel .jdgm-star,
+      .jdgm-header-info .jdgm-star {
+        color: #d4af37 !important;
+        font-size: 16px !important;
+      }
+      .jdgm-cards-carousel .jdgm-star.jdgm--on::before,
+      .jdgm-header-info .jdgm-star.jdgm--on::before,
+      .jdgm-cards-carousel .jdgm-star.jdgm--half::before,
+      .jdgm-header-info .jdgm-star.jdgm--half::before {
+        content: "★" !important;
+        color: #d4af37 !important;
+        font-family: -apple-system, Arial, sans-serif !important;
+        font-style: normal !important;
+      }
+      .jdgm-cards-carousel .jdgm-star.jdgm--off::before,
+      .jdgm-header-info .jdgm-star.jdgm--off::before {
+        content: "★" !important;
+        color: #e0d8c8 !important;
+        font-family: -apple-system, Arial, sans-serif !important;
+        font-style: normal !important;
+      }
+
+      /* Card */
+      .jdgm-cards-carousel .jdgm-media-card {
+        background: #ffffff !important;
+        border: 1px solid rgba(212,175,55,0.25) !important;
+        border-radius: 20px !important;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.05) !important;
+        padding: 36px 30px 28px !important;
+        min-height: 300px !important;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease !important;
+      }
+      .jdgm-cards-carousel .jdgm-media-card:hover {
+        transform: translateY(-5px) !important;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.08), 0 0 28px rgba(212,175,55,0.15) !important;
+        border-color: rgba(212,175,55,0.5) !important;
+      }
+
+      /* Gold top-edge accent line */
+      .jdgm-cards-carousel .jdgm-media-card::after {
+        content: '' !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 28px !important;
+        right: 28px !important;
+        height: 2px !important;
+        background: linear-gradient(90deg, transparent, rgba(212,175,55,0.5), transparent) !important;
+        border-radius: 0 0 2px 2px !important;
+        display: block !important;
+      }
+
+      /* Opening quote mark — large gold serif " */
+      .jdgm-cards-carousel .jdgm-media-card::before {
+        content: '\201C' !important;
+        display: block !important;
+        font-family: 'Playfair Display', Georgia, serif !important;
+        font-size: 88px !important;
+        line-height: 0.6 !important;
+        color: #d4af37 !important;
+        opacity: 0.55 !important;
+        margin-bottom: 20px !important;
+        letter-spacing: 0 !important;
+        text-align: left !important;
+        font-style: normal !important;
+      }
+
+      /* Review body text */
+      .jdgm-cards-carousel .jdgm-media-card .jdgm-text p {
+        font-family: Georgia, serif !important;
+        font-style: italic !important;
+        font-size: 15px !important;
+        line-height: 1.75 !important;
+        color: #3a3530 !important;
+        margin: 0 !important;
+        -webkit-line-clamp: unset !important;
+        overflow: visible !important;
+      }
+
+      /* Footer divider */
+      .jdgm-cards-carousel .jdgm-media-card .jdgm-rating-section {
+        border-top: 1px solid rgba(212,175,55,0.14) !important;
+        margin-top: 22px !important;
+        padding-top: 20px !important;
+      }
+
+      /* Stars inside cards — force Unicode ★ regardless of icon font */
+      .jdgm-cards-carousel .jdgm-media-card .jdgm-star {
+        font-family: -apple-system, Arial, sans-serif !important;
+        font-style: normal !important;
+        font-size: 15px !important;
+        display: inline-block !important;
+        width: auto !important;
+        height: auto !important;
+        background: none !important;
+        text-decoration: none !important;
+      }
+      .jdgm-cards-carousel .jdgm-media-card .jdgm-star.jdgm--on::before,
+      .jdgm-cards-carousel .jdgm-media-card .jdgm-star.jdgm--half::before {
+        content: "★" !important;
+        font-family: -apple-system, Arial, sans-serif !important;
+        color: #d4af37 !important;
+        font-style: normal !important;
+      }
+      .jdgm-cards-carousel .jdgm-media-card .jdgm-star.jdgm--off::before {
+        content: "★" !important;
+        font-family: -apple-system, Arial, sans-serif !important;
+        color: #e8dfc8 !important;
+        font-style: normal !important;
+      }
+
+      /* Reviewer name */
+      .jdgm-cards-carousel .jdgm-media-card .jdgm-reviewer-name {
+        font-family: system-ui, sans-serif !important;
+        font-size: 13.5px !important;
+        font-weight: 700 !important;
+        color: #1a1a1a !important;
+        letter-spacing: 0.03em !important;
+      }
+
+      /* Verified checkmark — gold */
+      .jdgm-cards-carousel .jdgm-verified-checkmark {
+        fill: #d4af37 !important;
+        color: #d4af37 !important;
+        width: 14px !important;
+        height: 14px !important;
+      }
+      .jdgm-cards-carousel .jdgm-verified-checkmark svg,
+      .jdgm-cards-carousel .jdgm-verified-checkmark path {
+        fill: #d4af37 !important;
+        color: #d4af37 !important;
+      }
+
+      /* Product name under reviewer */
+      .jdgm-cards-carousel .jdgm-media-card .jdgm-product-name a,
+      .jdgm-cards-carousel .jdgm-media-card .jdgm-product-name {
+        font-size: 10px !important;
+        font-weight: 600 !important;
+        color: #b09a6e !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.12em !important;
+        text-decoration: none !important;
+        border-bottom: none !important;
+        text-underline-offset: unset !important;
+      }
+
+      /* Navigation arrows — gold hover */
+      .jdgm-cards-carousel .jdgm-arrow {
+        width: 46px !important;
+        height: 46px !important;
+        border-radius: 50% !important;
+        border: 1.5px solid rgba(26,26,26,0.6) !important;
+        background: #ffffff !important;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06) !important;
+        transition: all 0.25s ease !important;
+      }
+      .jdgm-cards-carousel .jdgm-arrow:hover {
+        background: linear-gradient(135deg,#d4af37,#b8860b) !important;
+        border-color: #d4af37 !important;
+        box-shadow: 0 8px 24px rgba(212,175,55,0.35) !important;
+        transform: scale(1.06) !important;
+      }
+      .jdgm-cards-carousel .jdgm-arrow:hover svg {
+        fill: #ffffff !important;
+      }
+
+      @media (max-width: 600px) {
+        .jdgm-testimonials-carousel .jdgm-title,
+        .jdgm-videos-carousel .jdgm-title,
+        .jdgm-cards-carousel .jdgm-title,
+        .jdgm-widget .jdgm-title,
+        .jdgm-title,
+        h2.jdgm-title {
+          display: block !important;
+          -webkit-line-clamp: unset !important;
+          -webkit-box-orient: unset !important;
+          line-clamp: unset !important;
+          height: auto !important;
+          max-height: none !important;
+          font-size: clamp(15px, 5.5vw, 20px) !important;
+          overflow: visible !important;
+          text-overflow: unset !important;
+          white-space: normal !important;
+          word-break: break-word !important;
+        }
+        .jdgm-cards-carousel .jdgm-media-card {
+          padding: 28px 20px 22px !important;
+        }
+        .jdgm-cards-carousel .jdgm-media-card::before {
+          font-size: 64px !important;
+        }
+      }
+    </style>
+
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
       assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
