@@ -3416,8 +3416,9 @@ body.template-collection .collection__grid__item .card__price {
 
   .jdgm-cards-carousel .jdgm-media-card {
     padding: 24px 20px 20px !important;
-    min-height: 260px !important;
+    min-height: unset !important;
     border-radius: 14px !important;
+    justify-content: flex-start !important;
   }
 
   .jdgm-cards-carousel .jdgm-media-card::before {
@@ -3502,12 +3503,13 @@ body.template-collection .collection__grid__item .card__price {
     gap: 12px !important;
   }
 
-  /* Card: compact, generous padding, no hover lift on touch */
+  /* Card: compact, no artificial height, no hover lift on touch */
   .jdgm-cards-carousel .jdgm-media-card {
     padding: 20px 16px 18px !important;
-    min-height: 220px !important;
+    min-height: unset !important;
     border-radius: 12px !important;
     transition: none !important;
+    justify-content: flex-start !important;
   }
 
   .jdgm-cards-carousel .jdgm-media-card:hover {
@@ -3554,9 +3556,14 @@ body.template-collection .collection__grid__item .card__price {
     font-size: 13px !important;
   }
 
+  /* Product name: allow wrapping so it's not cut off on narrow cards */
   .jdgm-cards-carousel .jdgm-media-card .jdgm-product-name a,
   .jdgm-cards-carousel .jdgm-media-card .jdgm-product-name.jdgm-product-name--unlinked {
     font-size: 10px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    line-height: 1.4 !important;
   }
 
   /* Arrows: centred below cards, larger tap targets */
