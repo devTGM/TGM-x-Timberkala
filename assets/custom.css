@@ -3314,9 +3314,10 @@ body.template-collection .collection__grid__item .card__price {
   text-decoration: none !important;
   display: block !important;
   max-width: 100% !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  line-height: 1.4 !important;
   transition: color 0.2s ease !important;
 }
 
