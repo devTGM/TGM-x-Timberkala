@@ -2917,47 +2917,78 @@ body.template-collection .collection__title {
    PRODUCT CARDS — PRICE ORDERING (ACTUAL PRICE FIRST)
    ============================================================ */
 
-/* Price layout: Actual Price first, then Compare-at price (strikethrough) */
+/* Price layout: flex row, actual price → compare-at */
 .card__price,
 .card__price .price,
-.card__price .price__container,
-.card__price .price__sale,
-.card__price .price__sale.visible {
+.card__price .price__container {
   display: flex !important;
   flex-direction: row !important;
   flex-wrap: wrap !important;
   align-items: baseline !important;
   justify-content: flex-start !important;
-  gap: 8px !important;
+  gap: 6px !important;
 }
 
-/* Actual Selling Price — bold and prominent */
-.card__price .price__sale__details-wrapper,
+/* Show the price__sale block always (theme hides it without .visible) */
+.card__price .price__sale,
+.card__price .price__sale.visible {
+  display: inline-flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: baseline !important;
+  gap: 6px !important;
+  order: 1 !important;
+}
+
+/* Hide the empty price__details div — it adds unwanted gaps */
+.card__price .price__details {
+  display: none !important;
+}
+
+/* ── ACTUAL SALE PRICE (the real selling price) ── */
+/* Handles both Path 1 (.card__price__current) and Path 2 (.price-item--sale) */
 .card__price .card__price__current,
-.card__price .wt-product__price__final {
+.card__price .price__sale__details-wrapper,
+.card__price .price-item--sale,
+.card__price .price-item.price-item--sale.price-item--last.wt-product__price__final {
   order: 1 !important;
   display: inline-flex !important;
   align-items: baseline !important;
-  font-weight: 600 !important;
-  color: var(--color-foreground, #1a1a1a) !important;
-  font-size: 14px !important;
+  font-weight: 700 !important;
+  color: #1a1a1a !important;   /* hard value — defeats var(--color-sale-badge-background) */
+  font-size: 13.5px !important;
   letter-spacing: -0.01em !important;
+  text-decoration: none !important;
 }
 
-/* Compare-At Price — strike-through, muted, placed SECOND */
-.card__price .wt-product__price__compare,
+/* ── COMPARE-AT PRICE (strikethrough, muted, comes second) ── */
 .card__price .card__price__old,
+.card__price .price-item--regular.price-item--lower,
+.card__price .wt-product__price__compare,
 .card__price span:has(.wt-product__price__compare) {
   order: 2 !important;
   display: inline-flex !important;
   align-items: baseline !important;
-  color: rgba(0, 0, 0, 0.42) !important;
-  font-size: 12.5px !important;
+  color: rgba(0, 0, 0, 0.38) !important;
+  font-size: 11.5px !important;
   font-weight: 400 !important;
   text-decoration: line-through !important;
 }
 
-/* Hide the percentage badge from the price row on product cards */
+/* ── REGULAR PRICE (non-sale products — price__regular path) ── */
+.card__price .price__regular {
+  display: inline-flex !important;
+  order: 1 !important;
+}
+
+.card__price .price__regular .price-item--regular {
+  display: inline-flex !important;
+  font-weight: 700 !important;
+  color: #1a1a1a !important;
+  font-size: 13.5px !important;
+}
+
+/* Hide percentage badge from price row (shown as badge on image instead) */
 .card__price .price-item--percent {
   display: none !important;
 }
