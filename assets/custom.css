@@ -2602,6 +2602,81 @@ body.template-collection .tk-subcollection-nav__sep {
     padding-bottom: 4px !important;
     -webkit-overflow-scrolling: touch !important;
   }
+
+  /* Toolbar: allow wrapping so filter + sort sit cleanly */
+  body.template-collection .collection__toolbar {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    padding: 10px 0 !important;
+  }
+
+  /* Filter trigger button — NEVER break mid-word */
+  body.template-collection .collection__filter-trigger,
+  body.template-collection .wt-filter__trigger,
+  body.template-collection [data-filter-trigger] {
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    font-size: 13px !important;
+  }
+
+  /* Sort dropdown — push right, never shrink its label */
+  body.template-collection .collection__sort {
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  body.template-collection .collection__sort .custom-select__trigger,
+  body.template-collection .collection__sort .custom-select__selected {
+    white-space: nowrap !important;
+    font-size: 12px !important;
+    padding: 6px 12px !important;
+    max-width: 160px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* Grid column switcher — keep compact */
+  body.template-collection .collection__toolbar switch-column {
+    flex-shrink: 0 !important;
+  }
+
+  /* Subcategory pills row: full width, scrollable */
+  body.template-collection .tk-subcollection-nav {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    order: 10 !important;
+  }
+
+  /* Card title: slightly smaller on narrow cards */
+  body.template-collection .collection__grid__item .card__title {
+    font-size: 12px !important;
+    -webkit-line-clamp: 2 !important;
+    min-height: calc(2 * 1.35em) !important;
+    max-height: calc(2 * 1.35em) !important;
+  }
+}
+
+/* ── Phone (≤ 600px) extra tweaks ── */
+@media (max-width: 600px) {
+  body.template-collection .collection__toolbar {
+    gap: 6px !important;
+    padding: 8px 0 !important;
+  }
+
+  /* Filter trigger and sort stack cleanly side by side */
+  body.template-collection .collection__filter-trigger,
+  body.template-collection .wt-filter__trigger,
+  body.template-collection [data-filter-trigger] {
+    font-size: 12px !important;
+    padding: 6px 10px !important;
+  }
+
+  body.template-collection .collection__sort .custom-select__trigger,
+  body.template-collection .collection__sort .custom-select__selected {
+    font-size: 11.5px !important;
+    padding: 6px 10px !important;
+    max-width: 130px !important;
+  }
 }
 
 /* ============================================================
