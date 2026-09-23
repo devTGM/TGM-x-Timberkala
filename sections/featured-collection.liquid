@@ -5,10 +5,29 @@
 
 <style>
   [data-section-id="{{ section.id }}"] {
-    {% if background_rgb != 'rgba(0, 0, 0, 0.0)' %}
+    {% if background_rgb != 'rgba(0, 0, 0, 0.0)' and section.settings.background_color != 'transparent' %}
       --color-background: {{ section.settings.background_color }};
       background-color: {{ section.settings.background_color }};
     {% endif %}
+  }
+
+  [data-section-id="{{ section.id }}"],
+  [data-section-id="{{ section.id }}"] .wt-slider,
+  [data-section-id="{{ section.id }}"] slideshow-section,
+  [data-section-id="{{ section.id }}"] .wt-slider--wrapper,
+  [data-section-id="{{ section.id }}"] .wt-slider__container,
+  [data-section-id="{{ section.id }}"] .wt-slider__container--featured,
+  [data-section-id="{{ section.id }}"] [data-swiper],
+  [data-section-id="{{ section.id }}"] [data-swiper-container],
+  [data-section-id="{{ section.id }}"] [data-swiper-slide],
+  [data-section-id="{{ section.id }}"] .card__container,
+  [data-section-id="{{ section.id }}"] a.card {
+    {% if section.settings.background_color == 'transparent' or section.settings.background_color == blank or template.name == 'index' %}
+      background: transparent !important;
+      background-color: transparent !important;
+      --color-background: transparent !important;
+    {% endif %}
+  }
 
     {% if section.settings.margin-top %}
       --section-gap-top: {{ section.settings.margin-top }}px;
