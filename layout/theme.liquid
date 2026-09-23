@@ -70,6 +70,124 @@
       rules always win — even against Judge.me's own !important declarations.
     {%- endcomment -%}
     <style>
+      /* ── TIMBERKALA: Authentic Artisan Jute Texture Background (Homepage Only) ── */
+      :root {
+        --timberkala-jute-bg: url('{{ "jute-texture.jpg" | asset_url }}');
+      }
+
+      body.template-index,
+      body.template-index #root,
+      body.template-index main#root {
+        background-color: #cbb494 !important;
+        background-image: var(--timberkala-jute-bg) !important;
+        background-repeat: repeat !important;
+        background-size: 320px 320px !important;
+        background-attachment: scroll !important;
+        color: #1a1a1a !important;
+      }
+
+      /* Seamless continuity: all homepage section containers must be transparent */
+      body.template-index .shopify-section,
+      body.template-index .wt-featured-collection,
+      body.template-index [data-section-id*="featured_collection_"],
+      body.template-index .inova-collection-grid-section,
+      body.template-index #shopify-section-header-group,
+      body.template-index .shopify-section-group-header-group {
+        background: transparent !important;
+        background-color: transparent !important;
+      }
+
+      /* Header: clean frosted luxury bar on homepage */
+      body.template-index .page-header,
+      body.template-index .wt-header,
+      body.template-index .wt-header__body {
+        background: rgba(255, 255, 255, 0.96) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+      }
+
+      /* Judge.me reviews section on homepage: transparent background so cards float on jute weave */
+      body.template-index .shopify-section:has(.jdgm-cards-carousel),
+      body.template-index .shopify-section:has(.jdgm-widget) {
+        background: transparent !important;
+        border-top: 1px solid rgba(212, 175, 55, 0.25) !important;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+      }
+
+      /* Featured collection headings: handcrafted elegance */
+      body.template-index .wt-featured-collection .headline,
+      body.template-index .wt-featured-collection .headline__title {
+        text-align: center !important;
+        margin-bottom: 24px !important;
+      }
+
+      body.template-index .wt-featured-collection .headline__title h2,
+      body.template-index .wt-featured-collection .headline h2,
+      body.template-index .wt-featured-collection [data-block-id] h2 {
+        font-family: 'Cinzel', 'Playfair Display', Georgia, serif !important;
+        font-size: clamp(22px, 3.2vw, 36px) !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+        color: #1a1a1a !important;
+        margin: 0 auto 12px !important;
+        position: relative !important;
+        display: inline-block !important;
+      }
+
+      body.template-index .wt-featured-collection .headline__title h2::after,
+      body.template-index .wt-featured-collection .headline h2::after {
+        content: "" !important;
+        display: block !important;
+        width: 60px !important;
+        height: 2px !important;
+        background: linear-gradient(90deg, transparent, #d4af37, transparent) !important;
+        margin: 8px auto 0 !important;
+      }
+
+      /* Product cards on homepage */
+      body.template-index .card__title {
+        color: #1a1a1a !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.02em !important;
+      }
+
+      body.template-index .card__price,
+      body.template-index .card__price .wt-product__price__final,
+      body.template-index .card__price span {
+        color: #1a1a1a !important;
+        font-weight: 700 !important;
+      }
+
+      body.template-index .card__price .card__price__old {
+        color: #73695e !important;
+      }
+
+      /* Pill-shaped View All buttons on homepage */
+      body.template-index .wt-featured-collection__button-container .hero__button--primary {
+        background: rgba(255, 255, 255, 0.9) !important;
+        color: #1a1a1a !important;
+        border: 1.5px solid rgba(26, 26, 26, 0.35) !important;
+        border-radius: 999px !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06) !important;
+        padding: 12px 32px !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+        transition: all 0.3s ease !important;
+      }
+
+      body.template-index .wt-featured-collection__button-container .hero__button--primary:hover {
+        background: #1a1a1a !important;
+        color: #ffffff !important;
+        border-color: #1a1a1a !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18) !important;
+      }
+
       /* ── TIMBERKALA: Judge.me Review Carousel Overrides ── */
 
       /* Section backdrop */
