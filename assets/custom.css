@@ -4071,41 +4071,57 @@ h2.jdgm-title {
 }
 
 /* ============================================================
-   HOMEPAGE NATURAL JUTE TEXTURE — STRUCTURAL TRANSPARENCY
+   TIMBERKALA NATURAL ARTISAN JUTE TEXTURE — SITE-WIDE TRANSPARENCY
    ============================================================ */
-body.template-index {
+:root,
+body {
   --color-background: transparent !important;
   --color-custom-background: transparent !important;
 }
 
-body.template-index .shopify-section,
-body.template-index .shopify-section > div,
-body.template-index .shopify-section > section,
-body.template-index .wt-featured-collection,
-body.template-index .wt-slider,
-body.template-index slideshow-section,
-body.template-index .wt-slider--wrapper,
-body.template-index .wt-slider__container,
-body.template-index .wt-slider__container--featured,
-body.template-index .wt-slider__slide,
-body.template-index .wt-slider__slide__content,
-body.template-index [data-section-id],
-body.template-index [data-swiper],
-body.template-index [data-swiper-container],
-body.template-index [data-swiper-slide],
-body.template-index .card__container,
-body.template-index .card__container--product,
-body.template-index a.card,
-body.template-index color-swatch,
-body.template-index .card__picture-container,
-body.template-index picture.card__picture,
-body.template-index .card__picture,
-body.template-index .headline,
-body.template-index .headline__title,
-body.template-index .inova-bento-section,
-body.template-index .inova-bento-container,
-body.template-index .inova-collection-grid-section,
-body.template-index [id*="inova-bento"] {
+body .shopify-section,
+body .shopify-section > div,
+body .shopify-section > section,
+body .wt-featured-collection,
+body .wt-slider,
+body slideshow-section,
+body .wt-slider--wrapper,
+body .wt-slider__container,
+body .wt-slider__container--featured,
+body .wt-slider__slide,
+body .wt-slider__slide__content,
+body [data-section-id],
+body [data-swiper],
+body [data-swiper-container],
+body [data-swiper-slide],
+body .card__container,
+body .card__container--product,
+body a.card,
+body color-swatch,
+body .card__picture-container,
+body picture.card__picture,
+body .card__picture,
+body .headline,
+body .headline__title,
+body .inova-bento-section,
+body .inova-bento-container,
+body .inova-collection-grid-section,
+body [id*="inova-bento"],
+body .collection,
+body .collection__body,
+body .collection__grid,
+body .wt-product__wrapper,
+body .wt-product,
+body .wt-product__gallery,
+body .wt-product__main,
+body .wt-product__info,
+body .wt-collapse,
+body .wt-collapse__section,
+body .wt-collapse__wrapper,
+body .cart-page,
+body .wt-cart__wrapper,
+body .wt-page {
   background: transparent !important;
   background-color: transparent !important;
 }
+
