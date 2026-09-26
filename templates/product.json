@@ -20,7 +20,7 @@
     "breadcrumbs": {
       "type": "main-breadcrumbs",
       "settings": {
-        "full-width-enabled": true,
+        "full-width-enabled": false,
         "text_color": "rgba(0,0,0,0)",
         "background_color": "rgba(0,0,0,0)",
         "margin-top": 0,
