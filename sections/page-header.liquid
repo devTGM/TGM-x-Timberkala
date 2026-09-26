@@ -903,19 +903,21 @@
           </div>
         {%- endif -%}
 
-        <!-- Search Drawer Trigger -->
-        <div
-          class="wt-header__icon wt-header__search-trigger inova-search-trigger wt-icon"
-          rel="toggle-search"
-          tabindex="0"
-          role="button"
-          aria-label="{{ 'aria-label.page-header-open-search' | t }}"
-        >
-          {% render 'icons', id: 'search' %}
-        </div>
-
-        <!-- Account & Cart -->
+        <!-- Actions: Search, Account & Cart -->
         <ul class="wt-header__panel wt-header__panel--no-labels inova-header__panel">
+          <li class="wt-header__panel__item wt-header__panel__item--search">
+            <a
+              href="#"
+              class="wt-header__panel__link wt-icon wt-header__search-trigger inova-search-trigger"
+              rel="toggle-search"
+              role="button"
+              tabindex="0"
+              aria-label="{{ 'aria-label.page-header-open-search' | t }}"
+            >
+              {% render 'icons', id: 'search' %}
+              <span class="wt-header__panel__label">{{ 'aria-label.page-header-search' | t }}</span>
+            </a>
+          </li>
           {%- if shop.customer_accounts_enabled -%}
             <li class="wt-header__panel__item wt-header__panel__item--account">
               <a href="{{ routes.account_url }}" class="wt-header__panel__link wt-icon" aria-label="Account">
@@ -1067,18 +1069,20 @@
 
       <!-- RIGHT: Search, Account, Cart -->
       <div class="wt-header__col wt-header__col--right">
-        <!-- Search Trigger -->
-        <div
-          class="wt-header__icon wt-header__search-trigger wt-icon"
-          rel="toggle-search"
-          tabindex="0"
-          role="button"
-          aria-label="{{ 'aria-label.page-header-open-search' | t }}"
-        >
-          {% render 'icons', id: 'search' %}
-        </div>
-
         <ul class="wt-header__panel wt-header__panel--no-labels">
+          <li class="wt-header__panel__item wt-header__panel__item--search">
+            <a
+              href="#"
+              class="wt-header__panel__link wt-icon wt-header__search-trigger"
+              rel="toggle-search"
+              role="button"
+              tabindex="0"
+              aria-label="{{ 'aria-label.page-header-open-search' | t }}"
+            >
+              {% render 'icons', id: 'search' %}
+              <span class="wt-header__panel__label">{{ 'aria-label.page-header-search' | t }}</span>
+            </a>
+          </li>
           {%- if shop.customer_accounts_enabled -%}
             <li class="wt-header__panel__item wt-header__panel__item--account">
               <a href="{{ routes.account_url }}" class="wt-header__panel__link wt-icon" aria-label="Account">

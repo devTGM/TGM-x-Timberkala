@@ -19,26 +19,38 @@ class DrawerSearchSection extends HTMLElement {
   }
 
   connectedCallback() {
-    if (document.body && this.parentElement && this.parentElement !== document.body) {
-      document.body.appendChild(this);
-      return;
-    }
+    const init = () => {
+      // Safely move drawer to body so it acts as a global modal without breaking HTML parsing
+      if (document.body && this.parentElement && this.parentElement !== document.body) {
+        document.body.appendChild(this);
+      }
+      this.setup();
+    };
 
-    if (!this.isInitialized) {
-      this.isInitialized = true;
-      this.input = this.querySelector('input[name="q"]');
-      this.clearButton = this.querySelector(".wt-header__search__clear-button");
-      this.closeButton = this.querySelector(".wt-header__search__close");
-      this.predictiveSearchResults = this.querySelector(
-        "[data-predictive-search]",
-      );
-      this.mainTrigger = document.querySelector(".wt-header__search-trigger");
-      this.emptyAnnouncement = this.querySelector(".search-empty");
-      this.toggleTabindexElements = [this.input, this.closeButton].filter(Boolean);
-
-      this.setupEventListeners();
-      this.init();
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", init);
+    } else {
+      setTimeout(init, 0);
     }
+  }
+
+  setup() {
+    if (this.isInitialized) return;
+    this.isInitialized = true;
+
+    this.body = document.body;
+    this.input = this.querySelector('input[name="q"]');
+    this.clearButton = this.querySelector(".wt-header__search__clear-button");
+    this.closeButton = this.querySelector(".wt-header__search__close");
+    this.predictiveSearchResults = this.querySelector(
+      "[data-predictive-search]",
+    );
+    this.mainTrigger = document.querySelector(".wt-header__search-trigger, .inova-search-trigger");
+    this.emptyAnnouncement = this.querySelector(".search-empty");
+    this.toggleTabindexElements = [this.input, this.closeButton].filter(Boolean);
+
+    this.setupEventListeners();
+    this.init();
   }
 
   getFocusableElements() {
@@ -96,19 +108,11 @@ class DrawerSearchSection extends HTMLElement {
 
   toggleDrawerClasses() {
     this.onToggle();
-    this.drawer.classList.toggle(this.classDrawerActive);
-    this.body.classList.toggle(this.activeOverlayBodyClass);
+    this.classList.toggle(this.classDrawerActive, this.isOpen);
+    (this.body || document.body).classList.toggle(this.activeOverlayBodyClass, this.isOpen);
   }
 
   init() {
-    document.addEventListener("click", (e) => {
-      const trigger = e.target.closest(".wt-header__search-trigger");
-      if (trigger) {
-        e.preventDefault();
-        this.openDrawer();
-      }
-    });
-
     if (this.closeButton) {
       this.closeButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -146,7 +150,7 @@ class DrawerSearchSection extends HTMLElement {
       }
 
       if (isTabPressed) {
-        if (this.isOpen) {
+        if (this.isOpen && first && last) {
           if (e.shiftKey && document.activeElement === first) {
             last.focus();
             e.preventDefault();
@@ -158,31 +162,50 @@ class DrawerSearchSection extends HTMLElement {
       }
     });
 
-    this.input.addEventListener("input", () => {
-      if (this.input.value.length > 0 && !this.isVisibleClearButton) {
-        this.clearButton.style.display = "flex";
-        this.clearButton.setAttribute("tabindex", "0");
-        this.isVisibleClearButton = true;
-      } else if (this.input.value.length === 0 && this.isVisibleClearButton) {
-        this.clearButton.style.display = "none";
-        this.clearButton.setAttribute("tabindex", "-1");
-        this.isVisibleClearButton = false;
-      }
-    });
+    if (this.input) {
+      this.input.addEventListener("input", () => {
+        if (this.clearButton) {
+          if (this.input.value.length > 0 && !this.isVisibleClearButton) {
+            this.clearButton.style.display = "flex";
+            this.clearButton.setAttribute("tabindex", "0");
+            this.isVisibleClearButton = true;
+          } else if (this.input.value.length === 0 && this.isVisibleClearButton) {
+            this.clearButton.style.display = "none";
+            this.clearButton.setAttribute("tabindex", "-1");
+            this.isVisibleClearButton = false;
+          }
+        }
+      });
+    }
   }
 
   // search stuff
   setupEventListeners() {
     const form = this.querySelector("form.store-search-form");
-    form.addEventListener("submit", this.onFormSubmit.bind(this));
-    this.input.addEventListener(
-      "input",
-      debounce((event) => {
-        this.onChange(event);
-      }, 300).bind(this),
-    );
+    if (form) {
+      form.addEventListener("submit", this.onFormSubmit.bind(this));
+    }
 
-    if (Shopify.designMode) {
+    if (this.input) {
+      const debounceFn = (typeof debounce === "function")
+        ? debounce
+        : (fn, wait) => {
+            let t;
+            return function(...args) {
+              clearTimeout(t);
+              t = setTimeout(() => fn.apply(this, args), wait);
+            };
+          };
+
+      this.input.addEventListener(
+        "input",
+        debounceFn((event) => {
+          this.onChange(event);
+        }, 300).bind(this),
+      );
+    }
+
+    if (window.Shopify && Shopify.designMode) {
       document.addEventListener(
         "shopify:section:load",
         this.saveSuggestionMenuInDesignMode,
@@ -191,12 +214,12 @@ class DrawerSearchSection extends HTMLElement {
   }
 
   saveSuggestionMenuInDesignMode() {
-    if (this.body.classList.contains(this.activeOverlayBodyClass))
+    if (this.body && this.body.classList.contains(this.activeOverlayBodyClass))
       this.drawer.classList.toggle(this.classDrawerActive);
   }
 
   getQuery() {
-    return this.input.value.trim();
+    return this.input ? this.input.value.trim() : "";
   }
 
   onChange() {
@@ -227,8 +250,13 @@ class DrawerSearchSection extends HTMLElement {
       return;
     }
 
+    const predictiveUrl =
+      (window.routes && window.routes.predictive_search_url) ||
+      (typeof routes !== "undefined" && routes.predictive_search_url) ||
+      "/search/suggest";
+
     fetch(
-      `${routes.predictive_search_url}?q=${encodeURIComponent(searchTerm)}&${encodeURIComponent("resources[type]")}=product,page,article,collection,query&${encodeURIComponent("resources[limit_scope]")}=each&${encodeURIComponent("resources[limit]")}=6&section_id=predictive-search`,
+      `${predictiveUrl}?q=${encodeURIComponent(searchTerm)}&${encodeURIComponent("resources[type]")}=product,page,article,collection,query&${encodeURIComponent("resources[limit_scope]")}=each&${encodeURIComponent("resources[limit]")}=6&section_id=predictive-search`,
     )
       .then((response) => {
         if (!response.ok) {
@@ -240,12 +268,14 @@ class DrawerSearchSection extends HTMLElement {
       .then((text) => {
         const resultsMarkup = new DOMParser()
           .parseFromString(text, "text/html")
-          .querySelector("#shopify-section-predictive-search").innerHTML;
-        this.cachedResults[queryKey] = resultsMarkup;
-        this.renderSearchResults(resultsMarkup);
+          .querySelector("#shopify-section-predictive-search")?.innerHTML;
+        if (resultsMarkup) {
+          this.cachedResults[queryKey] = resultsMarkup;
+          this.renderSearchResults(resultsMarkup);
+        }
       })
       .catch((error) => {
-        throw error;
+        console.error("Predictive search error:", error);
       });
   }
 
@@ -255,40 +285,69 @@ class DrawerSearchSection extends HTMLElement {
     this.loadingText =
       this.loadingText || this.getAttribute("data-loading-text");
 
-    this.setLiveRegionText(this.loadingText);
-    this.setAttribute("loading", true);
+    if (this.loadingText) {
+      this.setLiveRegionText(this.loadingText);
+    }
+    this.setAttribute("loading", "true");
   }
 
   setLiveRegionText(statusText) {
+    if (!this.statusElement) return;
     this.statusElement.setAttribute("aria-hidden", "false");
     this.statusElement.textContent = statusText;
 
     setTimeout(() => {
-      this.statusElement.setAttribute("aria-hidden", "true");
+      if (this.statusElement) {
+        this.statusElement.setAttribute("aria-hidden", "true");
+      }
     }, 1000);
   }
 
   renderSearchResults(resultsMarkup) {
-    this.predictiveSearchResults.innerHTML = resultsMarkup;
+    if (this.predictiveSearchResults) {
+      this.predictiveSearchResults.innerHTML = resultsMarkup;
+    }
 
-    this.setAttribute("results", true);
-
+    this.setAttribute("results", "true");
     this.setLiveRegionResults();
   }
 
   setLiveRegionResults() {
     this.removeAttribute("loading");
-    this.setLiveRegionText(
-      this.querySelector("[data-predictive-search-live-region-count-value]")
-        ?.textContent,
-    );
+    const countVal = this.querySelector("[data-predictive-search-live-region-count-value]")?.textContent;
+    if (countVal) {
+      this.setLiveRegionText(countVal);
+    }
   }
 
   clearResults() {
-    this.input.value = "";
+    if (this.input) this.input.value = "";
     this.removeAttribute("results");
-    this.setAttribute("empty", true);
+    this.setAttribute("empty", "true");
   }
 }
 
-customElements.define("search-drawer", DrawerSearchSection);
+if (!customElements.get("search-drawer")) {
+  customElements.define("search-drawer", DrawerSearchSection);
+}
+
+// Global delegated click listener so any search trigger reliably opens the drawer
+document.addEventListener("click", (e) => {
+  const trigger = e.target.closest(
+    ".wt-header__search-trigger, .inova-search-trigger, [rel='toggle-search']"
+  );
+  if (trigger) {
+    e.preventDefault();
+    const drawer = document.querySelector("search-drawer");
+    if (drawer) {
+      if (typeof drawer.openDrawer === "function") {
+        drawer.openDrawer();
+      } else if (typeof drawer.setup === "function") {
+        drawer.setup();
+        if (typeof drawer.openDrawer === "function") {
+          drawer.openDrawer();
+        }
+      }
+    }
+  }
+});

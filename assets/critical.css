@@ -2159,9 +2159,10 @@ body:not(.search-overlay-on) .wt-header--opacity.wt-header--v3 .wt-header__searc
 }
 .wt-header__search-trigger {
   display: flex;
+  align-items: center;
+  justify-content: center;
   color: inherit;
-  position: absolute;
-  inset: 0;
+  position: relative;
   z-index: 1;
   cursor: pointer;
 }
@@ -2175,7 +2176,7 @@ body:not(.search-overlay-on) .wt-header--opacity.wt-header--v3 .wt-header__searc
   }
 }
 .wt-header__search-trigger .svg-icon {
-  opacity: 0;
+  opacity: 1;
 }
 .wt-header__search__form {
   display: flex;
