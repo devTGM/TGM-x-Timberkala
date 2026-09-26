@@ -48,6 +48,7 @@
       "blocks": {
         "custom_liquid_zgCqgH": {
           "type": "custom_liquid",
+          "disabled": true,
           "settings": {
             "custom_liquid": ""
           }
