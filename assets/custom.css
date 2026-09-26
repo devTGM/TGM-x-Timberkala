@@ -2556,16 +2556,18 @@ body.template-collection .collection--with-aside .wt-filter__footer {
    ============================================================ */
 
 /* ── Subcollection Category Navigation Pills ── */
-body.template-collection .tk-subcollection-nav-wrapper {
+.tk-subcollection-nav-wrapper,
+body[class*="template-collection"] .tk-subcollection-nav-wrapper {
   width: 100% !important;
   display: block !important;
-  margin: 6px 0 16px 0 !important;
+  margin: 8px 0 18px 0 !important;
   padding: 0 !important;
   overflow: hidden !important;
   box-sizing: border-box !important;
 }
 
-body.template-collection .tk-subcollection-nav {
+.tk-subcollection-nav,
+body[class*="template-collection"] .tk-subcollection-nav {
   display: flex !important;
   align-items: center !important;
   flex-wrap: nowrap !important;
@@ -2581,15 +2583,17 @@ body.template-collection .tk-subcollection-nav {
   box-sizing: border-box !important;
 }
 
-body.template-collection .tk-subcollection-nav::-webkit-scrollbar {
+.tk-subcollection-nav::-webkit-scrollbar,
+body[class*="template-collection"] .tk-subcollection-nav::-webkit-scrollbar {
   display: none !important; /* Chrome, Safari, Edge */
 }
 
-body.template-collection .tk-subcollection-nav__link {
+.tk-subcollection-nav__link,
+body[class*="template-collection"] .tk-subcollection-nav__link {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 7px 18px !important;
+  padding: 8px 18px !important;
   border-radius: 999px !important;
   font-size: 13px !important;
   font-weight: 500 !important;
@@ -2597,46 +2601,50 @@ body.template-collection .tk-subcollection-nav__link {
   text-decoration: none !important;
   white-space: nowrap !important;
   flex-shrink: 0 !important;
-  background: rgba(255, 255, 255, 0.42) !important;
+  background: rgba(255, 255, 255, 0.46) !important;
   backdrop-filter: blur(8px) !important;
   -webkit-backdrop-filter: blur(8px) !important;
   color: #2b221a !important;
-  border: 1px solid rgba(80, 50, 20, 0.16) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(80, 50, 20, 0.18) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
   transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
   cursor: pointer !important;
   line-height: 1.3 !important;
 }
 
-body.template-collection .tk-subcollection-nav__link:hover {
+.tk-subcollection-nav__link:hover,
+body[class*="template-collection"] .tk-subcollection-nav__link:hover {
   background: #1a1a1a !important;
   color: #ffffff !important;
   border-color: #1a1a1a !important;
   transform: translateY(-1px) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16) !important;
 }
 
-body.template-collection .tk-subcollection-nav__link.active {
+.tk-subcollection-nav__link.active,
+body[class*="template-collection"] .tk-subcollection-nav__link.active {
   background: #1a1a1a !important;
   color: #ffffff !important;
   border-color: #1a1a1a !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
   font-weight: 600 !important;
 }
 
-body.template-collection .tk-subcollection-nav__sep {
+.tk-subcollection-nav__sep,
+body[class*="template-collection"] .tk-subcollection-nav__sep {
   display: none !important;
 }
 
 /* ── Toolbar: Filter, Sort & Grid Controls ── */
-body.template-collection .collection__toolbar {
+.collection__toolbar,
+body[class*="template-collection"] .collection__toolbar {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
   width: 100% !important;
   padding: 10px 0 !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
   margin-bottom: 22px !important;
   gap: 12px !important;
   flex-wrap: nowrap !important;
@@ -2645,15 +2653,17 @@ body.template-collection .collection__toolbar {
 
 /* Hide sidebar-mode filter trigger ONLY when desktop sidebar is always shown */
 @media (min-width: 1200px) {
-  body.template-collection [data-filter-position="always"] .collection__filter-trigger:not(.wt-filter__trigger--drawer) {
+  body[class*="template-collection"] [data-filter-position="always"] .collection__filter-trigger:not(.wt-filter__trigger--drawer) {
     display: none !important;
   }
 }
 
 /* Filter trigger: NEVER wrap characters, NEVER squish */
-body.template-collection .collection__filter-trigger,
-body.template-collection .wt-filter__trigger,
-body.template-collection [data-filter-trigger] {
+.collection__filter-trigger,
+.wt-filter__trigger,
+body[class*="template-collection"] .collection__filter-trigger,
+body[class*="template-collection"] .wt-filter__trigger,
+body[class*="template-collection"] [data-filter-trigger] {
   display: inline-flex !important;
   align-items: center !important;
   gap: 8px !important;
@@ -2668,26 +2678,32 @@ body.template-collection [data-filter-trigger] {
   padding: 6px 14px !important;
   border-radius: 999px !important;
   background: rgba(255, 255, 255, 0.35) !important;
-  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border: 1px solid rgba(0, 0, 0, 0.14) !important;
   transition: all 0.2s ease !important;
   text-decoration: none !important;
 }
 
-body.template-collection .collection__filter-trigger:hover,
-body.template-collection .wt-filter__trigger:hover {
-  background: rgba(255, 255, 255, 0.6) !important;
+.collection__filter-trigger:hover,
+.wt-filter__trigger:hover,
+body[class*="template-collection"] .collection__filter-trigger:hover,
+body[class*="template-collection"] .wt-filter__trigger:hover {
+  background: rgba(255, 255, 255, 0.65) !important;
   border-color: #1a1a1a !important;
 }
 
 /* Remove unwanted vertical divider line from theme's main.css */
-body.template-collection .collection__filter-trigger.wt-filter__trigger::after,
-body.template-collection .wt-filter__trigger::after {
+.collection__filter-trigger.wt-filter__trigger::after,
+.wt-filter__trigger::after,
+body[class*="template-collection"] .collection__filter-trigger.wt-filter__trigger::after,
+body[class*="template-collection"] .wt-filter__trigger::after {
   display: none !important;
 }
 
 /* Force label text inside filter trigger to never wrap letters */
-body.template-collection .wt-filter__trigger .filter-trigger__label,
-body.template-collection .collection__filter-trigger .filter-trigger__label {
+.wt-filter__trigger .filter-trigger__label,
+.collection__filter-trigger .filter-trigger__label,
+body[class*="template-collection"] .wt-filter__trigger .filter-trigger__label,
+body[class*="template-collection"] .collection__filter-trigger .filter-trigger__label {
   white-space: nowrap !important;
   display: inline-block !important;
   flex-shrink: 0 !important;
@@ -2697,8 +2713,10 @@ body.template-collection .collection__filter-trigger .filter-trigger__label {
 }
 
 /* Filter icon */
-body.template-collection .wt-filter__trigger .svg-icon,
-body.template-collection .collection__filter-trigger .svg-icon {
+.wt-filter__trigger .svg-icon,
+.collection__filter-trigger .svg-icon,
+body[class*="template-collection"] .wt-filter__trigger .svg-icon,
+body[class*="template-collection"] .collection__filter-trigger .svg-icon {
   margin-right: 0 !important;
   width: 15px !important;
   height: 15px !important;
@@ -2706,7 +2724,8 @@ body.template-collection .collection__filter-trigger .svg-icon {
 }
 
 /* Active filter counter badge */
-body.template-collection .wt-filter__trigger__counter {
+.wt-filter__trigger__counter,
+body[class*="template-collection"] .wt-filter__trigger__counter {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -2722,16 +2741,19 @@ body.template-collection .wt-filter__trigger__counter {
 }
 
 /* Sort dropdown — push to right side */
-body.template-collection .collection__sort {
+.collection__sort,
+body[class*="template-collection"] .collection__sort {
   margin-left: auto !important;
   flex-shrink: 0 !important;
   white-space: nowrap !important;
 }
 
-body.template-collection .collection__sort .custom-select__trigger,
-body.template-collection .collection__sort .custom-select__selected {
+.collection__sort .custom-select__trigger,
+.collection__sort .custom-select__selected,
+body[class*="template-collection"] .collection__sort .custom-select__trigger,
+body[class*="template-collection"] .collection__sort .custom-select__selected {
   padding: 6px 14px !important;
-  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border: 1px solid rgba(0, 0, 0, 0.14) !important;
   border-radius: 999px !important;
   background: rgba(255, 255, 255, 0.35) !important;
   font-size: 12.5px !important;
@@ -2742,27 +2764,32 @@ body.template-collection .collection__sort .custom-select__selected {
   white-space: nowrap !important;
 }
 
-body.template-collection .collection__sort .custom-select__trigger:hover,
-body.template-collection .collection__sort .custom-select__selected:hover {
+.collection__sort .custom-select__trigger:hover,
+.collection__sort .custom-select__selected:hover,
+body[class*="template-collection"] .collection__sort .custom-select__trigger:hover,
+body[class*="template-collection"] .collection__sort .custom-select__selected:hover {
   border-color: #1a1a1a !important;
-  background: rgba(255, 255, 255, 0.6) !important;
+  background: rgba(255, 255, 255, 0.65) !important;
 }
 
 /* Grid layout switch column */
-body.template-collection switch-column {
+switch-column,
+body[class*="template-collection"] switch-column {
   flex-shrink: 0 !important;
   display: inline-flex !important;
   align-items: center !important;
 }
 
 /* Product count label */
-body.template-collection .collection__counter .counter__value {
+.collection__counter .counter__value,
+body[class*="template-collection"] .collection__counter .counter__value {
   font-size: 12px !important;
   color: rgba(0, 0, 0, 0.5) !important;
   letter-spacing: 0.03em !important;
 }
 
-body.template-collection .collection__counter.mobile {
+.collection__counter.mobile,
+body[class*="template-collection"] .collection__counter.mobile {
   display: none !important;
 }
 
