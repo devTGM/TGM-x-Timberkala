@@ -71,9 +71,13 @@ class DrawerNavSection extends HTMLElement {
 
   openMenu(e) {
     this.isOpen = true;
-    this.triggerElement = e.currentTarget;
-    this.closeButton.setAttribute("tabindex", "0");
-    this.closeButton.focus();
+    this.triggerElement = e?.currentTarget || null;
+    if (this.closeButton) {
+      this.closeButton.setAttribute("tabindex", "0");
+      try {
+        this.closeButton.focus();
+      } catch (err) {}
+    }
     this.temporaryHideFocusVisible();
   }
 
@@ -83,30 +87,40 @@ class DrawerNavSection extends HTMLElement {
       submenu.classList.remove("submenu-opened");
 
       // Deactivate level 2 links
-      const subMenuLinksLevel2 = submenu.nextElementSibling.querySelectorAll(
-        'a[data-menu-level="2"]',
-      );
-      setTabindex(subMenuLinksLevel2, "-1");
+      if (submenu.nextElementSibling) {
+        const subMenuLinksLevel2 = submenu.nextElementSibling.querySelectorAll(
+          'a[data-menu-level="2"]',
+        );
+        if (subMenuLinksLevel2.length) setTabindex(subMenuLinksLevel2, "-1");
 
-      // Deactivate level 3 links
-      const subMenuLinksLevel3 = submenu.nextElementSibling.querySelectorAll(
-        'a[data-menu-level="3"]',
-      );
-      setTabindex(subMenuLinksLevel3, "-1");
+        // Deactivate level 3 links
+        const subMenuLinksLevel3 = submenu.nextElementSibling.querySelectorAll(
+          'a[data-menu-level="3"]',
+        );
+        if (subMenuLinksLevel3.length) setTabindex(subMenuLinksLevel3, "-1");
+      }
     });
   }
 
-  closeMenu() {
+  closeMenu(e) {
     this.isOpen = false;
-    this.triggerElement.focus();
+    if (this.triggerElement && typeof this.triggerElement.focus === "function") {
+      try {
+        this.triggerElement.focus();
+      } catch (err) {}
+    }
     this.triggerElement = null;
-    this.closeButton.setAttribute("tabindex", "-1");
+    if (this.closeButton) {
+      this.closeButton.setAttribute("tabindex", "-1");
+    }
     this.closeSubmenus();
     this.temporaryHideFocusVisible();
   }
 
   toggleMenu(e) {
-    e.preventDefault();
+    if (e && typeof e.preventDefault === "function") {
+      e.preventDefault();
+    }
 
     if (this.isOpen) {
       this.closeMenu(e);
@@ -123,7 +137,8 @@ class DrawerNavSection extends HTMLElement {
 
     toggleTabindex(linksLvl1);
     toggleTabindex(menuMobileFooterLinks);
-    this.toggleMenuButtonAttr();
+    this.toggleMenuButtonAttr(this.isOpen);
+    this.toggleThirdOptionMenu(this.isOpen);
 
     // this.handleFocus();
 
@@ -135,29 +150,33 @@ class DrawerNavSection extends HTMLElement {
     const activeOverlayBodyClass = "menu-drawer-overlay-on";
     const headerMenuParentLinkClass = "wt-header__nav-teaser__link--parent";
 
-    if (e.currentTarget.classList.contains(headerMenuParentLinkClass)) {
+    if (e?.currentTarget?.classList?.contains(headerMenuParentLinkClass)) {
       this.openMobileSubmenu(e.currentTarget.attributes?.href?.value);
     }
 
-    document.body.classList.toggle(activeNavBodyClass);
-    document.body.classList.toggle(activeOverlayBodyClass);
-    drawerBodeEl.style.setProperty("padding-top", drawerTopPadding);
+    document.body.classList.toggle(activeNavBodyClass, this.isOpen);
+    document.body.classList.toggle(activeOverlayBodyClass, this.isOpen);
+    if (drawerBodeEl) {
+      drawerBodeEl.style.setProperty("padding-top", typeof drawerTopPadding === "number" ? `${drawerTopPadding}px` : drawerTopPadding);
+    }
   }
 
-  toggleMenuButtonAttr() {
-    const dataOpen =
-      this.menuToggleButton.dataset.open === "true" ? "false" : "true";
-    this.menuToggleButton.dataset.open = dataOpen;
+  toggleMenuButtonAttr(isOpen) {
+    const btn = this.menuToggleButton || document.querySelector(".wt-header__menu-trigger");
+    if (btn && btn.dataset) {
+      const openState = typeof isOpen === "boolean" ? isOpen : (btn.dataset.open !== "true");
+      btn.dataset.open = openState ? "true" : "false";
+    }
   }
 
-  toggleThirdOptionMenu() {
+  toggleThirdOptionMenu(isOpen) {
     const menuButton = document.querySelector(
       ".wt-header__icon.wt-header__menu-trigger.wt-icon",
     );
 
-    if (this.headerMenu) {
-      const dataOpen = menuButton.dataset.open === "true" ? "false" : "true";
-      menuButton.dataset.open = dataOpen;
+    if (this.headerMenu && menuButton && menuButton.dataset) {
+      const openState = typeof isOpen === "boolean" ? isOpen : (menuButton.dataset.open !== "true");
+      menuButton.dataset.open = openState ? "true" : "false";
     }
   }
 
@@ -236,6 +255,11 @@ class MegaMenuSection extends HTMLElement {
     this.desktopBreakpoint = 990;
     this.isDesktop = () =>
       window.matchMedia(`(min-width: ${this.desktopBreakpoint}px)`).matches;
+    this.isDrawerNav = () => !!this.closest(".wt-drawer--nav, drawer-nav");
+    this.isMobileMenu = () =>
+      this.isDrawerNav() ||
+      !window.matchMedia(`(min-width: ${this.desktopBreakpoint}px)`).matches ||
+      this.hasClassMobileNav();
 
     this.currentlyActiveSubmenu = null;
   }
@@ -251,6 +275,7 @@ class MegaMenuSection extends HTMLElement {
   toggleParentMob(el) {
     const { menuParentLinks, classParentActiveMobile } = this;
     const subMenuWrapper = el.nextElementSibling;
+    if (!subMenuWrapper) return;
     const subMenuLinksLevel2 = subMenuWrapper.querySelectorAll(
       "[data-menu-level='2']",
     );
@@ -260,32 +285,43 @@ class MegaMenuSection extends HTMLElement {
     menuParentLinks.forEach((link) => {
       if (link !== el) {
         link.classList.remove(classParentActiveMobile);
+        if (link.parentElement) {
+          link.parentElement.classList.remove(classParentActiveMobile);
+        }
 
         // Ensure all submenus are closed and tabindex is set to -1
         const otherSubMenuWrapper = link.nextElementSibling;
-        const otherSubMenuLinksLevel2 = otherSubMenuWrapper.querySelectorAll(
-          "[data-menu-level='2']",
-        );
-        const otherSubMenuLinksLevel3 = otherSubMenuWrapper.querySelectorAll(
-          "[data-menu-level='3']",
-        );
+        if (otherSubMenuWrapper) {
+          const otherSubMenuLinksLevel2 = otherSubMenuWrapper.querySelectorAll(
+            "[data-menu-level='2']",
+          );
+          const otherSubMenuLinksLevel3 = otherSubMenuWrapper.querySelectorAll(
+            "[data-menu-level='3']",
+          );
 
-        link.classList.remove(classParentActiveMobile);
-        setTabindex(otherSubMenuLinksLevel2, "-1");
-        setTabindex(otherSubMenuLinksLevel3, "-1");
+          link.classList.remove(classParentActiveMobile);
+          setTabindex(otherSubMenuLinksLevel2, "-1");
+          setTabindex(otherSubMenuLinksLevel3, "-1");
+        }
       } else {
-        el.classList.toggle(classParentActiveMobile);
+        const isOpened = el.classList.toggle(classParentActiveMobile);
+        if (el.parentElement) {
+          el.parentElement.classList.toggle(classParentActiveMobile, isOpened);
+        }
 
         if (!el.classList.contains(classParentActiveMobile)) {
           const openedSubmenu =
-            el.nextElementSibling.querySelectorAll(".submenu-opened");
+            el.nextElementSibling ? el.nextElementSibling.querySelectorAll(".submenu-opened") : [];
 
           openedSubmenu.forEach((submenuLink) => {
             submenuLink.classList.remove("submenu-opened");
+            if (submenuLink.parentElement) {
+              submenuLink.parentElement.classList.remove("submenu-opened");
+            }
             const nestedSubMenuLinks =
-              submenuLink.nextElementSibling.querySelectorAll(
+              submenuLink.nextElementSibling ? submenuLink.nextElementSibling.querySelectorAll(
                 'a[data-menu-level="3"]',
-              );
+              ) : [];
             setTabindex(nestedSubMenuLinks, "-1");
           });
         }
@@ -295,7 +331,9 @@ class MegaMenuSection extends HTMLElement {
 
   toggleSubmenuMob(el) {
     const { menuSubmenuParentLinks, classParentActiveMobile } = this;
-    const subMenuLinksLevel3 = el.nextElementSibling.querySelectorAll(
+    const subMenuWrapper = el.nextElementSibling;
+    if (!subMenuWrapper) return;
+    const subMenuLinksLevel3 = subMenuWrapper.querySelectorAll(
       "[data-menu-level='3']",
     );
 
@@ -304,15 +342,22 @@ class MegaMenuSection extends HTMLElement {
     menuSubmenuParentLinks.forEach((link) => {
       if (link !== el) {
         link.classList.remove(classParentActiveMobile);
+        if (link.parentElement) {
+          link.parentElement.classList.remove(classParentActiveMobile);
+        }
 
         // Ensure all third-level submenus are closed and tabindex is set to -1
-        const otherSubMenuLinksLevel3 =
-          link.nextElementSibling.querySelectorAll("[data-menu-level='3']");
-
-        link.classList.remove(classParentActiveMobile);
-        setTabindex(otherSubMenuLinksLevel3, "-1");
+        const otherSubMenuWrapper = link.nextElementSibling;
+        if (otherSubMenuWrapper) {
+          const otherSubMenuLinksLevel3 =
+            otherSubMenuWrapper.querySelectorAll("[data-menu-level='3']");
+          setTabindex(otherSubMenuLinksLevel3, "-1");
+        }
       } else {
-        el.classList.toggle(classParentActiveMobile);
+        const isOpened = el.classList.toggle(classParentActiveMobile);
+        if (el.parentElement) {
+          el.parentElement.classList.toggle(classParentActiveMobile, isOpened);
+        }
       }
     });
   }
@@ -323,13 +368,14 @@ class MegaMenuSection extends HTMLElement {
 
   isMobileMenu() {
     return (
-      !window.matchMedia("(min-width: 990px)").matches ||
+      this.isDrawerNav() ||
+      !window.matchMedia(`(min-width: ${this.desktopBreakpoint}px)`).matches ||
       this.hasClassMobileNav()
     );
   }
 
   initTabindex() {
-    if (this.isDesktop() && !this.isAlwaysMobile()) {
+    if (this.isDesktop() && !this.isAlwaysMobile() && !this.isDrawerNav()) {
       const parentLinks = this.querySelectorAll('a[data-menu-level="1"]');
       setTabindex(parentLinks, "0");
     }
@@ -438,67 +484,77 @@ class MegaMenuSection extends HTMLElement {
     };
 
     const leftSubmenuClass = "submenu--left";
-    menuParentItems.forEach((item, idx) => {
-      addEventListeners(item, ["mouseover", "focusin"], (e) => {
-        document.body.classList.add(classBodyActiveDesk);
-        item.classList.add(classParentActiveDesk);
+    if (!this.isDrawerNav()) {
+      menuParentItems.forEach((item, idx) => {
+        addEventListeners(item, ["mouseover", "focusin"], (e) => {
+          if (this.isMobileMenu()) return;
+          document.body.classList.add(classBodyActiveDesk);
+          item.classList.add(classParentActiveDesk);
 
-        // Ensure wrapper and sublist have unconstrained height and visible overflow
-        const wrappers = item.querySelectorAll(".wt-page-nav-mega__sublist__wrapper");
-        wrappers.forEach((wrapper) => {
-          wrapper.style.setProperty("overflow", "visible", "important");
-          wrapper.style.setProperty("max-height", "none", "important");
-          wrapper.style.setProperty("height", "auto", "important");
+          // Ensure wrapper and sublist have unconstrained height and visible overflow
+          const wrappers = item.querySelectorAll(".wt-page-nav-mega__sublist__wrapper");
+          wrappers.forEach((wrapper) => {
+            wrapper.style.setProperty("overflow", "visible", "important");
+            wrapper.style.setProperty("max-height", "none", "important");
+            wrapper.style.setProperty("height", "auto", "important");
+          });
+          const sublists = item.querySelectorAll(".wt-page-nav-mega__sublist");
+          sublists.forEach((sublist) => {
+            sublist.style.setProperty("overflow", "visible", "important");
+            sublist.style.setProperty("max-height", "none", "important");
+            sublist.style.setProperty("height", "auto", "important");
+          });
+
+          const xCoords = item.getBoundingClientRect().x;
+          const windowWidth = window.innerWidth;
+          const isElementInSecondHalfOfWindow = xCoords > windowWidth / 2;
+
+          item.classList.toggle(leftSubmenuClass, isElementInSecondHalfOfWindow);
+
+          toggleSubmenuDesk(item);
         });
-        const sublists = item.querySelectorAll(".wt-page-nav-mega__sublist");
-        sublists.forEach((sublist) => {
-          sublist.style.setProperty("overflow", "visible", "important");
-          sublist.style.setProperty("max-height", "none", "important");
-          sublist.style.setProperty("height", "auto", "important");
+
+        addEventListeners(item, ["mouseout", "focusout"], (e) => {
+          if (this.isMobileMenu()) return;
+          if (e.type === "mouseout" && item.contains(e.relatedTarget)) return;
+          if (e.type === "focusout" && item.contains(e.relatedTarget)) return;
+
+          document.body.classList.remove(classBodyActiveDesk);
+          item.classList.remove(classParentActiveDesk);
+
+          const xCoords = item.getBoundingClientRect().x;
+          const windowWidth = window.innerWidth;
+          const isElementInSecondHalfOfWindow = xCoords > windowWidth / 2;
+
+          item.classList.remove(leftSubmenuClass);
+
+          item.querySelectorAll(".submenu-opened").forEach((sub) => {
+            sub.classList.remove("submenu-opened");
+          });
+          item.querySelectorAll(".wt-page-nav-mega__sublist--nested").forEach((nested) => {
+            nested.style.removeProperty("display");
+            nested.style.removeProperty("opacity");
+            nested.style.removeProperty("visibility");
+            nested.style.removeProperty("pointer-events");
+            nested.style.removeProperty("transform");
+            nested.style.removeProperty("position");
+            nested.style.removeProperty("left");
+            nested.style.removeProperty("top");
+            nested.style.removeProperty("z-index");
+            nested.style.removeProperty("background-color");
+          });
+
+          toggleSubmenuDesk(item);
         });
-
-        const xCoords = item.getBoundingClientRect().x;
-        const windowWidth = window.innerWidth;
-        const isElementInSecondHalfOfWindow = xCoords > windowWidth / 2;
-
-        item.classList.toggle(leftSubmenuClass, isElementInSecondHalfOfWindow);
-
-        toggleSubmenuDesk(item);
       });
-
-      addEventListeners(item, ["mouseout", "focusout"], (e) => {
-        if (e.type === "mouseout" && item.contains(e.relatedTarget)) return;
-        if (e.type === "focusout" && item.contains(e.relatedTarget)) return;
-
-        document.body.classList.remove(classBodyActiveDesk);
-        item.classList.remove(classParentActiveDesk);
-
-        const xCoords = item.getBoundingClientRect().x;
-        const windowWidth = window.innerWidth;
-        const isElementInSecondHalfOfWindow = xCoords > windowWidth / 2;
-
-        item.classList.remove(leftSubmenuClass);
-
-        item.querySelectorAll(".submenu-opened").forEach((sub) => {
-          sub.classList.remove("submenu-opened");
-        });
-        item.querySelectorAll(".wt-page-nav-mega__sublist--nested").forEach((nested) => {
-          nested.style.removeProperty("display");
-          nested.style.removeProperty("opacity");
-          nested.style.removeProperty("visibility");
-          nested.style.removeProperty("pointer-events");
-          nested.style.removeProperty("transform");
-        });
-
-        toggleSubmenuDesk(item);
-      });
-    });
+    }
 
     // Level 2 Submenu Parents (Wall Decor, Table Decor, Figurines, Furniture, Hangings)
-    if (submenuParents) {
+    if (submenuParents && !this.isDrawerNav()) {
       submenuParents.forEach((parent) => {
         let leaveTimer;
         const showFlyout = () => {
+          if (this.isMobileMenu()) return;
           clearTimeout(leaveTimer);
           if (parent.parentElement) {
             parent.parentElement
@@ -513,6 +569,11 @@ class MegaMenuSection extends HTMLElement {
                     sibNested.style.removeProperty("visibility");
                     sibNested.style.removeProperty("pointer-events");
                     sibNested.style.removeProperty("transform");
+                    sibNested.style.removeProperty("position");
+                    sibNested.style.removeProperty("left");
+                    sibNested.style.removeProperty("top");
+                    sibNested.style.removeProperty("z-index");
+                    sibNested.style.removeProperty("background-color");
                   }
                 }
               });
@@ -550,6 +611,7 @@ class MegaMenuSection extends HTMLElement {
         };
 
         const hideFlyout = () => {
+          if (this.isMobileMenu()) return;
           leaveTimer = setTimeout(() => {
             parent.classList.remove("submenu-opened");
             const nested = parent.querySelector(".wt-page-nav-mega__sublist--nested");
@@ -559,6 +621,11 @@ class MegaMenuSection extends HTMLElement {
               nested.style.removeProperty("visibility");
               nested.style.removeProperty("pointer-events");
               nested.style.removeProperty("transform");
+              nested.style.removeProperty("position");
+              nested.style.removeProperty("left");
+              nested.style.removeProperty("top");
+              nested.style.removeProperty("z-index");
+              nested.style.removeProperty("background-color");
             }
           }, 250);
         };
@@ -568,7 +635,10 @@ class MegaMenuSection extends HTMLElement {
 
         const nestedFlyout = parent.querySelector(".wt-page-nav-mega__sublist--nested");
         if (nestedFlyout) {
-          nestedFlyout.addEventListener("mouseenter", () => clearTimeout(leaveTimer));
+          nestedFlyout.addEventListener("mouseenter", () => {
+            if (this.isMobileMenu()) return;
+            clearTimeout(leaveTimer);
+          });
           nestedFlyout.addEventListener("mouseleave", hideFlyout);
         }
       });

@@ -3486,7 +3486,10 @@ mega-menu-section {
   z-index: 10;
 }
 .wt-drawer--nav .wt-drawer__content {
-  overflow-x: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   display: flex;
   flex-direction: column;
 }
