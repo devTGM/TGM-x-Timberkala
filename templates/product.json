@@ -168,9 +168,9 @@
         },
         "custom_liquid_qatFtK": {
           "type": "custom_liquid",
-          "disabled": true,
+          "name": "Artisan Trust Badges",
           "settings": {
-            "custom_liquid": "<div style=\"text-align:center; margin:20px 0;\">\n  <img \n    src=https://cdn.shopify.com/s/files/1/0909/3352/6833/files/product_badges_2.png?v=1758540032?v=1758522609?v=1758521994\" \n    alt=\"Planten Logo\" \n    style=\"max-width:100%; height:auto;\"\n  >\n</div>"
+            "custom_liquid": "{% render 'artisan-trust-badges' %}"
           }
         },
         "description": {

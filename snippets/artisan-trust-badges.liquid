@@ -1,0 +1,321 @@
+{% comment %}
+  Timberkala Artisan Trust Badges
+  Cohesive luxury artisan seals with bespoke vector graphics & responsive typography
+{% endcomment %}
+
+<style>
+  .tk-artisan-badges-wrap {
+    margin: 20px 0 24px;
+    padding: 16px 12px 14px;
+    background: rgba(254, 251, 246, 0.78);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(184, 151, 88, 0.32);
+    border-radius: 14px;
+    box-shadow: 
+      0 4px 18px rgba(60, 42, 28, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .tk-artisan-badges-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    align-items: start;
+    width: 100%;
+  }
+
+  .tk-badge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: default;
+    transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .tk-badge-item:hover {
+    transform: translateY(-3px);
+  }
+
+  .tk-badge-seal {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: filter 0.28s ease, transform 0.28s ease;
+  }
+
+  .tk-badge-item:hover .tk-badge-seal {
+    filter: drop-shadow(0 6px 14px rgba(184, 151, 88, 0.35));
+  }
+
+  .tk-badge-seal svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+    overflow: visible;
+  }
+
+  .tk-badge-text-top {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 8.2px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .tk-badge-text-bot {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 7.2px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+  }
+
+  .tk-badge-info {
+    margin-top: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tk-badge-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #2e1f14;
+    line-height: 1.25;
+    margin-bottom: 2px;
+  }
+
+  .tk-badge-sub {
+    font-size: 9.5px;
+    font-weight: 500;
+    color: #6d5444;
+    line-height: 1.2;
+    letter-spacing: 0.2px;
+  }
+
+  @media (max-width: 768px) {
+    .tk-artisan-badges-wrap {
+      margin: 16px 0 20px;
+      padding: 14px 8px 12px;
+      border-radius: 12px;
+    }
+    .tk-artisan-badges-grid {
+      gap: 6px;
+    }
+    .tk-badge-seal {
+      width: 64px;
+      height: 64px;
+    }
+    .tk-badge-title {
+      font-size: 10px;
+      letter-spacing: 0.3px;
+    }
+    .tk-badge-sub {
+      font-size: 8.5px;
+    }
+  }
+
+  @media (max-width: 375px) {
+    .tk-badge-seal {
+      width: 56px;
+      height: 56px;
+    }
+    .tk-badge-title {
+      font-size: 9px;
+    }
+    .tk-badge-sub {
+      display: none;
+    }
+  }
+</style>
+
+<div class="tk-artisan-badges-wrap" role="region" aria-label="Timberkala Artisan Trust Guarantee">
+  <div class="tk-artisan-badges-grid">
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- BADGE 1: 100% HANDMADE                                  -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="tk-badge-item" title="100% Handcrafted by Skilled Indian Artisans">
+      <div class="tk-badge-seal">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <radialGradient id="tk-coin-bg-1" cx="35%" cy="30%" r="65%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="55%" stop-color="#FCF9F3"/>
+              <stop offset="100%" stop-color="#EFE5D5"/>
+            </radialGradient>
+            <filter id="tk-shadow-1" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="2.5" stdDeviation="3" flood-color="#2a1a0f" flood-opacity="0.14"/>
+            </filter>
+            <path id="tk-arc-top-1" d="M 16,50 A 34,34 0 0,1 84,50" />
+            <path id="tk-arc-bot-1" d="M 84,50 A 34,34 0 0,1 16,50" />
+          </defs>
+
+          <g filter="url(#tk-shadow-1)">
+            <!-- Outer Gold Coin Rim -->
+            <circle cx="50" cy="50" r="46.5" fill="url(#tk-coin-bg-1)" stroke="#B89758" stroke-width="1.6"/>
+            <!-- Artisan Stitched Beaded Ring -->
+            <circle cx="50" cy="50" r="43" fill="none" stroke="#C5A059" stroke-width="1" stroke-dasharray="1.8, 2.2"/>
+            <circle cx="50" cy="50" r="40.5" fill="none" stroke="#9E7843" stroke-width="0.75"/>
+            <!-- Inner Medallion -->
+            <circle cx="50" cy="50" r="24" fill="#FFFDF9" stroke="#B89758" stroke-width="1"/>
+
+            <!-- Center Icon: Artisan Heart & Hands -->
+            <path d="M50 61 C50 61, 37 52, 37 42 C37 37, 40.5 33.5, 45 33.5 C47.5 33.5, 49 34.8, 50 36 C51 34.8, 52.5 33.5, 55 33.5 C59.5 33.5, 63 37, 63 42 C63 52, 50 61, 50 61 Z" fill="#B06543"/>
+
+            <!-- Circular Hallmark Text -->
+            <text class="tk-badge-text-top" fill="#2C1D13" text-anchor="middle">
+              <textPath href="#tk-arc-top-1" startOffset="50%">HANDMADE</textPath>
+            </text>
+            <text class="tk-badge-text-bot" fill="#5C3D26" text-anchor="middle">
+              <textPath href="#tk-arc-bot-1" startOffset="50%">WITH LOVE</textPath>
+            </text>
+          </g>
+        </svg>
+      </div>
+      <div class="tk-badge-info">
+        <span class="tk-badge-title">Handmade</span>
+        <span class="tk-badge-sub">With Love</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- BADGE 2: 100% ECO-FRIENDLY                              -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="tk-badge-item" title="100% Eco-Friendly, Natural & Sustainably Harvested Wood">
+      <div class="tk-badge-seal">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <radialGradient id="tk-coin-bg-2" cx="35%" cy="30%" r="65%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="55%" stop-color="#FCF9F3"/>
+              <stop offset="100%" stop-color="#EFE5D5"/>
+            </radialGradient>
+            <path id="tk-arc-top-2" d="M 16,50 A 34,34 0 0,1 84,50" />
+            <path id="tk-arc-bot-2" d="M 84,50 A 34,34 0 0,1 16,50" />
+          </defs>
+
+          <g filter="url(#tk-shadow-1)">
+            <circle cx="50" cy="50" r="46.5" fill="url(#tk-coin-bg-2)" stroke="#74965A" stroke-width="1.6"/>
+            <circle cx="50" cy="50" r="43" fill="none" stroke="#8CAE70" stroke-width="1" stroke-dasharray="1.8, 2.2"/>
+            <circle cx="50" cy="50" r="40.5" fill="none" stroke="#5C7A45" stroke-width="0.75"/>
+            <circle cx="50" cy="50" r="24" fill="#FFFDF9" stroke="#74965A" stroke-width="1"/>
+
+            <!-- Center Icon: Botanical Leaves -->
+            <g transform="translate(36, 35) scale(0.6)">
+              <path d="M46 5 C27 5 11 21 9 41 C27 41 43 25 45 5 Z" fill="#4B6E35"/>
+              <path d="M11 39 C16 26 26 15 40 10" fill="none" stroke="#FFFDF9" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M6 45 C15 39 21 32 25 23 C13 25 7 34 6 45 Z" fill="#6B8E52"/>
+            </g>
+
+            <text class="tk-badge-text-top" fill="#203315" text-anchor="middle">
+              <textPath href="#tk-arc-top-2" startOffset="50%">ECO PRODUCT</textPath>
+            </text>
+            <text class="tk-badge-text-bot" fill="#41592F" text-anchor="middle">
+              <textPath href="#tk-arc-bot-2" startOffset="50%">100% NATURAL</textPath>
+            </text>
+          </g>
+        </svg>
+      </div>
+      <div class="tk-badge-info">
+        <span class="tk-badge-title">Eco-Friendly</span>
+        <span class="tk-badge-sub">100% Natural</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- BADGE 3: 100% TERMITE-FREE                              -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="tk-badge-item" title="100% Termite Treated & Seasoned Timber for Lifelong Durability">
+      <div class="tk-badge-seal">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <radialGradient id="tk-coin-bg-3" cx="35%" cy="30%" r="65%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="55%" stop-color="#FCF9F3"/>
+              <stop offset="100%" stop-color="#EFE5D5"/>
+            </radialGradient>
+            <path id="tk-arc-top-3" d="M 16,50 A 34,34 0 0,1 84,50" />
+            <path id="tk-arc-bot-3" d="M 84,50 A 34,34 0 0,1 16,50" />
+          </defs>
+
+          <g filter="url(#tk-shadow-1)">
+            <circle cx="50" cy="50" r="46.5" fill="url(#tk-coin-bg-3)" stroke="#B89758" stroke-width="1.6"/>
+            <circle cx="50" cy="50" r="43" fill="none" stroke="#C5A059" stroke-width="1" stroke-dasharray="1.8, 2.2"/>
+            <circle cx="50" cy="50" r="40.5" fill="none" stroke="#9E7843" stroke-width="0.75"/>
+            <circle cx="50" cy="50" r="24" fill="#FFFDF9" stroke="#B89758" stroke-width="1"/>
+
+            <!-- Center Icon: Regal Timber Shield with Checkmark (Artisan Protection) -->
+            <g transform="translate(37.5, 34.5) scale(0.64)">
+              <path d="M20 2 L38 8 V23 C38 35 20 43 20 43 C20 43 2 35 2 23 V8 Z" fill="#80562A" stroke="#523516" stroke-width="1.5"/>
+              <path d="M12 22 L18 27 L28 15" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+
+            <text class="tk-badge-text-top" fill="#2C1D13" text-anchor="middle">
+              <textPath href="#tk-arc-top-3" startOffset="50%">TERMITE-FREE</textPath>
+            </text>
+            <text class="tk-badge-text-bot" fill="#5C3D26" text-anchor="middle">
+              <textPath href="#tk-arc-bot-3" startOffset="50%">SEASONED WOOD</textPath>
+            </text>
+          </g>
+        </svg>
+      </div>
+      <div class="tk-badge-info">
+        <span class="tk-badge-title">Termite-Free</span>
+        <span class="tk-badge-sub">Seasoned Timber</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- BADGE 4: WABI-SABI UNIQUE CHARACTER                     -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="tk-badge-item" title="Wabi-Sabi Aesthetics: One-of-a-Kind Pieces with Natural Organic Wood Grain">
+      <div class="tk-badge-seal">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <radialGradient id="tk-coin-bg-4" cx="35%" cy="30%" r="65%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="55%" stop-color="#FCF9F3"/>
+              <stop offset="100%" stop-color="#EFE5D5"/>
+            </radialGradient>
+            <path id="tk-arc-top-4" d="M 16,50 A 34,34 0 0,1 84,50" />
+            <path id="tk-arc-bot-4" d="M 84,50 A 34,34 0 0,1 16,50" />
+          </defs>
+
+          <g filter="url(#tk-shadow-1)">
+            <circle cx="50" cy="50" r="46.5" fill="url(#tk-coin-bg-4)" stroke="#B89758" stroke-width="1.6"/>
+            <circle cx="50" cy="50" r="43" fill="none" stroke="#C5A059" stroke-width="1" stroke-dasharray="1.8, 2.2"/>
+            <circle cx="50" cy="50" r="40.5" fill="none" stroke="#9E7843" stroke-width="0.75"/>
+            <circle cx="50" cy="50" r="24" fill="#FFFDF9" stroke="#B89758" stroke-width="1"/>
+
+            <!-- Center Icon: Zen Enso Calligraphy Ring with Gold Accent Core -->
+            <g transform="translate(34, 34) scale(0.68)">
+              <path d="M 24,5 A 19,19 0 1,0 41,25" fill="none" stroke="#2C1D13" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="44 6"/>
+              <circle cx="23.5" cy="23.5" r="3.2" fill="#B89758"/>
+            </g>
+
+            <text class="tk-badge-text-top" fill="#2C1D13" text-anchor="middle">
+              <textPath href="#tk-arc-top-4" startOffset="50%">WABI-SABI</textPath>
+            </text>
+            <text class="tk-badge-text-bot" fill="#5C3D26" text-anchor="middle">
+              <textPath href="#tk-arc-bot-4" startOffset="50%">ONE-OF-A-KIND</textPath>
+            </text>
+          </g>
+        </svg>
+      </div>
+      <div class="tk-badge-info">
+        <span class="tk-badge-title">Wabi-Sabi</span>
+        <span class="tk-badge-sub">Unique Character</span>
+      </div>
+    </div>
+
+  </div>
+</div>
