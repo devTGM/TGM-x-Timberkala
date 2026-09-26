@@ -69,6 +69,25 @@
     <section id="ProductGridContainer" class="collection__body">
       <header role="banner" class="collection__header"></header>
 
+      {%- comment -%}Subcollection category navigation pills: elegant full-width horizontal pill row{%- endcomment -%}
+      <div class="tk-subcollection-nav-wrapper">
+        <nav class="tk-subcollection-nav" aria-label="Shop by category">
+          <a
+            href="/collections/all-products"
+            class="tk-subcollection-nav__link{% if collection.handle == 'all-products' or collection.handle == 'all' %} active{% endif %}"
+          >All Products</a>
+          {%- assign categories = "Wall Decor,Table Decor,Figurines,Furniture,Hangings" | split: "," -%}
+          {%- assign handles = "wall-decor,table-decor,figurines,furniture,hangings" | split: "," -%}
+          {%- for cat in categories -%}
+            {%- assign cat_handle = handles[forloop.index0] -%}
+            <a
+              href="/collections/{{ cat_handle }}"
+              class="tk-subcollection-nav__link{% if collection.handle == cat_handle %} active{% endif %}"
+            >{{ cat }}</a>
+          {%- endfor -%}
+        </nav>
+      </div>
+
       <div class="collection__counter mobile">
         <span id="ProductCount" class="counter__value">
           {%- if collection.results_count -%}
@@ -182,19 +201,6 @@
               </div>
             {% endif %}
 
-            {%- comment -%}Subcollection category nav pills{%- endcomment -%}
-            <nav class="tk-subcollection-nav" aria-label="Shop by category">
-              {%- assign categories = "Wall Decor,Table Decor,Figurines,Furniture,Hangings" | split: "," -%}
-              {%- assign handles = "wall-decor,table-decor,figurines,furniture,hangings" | split: "," -%}
-              {%- for cat in categories -%}
-                {%- assign cat_handle = handles[forloop.index0] -%}
-                <a
-                  href="/collections/{{ cat_handle }}"
-                  class="tk-subcollection-nav__link{% if collection.handle == cat_handle %} active{% endif %}"
-                >{{ cat }}</a>
-                {%- unless forloop.last -%}<span class="tk-subcollection-nav__sep" aria-hidden="true">/</span>{%- endunless -%}
-              {%- endfor -%}
-            </nav>
 
             {%- if section.settings.enable_sorting -%}
               {% render 'custom-select',
