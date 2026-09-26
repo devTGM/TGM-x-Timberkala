@@ -289,13 +289,6 @@
         "margin-bottom": 20
       }
     },
-    "custom_liquid_YW8c8N": {
-      "type": "custom-liquid",
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "<div style=\"background:transparent;width:100%;padding:40px 20px;\">\n\n<style>\n*{\n  margin:0;\n  padding:0;\n  box-sizing:border-box;\n}\n\n.luxury-card-section{\n  display:grid;\n  grid-template-columns:repeat(auto-fit,minmax(320px,1fr));\n  gap:28px;\n  max-width:1400px;\n  margin:0 auto;\n}\n\n/* Cards */\n.luxury-card{\n  position:relative;\n  height:460px;\n  overflow:hidden;\n  background:#111;\n  transition:all .5s ease;\n  box-shadow:\n    0 20px 50px rgba(0,0,0,.5),\n    0 0 0 1px rgba(212,175,55,.15);\n}\n\n.luxury-card:hover{\n  transform:translateY(-8px);\n  box-shadow:\n    0 30px 70px rgba(0,0,0,.7),\n    0 0 0 1px rgba(212,175,55,.3);\n}\n\n.luxury-card img{\n  width:100%;\n  height:100%;\n  object-fit:cover;\n  transition:transform .8s ease;\n}\n\n.luxury-card:hover img{\n  transform:scale(1.1);\n}\n\n/* Overlay */\n.luxury-overlay{\n  position:absolute;\n  inset:0;\n  display:flex;\n  flex-direction:column;\n  justify-content:flex-end;\n  padding:35px;\n  background:linear-gradient(\n    to top,\n    rgba(0,0,0,.95) 5%,\n    rgba(0,0,0,.55) 40%,\n    rgba(0,0,0,.15) 100%\n  );\n}\n\n.luxury-overlay h2{\n  color:#fff;\n  font-size:34px;\n  line-height:1.15;\n  margin-bottom:12px;\n  font-weight:600;\n}\n\n.luxury-overlay p{\n  color:#d4af37;\n  font-size:13px;\n  letter-spacing:4px;\n  text-transform:uppercase;\n  margin-bottom:20px;\n}\n\n.luxury-divider{\n  width:100%;\n  height:1px;\n  background:linear-gradient(\n    to right,\n    transparent,\n    #d4af37,\n    transparent\n  );\n  margin-bottom:24px;\n}\n\n/* Button */\n.luxury-button{\n  display:inline-block;\n  text-decoration:none;\n  color:#fff;\n  border:1px solid #d4af37;\n  padding:14px 28px;\n  font-size:12px;\n  font-weight:600;\n  letter-spacing:2px;\n  text-transform:uppercase;\n  transition:.35s ease;\n  width:max-content;\n}\n\n.luxury-button:hover{\n  background:#d4af37;\n  color:#000;\n}\n\n/* Mobile */\n@media(max-width:768px){\n\n  .luxury-card-section{\n    grid-template-columns:1fr;\n    gap:20px;\n  }\n\n  .luxury-card{\n    height:400px;\n  }\n\n  .luxury-overlay{\n    padding:25px;\n  }\n\n  .luxury-overlay h2{\n    font-size:28px;\n  }\n}\n</style>\n\n<section class=\"luxury-card-section\">\n\n  <!-- Card 1 -->\n  <div class=\"luxury-card\">\n    <img src=\"https://www.timberkala.com/cdn/shop/files/DSC07939.jpg?v=1740811098&width=2000\">\n    <div class=\"luxury-overlay\">\n      <h2>Curate Your Living Room</h2>\n      <p>Timeless Design</p>\n      <div class=\"luxury-divider\"></div>\n      <a href=\"/collections/artifacts\" class=\"luxury-button\">\n        Discover →\n      </a>\n    </div>\n  </div>\n\n  <!-- Card 2 -->\n  <div class=\"luxury-card\">\n    <img src=\"https://www.timberkala.com/cdn/shop/files/133.webp?v=1759995121&width=4096\">\n    <div class=\"luxury-overlay\">\n      <h2>A Legacy In Bronze</h2>\n      <p>Handcrafted Mastery</p>\n      <div class=\"luxury-divider\"></div>\n      <a href=\"/collections/animal-figurines\" class=\"luxury-button\">\n        Explore →\n      </a>\n    </div>\n  </div>\n\n  <!-- Card 3 -->\n  <div class=\"luxury-card\">\n    <img src=\"https://www.timberkala.com/cdn/shop/files/DSC09109.jpg?v=1740727851&width=2000\">\n    <div class=\"luxury-overlay\">\n      <h2>Elevate Every Corner</h2>\n      <p>Signature Style</p>\n      <div class=\"luxury-divider\"></div>\n      <a href=\"/collections/animal-and-birds\" class=\"luxury-button\">\n        Shop Now →\n      </a>\n    </div>\n  </div>\n\n</section>\n\n</div>"
-      }
-    },
     "17579419062fb2f506": {
       "type": "apps",
       "blocks": {
@@ -455,7 +448,6 @@
     "featured_collection_bbPHHc",
     "featured_collection_FWbhCY",
     "featured_collection_76mJ7D",
-    "custom_liquid_YW8c8N",
     "17579419062fb2f506",
     "17804105134ee1337e",
     "17804106686f60e9f6",
