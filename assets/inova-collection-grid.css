@@ -2,7 +2,8 @@
 .inova-bento-section {
   width: 100%;
   box-sizing: border-box;
-  background-color: transparent;
+  background: transparent !important;
+  background-color: transparent !important;
   padding-top: 24px !important;
 }
 
@@ -11,6 +12,7 @@
   margin: 0 auto;
   padding: 0 24px;
   box-sizing: border-box;
+  background: transparent !important;
 }
 
 /* Header Row */
@@ -29,10 +31,10 @@
 .inova-bento-title {
   font-family: inherit;
   font-size: clamp(26px, 3.6vw, 42px);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #3e2d2e;
+  color: #1a1a1a;
   margin: 0;
   line-height: 1.2;
   display: flex;
@@ -90,22 +92,27 @@
   align-items: center;
   justify-content: center;
   padding: 10px 24px;
-  border: 1.5px solid #6b5858;
+  border: 1.5px solid rgba(26, 26, 26, 0.45);
   border-radius: 999px;
   font-size: 11.5px;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #4a3839;
+  color: #1a1a1a;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
   transition: all 0.28s ease;
   white-space: nowrap;
 }
 
 .inova-view-all-btn:hover {
-  background: #3e2d2e;
-  border-color: #3e2d2e;
-  color: #ffffff;
+  background: #1a1a1a;
+  border-color: #1a1a1a;
+  color: #d4af37;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16);
 }
 
 /* 4-Card Asymmetric Bento Grid */
@@ -144,15 +151,17 @@
   position: relative;
   border-radius: 20px;
   overflow: hidden;
-  background-color: #f6f5f1;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+  background-color: #ded0be;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
   will-change: transform, box-shadow;
 }
 
 .inova-bento-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.18);
+  border-color: rgba(212, 175, 55, 0.65);
 }
 
 .inova-bento-card__link {
@@ -195,14 +204,14 @@
   align-items: flex-end;
   justify-content: space-between;
   padding: 24px 28px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.02) 40%, transparent 100%);
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.62) 28%, rgba(255, 255, 255, 0) 65%);
   transition: background 0.4s ease;
   pointer-events: none;
   box-sizing: border-box;
 }
 
 .inova-bento-card:hover .inova-bento-card__overlay {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.38) 0%, rgba(0, 0, 0, 0.08) 45%, transparent 100%);
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.78) 35%, rgba(255, 255, 255, 0) 70%);
 }
 
 .inova-bento-card__info {
@@ -217,7 +226,7 @@
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #111111;
+  color: #1a1a1a;
   margin: 0;
   line-height: 1.2;
 }
@@ -225,8 +234,8 @@
 .inova-bento-card__subtitle {
   font-family: inherit;
   font-size: 13.5px;
-  font-weight: 400;
-  color: #444444;
+  font-weight: 500;
+  color: #4a4a4a;
   margin: 0;
   line-height: 1.35;
 }
@@ -235,7 +244,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #111111;
+  color: #1a1a1a;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
   flex-shrink: 0;
   margin-left: 12px;

@@ -1820,7 +1820,8 @@ main[role="main"],
   margin-top: 0 !important;
   padding-top: 20px !important;
   border-top: none !important;
-  background-color: #ffffff !important;
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 /* Suppress empty intermediate sections that could introduce vertical gaps */
@@ -4103,6 +4104,9 @@ body picture.card__picture,
 body .card__picture,
 body .headline,
 body .headline__title,
+body #root > .shopify-section:first-child,
+body .section-inova-bento,
+body [id*="inova_collection_grid"],
 body .inova-bento-section,
 body .inova-bento-container,
 body .inova-collection-grid-section,

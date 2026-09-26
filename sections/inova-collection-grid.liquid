@@ -4,7 +4,8 @@
   #inova-bento-{{ section.id }} {
     padding-top: {{ section.settings.padding_top | default: 50 }}px;
     padding-bottom: {{ section.settings.padding_bottom | default: 60 }}px;
-    background-color: {{ section.settings.background_color | default: 'transparent' }};
+    background-color: {% if section.settings.background_color != blank and section.settings.background_color != '#ffffff' %}{{ section.settings.background_color }}{% else %}transparent{% endif %};
+    background: {% if section.settings.background_color != blank and section.settings.background_color != '#ffffff' %}{{ section.settings.background_color }}{% else %}transparent{% endif %};
   }
 {%- endstyle -%}
 
