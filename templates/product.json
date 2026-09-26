@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "custom_liquid_PwtKtg": {
@@ -14,12 +23,13 @@
         "full-width-enabled": true,
         "text_color": "rgba(0,0,0,0)",
         "background_color": "rgba(0,0,0,0)",
-        "margin-top": 8,
-        "margin-bottom": 8
+        "margin-top": 0,
+        "margin-bottom": 0
       }
     },
     "custom_liquid_VerEgL": {
       "type": "custom-liquid",
+      "disabled": true,
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
         "custom_liquid": "<div class=\"tk-marquee\">\n  <div class=\"tk-marquee-content\">\n  ✨ OUR BEST OFFER OF THE SEASON — DON’T WAIT FOR MORE. • LIMITED STOCK MEANS NO OFFER MATTERS ONCE YOUR FAVOURITES ARE GONE.\n  </div>\n</div>\n\n<style>\n.tk-marquee {\n  width: 100%;\n  overflow: hidden;\n  white-space: nowrap;\n  background: #000;\n  color: #fff;\n  border-top: 1px solid rgba(255,255,255,.15);\n  border-bottom: 1px solid rgba(255,255,255,.15);\n  padding: 14px 0;\n}\n\n.tk-marquee-content {\n  display: inline-block;\n  padding-left: 100%;\n  font-size: 16px;\n  font-weight: 700;\n  letter-spacing: .8px;\n  text-transform: uppercase;\n  animation: tk-scroll 16s linear infinite;\n}\n\n@keyframes tk-scroll {\n  0% {\n    transform: translateX(0);\n  }\n  100% {\n    transform: translateX(-100%);\n  }\n}\n\n@media screen and (max-width: 767px) {\n  .tk-marquee {\n    padding: 12px 0;\n  }\n\n  .tk-marquee-content {\n    font-size: 13px;\n    font-weight: 700;\n    letter-spacing: .6px;\n    animation-duration: 28s;\n  }\n}\n</style>"
@@ -111,6 +121,15 @@
             "heading": "",
             "content": "<h4><strong>Start Saving Now: Add to Cart and Enjoy Discounts of Up to 10% Off.</strong></h4>",
             "page": ""
+          }
+        },
+        "upsell_pdp": {
+          "type": "upsell",
+          "settings": {
+            "heading": "Complete The Look",
+            "subtitle": "Handcrafted pieces that pair beautifully",
+            "product_upsell": [],
+            "max_products": 2
           }
         },
         "buy_buttons": {
@@ -296,7 +315,7 @@
             "max_width": 1100,
             "corner_styling": "soft",
             "quote_marks_style": "serif",
-            "card_color": "#F9F9F9",
+            "card_color": "#f9f9f9",
             "stars_and_quote_marks_color": "#108474",
             "text_color": "#000000",
             "arrows_color": "#000000",
@@ -307,15 +326,6 @@
             "header_text": "The Timberkala Experience",
             "show_average_rating": true,
             "rating_display": "default"
-          }
-        },
-        "upsell_pdp": {
-          "type": "upsell",
-          "settings": {
-            "heading": "Complete The Look",
-            "subtitle": "Handcrafted pieces that pair beautifully",
-            "product_upsell": [],
-            "max_products": 2
           }
         }
       },
@@ -352,10 +362,7 @@
         "share_buttons_Ct9CXx",
         "judge_me_reviews_testimonials_carousel_yzr3a7"
       ],
-      "custom_css": [
-        ".shopify-payment-button__button--unbranded {background: #000 !important; color: #fff !important; border: 3px solid transparent; border-radius: 0; padding: 12px 20px; font-weight: 700; position: relative; overflow: hidden; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25); transition: transform 0.2s, box-shadow 0.2s; border-image: linear-gradient(90deg, #fff, #fff, #fff) 1; border-image-slice: 1;}",
-        ".shopify-payment-button__button--unbranded:hover {transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);}"
-      ],
+      "custom_css": [],
       "settings": {
         "full-width-enabled": false,
         "desktop-media-size": "normal",
@@ -363,8 +370,8 @@
         "desktop-image-ratio": "original",
         "enable_video_looping": true,
         "enable-image-zoom": true,
-        "mobile-image": "small",
-        "margin-top": 12,
+        "mobile-image": "normal",
+        "margin-top": 0,
         "margin-bottom": 0
       }
     },
@@ -389,8 +396,8 @@
         "show_vendor": true,
         "show_product_rating": true,
         "enable_quick_add_button": false,
-        "color-body-text": "transparent",
-        "background_color": "transparent",
+        "color-body-text": "rgba(0,0,0,0)",
+        "background_color": "rgba(0,0,0,0)",
         "margin-top": 20,
         "margin-bottom": 20
       }
