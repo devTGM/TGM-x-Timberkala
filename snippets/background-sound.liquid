@@ -53,7 +53,7 @@
     box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.5);
   }
 
-  /* Gentle pulse when muted to indicate sound is ready to unmute */
+  /* Gentle pulse when muted to invite unmuting */
   .tk-sound-btn--muted {
     animation: tkUnmutePulse 3s ease-in-out infinite;
   }
@@ -238,6 +238,7 @@
 <div id="timberkala-sound-widget" class="tk-sound-widget" data-volume="{{ sound_volume }}">
   <audio
     id="timberkala-audio"
+    autoplay
     loop
     preload="auto"
     playsinline
@@ -255,7 +256,7 @@
     class="tk-sound-btn tk-sound-btn--muted"
     type="button"
     aria-label="Click to unmute background sound"
-    title="Sound is playing (muted) — Click to unmute"
+    title="Sound is playing — Click to toggle"
   >
     <div class="tk-sound-icon-wrap">
       <!-- Playing: Animated Equalizer Bars -->
@@ -295,8 +296,15 @@
     const tooltipStatus = widget.querySelector('.tk-sound-tooltip__status');
     const targetVolume = parseFloat(widget.dataset.volume) || 0.35;
 
-    const STORAGE_KEY_STATE = 'tk_sound_state'; // 'playing' | 'muted'
+    const SESSION_MUTED_KEY = 'tk_user_muted';
     const STORAGE_KEY_TIME = 'tk_sound_time';
+
+    // Clear any obsolete permanent mute from earlier tests
+    try {
+      if (localStorage.getItem('tk_sound_state') === 'muted') {
+        localStorage.removeItem('tk_sound_state');
+      }
+    } catch(e) {}
 
     let isPlaying = false;
     let fadeInterval = null;
@@ -331,7 +339,7 @@
           fadeInterval = null;
           if (callback) callback();
         }
-      }, 30);
+      }, 25);
     }
 
     function fadeOut(callback) {
@@ -346,27 +354,27 @@
           fadeInterval = null;
           if (callback) callback();
         }
-      }, 25);
+      }, 20);
     }
 
     function unmuteSound() {
+      sessionStorage.removeItem(SESSION_MUTED_KEY);
       audio.muted = false;
-      if (audio.paused) {
-        const savedTime = parseFloat(sessionStorage.getItem(STORAGE_KEY_TIME));
-        if (!isNaN(savedTime) && isFinite(savedTime) && savedTime > 0) {
-          try { audio.currentTime = savedTime; } catch(e) {}
-        }
-        audio.play().catch(function(err) {
-          console.warn('Playback error:', err);
-        });
+      const savedTime = parseFloat(sessionStorage.getItem(STORAGE_KEY_TIME));
+      if (!isNaN(savedTime) && isFinite(savedTime) && savedTime > 0) {
+        try { audio.currentTime = savedTime; } catch(e) {}
       }
       fadeIn();
+      audio.play().then(function() {
+        setButtonState(true);
+      }).catch(function(err) {
+        console.warn('Playback resume issue:', err);
+      });
       setButtonState(true);
-      localStorage.setItem(STORAGE_KEY_STATE, 'playing');
     }
 
     function muteSound() {
-      localStorage.setItem(STORAGE_KEY_STATE, 'muted');
+      sessionStorage.setItem(SESSION_MUTED_KEY, 'true');
       fadeOut(function() {
         audio.muted = true;
         setButtonState(false);
@@ -393,17 +401,16 @@
       }
     }, 1000);
 
-    // ── Autoplay on page load ──
-    function initPlaybackOnLoad() {
+    // ── Aggressive Auto-Play on page load ──
+    function startAutoPlayback() {
+      // Restore playback timestamp if available
       const savedTime = parseFloat(sessionStorage.getItem(STORAGE_KEY_TIME));
       if (!isNaN(savedTime) && isFinite(savedTime) && savedTime > 0) {
         try { audio.currentTime = savedTime; } catch(e) {}
       }
 
-      const savedState = localStorage.getItem(STORAGE_KEY_STATE);
-
-      // If user previously explicitly muted, keep it muted but let track play in background
-      if (savedState === 'muted') {
+      // If user explicitly muted during this session, stay muted
+      if (sessionStorage.getItem(SESSION_MUTED_KEY) === 'true') {
         audio.muted = true;
         audio.volume = 0;
         audio.play().catch(function() {});
@@ -411,54 +418,59 @@
         return;
       }
 
-      // User wants music to start playing once website is loaded:
-      // Try playing unmuted first!
+      // 1. Attempt unmuted autoplay directly
       audio.muted = false;
       audio.volume = targetVolume;
       const playPromise = audio.play();
 
       if (playPromise !== undefined) {
         playPromise.then(function() {
-          // Unmuted autoplay succeeded! Music starts playing with sound
+          // Unmuted sound is playing directly on page load!
           setButtonState(true);
-          localStorage.setItem(STORAGE_KEY_STATE, 'playing');
-        }).catch(function(err) {
-          // Modern browser blocked unmuted autoplay.
-          // Fall back to playing MUTED immediately so the music track IS playing in the background right from load!
+        }).catch(function() {
+          // Browser strict autoplay policy blocked unmuted sound on load.
+          // Start playing MUTED immediately so audio buffer & stream are active!
           audio.muted = true;
           audio.volume = 0;
           audio.play().then(function() {
-            setButtonState(false); // Music icon shows "Click to unmute"
-          }).catch(function(e) {
             setButtonState(false);
-          });
+          }).catch(function() {});
 
-          // Show friendly hint tooltip for 5 seconds to invite user to unmute
+          // Display inviting pulse & tooltip
           widget.classList.add('tk-show-hint');
           setTimeout(function() {
             widget.classList.remove('tk-show-hint');
-          }, 5000);
+          }, 4500);
 
-          // Listen for the first user interaction anywhere on the website to smoothly unmute
-          function onFirstInteraction() {
-            if (localStorage.getItem(STORAGE_KEY_STATE) !== 'muted') {
-              unmuteSound();
+          // Listen for ANY user interaction (scroll, touch, click, wheel, key) to instantly start audio
+          const interactionEvents = ['scroll', 'touchstart', 'touchend', 'pointerdown', 'mousedown', 'wheel', 'keydown', 'click'];
+          
+          function onFirstGesture() {
+            if (sessionStorage.getItem(SESSION_MUTED_KEY) !== 'true') {
+              audio.muted = false;
+              fadeIn();
+              audio.play().then(function() {
+                setButtonState(true);
+              }).catch(function() {});
             }
-            document.removeEventListener('click', onFirstInteraction);
-            document.removeEventListener('touchstart', onFirstInteraction);
-            document.removeEventListener('keydown', onFirstInteraction);
+            interactionEvents.forEach(function(evt) {
+              window.removeEventListener(evt, onFirstGesture, true);
+              document.removeEventListener(evt, onFirstGesture, true);
+            });
           }
-          document.addEventListener('click', onFirstInteraction, { once: true });
-          document.addEventListener('touchstart', onFirstInteraction, { once: true });
-          document.addEventListener('keydown', onFirstInteraction, { once: true });
+
+          interactionEvents.forEach(function(evt) {
+            window.addEventListener(evt, onFirstGesture, { capture: true, passive: true });
+            document.addEventListener(evt, onFirstGesture, { capture: true, passive: true });
+          });
         });
       }
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initPlaybackOnLoad);
+      document.addEventListener('DOMContentLoaded', startAutoPlayback);
     } else {
-      initPlaybackOnLoad();
+      startAutoPlayback();
     }
   })();
 </script>
