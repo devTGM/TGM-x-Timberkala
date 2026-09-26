@@ -2805,13 +2805,21 @@ body.template-product .wt-header .wt-page-nav-mega__link {
 }
 
 /* Breadcrumbs — refined rich earth tone with tight elegant spacing */
-body.template-collection .breadcrumbs,
-body.template-product .breadcrumbs {
+body.template-collection .breadcrumbs {
   font-size: 13px !important;
   font-weight: 500 !important;
   letter-spacing: 0.04em !important;
   color: #3c2c20 !important;
   padding: 10px 0 4px !important;
+}
+
+body.template-product .breadcrumbs {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  color: #3c2c20 !important;
+  padding: 8px 0 0px !important;
+  margin: 0 !important;
 }
 
 body.template-collection .breadcrumbs a,
@@ -2826,18 +2834,54 @@ body.template-product .breadcrumbs a:hover {
   color: #1a1a1a !important;
 }
 
-body.template-product .breadcrumbs__wrapper {
+body.template-product .breadcrumbs__wrapper,
+body.template-product [id*="__breadcrumbs"],
+body.template-product #shopify-section-breadcrumbs {
+  padding-top: 4px !important;
+  padding-bottom: 0 !important;
+  margin-top: 0 !important;
   margin-bottom: 0 !important;
+  min-height: 0 !important;
+}
+
+body.template-product .breadcrumbs__list {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.template-product [id*="custom_liquid_VerEgL"],
+body.template-product [id*="custom_liquid_HUczzX"] {
+  display: none !important;
+  height: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.template-product #shopify-section-main,
+body.template-product [id*="__main"],
+body.template-product .wt-product__wrapper,
+body.template-product .wt-product,
+body.template-product .wt-product__gallery,
+body.template-product gallery-section,
+body.template-product [data-gallery] {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 
 body.template-product .wt-product__wrapper {
   margin-top: 0 !important;
-  padding-top: 8px !important;
+  padding-top: 6px !important;
 }
 
 @media (max-width: 768px) {
   body.template-product .breadcrumbs {
-    padding: 8px 0 2px !important;
+    padding: 6px 0 0px !important;
+  }
+  body.template-product .breadcrumbs__wrapper,
+  body.template-product [id*="__breadcrumbs"] {
+    padding-top: 2px !important;
+    padding-bottom: 0 !important;
   }
   body.template-product .wt-product__wrapper {
     padding-top: 4px !important;

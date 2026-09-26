@@ -660,6 +660,73 @@
           font-size: 64px !important;
         }
       }
+
+      /* ── TIMBERKALA: Product Page Breadcrumbs & Zero-Gap Layout ── */
+      body.template-product .breadcrumbs {
+        padding-top: 8px !important;
+        padding-bottom: 0px !important;
+        margin: 0 !important;
+        font-size: 13px !important;
+        font-weight: 500 !important;
+        letter-spacing: 0.04em !important;
+        color: #3c2c20 !important;
+      }
+      body.template-product .breadcrumbs a {
+        color: #5c4538 !important;
+        text-decoration: none !important;
+        transition: color 0.2s !important;
+      }
+      body.template-product .breadcrumbs a:hover {
+        color: #1a1a1a !important;
+      }
+      body.template-product .breadcrumbs__wrapper,
+      body.template-product [id*="__breadcrumbs"],
+      body.template-product #shopify-section-breadcrumbs {
+        padding-top: 4px !important;
+        padding-bottom: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        min-height: 0 !important;
+      }
+      body.template-product .breadcrumbs__list {
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      body.template-product [id*="custom_liquid_VerEgL"],
+      body.template-product [id*="custom_liquid_HUczzX"] {
+        display: none !important;
+        height: 0 !important;
+        max-height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      body.template-product #shopify-section-main,
+      body.template-product [id*="__main"],
+      body.template-product .wt-product__wrapper,
+      body.template-product .wt-product,
+      body.template-product .wt-product__gallery,
+      body.template-product gallery-section,
+      body.template-product [data-gallery] {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+      }
+      body.template-product .wt-product__wrapper {
+        padding-top: 6px !important;
+      }
+      @media (max-width: 768px) {
+        body.template-product .breadcrumbs {
+          padding-top: 6px !important;
+          padding-bottom: 0px !important;
+        }
+        body.template-product .breadcrumbs__wrapper,
+        body.template-product [id*="__breadcrumbs"] {
+          padding-top: 2px !important;
+          padding-bottom: 0 !important;
+        }
+        body.template-product .wt-product__wrapper {
+          padding-top: 4px !important;
+        }
+      }
     </style>
 
     {%- liquid

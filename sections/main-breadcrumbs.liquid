@@ -21,6 +21,17 @@
         --section-gap-bottom: {{ section.settings.margin-bottom }}px;
     {% endif %}
   }
+
+  body.template-product [data-section-id="{{ section.id }}"].breadcrumbs__wrapper {
+    padding-top: 6px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+  }
+  body.template-product [data-section-id="{{ section.id }}"] .breadcrumbs {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+  }
 </style>
 <div class="breadcrumbs__wrapper" data-section-id="{{ section.id }}">
   <div class="breadcrumbs {% if section.settings.full-width-enabled %}breadcrumbs--full-width{% endif %}">

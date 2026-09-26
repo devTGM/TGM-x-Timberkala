@@ -27,22 +27,6 @@
         "margin-bottom": 0
       }
     },
-    "custom_liquid_VerEgL": {
-      "type": "custom-liquid",
-      "disabled": true,
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "<div class=\"tk-marquee\">\n  <div class=\"tk-marquee-content\">\n  ✨ OUR BEST OFFER OF THE SEASON — DON’T WAIT FOR MORE. • LIMITED STOCK MEANS NO OFFER MATTERS ONCE YOUR FAVOURITES ARE GONE.\n  </div>\n</div>\n\n<style>\n.tk-marquee {\n  width: 100%;\n  overflow: hidden;\n  white-space: nowrap;\n  background: #000;\n  color: #fff;\n  border-top: 1px solid rgba(255,255,255,.15);\n  border-bottom: 1px solid rgba(255,255,255,.15);\n  padding: 14px 0;\n}\n\n.tk-marquee-content {\n  display: inline-block;\n  padding-left: 100%;\n  font-size: 16px;\n  font-weight: 700;\n  letter-spacing: .8px;\n  text-transform: uppercase;\n  animation: tk-scroll 16s linear infinite;\n}\n\n@keyframes tk-scroll {\n  0% {\n    transform: translateX(0);\n  }\n  100% {\n    transform: translateX(-100%);\n  }\n}\n\n@media screen and (max-width: 767px) {\n  .tk-marquee {\n    padding: 12px 0;\n  }\n\n  .tk-marquee-content {\n    font-size: 13px;\n    font-weight: 700;\n    letter-spacing: .6px;\n    animation-duration: 28s;\n  }\n}\n</style>"
-      }
-    },
-    "custom_liquid_HUczzX": {
-      "type": "custom-liquid",
-      "disabled": true,
-      "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "<style>\n.tk-marquee {\n  width: 100%;\n  background: #000;\n  color: #fff;\n  overflow: hidden;\n  white-space: nowrap;\n  padding: 10px 0;\n  font-size: 14px;\n  font-weight: 500;\n  letter-spacing: 0.5px;\n  position: relative;\n}\n\n.tk-marquee-content {\n  display: inline-block;\n  padding-left: 100%;\n  animation: tk-scroll 25s linear infinite;\n}\n\n@keyframes tk-scroll {\n  0% {\n    transform: translateX(0);\n  }\n  100% {\n    transform: translateX(-100%);\n  }\n}\n</style>\n\n<div class=\"tk-marquee\">\n  <div class=\"tk-marquee-content\">\n    ✦ Orders will be fulfilled in 10-15 days due to increase in demand   • Every Timberkala piece is handcrafted with care and packed safely for delivery • Thank you for supporting handmade craftsmanship ✦\n  </div>\n</div>"
-      }
-    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -761,8 +745,6 @@
   "order": [
     "custom_liquid_PwtKtg",
     "breadcrumbs",
-    "custom_liquid_VerEgL",
-    "custom_liquid_HUczzX",
     "main",
     "featured_collection_UFRnBB",
     "ec5a6457-3cb6-4605-94df-ac6400f950f1",
