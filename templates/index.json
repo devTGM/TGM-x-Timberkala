@@ -16,8 +16,18 @@
           "type": "category_card",
           "settings": {
             "collection": "animal-figurines-1",
-            "title": "Figurines",
+            "title": "Figurines 🦒",
             "subtitle": "PERFECT ADDITION TO ANY HOME",
+            "button_link": ""
+          }
+        },
+        "category_card_bLP3E8": {
+          "type": "category_card",
+          "settings": {
+            "collection": "festive-collection",
+            "image": "shopify://shop_images/263.webp",
+            "title": "FESTIVE COLLECTION 🪔",
+            "subtitle": "GIFTS THAT MATTER",
             "button_link": ""
           }
         },
@@ -25,18 +35,8 @@
           "type": "category_card",
           "settings": {
             "collection": "bird-figurines-1",
-            "title": "BIRD FIGURINES",
+            "title": "BIRD FIGURINES 🦩",
             "subtitle": "ADD THE PERFECT TOUCH OF NATURE",
-            "button_link": ""
-          }
-        },
-        "category_card_bLP3E8": {
-          "type": "category_card",
-          "settings": {
-            "collection": "timberकला-songs-of-the-wind",
-            "image": "shopify://shop_images/DSC08253.webp",
-            "title": "WIND CHIMES",
-            "subtitle": "SOUND THAT HEALS",
             "button_link": ""
           }
         },
@@ -45,7 +45,7 @@
           "settings": {
             "collection": "wall-accents",
             "image": "shopify://shop_images/DSC08376.jpg",
-            "title": "Wall Decor",
+            "title": "Wall Decor 🪵",
             "subtitle": "TOUCHES THAT ADD CHARACTER",
             "button_link": ""
           }
@@ -53,8 +53,8 @@
       },
       "block_order": [
         "category_card_eabpgT",
-        "category_card_TPERpN",
         "category_card_bLP3E8",
+        "category_card_TPERpN",
         "category_card_PEFFXN"
       ],
       "name": "Inova Bento Collection",
@@ -297,10 +297,13 @@
           "disabled": true,
           "settings": {
             "heading": "Watch and Buy",
+            "subheading": "W",
             "widget-identity": "wgt_default",
             "template-type": "template-b",
             "title-font-size": 40,
             "title-font-size-portrait": 24,
+            "subtitle-font-size": 18,
+            "subtitle-font-size-portrait": 14,
             "landscape-padding": 40,
             "top-bottom-padding": 20,
             "scroll-video-tile-size": 80,
