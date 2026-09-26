@@ -2804,25 +2804,44 @@ body.template-product .wt-header .wt-page-nav-mega__link {
   letter-spacing: 0.08em !important;
 }
 
-/* Breadcrumbs — subtle refined earth tone with small spacing */
+/* Breadcrumbs — refined rich earth tone with tight elegant spacing */
 body.template-collection .breadcrumbs,
 body.template-product .breadcrumbs {
   font-size: 13px !important;
+  font-weight: 500 !important;
   letter-spacing: 0.04em !important;
-  color: #8c7368 !important;
-  padding: 14px 0 6px !important;
+  color: #3c2c20 !important;
+  padding: 10px 0 4px !important;
 }
 
 body.template-collection .breadcrumbs a,
 body.template-product .breadcrumbs a {
-  color: #8c7368 !important;
+  color: #5c4538 !important;
   text-decoration: none !important;
   transition: color 0.2s !important;
 }
 
 body.template-collection .breadcrumbs a:hover,
 body.template-product .breadcrumbs a:hover {
-  color: #3c2c20 !important;
+  color: #1a1a1a !important;
+}
+
+body.template-product .breadcrumbs__wrapper {
+  margin-bottom: 0 !important;
+}
+
+body.template-product .wt-product__wrapper {
+  margin-top: 0 !important;
+  padding-top: 8px !important;
+}
+
+@media (max-width: 768px) {
+  body.template-product .breadcrumbs {
+    padding: 8px 0 2px !important;
+  }
+  body.template-product .wt-product__wrapper {
+    padding-top: 4px !important;
+  }
 }
 
 /* Filter accordion group headers */
