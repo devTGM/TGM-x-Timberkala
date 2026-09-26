@@ -20,7 +20,15 @@ class DrawerSearchSection extends HTMLElement {
 
   connectedCallback() {
     const init = () => {
-      // Safely move drawer to body so it acts as a global modal without breaking HTML parsing
+      // 1. If a search trigger icon is nested inside search-drawer, extract it so it remains permanently in the header!
+      const trigger = this.querySelector(
+        ".wt-header__search-trigger, .inova-search-trigger, [rel='toggle-search']"
+      );
+      if (trigger && this.parentElement && this.parentElement !== document.body) {
+        this.parentElement.insertBefore(trigger, this);
+      }
+
+      // 2. Safely move the search drawer modal to document.body so it acts as an unclipped global fullscreen modal
       if (document.body && this.parentElement && this.parentElement !== document.body) {
         document.body.appendChild(this);
       }

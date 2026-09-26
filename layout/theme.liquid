@@ -208,14 +208,48 @@
         contain: none !important;
       }
 
+      /* Search drawer container: keep inline-flex when inactive so nested trigger is always visible */
+      search-drawer:not(.wt-drawer-search--active) {
+        display: inline-flex !important;
+        position: relative !important;
+        width: auto !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        z-index: 10 !important;
+      }
+
+      /* Hide modal form body & results when search drawer is closed */
+      search-drawer:not(.wt-drawer-search--active) .wt-header__search__body,
+      search-drawer:not(.wt-drawer-search--active) .wt-header__search__results,
+      search-drawer:not(.wt-drawer-search--active) .search-overlay {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+
+      body > search-drawer:not(.wt-drawer-search--active):not(:has(.wt-header__search-trigger)) {
+        display: none !important;
+      }
+
       /* Search trigger icon in header: force visibility, relative positioning and stroke/fill */
       .wt-header__search-trigger,
       .inova-search-trigger,
       .wt-header__panel__item--search .wt-header__search-trigger,
-      .wt-header__panel__item--search .wt-header__panel__link {
+      .wt-header__panel__item--search .wt-header__panel__link,
+      .wt-header__col--right .wt-header__search-trigger,
+      .wt-header__col--inova-right .wt-header__search-trigger,
+      search-drawer .wt-header__search-trigger {
         position: relative !important;
         inset: auto !important;
-        display: flex !important;
+        display: inline-flex !important;
         align-items: center !important;
         justify-content: center !important;
         width: auto !important;
@@ -233,25 +267,30 @@
       .inova-search-trigger .svg-icon,
       .wt-header__search-trigger svg,
       .inova-search-trigger svg,
-      .wt-header__panel__item--search svg {
+      .wt-header__panel__item--search svg,
+      search-drawer .wt-header__search-trigger svg {
         opacity: 1 !important;
         visibility: visible !important;
         display: block !important;
-        width: 20px !important;
-        height: 20px !important;
+        width: 24px !important;
+        height: 24px !important;
+        min-width: 20px !important;
+        min-height: 20px !important;
         fill: currentColor !important;
         color: #1a1a1a !important;
       }
 
       .wt-header__search-trigger svg rect,
       .inova-search-trigger svg rect,
-      .wt-header__panel__item--search svg rect {
+      .wt-header__panel__item--search svg rect,
+      search-drawer .wt-header__search-trigger svg rect {
         fill: none !important;
       }
 
       .wt-header__search-trigger svg path,
       .inova-search-trigger svg path,
-      .wt-header__panel__item--search svg path {
+      .wt-header__panel__item--search svg path,
+      search-drawer .wt-header__search-trigger svg path {
         fill: currentColor !important;
       }
 
