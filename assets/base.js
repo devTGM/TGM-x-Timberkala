@@ -234,7 +234,6 @@ class DrawerNavSection extends HTMLElement {
     this.triggers().forEach((trigger) => {
       trigger.addEventListener("click", (e) => {
         this.toggleMenu(e);
-        this.toggleThirdOptionMenu();
       });
     });
   }

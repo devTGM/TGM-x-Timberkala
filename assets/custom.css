@@ -4197,8 +4197,31 @@ body .wt-page {
    Guarantees fluid vertical scrolling, seamless accordion expand/collapse,
    and unclipped multi-level menu navigation on all mobile and touch devices.
    ========================================================================== */
+/* Elevate entire header stacking context above overlay when mobile drawer is open */
+body.menu-open #shopify-section-header,
+body.menu-open .page-header,
+body.menu-open [id*="__header"],
+body.menu-open .wt-header,
+body.menu-drawer-overlay-on #shopify-section-header,
+body.menu-drawer-overlay-on .page-header,
+body.menu-drawer-overlay-on [id*="__header"],
+body.menu-drawer-overlay-on .wt-header {
+  z-index: 1000000 !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+
+body.menu-open .wt-drawer--nav,
+body.menu-open .wt-drawer--mobile-nav,
+body.menu-open drawer-nav.wt-drawer,
+body.menu-drawer-overlay-on .wt-drawer--nav,
+body.menu-drawer-overlay-on .wt-drawer--mobile-nav,
+body.menu-drawer-overlay-on drawer-nav.wt-drawer {
+  pointer-events: auto !important;
+}
+
 @media (max-width: 989px) {
-  /* Overlay */
+  /* Overlay - sits below the elevated header, dims & blurs page content behind it */
   .menu-drawer-overlay {
     position: fixed !important;
     top: 0 !important;
@@ -4206,11 +4229,26 @@ body .wt-page {
     width: 100vw !important;
     height: 100vh !important;
     height: 100dvh !important;
-    z-index: 999998 !important;
+    z-index: 999990 !important;
     background: rgba(0, 0, 0, 0.45) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease !important;
   }
 
-  /* Drawer Container */
+  .menu-open .menu-drawer-overlay,
+  .menu-drawer-overlay-on .menu-drawer-overlay,
+  body.menu-open .menu-drawer-overlay,
+  body.menu-drawer-overlay-on .menu-drawer-overlay {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  /* Drawer Container - sits in front of overlay, crisp, white & interactive */
   .wt-drawer--nav,
   .wt-drawer--mobile-nav,
   drawer-nav.wt-drawer {
@@ -4223,24 +4261,34 @@ body .wt-page {
     height: 100dvh !important;
     max-height: 100vh !important;
     max-height: 100dvh !important;
-    z-index: 999999 !important;
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15) !important;
+    z-index: 1000001 !important;
+    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25) !important;
     transform: translateX(-100%) !important;
     transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease !important;
     opacity: 0 !important;
+    visibility: hidden !important;
     pointer-events: none !important;
     display: flex !important;
     flex-direction: column !important;
     background: #ffffff !important;
     overflow: hidden !important;
+    touch-action: pan-y !important;
   }
 
   .menu-open .wt-drawer--nav,
   .menu-open .wt-drawer--mobile-nav,
-  .menu-open drawer-nav.wt-drawer {
+  .menu-open drawer-nav.wt-drawer,
+  body.menu-open .wt-drawer--nav,
+  body.menu-open .wt-drawer--mobile-nav,
+  body.menu-open drawer-nav.wt-drawer,
+  body.menu-drawer-overlay-on .wt-drawer--nav,
+  body.menu-drawer-overlay-on .wt-drawer--mobile-nav,
+  body.menu-drawer-overlay-on drawer-nav.wt-drawer {
     transform: translateX(0) !important;
     opacity: 1 !important;
+    visibility: visible !important;
     pointer-events: auto !important;
+    display: flex !important;
   }
 
   /* Drawer Internal Scrolling Container */
@@ -4272,6 +4320,9 @@ body .wt-page {
     flex-shrink: 0 !important;
     min-height: 56px !important;
     box-sizing: border-box !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
   }
 
   .wt-drawer--nav .wt-drawer__title__text {
