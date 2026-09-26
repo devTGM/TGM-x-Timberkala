@@ -4211,12 +4211,26 @@ body.menu-drawer-overlay-on .wt-header {
   pointer-events: none !important;
 }
 
+body.menu-open .page-header,
+body.menu-drawer-overlay-on .page-header,
+body.menu-open .wt-header,
+body.menu-drawer-overlay-on .wt-header,
+body.menu-open .wt-header__body,
+body.menu-drawer-overlay-on .wt-header__body {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
 body.menu-open .wt-drawer--nav,
 body.menu-open .wt-drawer--mobile-nav,
 body.menu-open drawer-nav.wt-drawer,
+body.menu-open drawer-nav,
+body.menu-open > drawer-nav,
 body.menu-drawer-overlay-on .wt-drawer--nav,
 body.menu-drawer-overlay-on .wt-drawer--mobile-nav,
-body.menu-drawer-overlay-on drawer-nav.wt-drawer {
+body.menu-drawer-overlay-on drawer-nav.wt-drawer,
+body.menu-drawer-overlay-on drawer-nav,
+body.menu-drawer-overlay-on > drawer-nav {
   pointer-events: auto !important;
 }
 
@@ -4251,7 +4265,10 @@ body.menu-drawer-overlay-on drawer-nav.wt-drawer {
   /* Drawer Container - sits in front of overlay, crisp, white & interactive */
   .wt-drawer--nav,
   .wt-drawer--mobile-nav,
-  drawer-nav.wt-drawer {
+  drawer-nav.wt-drawer,
+  drawer-nav,
+  body > drawer-nav,
+  body > .wt-drawer--nav {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -4271,19 +4288,31 @@ body.menu-drawer-overlay-on drawer-nav.wt-drawer {
     display: flex !important;
     flex-direction: column !important;
     background: #ffffff !important;
+    background-color: #ffffff !important;
     overflow: hidden !important;
     touch-action: pan-y !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 
   .menu-open .wt-drawer--nav,
   .menu-open .wt-drawer--mobile-nav,
   .menu-open drawer-nav.wt-drawer,
+  .menu-open drawer-nav,
+  body.menu-open > drawer-nav,
+  body.menu-open > .wt-drawer--nav,
   body.menu-open .wt-drawer--nav,
   body.menu-open .wt-drawer--mobile-nav,
   body.menu-open drawer-nav.wt-drawer,
+  body.menu-open drawer-nav,
+  body.menu-drawer-overlay-on > drawer-nav,
+  body.menu-drawer-overlay-on > .wt-drawer--nav,
   body.menu-drawer-overlay-on .wt-drawer--nav,
   body.menu-drawer-overlay-on .wt-drawer--mobile-nav,
-  body.menu-drawer-overlay-on drawer-nav.wt-drawer {
+  body.menu-drawer-overlay-on drawer-nav.wt-drawer,
+  body.menu-drawer-overlay-on drawer-nav {
     transform: translateX(0) !important;
     opacity: 1 !important;
     visibility: visible !important;

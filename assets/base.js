@@ -25,7 +25,14 @@ class DrawerNavSection extends HTMLElement {
   }
 
   connectedCallback() {
-    this.init();
+    if (document.body && this.parentElement && this.parentElement !== document.body) {
+      document.body.appendChild(this);
+      return;
+    }
+    if (!this.isInitialized) {
+      this.isInitialized = true;
+      this.init();
+    }
   }
 
   openMobileSubmenu(linkValue) {
@@ -196,13 +203,17 @@ class DrawerNavSection extends HTMLElement {
   }
 
   init() {
-    if (!document.querySelector(`.${this.pageOverlayClass}`)) {
-      const overlay = document.createElement("div");
+    let overlay = document.querySelector(`.${this.pageOverlayClass}`);
+    if (!overlay) {
+      overlay = document.createElement("div");
       overlay.classList.add(this.pageOverlayClass);
-
       document.body.appendChild(overlay);
     }
+    if (this.parentElement === document.body && overlay.parentElement === document.body) {
+      document.body.insertBefore(overlay, this);
+    }
 
+    this.closeButton = this.querySelector(".wt-drawer__close");
     this.handleTabindex();
 
     window.addEventListener("resize", this.handleTabindex.bind(this));
@@ -236,6 +247,16 @@ class DrawerNavSection extends HTMLElement {
         this.toggleMenu(e);
       });
     });
+
+    if (this.closeButton) {
+      this.closeButton.addEventListener("click", (e) => {
+        if (e && typeof e.preventDefault === "function") e.preventDefault();
+        this.closeMenu(e);
+        this.updateAriaStateForTriggers();
+        this.toggleMenuButtonAttr(false);
+        document.body.classList.remove("menu-open", "menu-drawer-overlay-on");
+      });
+    }
   }
 }
 
