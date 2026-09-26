@@ -1,0 +1,425 @@
+{%- liquid
+  assign sound_enabled = settings.background_sound_enabled
+  if sound_enabled == nil
+    assign sound_enabled = true
+  endif
+  assign sound_volume = settings.background_sound_volume | default: 35 | divided_by: 100.0
+  assign custom_audio_url = settings.background_sound_url | strip
+-%}
+
+{%- if sound_enabled -%}
+<style>
+  /* ── Timberkala Background Sound Floating Controller ── */
+  .tk-sound-widget {
+    position: fixed;
+    bottom: 28px;
+    left: 28px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .tk-sound-btn {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(212, 175, 55, 0.45);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.3s ease;
+  }
+
+  .tk-sound-btn:hover {
+    transform: scale(1.08);
+    border-color: #d4af37;
+    box-shadow: 0 10px 28px rgba(212, 175, 55, 0.35), 0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  .tk-sound-btn:focus-visible {
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.5);
+  }
+
+  /* Playing state glow */
+  .tk-sound-btn--playing {
+    border-color: #d4af37;
+    box-shadow: 0 6px 22px rgba(212, 175, 55, 0.35), 0 0 12px rgba(212, 175, 55, 0.25);
+  }
+
+  .tk-sound-icon-wrap {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Equalizer bars (playing state) */
+  .tk-sound-icon--playing {
+    display: none;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 18px;
+    height: 16px;
+    gap: 2px;
+  }
+
+  .tk-sound-btn--playing .tk-sound-icon--playing {
+    display: flex;
+  }
+
+  .tk-sound-btn--playing .tk-sound-icon--muted {
+    display: none;
+  }
+
+  .tk-eq-bar {
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, #d4af37 0%, #b8860b 100%);
+    border-radius: 3px;
+    transform-origin: bottom;
+    animation-name: tkEqBounce;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+  }
+
+  .tk-eq-bar--1 {
+    animation-duration: 0.9s;
+    animation-delay: 0.1s;
+    height: 60%;
+  }
+
+  .tk-eq-bar--2 {
+    animation-duration: 1.2s;
+    animation-delay: 0.3s;
+    height: 100%;
+  }
+
+  .tk-eq-bar--3 {
+    animation-duration: 0.8s;
+    animation-delay: 0.2s;
+    height: 75%;
+  }
+
+  .tk-eq-bar--4 {
+    animation-duration: 1.1s;
+    animation-delay: 0.4s;
+    height: 45%;
+  }
+
+  @keyframes tkEqBounce {
+    0%, 100% {
+      transform: scaleY(0.25);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+
+  /* Muted Icon */
+  .tk-sound-icon--muted {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a1a1a;
+    transition: color 0.25s ease;
+  }
+
+  .tk-sound-btn:hover .tk-sound-icon--muted {
+    color: #d4af37;
+  }
+
+  .tk-svg-note {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+
+  /* Tooltip badge */
+  .tk-sound-tooltip {
+    position: absolute;
+    left: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%) translateX(-6px);
+    background: #1a1a1a;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tk-sound-tooltip::before {
+    content: '';
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #1a1a1a transparent transparent;
+  }
+
+  .tk-sound-tooltip__status {
+    color: #d4af37;
+    font-weight: 700;
+  }
+
+  .tk-sound-btn:hover .tk-sound-tooltip,
+  .tk-sound-widget.tk-show-hint .tk-sound-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 767px) {
+    .tk-sound-widget {
+      bottom: 20px;
+      left: 18px;
+      transition: bottom 0.3s ease;
+    }
+
+    body.template-product .tk-sound-widget {
+      bottom: 76px;
+    }
+
+    .tk-sound-btn {
+      width: 44px;
+      height: 44px;
+    }
+
+    .tk-sound-tooltip {
+      font-size: 10px;
+      padding: 5px 10px;
+    }
+  }
+</style>
+
+<div id="timberkala-sound-widget" class="tk-sound-widget" data-volume="{{ sound_volume }}">
+  <audio id="timberkala-audio" loop preload="none">
+    {%- if custom_audio_url != blank -%}
+      <source src="{{ custom_audio_url }}" type="audio/mpeg">
+    {%- endif -%}
+    <source src="{{ 'timberkala-ambient.mp3' | asset_url }}" type="audio/mpeg">
+    <source src="{{ 'timberkala-ambient.m4a' | asset_url }}" type="audio/mp4">
+  </audio>
+
+  <button
+    id="timberkala-sound-toggle"
+    class="tk-sound-btn tk-sound-btn--muted"
+    type="button"
+    aria-label="Play background music"
+    title="Background Sound: Muted (Click to play)"
+  >
+    <div class="tk-sound-icon-wrap">
+      <!-- Playing: Animated Equalizer Bars -->
+      <span class="tk-sound-icon tk-sound-icon--playing" aria-hidden="true">
+        <span class="tk-eq-bar tk-eq-bar--1"></span>
+        <span class="tk-eq-bar tk-eq-bar--2"></span>
+        <span class="tk-eq-bar tk-eq-bar--3"></span>
+        <span class="tk-eq-bar tk-eq-bar--4"></span>
+      </span>
+
+      <!-- Muted: Music Note with diagonal slash -->
+      <span class="tk-sound-icon tk-sound-icon--muted" aria-hidden="true">
+        <svg class="tk-svg-note" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18V5l12-2v13"></path>
+          <circle cx="6" cy="18" r="3"></circle>
+          <circle cx="18" cy="16" r="3"></circle>
+          <line x1="2" y1="2" x2="22" y2="22" stroke="#d4af37" stroke-width="2.2"></line>
+        </svg>
+      </span>
+    </div>
+
+    <!-- Tooltip -->
+    <span class="tk-sound-tooltip" id="timberkala-sound-tooltip">
+      <span class="tk-sound-tooltip__text">Ambience</span>
+      <span class="tk-sound-tooltip__status">Off</span>
+    </span>
+  </button>
+</div>
+
+<script>
+  (function() {
+    const widget = document.getElementById('timberkala-sound-widget');
+    if (!widget) return;
+
+    const audio = document.getElementById('timberkala-audio');
+    const btn = document.getElementById('timberkala-sound-toggle');
+    const tooltipStatus = widget.querySelector('.tk-sound-tooltip__status');
+    const targetVolume = parseFloat(widget.dataset.volume) || 0.35;
+
+    const STORAGE_KEY_STATE = 'tk_sound_state'; // 'playing' | 'muted'
+    const STORAGE_KEY_TIME = 'tk_sound_time';
+
+    let isPlaying = false;
+    let fadeInterval = null;
+
+    function setButtonState(playing) {
+      isPlaying = playing;
+      if (playing) {
+        btn.classList.remove('tk-sound-btn--muted');
+        btn.classList.add('tk-sound-btn--playing');
+        btn.setAttribute('aria-label', 'Mute background sound');
+        btn.setAttribute('title', 'Background Sound: Playing (Click to mute)');
+        if (tooltipStatus) tooltipStatus.textContent = 'On ♫';
+      } else {
+        btn.classList.remove('tk-sound-btn--playing');
+        btn.classList.add('tk-sound-btn--muted');
+        btn.setAttribute('aria-label', 'Play background sound');
+        btn.setAttribute('title', 'Background Sound: Muted (Click to play)');
+        if (tooltipStatus) tooltipStatus.textContent = 'Off';
+      }
+    }
+
+    function fadeIn(callback) {
+      if (fadeInterval) clearInterval(fadeInterval);
+      audio.volume = 0;
+      const step = targetVolume / 15;
+      fadeInterval = setInterval(function() {
+        if (audio.volume + step < targetVolume) {
+          audio.volume += step;
+        } else {
+          audio.volume = targetVolume;
+          clearInterval(fadeInterval);
+          fadeInterval = null;
+          if (callback) callback();
+        }
+      }, 35);
+    }
+
+    function fadeOut(callback) {
+      if (fadeInterval) clearInterval(fadeInterval);
+      const step = targetVolume / 10;
+      fadeInterval = setInterval(function() {
+        if (audio.volume - step > 0.02) {
+          audio.volume -= step;
+        } else {
+          audio.volume = 0;
+          clearInterval(fadeInterval);
+          fadeInterval = null;
+          audio.pause();
+          if (callback) callback();
+        }
+      }, 30);
+    }
+
+    function playSound() {
+      // Restore playback position from session storage
+      const savedTime = parseFloat(sessionStorage.getItem(STORAGE_KEY_TIME));
+      if (!isNaN(savedTime) && isFinite(savedTime) && savedTime > 0) {
+        try {
+          audio.currentTime = savedTime;
+        } catch(e) {}
+      }
+
+      audio.volume = 0;
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(function() {
+          setButtonState(true);
+          localStorage.setItem(STORAGE_KEY_STATE, 'playing');
+          fadeIn();
+        }).catch(function(err) {
+          console.warn('Playback deferred until user interaction:', err);
+          setButtonState(false);
+        });
+      }
+    }
+
+    function pauseSound() {
+      localStorage.setItem(STORAGE_KEY_STATE, 'muted');
+      fadeOut(function() {
+        setButtonState(false);
+      });
+    }
+
+    function toggleSound() {
+      if (isPlaying) {
+        pauseSound();
+      } else {
+        playSound();
+      }
+    }
+
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      toggleSound();
+    });
+
+    // Save playback time periodically for cross-page continuity
+    setInterval(function() {
+      if (isPlaying && !audio.paused) {
+        sessionStorage.setItem(STORAGE_KEY_TIME, audio.currentTime);
+      }
+    }, 1000);
+
+    // Initial check from previous page visit
+    const savedState = localStorage.getItem(STORAGE_KEY_STATE);
+    if (savedState === 'playing') {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(function() {
+          const savedTime = parseFloat(sessionStorage.getItem(STORAGE_KEY_TIME));
+          if (!isNaN(savedTime) && isFinite(savedTime) && savedTime > 0) {
+            try {
+              audio.currentTime = savedTime;
+            } catch(e) {}
+          }
+          audio.volume = targetVolume;
+          setButtonState(true);
+        }).catch(function() {
+          // Autoplay blocked prior to interaction; wait for first click
+          setButtonState(false);
+          function onFirstInteraction() {
+            if (localStorage.getItem(STORAGE_KEY_STATE) === 'playing') {
+              playSound();
+            }
+            document.removeEventListener('click', onFirstInteraction);
+            document.removeEventListener('touchstart', onFirstInteraction);
+          }
+          document.addEventListener('click', onFirstInteraction, { once: true });
+          document.addEventListener('touchstart', onFirstInteraction, { once: true });
+        });
+      }
+    } else {
+      setButtonState(false);
+      // Show brief welcome hint on first visit if user hasn't toggled yet
+      if (!sessionStorage.getItem('tk_hint_shown')) {
+        sessionStorage.setItem('tk_hint_shown', 'true');
+        widget.classList.add('tk-show-hint');
+        setTimeout(function() {
+          widget.classList.remove('tk-show-hint');
+        }, 4000);
+      }
+    }
+  })();
+</script>
+{%- endif -%}

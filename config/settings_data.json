@@ -4,6 +4,8 @@
     "layout-width": 1900,
     "radius": 10,
     "button-radius": 50,
+    "background_sound_enabled": true,
+    "background_sound_volume": 35,
     "color-background": "#FAF9F6",
     "color-headings-text": "#1A1A1A",
     "color-body-text": "#2E282A",

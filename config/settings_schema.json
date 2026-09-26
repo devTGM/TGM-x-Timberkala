@@ -710,7 +710,7 @@
         "default": true,
         "label": "t:settings_schema.cart.settings.show_view_cart.label",
         "info": "t:settings_schema.cart.settings.show_view_cart.info"
-      },
+      }
     ]
   },
   {
@@ -1045,6 +1045,32 @@
         "type": "checkbox",
         "id": "disabled_animations_on_mobile",
         "label": "t:settings_schema.animations.settings.disabled_animation_on_mobile.label"
+      }
+    ]
+  },
+  {
+    "name": "Background Sound",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "background_sound_enabled",
+        "label": "Enable Background Sound Widget",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "background_sound_url",
+        "label": "Custom Audio URL (Optional)",
+        "info": "Leave blank to use the built-in Timberkala artisan ambient sound."
+      },
+      {
+        "type": "range",
+        "id": "background_sound_volume",
+        "label": "Ambient Sound Volume (%)",
+        "min": 10,
+        "max": 100,
+        "step": 5,
+        "default": 35
       }
     ]
   }
