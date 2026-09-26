@@ -24,13 +24,13 @@
 
   .tk-sound-btn {
     position: relative;
-    width: 48px;
-    height: 48px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1.5px solid rgba(212, 175, 55, 0.45);
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1.5px solid rgba(212, 175, 55, 0.5);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
     color: #1a1a1a;
     display: flex;
@@ -53,16 +53,30 @@
     box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.5);
   }
 
-  /* Playing state glow */
+  /* Gentle pulse when muted to indicate sound is ready to unmute */
+  .tk-sound-btn--muted {
+    animation: tkUnmutePulse 3s ease-in-out infinite;
+  }
+
+  @keyframes tkUnmutePulse {
+    0%, 100% {
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12), 0 0 0 0 rgba(212, 175, 55, 0.45);
+    }
+    50% {
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25), 0 0 0 8px rgba(212, 175, 55, 0);
+    }
+  }
+
+  /* Playing state active glow */
   .tk-sound-btn--playing {
     border-color: #d4af37;
-    box-shadow: 0 6px 22px rgba(212, 175, 55, 0.35), 0 0 12px rgba(212, 175, 55, 0.25);
+    box-shadow: 0 6px 22px rgba(212, 175, 55, 0.35), 0 0 14px rgba(212, 175, 55, 0.25);
   }
 
   .tk-sound-icon-wrap {
     position: relative;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -152,23 +166,22 @@
   /* Tooltip badge */
   .tk-sound-tooltip {
     position: absolute;
-    left: calc(100% + 12px);
+    left: calc(100% + 14px);
     top: 50%;
     transform: translateY(-50%) translateX(-6px);
     background: #1a1a1a;
     color: #ffffff;
-    padding: 6px 12px;
+    padding: 7px 14px;
     border-radius: 20px;
-    font-size: 11px;
+    font-size: 11.5px;
     font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    letter-spacing: 0.05em;
     white-space: nowrap;
     pointer-events: none;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(212, 175, 55, 0.4);
     display: flex;
     align-items: center;
@@ -198,7 +211,7 @@
     transform: translateY(-50%) translateX(0);
   }
 
-  /* Responsive tweaks */
+  /* Responsive mobile positioning */
   @media (max-width: 767px) {
     .tk-sound-widget {
       bottom: 20px;
@@ -216,14 +229,20 @@
     }
 
     .tk-sound-tooltip {
-      font-size: 10px;
-      padding: 5px 10px;
+      font-size: 10.5px;
+      padding: 5px 11px;
     }
   }
 </style>
 
 <div id="timberkala-sound-widget" class="tk-sound-widget" data-volume="{{ sound_volume }}">
-  <audio id="timberkala-audio" loop preload="none">
+  <audio
+    id="timberkala-audio"
+    loop
+    preload="auto"
+    playsinline
+    webkit-playsinline
+  >
     {%- if custom_audio_url != blank -%}
       <source src="{{ custom_audio_url }}" type="audio/mpeg">
     {%- endif -%}
@@ -235,8 +254,8 @@
     id="timberkala-sound-toggle"
     class="tk-sound-btn tk-sound-btn--muted"
     type="button"
-    aria-label="Play background music"
-    title="Background Sound: Muted (Click to play)"
+    aria-label="Click to unmute background sound"
+    title="Sound is playing (muted) — Click to unmute"
   >
     <div class="tk-sound-icon-wrap">
       <!-- Playing: Animated Equalizer Bars -->
@@ -261,7 +280,7 @@
     <!-- Tooltip -->
     <span class="tk-sound-tooltip" id="timberkala-sound-tooltip">
       <span class="tk-sound-tooltip__text">Ambience</span>
-      <span class="tk-sound-tooltip__status">Off</span>
+      <span class="tk-sound-tooltip__status">Click to Unmute ♫</span>
     </span>
   </button>
 </div>
@@ -289,13 +308,13 @@
         btn.classList.add('tk-sound-btn--playing');
         btn.setAttribute('aria-label', 'Mute background sound');
         btn.setAttribute('title', 'Background Sound: Playing (Click to mute)');
-        if (tooltipStatus) tooltipStatus.textContent = 'On ♫';
+        if (tooltipStatus) tooltipStatus.textContent = 'Playing ♫';
       } else {
         btn.classList.remove('tk-sound-btn--playing');
         btn.classList.add('tk-sound-btn--muted');
-        btn.setAttribute('aria-label', 'Play background sound');
-        btn.setAttribute('title', 'Background Sound: Muted (Click to play)');
-        if (tooltipStatus) tooltipStatus.textContent = 'Off';
+        btn.setAttribute('aria-label', 'Unmute background sound');
+        btn.setAttribute('title', 'Background Sound: Muted (Click to unmute)');
+        if (tooltipStatus) tooltipStatus.textContent = 'Click to Unmute ♫';
       }
     }
 
@@ -312,7 +331,7 @@
           fadeInterval = null;
           if (callback) callback();
         }
-      }, 35);
+      }, 30);
     }
 
     function fadeOut(callback) {
@@ -325,47 +344,40 @@
           audio.volume = 0;
           clearInterval(fadeInterval);
           fadeInterval = null;
-          audio.pause();
           if (callback) callback();
         }
-      }, 30);
+      }, 25);
     }
 
-    function playSound() {
-      // Restore playback position from session storage
-      const savedTime = parseFloat(sessionStorage.getItem(STORAGE_KEY_TIME));
-      if (!isNaN(savedTime) && isFinite(savedTime) && savedTime > 0) {
-        try {
-          audio.currentTime = savedTime;
-        } catch(e) {}
-      }
-
-      audio.volume = 0;
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.then(function() {
-          setButtonState(true);
-          localStorage.setItem(STORAGE_KEY_STATE, 'playing');
-          fadeIn();
-        }).catch(function(err) {
-          console.warn('Playback deferred until user interaction:', err);
-          setButtonState(false);
+    function unmuteSound() {
+      audio.muted = false;
+      if (audio.paused) {
+        const savedTime = parseFloat(sessionStorage.getItem(STORAGE_KEY_TIME));
+        if (!isNaN(savedTime) && isFinite(savedTime) && savedTime > 0) {
+          try { audio.currentTime = savedTime; } catch(e) {}
+        }
+        audio.play().catch(function(err) {
+          console.warn('Playback error:', err);
         });
       }
+      fadeIn();
+      setButtonState(true);
+      localStorage.setItem(STORAGE_KEY_STATE, 'playing');
     }
 
-    function pauseSound() {
+    function muteSound() {
       localStorage.setItem(STORAGE_KEY_STATE, 'muted');
       fadeOut(function() {
+        audio.muted = true;
         setButtonState(false);
       });
     }
 
     function toggleSound() {
-      if (isPlaying) {
-        pauseSound();
+      if (isPlaying && !audio.muted) {
+        muteSound();
       } else {
-        playSound();
+        unmuteSound();
       }
     }
 
@@ -374,51 +386,79 @@
       toggleSound();
     });
 
-    // Save playback time periodically for cross-page continuity
+    // Save playback position periodically for cross-page continuity
     setInterval(function() {
-      if (isPlaying && !audio.paused) {
+      if (!audio.paused) {
         sessionStorage.setItem(STORAGE_KEY_TIME, audio.currentTime);
       }
     }, 1000);
 
-    // Initial check from previous page visit
-    const savedState = localStorage.getItem(STORAGE_KEY_STATE);
-    if (savedState === 'playing') {
+    // ── Autoplay on page load ──
+    function initPlaybackOnLoad() {
+      const savedTime = parseFloat(sessionStorage.getItem(STORAGE_KEY_TIME));
+      if (!isNaN(savedTime) && isFinite(savedTime) && savedTime > 0) {
+        try { audio.currentTime = savedTime; } catch(e) {}
+      }
+
+      const savedState = localStorage.getItem(STORAGE_KEY_STATE);
+
+      // If user previously explicitly muted, keep it muted but let track play in background
+      if (savedState === 'muted') {
+        audio.muted = true;
+        audio.volume = 0;
+        audio.play().catch(function() {});
+        setButtonState(false);
+        return;
+      }
+
+      // User wants music to start playing once website is loaded:
+      // Try playing unmuted first!
+      audio.muted = false;
+      audio.volume = targetVolume;
       const playPromise = audio.play();
+
       if (playPromise !== undefined) {
         playPromise.then(function() {
-          const savedTime = parseFloat(sessionStorage.getItem(STORAGE_KEY_TIME));
-          if (!isNaN(savedTime) && isFinite(savedTime) && savedTime > 0) {
-            try {
-              audio.currentTime = savedTime;
-            } catch(e) {}
-          }
-          audio.volume = targetVolume;
+          // Unmuted autoplay succeeded! Music starts playing with sound
           setButtonState(true);
-        }).catch(function() {
-          // Autoplay blocked prior to interaction; wait for first click
-          setButtonState(false);
+          localStorage.setItem(STORAGE_KEY_STATE, 'playing');
+        }).catch(function(err) {
+          // Modern browser blocked unmuted autoplay.
+          // Fall back to playing MUTED immediately so the music track IS playing in the background right from load!
+          audio.muted = true;
+          audio.volume = 0;
+          audio.play().then(function() {
+            setButtonState(false); // Music icon shows "Click to unmute"
+          }).catch(function(e) {
+            setButtonState(false);
+          });
+
+          // Show friendly hint tooltip for 5 seconds to invite user to unmute
+          widget.classList.add('tk-show-hint');
+          setTimeout(function() {
+            widget.classList.remove('tk-show-hint');
+          }, 5000);
+
+          // Listen for the first user interaction anywhere on the website to smoothly unmute
           function onFirstInteraction() {
-            if (localStorage.getItem(STORAGE_KEY_STATE) === 'playing') {
-              playSound();
+            if (localStorage.getItem(STORAGE_KEY_STATE) !== 'muted') {
+              unmuteSound();
             }
             document.removeEventListener('click', onFirstInteraction);
             document.removeEventListener('touchstart', onFirstInteraction);
+            document.removeEventListener('keydown', onFirstInteraction);
           }
           document.addEventListener('click', onFirstInteraction, { once: true });
           document.addEventListener('touchstart', onFirstInteraction, { once: true });
+          document.addEventListener('keydown', onFirstInteraction, { once: true });
         });
       }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPlaybackOnLoad);
     } else {
-      setButtonState(false);
-      // Show brief welcome hint on first visit if user hasn't toggled yet
-      if (!sessionStorage.getItem('tk_hint_shown')) {
-        sessionStorage.setItem('tk_hint_shown', 'true');
-        widget.classList.add('tk-show-hint');
-        setTimeout(function() {
-          widget.classList.remove('tk-show-hint');
-        }, 4000);
-      }
+      initPlaybackOnLoad();
     }
   })();
 </script>
