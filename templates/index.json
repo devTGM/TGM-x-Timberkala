@@ -15,28 +15,27 @@
         "category_card_eabpgT": {
           "type": "category_card",
           "settings": {
-            "collection": "animal-and-bird-figurines",
+            "collection": "animal-figurines-1",
             "title": "Figurines",
-            "subtitle": "",
+            "subtitle": "PERFECT ADDITION TO ANY HOME",
             "button_link": ""
           }
         },
         "category_card_TPERpN": {
           "type": "category_card",
           "settings": {
-            "collection": "furniture",
-            "image": "shopify://shop_images/DSC00101_be400ec5-01b4-4e60-b6bc-13d2ff0c1efd.jpg",
-            "title": "Furniture",
-            "subtitle": "Create the perfect lounge area!",
+            "collection": "bird-figurines-1",
+            "title": "BIRD FIGURINES",
+            "subtitle": "ADD THE PERFECT TOUCH OF NATURE",
             "button_link": ""
           }
         },
         "category_card_bLP3E8": {
           "type": "category_card",
           "settings": {
-            "collection": "hangings-1",
-            "image": "shopify://shop_images/hanging.webp",
-            "title": "HANGING",
+            "collection": "timberकला-songs-of-the-wind",
+            "image": "shopify://shop_images/DSC08253.webp",
+            "title": "WIND CHIMES",
             "subtitle": "Light that sets the mood!",
             "button_link": ""
           }
@@ -45,7 +44,7 @@
           "type": "category_card",
           "settings": {
             "collection": "wall-accents",
-            "image": "shopify://shop_images/117.webp",
+            "image": "shopify://shop_images/DSC08376.jpg",
             "title": "Wall Decor",
             "subtitle": "Touches that add character!",
             "button_link": ""
@@ -64,7 +63,7 @@
         "squiggle_color": "#d4af37",
         "button_label": "SHOP ALL COLLECTIONS",
         "button_link": "shopify://collections/all",
-        "background_color": "transparent",
+        "background_color": "rgba(0,0,0,0)",
         "padding_top": 50,
         "padding_bottom": 60
       }
@@ -122,7 +121,7 @@
         "show_product_rating": true,
         "enable_quick_add_button": false,
         "color-body-text": "#1a1a1a",
-        "background_color": "transparent",
+        "background_color": "rgba(0,0,0,0)",
         "margin-top": 20,
         "margin-bottom": 20
       }
@@ -149,7 +148,7 @@
         "show_product_rating": true,
         "enable_quick_add_button": false,
         "color-body-text": "#1a1a1a",
-        "background_color": "transparent",
+        "background_color": "rgba(0,0,0,0)",
         "margin-top": 20,
         "margin-bottom": 20
       }
@@ -176,7 +175,7 @@
         "show_product_rating": true,
         "enable_quick_add_button": false,
         "color-body-text": "#1a1a1a",
-        "background_color": "transparent",
+        "background_color": "rgba(0,0,0,0)",
         "margin-top": 20,
         "margin-bottom": 20
       }
@@ -204,7 +203,7 @@
         "show_product_rating": true,
         "enable_quick_add_button": false,
         "color-body-text": "#1a1a1a",
-        "background_color": "transparent",
+        "background_color": "rgba(0,0,0,0)",
         "margin-top": 20,
         "margin-bottom": 20
       }
@@ -231,7 +230,7 @@
         "show_product_rating": true,
         "enable_quick_add_button": false,
         "color-body-text": "#1a1a1a",
-        "background_color": "transparent",
+        "background_color": "rgba(0,0,0,0)",
         "margin-top": 20,
         "margin-bottom": 20
       }
@@ -258,7 +257,7 @@
         "show_product_rating": true,
         "enable_quick_add_button": false,
         "color-body-text": "#1a1a1a",
-        "background_color": "transparent",
+        "background_color": "rgba(0,0,0,0)",
         "margin-top": 20,
         "margin-bottom": 20
       }
@@ -285,7 +284,7 @@
         "show_product_rating": true,
         "enable_quick_add_button": false,
         "color-body-text": "#1a1a1a",
-        "background_color": "transparent",
+        "background_color": "rgba(0,0,0,0)",
         "margin-top": 20,
         "margin-bottom": 20
       }
