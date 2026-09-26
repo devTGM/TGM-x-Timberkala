@@ -904,91 +904,15 @@
         {%- endif -%}
 
         <!-- Search Drawer Trigger -->
-        <search-drawer
-          class="wt-header__search wt-drawer-search inova-search-trigger"
-          data-loading-text="{{ 'accessibility.searching' | t }}"
+        <div
+          class="wt-header__icon wt-header__search-trigger inova-search-trigger wt-icon"
+          rel="toggle-search"
+          tabindex="0"
+          role="button"
+          aria-label="{{ 'aria-label.page-header-open-search' | t }}"
         >
-          <div
-            class="wt-header__icon wt-header__search-trigger wt-icon"
-            rel="toggle-search"
-            tabindex="0"
-            role="button"
-            aria-label="{{ 'aria-label.page-header-open-search' | t }}"
-          >
-            {% render 'icons', id: 'search' %}
-          </div>
-
-          <form
-            class="wt-header__search__body store-search-form"
-            action="{{ routes.search_url }}"
-            method="get"
-            role="search"
-          >
-            <input type="hidden" name="type" value="product">
-
-            <div class="wt-header__search__form">
-              <label class="wt-header__icon wt-header__search__label" for="search-shop-inova">
-                {% render 'icons', id: 'search' %}
-                <span class="visually-hidden">{{ 'aria-label.page-header-search' | t }}</span>
-              </label>
-              <input
-                type="text"
-                placeholder="{{ section.settings.typing_search }}"
-                id="search-shop-inova"
-                name="q"
-                class="wt-header__search__field"
-                aria-controls="predictive-search-results-list"
-                aria-autocomplete="list"
-                aria-haspopup="listbox"
-                aria-expanded="false"
-                spellcheck="false"
-                tabindex="-1"
-                role="combobox"
-                autocorrect="off"
-                autocomplete="off"
-                autocapitalize="off"
-                data-search="true"
-                aria-label="{{ 'aria-label.page-header-search' | t }}"
-              >
-
-              <div class="wt-header__search__clear-button__container">
-                <div
-                  class="wt-header__search__clear-button"
-                  role="button"
-                  aria-label="{{ 'aria-label.page-header-remove-all' | t }}"
-                  tabindex="-1"
-                >
-                  {% render 'icons', id: 'close' -%}
-                  <span class="text">{{ 'aria-label.page-header-toggle-menu' | t }}</span>
-                </div>
-              </div>
-              <button
-                aria-label="{{ 'aria-label.page-header-search' | t }}"
-                class="wt-header__search__button"
-                tabindex="-1"
-              >
-                {% render 'icons', id: 'search' -%}
-                <span class="text">{{ 'aria-label.page-header-search' | t }}</span>
-              </button>
-              <button
-                aria-label="{{ 'aria-label.page-header-close-search' | t }}"
-                class="wt-header__search__close"
-                tabindex="-1"
-              >
-                {% render 'icons', id: 'close' %}
-              </button>
-            </div>
-            <div class="wt-header__search__results">
-              <div class="predictive-search-status">
-                {% render 'search-top' %}
-              </div>
-
-              {% render 'loader' %}
-
-              <div class="search-result-wrapper" data-predictive-search></div>
-            </div>
-          </form>
-        </search-drawer>
+          {% render 'icons', id: 'search' %}
+        </div>
 
         <!-- Account & Cart -->
         <ul class="wt-header__panel wt-header__panel--no-labels inova-header__panel">
@@ -1143,91 +1067,16 @@
 
       <!-- RIGHT: Search, Account, Cart -->
       <div class="wt-header__col wt-header__col--right">
-        <search-drawer
-          class="wt-header__search wt-drawer-search"
-          data-loading-text="{{ 'accessibility.searching' | t }}"
+        <!-- Search Trigger -->
+        <div
+          class="wt-header__icon wt-header__search-trigger wt-icon"
+          rel="toggle-search"
+          tabindex="0"
+          role="button"
+          aria-label="{{ 'aria-label.page-header-open-search' | t }}"
         >
-          <div
-            class="wt-header__icon wt-header__search-trigger wt-icon"
-            rel="toggle-search"
-            tabindex="0"
-            role="button"
-            aria-label="{{ 'aria-label.page-header-open-search' | t }}"
-          >
-            {% render 'icons', id: 'search' %}
-          </div>
-
-          <form
-            class="wt-header__search__body store-search-form"
-            action="{{ routes.search_url }}"
-            method="get"
-            role="search"
-          >
-            <input type="hidden" name="type" value="product">
-
-            <div class="wt-header__search__form">
-              <label class="wt-header__icon wt-header__search__label" for="search-shop">
-                {% render 'icons', id: 'search' %}
-                <span class="visually-hidden">{{ 'aria-label.page-header-search' | t }}</span>
-              </label>
-              <input
-                type="text"
-                placeholder="{{ section.settings.typing_search }}"
-                id="search-shop"
-                name="q"
-                class="wt-header__search__field"
-                aria-controls="predictive-search-results-list"
-                aria-autocomplete="list"
-                aria-haspopup="listbox"
-                aria-expanded="false"
-                spellcheck="false"
-                tabindex="-1"
-                role="combobox"
-                autocorrect="off"
-                autocomplete="off"
-                autocapitalize="off"
-                data-search="true"
-                aria-label="{{ 'aria-label.page-header-search' | t }}"
-              >
-
-              <div class="wt-header__search__clear-button__container">
-                <div
-                  class="wt-header__search__clear-button"
-                  role="button"
-                  aria-label="{{ 'aria-label.page-header-remove-all' | t }}"
-                  tabindex="-1"
-                >
-                  {% render 'icons', id: 'close' -%}
-                  <span class="text">{{ 'aria-label.page-header-toggle-menu' | t }}</span>
-                </div>
-              </div>
-              <button
-                aria-label="{{ 'aria-label.page-header-search' | t }}"
-                class="wt-header__search__button"
-                tabindex="-1"
-              >
-                {% render 'icons', id: 'search' -%}
-                <span class="text">{{ 'aria-label.page-header-search' | t }}</span>
-              </button>
-              <button
-                aria-label="{{ 'aria-label.page-header-close-search' | t }}"
-                class="wt-header__search__close"
-                tabindex="-1"
-              >
-                {% render 'icons', id: 'close' %}
-              </button>
-            </div>
-            <div class="wt-header__search__results">
-              <div class="predictive-search-status">
-                {% render 'search-top' %}
-              </div>
-
-              {% render 'loader' %}
-
-              <div class="search-result-wrapper" data-predictive-search></div>
-            </div>
-          </form>
-        </search-drawer>
+          {% render 'icons', id: 'search' %}
+        </div>
 
         <ul class="wt-header__panel wt-header__panel--no-labels">
           {%- if shop.customer_accounts_enabled -%}
@@ -1334,91 +1183,16 @@
           {% render 'icons', id: 'bars' %}
         </a>
 
-        <search-drawer
-          class="wt-header__search wt-drawer-search"
-          data-loading-text="{{ 'accessibility.searching' | t }}"
+        <!-- Search Trigger -->
+        <div
+          class="wt-header__icon wt-header__search-trigger wt-icon"
+          rel="toggle-search"
+          tabindex="0"
+          role="button"
+          aria-label="{{ 'aria-label.page-header-open-search' | t }}"
         >
-          <div
-            class="wt-header__icon wt-header__search-trigger wt-icon"
-            rel="toggle-search"
-            tabindex="0"
-            role="button"
-            aria-label="{{ 'aria-label.page-header-open-search' | t }}"
-          >
-            {% render 'icons', id: 'search' %}
-          </div>
-
-          <form
-            class="wt-header__search__body store-search-form"
-            action="{{ routes.search_url }}"
-            method="get"
-            role="search"
-          >
-            <input type="hidden" name="type" value="product">
-
-            <div class="wt-header__search__form">
-              <label class="wt-header__icon wt-header__search__label" for="search-shop">
-                {% render 'icons', id: 'search' %}
-                <span class="visually-hidden">{{ 'aria-label.page-header-search' | t }}</span>
-              </label>
-              <input
-                type="text"
-                placeholder="{{ section.settings.typing_search }}"
-                id="search-shop"
-                name="q"
-                class="wt-header__search__field"
-                aria-controls="predictive-search-results-list"
-                aria-autocomplete="list"
-                aria-haspopup="listbox"
-                aria-expanded="false"
-                spellcheck="false"
-                tabindex="-1"
-                role="combobox"
-                autocorrect="off"
-                autocomplete="off"
-                autocapitalize="off"
-                data-search="true"
-                aria-label="{{ 'aria-label.page-header-search' | t }}"
-              >
-
-              <div class="wt-header__search__clear-button__container">
-                <div
-                  class="wt-header__search__clear-button"
-                  role="button"
-                  aria-label="{{ 'aria-label.page-header-remove-all' | t }}"
-                  tabindex="-1"
-                >
-                  {% render 'icons', id: 'close' -%}
-                  <span class="text">{{ 'aria-label.page-header-toggle-menu' | t }}</span>
-                </div>
-              </div>
-              <button
-                aria-label="{{ 'aria-label.page-header-search' | t }}"
-                class="wt-header__search__button"
-                tabindex="-1"
-              >
-                {% render 'icons', id: 'search' -%}
-                <span class="text">{{ 'aria-label.page-header-search' | t }}</span>
-              </button>
-              <button
-                aria-label="{{ 'aria-label.page-header-close-search' | t }}"
-                class="wt-header__search__close"
-                tabindex="-1"
-              >
-                {% render 'icons', id: 'close' %}
-              </button>
-            </div>
-            <div class="wt-header__search__results">
-              <div class="predictive-search-status">
-                {% render 'search-top' %}
-              </div>
-
-              {% render 'loader' %}
-
-              <div class="search-result-wrapper" data-predictive-search></div>
-            </div>
-          </form>
-        </search-drawer>
+          {% render 'icons', id: 'search' %}
+        </div>
       </div>
 
       <h1 itemscope itemtype="http://schema.org/Organization" class="wt-header__logo">
@@ -1510,6 +1284,88 @@
 {%- if request.page_type != 'cart' -%}
   {%- render 'cart-notification' -%}
 {%- endif -%}
+
+<!-- =========================================================================
+     FULLSCREEN SEARCH DRAWER MODAL
+     ========================================================================= -->
+<search-drawer
+  class="wt-header__search wt-drawer-search"
+  id="wt-search-drawer"
+  data-loading-text="{{ 'accessibility.searching' | t }}"
+>
+  <form
+    class="wt-header__search__body store-search-form"
+    action="{{ routes.search_url }}"
+    method="get"
+    role="search"
+  >
+    <input type="hidden" name="type" value="product">
+
+    <div class="wt-header__search__form">
+      <label class="wt-header__icon wt-header__search__label" for="search-shop-modal">
+        {% render 'icons', id: 'search' %}
+        <span class="visually-hidden">{{ 'aria-label.page-header-search' | t }}</span>
+      </label>
+      <input
+        type="text"
+        placeholder="{{ section.settings.typing_search }}"
+        id="search-shop-modal"
+        name="q"
+        class="wt-header__search__field"
+        aria-controls="predictive-search-results-list"
+        aria-autocomplete="list"
+        aria-haspopup="listbox"
+        aria-expanded="false"
+        spellcheck="false"
+        tabindex="-1"
+        role="combobox"
+        autocorrect="off"
+        autocomplete="off"
+        autocapitalize="off"
+        data-search="true"
+        aria-label="{{ 'aria-label.page-header-search' | t }}"
+      >
+
+      <div class="wt-header__search__clear-button__container">
+        <div
+          class="wt-header__search__clear-button"
+          role="button"
+          aria-label="{{ 'aria-label.page-header-remove-all' | t }}"
+          tabindex="-1"
+        >
+          {% render 'icons', id: 'close' -%}
+          <span class="text">{{ 'aria-label.page-header-toggle-menu' | t }}</span>
+        </div>
+      </div>
+      <button
+        type="submit"
+        aria-label="{{ 'aria-label.page-header-search' | t }}"
+        class="wt-header__search__button"
+        tabindex="-1"
+      >
+        {% render 'icons', id: 'search' -%}
+        <span class="text">{{ 'aria-label.page-header-search' | t }}</span>
+      </button>
+      <button
+        type="button"
+        aria-label="{{ 'aria-label.page-header-close-search' | t }}"
+        class="wt-header__search__close"
+        tabindex="-1"
+      >
+        {% render 'icons', id: 'close' %}
+      </button>
+    </div>
+    <div class="wt-header__search__results">
+      <div class="predictive-search-status">
+        {% render 'search-top' %}
+      </div>
+
+      {% render 'loader' %}
+
+      <div class="search-result-wrapper" data-predictive-search></div>
+    </div>
+  </form>
+</search-drawer>
 
 <!-- =========================================================================
      MOBILE & DRAWER NAVIGATION

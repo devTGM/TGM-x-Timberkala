@@ -10,32 +10,35 @@ class DrawerSearchSection extends HTMLElement {
     this.activeOverlayBodyClass = `${this.pageOverlayClass}-on`;
     this.body = document.body;
 
-    this.triggerQuery = [
-      ".wt-header__search-trigger",
-      ".wt-header__search__close",
-    ].join(", ");
-    this.triggers = () => this.querySelectorAll(this.triggerQuery);
-
-    // search stuff
     this.cachedResults = {};
-    this.input = this.querySelector('input[name="q"]');
-    this.clearButton = this.querySelector(".wt-header__search__clear-button");
-    this.closeButton = this.querySelector(".wt-header__search__close");
-    this.predictiveSearchResults = this.querySelector(
-      "[data-predictive-search]",
-    );
-    this.mainTrigger = this.querySelector(".wt-header__search-trigger");
-    this.emptyAnnouncement = this.querySelector(".search-empty");
-
     this.isVisibleClearButton = false;
+    this.isInitialized = false;
 
     this.saveSuggestionMenuInDesignMode =
       this.saveSuggestionMenuInDesignMode.bind(this);
-    this.setupEventListeners();
+  }
 
-    this.toggleTabindexElements = [this.input, this.closeButton];
+  connectedCallback() {
+    if (document.body && this.parentElement && this.parentElement !== document.body) {
+      document.body.appendChild(this);
+      return;
+    }
 
-    this.init();
+    if (!this.isInitialized) {
+      this.isInitialized = true;
+      this.input = this.querySelector('input[name="q"]');
+      this.clearButton = this.querySelector(".wt-header__search__clear-button");
+      this.closeButton = this.querySelector(".wt-header__search__close");
+      this.predictiveSearchResults = this.querySelector(
+        "[data-predictive-search]",
+      );
+      this.mainTrigger = document.querySelector(".wt-header__search-trigger");
+      this.emptyAnnouncement = this.querySelector(".search-empty");
+      this.toggleTabindexElements = [this.input, this.closeButton].filter(Boolean);
+
+      this.setupEventListeners();
+      this.init();
+    }
   }
 
   getFocusableElements() {
@@ -53,66 +56,81 @@ class DrawerSearchSection extends HTMLElement {
     };
   }
 
-  // fixOverlayIssue() {
-  //     const body = this.body;
-  //
-  //     if(body.classList.contains(this.activeOverlayBodyClass)) {
-  //         const offsetTop = -parseInt(body.style.top);
-  //         body.style.position = 'initial';
-  //         body.style.top = 'initial';
-  //         body.style.left = 'initial';
-  //         window.scrollTo(0, offsetTop);
-  //
-  //     } else {
-  //         // body.style.top = -document.documentElement.scrollTop+'px';
-  //         // body.style.left = '0px';
-  //         // body.style.position = 'fixed';
-  //     }
-  // }
+  openDrawer() {
+    if (!this.isOpen) {
+      this.toggleDrawerClasses();
+    }
+  }
+
+  closeDrawer() {
+    if (this.isOpen) {
+      this.toggleDrawerClasses();
+    }
+  }
 
   onToggle() {
     if (this.hasAttribute("open")) {
       this.removeAttribute("open");
-      setTabindex(this.toggleTabindexElements, "-1");
-      setTabindex([this.mainTrigger], "0");
+      if (typeof setTabindex === "function") {
+        setTabindex(this.toggleTabindexElements, "-1");
+        if (this.mainTrigger) setTabindex([this.mainTrigger], "0");
+      }
       this.isOpen = false;
       setTimeout(() => {
-        this.mainTrigger.focus();
+        if (this.mainTrigger) this.mainTrigger.focus();
       }, 0);
     } else {
       this.setAttribute("open", "");
-      setTabindex(this.toggleTabindexElements, "0");
-      setTabindex([this.mainTrigger], "-1");
-      this.input.focus();
+      if (typeof setTabindex === "function") {
+        setTabindex(this.toggleTabindexElements, "0");
+        if (this.mainTrigger) setTabindex([this.mainTrigger], "-1");
+      }
+      if (this.input) {
+        setTimeout(() => {
+          this.input.focus();
+        }, 50);
+      }
       this.isOpen = true;
     }
   }
 
   toggleDrawerClasses() {
     this.onToggle();
-    // this.fixOverlayIssue();
     this.drawer.classList.toggle(this.classDrawerActive);
     this.body.classList.toggle(this.activeOverlayBodyClass);
   }
 
   init() {
-    this.triggers().forEach((trigger) => {
-      trigger.addEventListener("click", (e) => {
+    document.addEventListener("click", (e) => {
+      const trigger = e.target.closest(".wt-header__search-trigger");
+      if (trigger) {
         e.preventDefault();
-        this.toggleDrawerClasses();
-      });
+        this.openDrawer();
+      }
     });
 
-    this.clearButton.addEventListener("click", () => {
-      this.input.value = "";
-      this.clearButton.style.display = "none";
-      this.isVisibleClearButton = false;
-      this.clearResults();
-    });
+    if (this.closeButton) {
+      this.closeButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.closeDrawer();
+      });
+    }
+
+    if (this.clearButton) {
+      this.clearButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (this.input) this.input.value = "";
+        this.clearButton.style.display = "none";
+        this.isVisibleClearButton = false;
+        this.clearResults();
+      });
+    }
 
     this.addEventListener("click", (e) => {
       if (this.isOpen && e.target === this) {
-        this.toggleDrawerClasses();
+        this.closeDrawer();
       }
     });
 
@@ -123,7 +141,7 @@ class DrawerSearchSection extends HTMLElement {
 
       if (e.key === "Escape" || e.keyCode === 27 || e.code === "Escape") {
         if (this.isOpen) {
-          this.toggleDrawerClasses();
+          this.closeDrawer();
         }
       }
 
