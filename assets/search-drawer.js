@@ -4,7 +4,7 @@ class DrawerSearchSection extends HTMLElement {
 
     this.isOpen = false;
     this.drawerClass = "wt-drawer-search";
-    this.drawer = document.querySelector(`.${this.drawerClass}`);
+    this.drawer = this;
     this.classDrawerActive = `${this.drawerClass}--active`;
     this.pageOverlayClass = "search-overlay";
     this.activeOverlayBodyClass = `${this.pageOverlayClass}-on`;
@@ -14,7 +14,7 @@ class DrawerSearchSection extends HTMLElement {
       ".wt-header__search-trigger",
       ".wt-header__search__close",
     ].join(", ");
-    this.triggers = () => document.querySelectorAll(this.triggerQuery);
+    this.triggers = () => this.querySelectorAll(this.triggerQuery);
 
     // search stuff
     this.cachedResults = {};
@@ -108,6 +108,12 @@ class DrawerSearchSection extends HTMLElement {
       this.clearButton.style.display = "none";
       this.isVisibleClearButton = false;
       this.clearResults();
+    });
+
+    this.addEventListener("click", (e) => {
+      if (this.isOpen && e.target === this) {
+        this.toggleDrawerClasses();
+      }
     });
 
     this.addEventListener("keydown", (e) => {
