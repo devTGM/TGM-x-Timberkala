@@ -34,7 +34,12 @@
 {%- endif -%}
 
 {%- if settings.social_twitter_link != blank -%}
-  <meta name="twitter:site" content="{{ settings.social_twitter_link | split: 'twitter.com/' | last | prepend: '@' }}">
+  {%- if settings.social_twitter_link contains 'twitter.com' or settings.social_twitter_link contains 'x.com' -%}
+    {%- assign twitter_user = settings.social_twitter_link | split: 'twitter.com/' | last | split: 'x.com/' | last | split: '/' | first | split: '?' | first -%}
+    {%- if twitter_user != blank -%}
+      <meta name="twitter:site" content="@{{ twitter_user }}">
+    {%- endif -%}
+  {%- endif -%}
 {%- endif -%}
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ og_title | escape }}">

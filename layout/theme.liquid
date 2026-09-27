@@ -37,6 +37,7 @@
     {% endif %}
 <script src='https://bridge.shopflo.com/js/shopflo.bundle.js' async></script>
     {% render 'meta-tags' %}
+    {% render 'structured-data' %}
 
     {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag: preload: true }}
     {{ 'swiper.css' | asset_url | stylesheet_tag: preload: true }}
