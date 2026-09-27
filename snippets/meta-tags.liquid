@@ -45,172 +45,99 @@
 <meta name="twitter:title" content="{{ og_title | escape }}">
 <meta name="twitter:description" content="{{ og_description | escape }}">
 
+<!-- Google Brand Knowledge Graph & Merchant Entity -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": ["Organization", "OnlineStore"],
+  "@id": "https://www.timberkala.com/#organization",
+  "name": "Timberkala",
+  "alternateName": ["Timber Kala", "TIMBER KALA"],
+  "url": "https://www.timberkala.com",
+  "logo": "https://www.timberkala.com/cdn/shop/files/Timber_Kala_Logo_7b253cba-6ed5-4e44-b429-cb40810b296e.png",
+  "image": "https://www.timberkala.com/cdn/shop/files/Timber_Kala_Logo_7b253cba-6ed5-4e44-b429-cb40810b296e.png",
+  "description": "Discover handcrafted wooden home decor that blends tradition with modern elegance. Explore unique, artisan-made wall decor, figurines, and home accents at Timberkala.",
+  "email": "timberkala.marketing@gmail.com",
+  "currenciesAccepted": "INR",
+  "paymentAccepted": "Credit Card, Debit Card, UPI, Net Banking",
+  "priceRange": "₹₹",
+  "sameAs": [
+    "https://www.instagram.com/timber.kala/",
+    "https://www.facebook.com/Timberkala",
+    "https://www.youtube.com/timberkala"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "email": "timberkala.marketing@gmail.com",
+    "availableLanguage": ["en", "hi"]
+  }
+}
+</script>
+
+<!-- Google WebSite & Sitelinks SearchBox -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://www.timberkala.com/#website",
+  "url": "https://www.timberkala.com",
+  "name": "Timberkala",
+  "alternateName": ["Timber Kala", "TIMBER KALA"],
+  "description": "Discover handcrafted wooden home decor that blends tradition with modern elegance.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://www.timberkala.com/search?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+{%- if request.page_type == 'collection' -%}
+<!-- Google Breadcrumbs for Collection Sitelinks -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
     {
-      "@type": ["Organization", "OnlineStore"],
-      "@id": {{ shop.url | append: "/#organization" | json }},
-      "name": "Timberkala",
-      "alternateName": ["Timber Kala", "TIMBER KALA"],
-      "url": {{ shop.url | json }},
-      "logo": {
-        "@type": "ImageObject",
-        "@id": {{ shop.url | append: "/#logo" | json }},
-        "url": "https://www.timberkala.com/cdn/shop/files/Timber_Kala_Logo_7b253cba-6ed5-4e44-b429-cb40810b296e.png",
-        "contentUrl": "https://www.timberkala.com/cdn/shop/files/Timber_Kala_Logo_7b253cba-6ed5-4e44-b429-cb40810b296e.png",
-        "caption": "Timberkala - Handcrafted Wooden Decor"
-      },
-      "image": {
-        "@id": {{ shop.url | append: "/#logo" | json }}
-      },
-      "description": "Discover handcrafted wooden home decor that blends tradition with modern elegance. Explore unique, artisan-made wall decor, figurines, and home accents at Timberkala.",
-      "email": "timberkala.marketing@gmail.com",
-      "currenciesAccepted": "INR",
-      "paymentAccepted": "Credit Card, Debit Card, UPI, Net Banking",
-      "priceRange": "₹₹",
-      "sameAs": [
-        "https://www.instagram.com/timber.kala/",
-        "https://www.facebook.com/Timberkala",
-        "https://www.youtube.com/timberkala"
-      ],
-      "contactPoint": [
-        {
-          "@type": "ContactPoint",
-          "contactType": "customer service",
-          "email": "timberkala.marketing@gmail.com",
-          "availableLanguage": ["en", "hi"]
-        }
-      ]
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.timberkala.com"
     },
     {
-      "@type": "WebSite",
-      "@id": {{ shop.url | append: "/#website" | json }},
-      "url": {{ shop.url | json }},
-      "name": "Timberkala",
-      "alternateName": ["Timber Kala", "TIMBER KALA"],
-      "description": "Discover handcrafted wooden home decor that blends tradition with modern elegance.",
-      "publisher": {
-        "@id": {{ shop.url | append: "/#organization" | json }}
-      },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": {{ shop.url | append: "/search?q={search_term_string}" | json }}
-        },
-        "query-input": "required name=search_term_string"
-      }
-    }
-    {%- if template.name == 'collection' -%}
-    ,{
-      "@type": "CollectionPage",
-      "@id": {{ canonical_url | append: "/#collection" | json }},
-      "url": {{ canonical_url | json }},
+      "@type": "ListItem",
+      "position": 2,
       "name": {{ collection.title | json }},
-      "description": {{ collection.description | strip_html | truncate: 160 | default: page_description | default: collection.title | json }},
-      "isPartOf": {
-        "@id": {{ shop.url | append: "/#website" | json }}
-      }
+      "item": {{ canonical_url | json }}
     }
-    ,{
-      "@type": "BreadcrumbList",
-      "@id": {{ canonical_url | append: "/#breadcrumb" | json }},
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": {{ shop.url | json }}
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": {{ collection.title | json }},
-          "item": {{ canonical_url | json }}
-        }
-      ]
-    }
-    {%- elsif template.name == 'product' -%}
-    ,{
-      "@type": "BreadcrumbList",
-      "@id": {{ canonical_url | append: "/#breadcrumb" | json }},
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": {{ shop.url | json }}
-        }
-        {%- if collection -%}
-        ,{
-          "@type": "ListItem",
-          "position": 2,
-          "name": {{ collection.title | json }},
-          "item": {{ shop.url | append: collection.url | json }}
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": {{ product.title | json }},
-          "item": {{ canonical_url | json }}
-        }
-        {%- else -%}
-        ,{
-          "@type": "ListItem",
-          "position": 2,
-          "name": {{ product.title | json }},
-          "item": {{ canonical_url | json }}
-        }
-        {%- endif -%}
-      ]
-    }
-    {%- elsif template.name == 'page' -%}
-    ,{
-      "@type": "BreadcrumbList",
-      "@id": {{ canonical_url | append: "/#breadcrumb" | json }},
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": {{ shop.url | json }}
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": {{ page.title | json }},
-          "item": {{ canonical_url | json }}
-        }
-      ]
-    }
-    {%- elsif template.name == 'article' -%}
-    ,{
-      "@type": "BreadcrumbList",
-      "@id": {{ canonical_url | append: "/#breadcrumb" | json }},
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": {{ shop.url | json }}
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": {{ blog.title | json }},
-          "item": {{ shop.url | append: blog.url | json }}
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": {{ article.title | json }},
-          "item": {{ canonical_url | json }}
-        }
-      ]
-    }
-    {%- endif -%}
   ]
 }
 </script>
+{%- elsif request.page_type == 'product' -%}
+<!-- Google Breadcrumbs for Products -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.timberkala.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ product.title | json }},
+      "item": {{ canonical_url | json }}
+    }
+  ]
+}
+</script>
+{%- endif -%}
