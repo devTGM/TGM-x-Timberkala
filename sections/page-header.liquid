@@ -860,7 +860,11 @@
 
       <!-- CENTER: Centered Brand Logo -->
       <div class="wt-header__col wt-header__col--inova-center">
-        <h1 itemscope itemtype="http://schema.org/Organization" class="wt-header__logo inova-header__logo">
+        {%- if request.page_type == 'index' -%}
+          <h1 itemscope itemtype="http://schema.org/Organization" class="wt-header__logo inova-header__logo">
+        {%- else -%}
+          <div itemscope itemtype="http://schema.org/Organization" class="wt-header__logo inova-header__logo">
+        {%- endif -%}
           <a href="{{ routes.root_url }}" class="wt-header__logo__link inova-logo__link">
             {%- if section.settings.logo != blank -%}
               {%- assign large_image_size = section.settings.large_screen_logo_width | default: 220 -%}
@@ -889,7 +893,11 @@
               <span class="wt-header__logo__text inova-brand-text">{{ section.settings.inova_logo_text | default: 'I N O V A' }}</span>
             {%- endif -%}
           </a>
-        </h1>
+        {%- if request.page_type == 'index' -%}
+          </h1>
+        {%- else -%}
+          </div>
+        {%- endif -%}
       </div>
 
       <!-- RIGHT: Currency Selector Pill + Search + Account + Cart -->
@@ -1018,7 +1026,11 @@
           {% render 'icons', id: 'bars' %}
         </a>
 
-        <h1 itemscope itemtype="http://schema.org/Organization" class="wt-header__logo">
+        {%- if request.page_type == 'index' -%}
+          <h1 itemscope itemtype="http://schema.org/Organization" class="wt-header__logo">
+        {%- else -%}
+          <div itemscope itemtype="http://schema.org/Organization" class="wt-header__logo">
+        {%- endif -%}
           <a
             href="{{ routes.root_url }}"
             class="wt-header__logo__link"
@@ -1051,7 +1063,11 @@
               <span class="wt-header__logo__text">{{ shop.name }}</span>
             {%- endif -%}
           </a>
-        </h1>
+        {%- if request.page_type == 'index' -%}
+          </h1>
+        {%- else -%}
+          </div>
+        {%- endif -%}
       </div>
 
       <!-- CENTER: Desktop Navigation Menu -->
@@ -1199,7 +1215,11 @@
         </div>
       </div>
 
-      <h1 itemscope itemtype="http://schema.org/Organization" class="wt-header__logo">
+      {%- if request.page_type == 'index' -%}
+        <h1 itemscope itemtype="http://schema.org/Organization" class="wt-header__logo">
+      {%- else -%}
+        <div itemscope itemtype="http://schema.org/Organization" class="wt-header__logo">
+      {%- endif -%}
         <a
           href="{{ routes.root_url }}"
           class="wt-header__logo__link"
@@ -1257,7 +1277,11 @@
             {{ shop.name }}
           {%- endif -%}
         </a>
-      </h1>
+      {%- if request.page_type == 'index' -%}
+        </h1>
+      {%- else -%}
+        </div>
+      {%- endif -%}
 
       <ul class="wt-header__panel wt-header__panel--no-labels">
         {%- if shop.customer_accounts_enabled -%}

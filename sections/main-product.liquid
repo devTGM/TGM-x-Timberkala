@@ -734,6 +734,47 @@
                                 <div class="wt-collapse__target" id="Description-{{ block.id }}">
                                     <div class="wt-collapse__target--text">
                                         {{ product.description }}
+
+                                        <div class="tk-product-specifications" style="margin-top: 22px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 16px;">
+                                            <h4 style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; color: #1a1a1a;">
+                                                📐 Specifications & Craftsmanship
+                                            </h4>
+                                            <table class="tk-spec-table" style="width: 100%; border-collapse: collapse; font-size: 13px; line-height: 1.5; color: #333;">
+                                                <tbody>
+                                                    <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
+                                                        <td style="padding: 8px 12px 8px 0; font-weight: 600; color: #666; width: 38%;">Material</td>
+                                                        <td style="padding: 8px 0;">100% Solid Reclaimed Teak Wood & Natural Driftwood</td>
+                                                    </tr>
+                                                    <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
+                                                        <td style="padding: 8px 12px 8px 0; font-weight: 600; color: #666;">Craftsmanship</td>
+                                                        <td style="padding: 8px 0;">Hand-carved & Hand-finished by Indian Master Artisans</td>
+                                                    </tr>
+                                                    {%- assign size_opt = product.options_by_name['Size'] -%}
+                                                    {%- if size_opt and size_opt.values.size > 0 -%}
+                                                    <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
+                                                        <td style="padding: 8px 12px 8px 0; font-weight: 600; color: #666;">Available Sizes</td>
+                                                        <td style="padding: 8px 0;">{{ size_opt.values | join: ', ' }}</td>
+                                                    </tr>
+                                                    {%- endif -%}
+                                                    <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
+                                                        <td style="padding: 8px 12px 8px 0; font-weight: 600; color: #666;">Finish & Protection</td>
+                                                        <td style="padding: 8px 0;">Organic Bio-Wax Sealant (Naturally Termite & Borer Proof)</td>
+                                                    </tr>
+                                                    <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
+                                                        <td style="padding: 8px 12px 8px 0; font-weight: 600; color: #666;">Installation / Mount</td>
+                                                        <td style="padding: 8px 0;">Reinforced Keyhole Wall Mount / Solid Tabletop Base</td>
+                                                    </tr>
+                                                    <tr style="border-bottom: 1px solid rgba(0,0,0,0.06);">
+                                                        <td style="padding: 8px 12px 8px 0; font-weight: 600; color: #666;">Care Guide</td>
+                                                        <td style="padding: 8px 0;">Dust gently with dry microfiber cloth; avoid harsh chemicals</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="padding: 8px 12px 8px 0; font-weight: 600; color: #666;">Country of Origin</td>
+                                                        <td style="padding: 8px 0;">India (Handcrafted Local Heritage)</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </collapsible-section>
@@ -998,6 +1039,59 @@
                                                                                             checked
                                                                                         {% endif %}
                                                                                 >
+                                                                                {%- assign display_value = value -%}
+                                                                                {%- assign opt_name_lower = option.name | downcase -%}
+                                                                                {%- if opt_name_lower == 'color' -%}
+                                                                                  {%- assign val_lower = value | downcase -%}
+                                                                                  {%- if val_lower contains 'blue' and val_lower contains 'white' and val_lower contains 'pink' -%}
+                                                                                    {%- assign display_value = 'Blue White Pink' -%}
+                                                                                  {%- elsif val_lower contains 'blue' and val_lower contains 'wings' -%}
+                                                                                    {%- assign display_value = 'Blue Wings' -%}
+                                                                                  {%- elsif val_lower contains 'dark' and val_lower contains 'blue' -%}
+                                                                                    {%- assign display_value = 'Dark Blue' -%}
+                                                                                  {%- elsif val_lower contains 'light' and val_lower contains 'blue' -%}
+                                                                                    {%- assign display_value = 'Light Blue' -%}
+                                                                                  {%- elsif val_lower contains 'blue' -%}
+                                                                                    {%- assign display_value = 'Blue' -%}
+                                                                                  {%- elsif val_lower contains 'turquiose' or val_lower contains 'turquoise' -%}
+                                                                                    {%- assign display_value = 'Turquoise' -%}
+                                                                                  {%- elsif val_lower contains 'whitewash' or val_lower contains 'white wash' -%}
+                                                                                    {%- assign display_value = 'White Wash' -%}
+                                                                                  {%- elsif val_lower contains 'white' -%}
+                                                                                    {%- assign display_value = 'White' -%}
+                                                                                  {%- elsif val_lower contains 'brown' -%}
+                                                                                    {%- assign display_value = 'Brown' -%}
+                                                                                  {%- elsif val_lower contains 'natural' -%}
+                                                                                    {%- assign display_value = 'Natural' -%}
+                                                                                  {%- elsif val_lower contains 'pink' -%}
+                                                                                    {%- assign display_value = 'Pink' -%}
+                                                                                  {%- elsif val_lower contains 'sea' and val_lower contains 'green' -%}
+                                                                                    {%- assign display_value = 'Sea Green' -%}
+                                                                                  {%- elsif val_lower contains 'green' -%}
+                                                                                    {%- assign display_value = 'Green' -%}
+                                                                                  {%- elsif val_lower contains 'grey' or val_lower contains 'gray' -%}
+                                                                                    {%- assign display_value = 'Grey' -%}
+                                                                                  {%- elsif val_lower contains 'black' -%}
+                                                                                    {%- assign display_value = 'Black' -%}
+                                                                                  {%- elsif val_lower contains 'yellow' or val_lower contains 'mustard' -%}
+                                                                                    {%- assign display_value = 'Mustard' -%}
+                                                                                  {%- elsif val_lower contains 'gold' -%}
+                                                                                    {%- assign display_value = 'Gold' -%}
+                                                                                  {%- elsif val_lower contains 'silver' -%}
+                                                                                    {%- assign display_value = 'Silver' -%}
+                                                                                  {%- elsif val_lower contains 'mario' -%}
+                                                                                    {%- assign display_value = 'Mario' -%}
+                                                                                  {%- elsif val_lower contains 'lawyer' -%}
+                                                                                    {%- assign display_value = 'Lawyer' -%}
+                                                                                  {%- elsif val_lower contains 'fireman' -%}
+                                                                                    {%- assign display_value = 'Fireman' -%}
+                                                                                  {%- elsif val_lower contains 'snooker' -%}
+                                                                                    {%- assign display_value = 'Snooker' -%}
+                                                                                  {%- endif -%}
+                                                                                {%- else -%}
+                                                                                  {%- assign display_value = value | replace: '_', ' ' -%}
+                                                                                {%- endif -%}
+
                                                                                 {%- case picker_type -%}
                                                                                     {%- when 'dropdown' -%}
                                                                                         <label
@@ -1005,7 +1099,7 @@
                                                                                                 class="{{ options_container_class }}__list__link"
                                                                                                 for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
                                                                                         >
-                                                                                            <span>{{ value }}</span>
+                                                                                            <span>{{ display_value }}</span>
                                                                                         </label>
                                                                                     {%- when 'button' -%}
                                                                                         <label
@@ -1013,7 +1107,7 @@
                                                                                                 class="{{ options_container_class }}__list__link  {% if settings.enable_round_color_swatches %} rounded {% endif %}"
                                                                                                 for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
                                                                                         >
-                                                                                            {{ value }}
+                                                                                            {{ display_value }}
                                                                                         </label>
                                                                                     {%- when 'variant_picture' -%}
                                                                                         <label
@@ -1535,8 +1629,19 @@
     {%- endif %}
     "brand": {
       "@type": "Brand",
-      "name": {{ product.vendor | json }}
+      "name": {{ product.vendor | default: "Timberkala" | json }}
     },
+    {%- assign review_count = product.metafields.reviews.rating_count.value | default: product.metafields.reviews.rating_count | plus: 0 -%}
+    {%- assign rating_val = product.metafields.reviews.rating.value.rating | default: product.metafields.reviews.rating.value | plus: 0 -%}
+    {%- if review_count > 0 and rating_val > 0 -%}
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": {{ rating_val | json }},
+      "reviewCount": {{ review_count | json }},
+      "bestRating": 5,
+      "worstRating": 1
+    },
+    {%- endif -%}
     "offers": [
     {%- for variant in product.variants -%}
         {
@@ -1556,7 +1661,43 @@
           "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
           "price" : {{ variant.price | divided_by: 100.00 | json }},
           "priceCurrency" : {{ cart.currency.iso_code | json }},
-          "url" : {{ request.origin | append: variant.url | json }}
+          "priceValidUntil": "{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' }}",
+          "url" : {{ request.origin | append: variant.url | json }},
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0.00",
+              "currency": {{ cart.currency.iso_code | json }}
+            },
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "IN"
+            },
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": {
+                "@type": "QuantitativeValue",
+                "minValue": 1,
+                "maxValue": 2,
+                "unitCode": "d"
+              },
+              "transitTime": {
+                "@type": "QuantitativeValue",
+                "minValue": 3,
+                "maxValue": 7,
+                "unitCode": "d"
+              }
+            }
+          },
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "IN",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+            "merchantReturnDays": 7,
+            "returnMethod": "https://schema.org/ReturnByMail",
+            "returnFees": "https://schema.org/FreeReturn"
+          }
         }{% unless forloop.last %},{% endunless %}
     {%- endfor -%}
     ]

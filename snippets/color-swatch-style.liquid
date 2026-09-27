@@ -21,10 +21,40 @@
 
   {%- assign color_value_downcase = value | downcase -%}
 
+  {%- if color_value_downcase contains 'blue' -%}
+    {%- assign base_color = '#2563eb' -%}
+  {%- elsif color_value_downcase contains 'turquiose' or color_value_downcase contains 'turquoise' -%}
+    {%- assign base_color = '#14b8a6' -%}
+  {%- elsif color_value_downcase contains 'whitewash' or color_value_downcase contains 'white wash' -%}
+    {%- assign base_color = '#f8f6f0' -%}
+  {%- elsif color_value_downcase contains 'white' -%}
+    {%- assign base_color = '#ffffff' -%}
+  {%- elsif color_value_downcase contains 'brown' or color_value_downcase contains 'wood' or color_value_downcase contains 'walnut' -%}
+    {%- assign base_color = '#78350f' -%}
+  {%- elsif color_value_downcase contains 'natural' or color_value_downcase contains 'teak' -%}
+    {%- assign base_color = '#b48a60' -%}
+  {%- elsif color_value_downcase contains 'pink' -%}
+    {%- assign base_color = '#ec4899' -%}
+  {%- elsif color_value_downcase contains 'green' -%}
+    {%- assign base_color = '#15803d' -%}
+  {%- elsif color_value_downcase contains 'grey' or color_value_downcase contains 'gray' -%}
+    {%- assign base_color = '#64748b' -%}
+  {%- elsif color_value_downcase contains 'black' -%}
+    {%- assign base_color = '#1e293b' -%}
+  {%- elsif color_value_downcase contains 'yellow' or color_value_downcase contains 'mustard' -%}
+    {%- assign base_color = '#eab308' -%}
+  {%- elsif color_value_downcase contains 'gold' -%}
+    {%- assign base_color = '#d4af37' -%}
+  {%- elsif color_value_downcase contains 'silver' -%}
+    {%- assign base_color = '#94a3b8' -%}
+  {%- else -%}
+    {%- assign base_color = color_value_downcase -%}
+  {%- endif -%}
+
   {% if only_color %}
-    {%- assign color_swatch_style = color_value_downcase -%}
+    {%- assign color_swatch_style = base_color -%}
   {% else %}
-    {%- assign color_swatch_style = 'background-color: ' | append: color_value_downcase -%}
+    {%- assign color_swatch_style = 'background-color: ' | append: base_color -%}
   {% endif %}
 
   {%- for color_swatch_item in swatches_config -%}

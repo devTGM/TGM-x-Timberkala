@@ -6422,11 +6422,11 @@ input.disabled + .f-swatch__list__link .f-swatch__list__link__content {
   width: 100%;
   bottom: 0;
   left: 0;
-  z-index: 10;
+  z-index: 100;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s;
-  transition-delay: 1s;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(100%);
 }
 @media (min-width: 900px) {
   .wt-product__sticky-buy {
@@ -6437,6 +6437,7 @@ input.disabled + .f-swatch__list__link .f-swatch__list__link__content {
 .wt-product__sticky-buy--show {
   opacity: 1;
   visibility: visible;
+  transform: translateY(0);
 }
 .wt-product__sticky-buy--show svg {
   margin-right: 8px;

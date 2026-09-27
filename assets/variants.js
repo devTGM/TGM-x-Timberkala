@@ -1,3 +1,67 @@
+function formatVariantLabel(val, optionName) {
+  if (!val || val === "Default Title") return val || "";
+
+  const specialMap = {
+    "LAWYER": "Lawyer",
+    "FIREMAN": "Fireman",
+    "SNOOKER": "Snooker",
+    "LINERED": "Line Red",
+    "MARIO_HANDCRAFTED_HERO": "Mario",
+    "GROOT_HANDCRAFTED_HERO": "Groot",
+    "POKEMON_HANDCRAFTED_HERO": "Pokemon",
+    "SPONGEBOB_HANDCRAFTED_HERO": "Spongebob",
+    "BATMAN": "Batman",
+    "CaptainAmerica": "Captain America",
+    "BICYCLE": "Bicycle",
+    "ElvisPresly": "Elvis Presley",
+    "GRADUATION": "Graduation",
+    "FISHERMAN": "Fisherman",
+    "whitetipsyduck": "White",
+    "blacktipsyduck": "Black",
+    "MediumShawnTheSheep": "Medium",
+    "LargeShawnTheSheep": "Large",
+    "SmallDriftWoodBowl": "Small",
+    "BigDriftWoodBowl": "Large",
+    "MukhaBuddhaForDecor": "Natural Finish"
+  };
+  if (specialMap[val]) return specialMap[val];
+
+  let cleaned = val.replace(/_/g, " ").trim();
+
+  const colors = [
+    "Turquiose Blue Natural", "Blue White Pink", "Pink White Turquiose",
+    "White Wash", "WhiteWash", "Dark Blue", "DarkBlue", "Light Blue", "LightBlue",
+    "Sea Green", "SeaGreen", "Blue Wings", "BlueWings", "Turquiose", "Turquoise",
+    "Blue", "Brown", "White", "Natural", "Pink", "Green", "Grey", "Gray",
+    "Black", "Yellow", "Orange", "Mustard", "Gold", "Silver", "Multicolor"
+  ];
+
+  const optLower = (optionName || "").toLowerCase();
+  if (optLower === "color" || !optionName) {
+    for (const c of colors) {
+      const regex = new RegExp("^" + c + "(?=[A-Z_\\s]|$)", "i");
+      if (regex.test(cleaned)) {
+        let std = c
+          .replace(/Turquiose/gi, "Turquoise")
+          .replace(/WhiteWash/gi, "White Wash")
+          .replace(/BlueWings/gi, "Blue Wings")
+          .replace(/([a-z])([A-Z])/g, "$1 $2");
+        return std;
+      }
+    }
+  }
+
+  let formatted = cleaned
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/([A-Z]+)([A-Z][a-z])/g, "$1 $2")
+    .replace(/Turquiose/gi, "Turquoise");
+
+  return formatted
+    .split(/\s+/)
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join(" ");
+}
+
 if (!customElements.get("variant-options")) {
   customElements.define(
     "variant-options",
@@ -22,10 +86,23 @@ if (!customElements.get("variant-options")) {
       disconnectedCallback() {}
 
       initialize() {
+        this.sanitizeLabels();
         this.updateOptions();
         this.updateMasterId();
         this.updateGallery();
         this.updateVariantStatuses();
+      }
+
+      sanitizeLabels() {
+        this.querySelectorAll(".wt-product__option").forEach((fieldset) => {
+          const optionLabel = fieldset.querySelector(".wt-product__option__title .label")?.textContent?.replace(":", "")?.trim();
+          fieldset.querySelectorAll(".f-button__list__link, .drawer__list__link span").forEach((labelEl) => {
+            const rawVal = labelEl.textContent.trim();
+            if (rawVal) {
+              labelEl.textContent = formatVariantLabel(rawVal, optionLabel);
+            }
+          });
+        });
       }
 
       onKeyDown(event) {
@@ -96,13 +173,16 @@ if (!customElements.get("variant-options")) {
 
         fieldsets.forEach((fieldset, index) => {
           const selectedOption = this.options[index];
-          fieldset.querySelector(
-            ".wt-product__option__title .value",
-          ).innerHTML = selectedOption;
+          const optionLabel = fieldset.querySelector(".wt-product__option__title .label")?.textContent?.replace(":", "")?.trim();
+          const cleanOption = formatVariantLabel(selectedOption, optionLabel);
+
+          const valueEl = fieldset.querySelector(".wt-product__option__title .value");
+          if (valueEl) valueEl.innerHTML = cleanOption;
+
           const dropdown = fieldset.querySelector(
             ".wt-product__option__dropdown span",
           );
-          if (dropdown) dropdown.innerHTML = selectedOption;
+          if (dropdown) dropdown.innerHTML = cleanOption;
         });
       }
 

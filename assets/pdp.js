@@ -13,37 +13,44 @@ class StickyBuyButton extends HTMLElement {
     const addToCartModule = document.querySelector(".wt-product__add-to-cart");
     const btn = this.querySelector("button");
 
-    const forObserver = document.querySelectorAll(
-      ".wt-product__add-to-cart, .wt-footer, .wt-product__name",
-    );
+    let mainAtcVisible = false;
+    let footerVisible = false;
 
-    let intersected = [];
-
-    btn.addEventListener("click", (e) => {
+    btn?.addEventListener("click", (e) => {
       e.preventDefault();
-      addToCartModule.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(({ isIntersecting, target }) => {
-        isIntersecting
-          ? intersected.push(target)
-          : (intersected = intersected.filter((item) => item !== target));
-      });
-
-      if (intersected.length) {
-        this.classList.remove(this.activeClass);
-      } else {
-        this.classList.add(this.activeClass);
+      const realAddBtn = addToCartModule?.querySelector("button[type='submit'], .button--primary, button");
+      if (realAddBtn && !realAddBtn.disabled) {
+        realAddBtn.click();
+      } else if (addToCartModule) {
+        addToCartModule.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
       }
     });
 
-    forObserver.forEach((item) => {
-      observer.observe(item);
+    const checkVisibility = () => {
+      if (!mainAtcVisible && !footerVisible) {
+        this.classList.add(this.activeClass);
+      } else {
+        this.classList.remove(this.activeClass);
+      }
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(({ isIntersecting, target }) => {
+        if (target.matches(".wt-footer, .inova-footer, footer")) {
+          footerVisible = isIntersecting;
+        } else if (target.matches(".wt-product__add-to-cart")) {
+          mainAtcVisible = isIntersecting;
+        }
+      });
+      checkVisibility();
     });
+
+    if (addToCartModule) observer.observe(addToCartModule);
+    const footer = document.querySelector(".wt-footer, .inova-footer, footer");
+    if (footer) observer.observe(footer);
   }
 }
 

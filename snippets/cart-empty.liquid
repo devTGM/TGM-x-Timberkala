@@ -2,7 +2,7 @@
   <div class="wt-cart__header__icon">
     {% render 'icons', id: 'bag', icon_class: 'wt-cart__header__icon-bag' %}
   </div>
-  <h1 class="wt-drawer__title__text">{{ 'sections.cart.empty' | t }}</h1>
+  <div class="wt-drawer__title__text" role="heading" aria-level="2">{{ 'sections.cart.empty' | t }}</div>
   <a
     href="{{ routes.root_url }}"
     class="button hero__button hero__button--primary button--continue-shopping "

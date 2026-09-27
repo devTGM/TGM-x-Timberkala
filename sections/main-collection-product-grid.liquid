@@ -35,7 +35,7 @@
   {% assign section_variant = '' %}
 {% endif %}
 
-{%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+{%- assign sort_by = collection.sort_by | default: 'best-selling' -%}
 
 {%- capture filters_json -%}
 {{ collection.filters | json }}
