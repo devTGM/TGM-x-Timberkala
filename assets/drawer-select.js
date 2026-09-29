@@ -146,8 +146,9 @@ if (!customElements.get("drawer-select")) {
         };
       }
 
-      setOption(event) {
-        const target = event.currentTarget || event;
+      // Internal: updates UI + hidden input without moving focus.
+      // Called on init (preselectFirstOption) to avoid scroll-on-load.
+      _applyOption(target) {
         const value = target.dataset.value.trim();
 
         this.triggerLabel.innerHTML = `<span class="value">${value}</span>`;
@@ -163,6 +164,13 @@ if (!customElements.get("drawer-select")) {
 
         this.updateHiddenInput(value);
         this.closeDrawer();
+      }
+
+      // Public: called on user interaction — updates UI and returns focus to trigger.
+      setOption(event) {
+        const target = event.currentTarget || event;
+        this._applyOption(target);
+        // Only focus the trigger when the user has interacted (not on init)
         this.trigger.focus();
       }
 
@@ -176,10 +184,11 @@ if (!customElements.get("drawer-select")) {
         const currentOption = this.container.querySelector(
           ".wt-select__item--current",
         );
+        // Use _applyOption (no focus) during init to prevent scroll-on-load
         if (currentOption) {
-          this.setOption(currentOption);
+          this._applyOption(currentOption);
         } else if (this.options[0]) {
-          this.setOption(this.options[0]);
+          this._applyOption(this.options[0]);
         }
       }
 

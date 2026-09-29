@@ -296,6 +296,16 @@
         {% render 'icons', id: 'close' %}
       </button>
     </div>
+
+    <!-- Quick category chips: visible when search is empty -->
+    {%- if section.settings.suggestions_menu != blank -%}
+      <div class="inova-search__quick-chips" aria-label="Browse categories">
+        {%- for link in section.settings.suggestions_menu.links limit: 8 -%}
+          <a href="{{ link.url }}" class="inova-search__chip" tabindex="-1">{{ link.title }}</a>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
     <div class="wt-header__search__results">
       <div class="predictive-search-status">
         {% render 'search-top' %}
@@ -316,8 +326,23 @@
   id="wt-drawer-nav"
 >
   <div class="wt-drawer__content">
-    <div class="wt-drawer__title">
-      <div class="wt-drawer__title__text">{{ section.settings.drawer_title }}</div>
+    <div class="wt-drawer__title wt-drawer__title--with-logo">
+      <!-- Mobile Drawer Header: Logo + Home Link -->
+      <a href="{{ routes.root_url }}" class="wt-drawer__logo-link" aria-label="{{ shop.name }} — Home" tabindex="-1">
+        {%- if section.settings.logo != blank -%}
+          {%- assign drawer_logo_size = section.settings.mobile_screen_logo_width | default: 120 -%}
+          <img
+            src="{{ section.settings.logo | image_url: width: drawer_logo_size }}"
+            alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
+            class="wt-drawer__logo-img"
+            width="{{ drawer_logo_size }}"
+            height="auto"
+            loading="lazy"
+          >
+        {%- else -%}
+          <span class="wt-drawer__logo-text">{{ section.settings.inova_logo_text | default: shop.name }}</span>
+        {%- endif -%}
+      </a>
       <div
         class="wt-drawer__close"
         tabindex="-1"

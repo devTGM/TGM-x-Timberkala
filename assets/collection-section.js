@@ -123,7 +123,8 @@ class CollectionSection extends HTMLElement {
         setTabindex(this.sectionsTriggers(), "0");
         setTabindex(this.toggleDrawerElements(), "0");
       } else {
-        this.getTrigger()?.focus();
+        // NOTE: Removed getTrigger().focus() — it was causing auto-scroll to
+        // the filter button on every collection page load on desktop.
         this.temporaryHideFocusVisible();
         setTabindex(this.sectionsTriggers(), "-1");
         setTabindex(this.toggleDrawerElements(), "-1");
@@ -145,17 +146,22 @@ class CollectionSection extends HTMLElement {
     }
 
     if (this.isOpen()) {
-      // close drawer
-      const offsetTop = -parseInt(document.body.style.top, 10);
+      // close drawer — restore scroll position that was saved when drawer opened
+      const savedTop = parseInt(document.body.style.top, 10) || 0;
+      const offsetTop = -savedTop;
       document.body.style.position = "";
       document.body.style.top = "";
       document.body.style.left = "";
-      window.scrollTo(0, offsetTop);
+      // Only restore if we actually had a non-zero saved position
+      if (offsetTop > 0) {
+        window.scrollTo(0, offsetTop);
+      }
 
       this.closeAllCollapsibleSections();
     } else {
-      // open drawer
-      document.body.style.top = `${-document.documentElement.scrollTop}px`;
+      // open drawer — lock body at current scroll position
+      const currentTop = document.documentElement.scrollTop || document.body.scrollTop;
+      document.body.style.top = `${-currentTop}px`;
       document.body.style.left = "0px";
     }
 

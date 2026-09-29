@@ -5577,3 +5577,109 @@ search-drawer.wt-drawer-search--active,
   }
 }
 
+
+/* ==========================================================================
+   MOBILE DRAWER HEADER: LOGO + HOME LINK
+   ========================================================================== */
+
+.wt-drawer__title--with-logo {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 12px 20px !important;
+  border-bottom: 1px solid #eeebe6 !important;
+  background: #faf8f5 !important;
+  flex-shrink: 0 !important;
+  min-height: 56px !important;
+  box-sizing: border-box !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+}
+
+.wt-drawer__logo-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+}
+
+.wt-drawer__logo-img {
+  display: block !important;
+  max-height: 40px !important;
+  width: auto !important;
+  max-width: 160px !important;
+  object-fit: contain !important;
+  object-position: left center !important;
+}
+
+.wt-drawer__logo-text {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  color: #1a1a1a !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* ==========================================================================
+   SEARCH DRAWER: QUICK CATEGORY CHIPS
+   ========================================================================== */
+
+.inova-search__quick-chips {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  padding: 16px 24px 12px !important;
+  align-items: center !important;
+  transition: opacity 0.2s ease !important;
+}
+
+search-drawer[results] .inova-search__quick-chips {
+  display: none !important;
+}
+
+.inova-search__chip {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 6px 14px !important;
+  border-radius: 100px !important;
+  border: 1.5px solid #d4b896 !important;
+  background: #faf8f5 !important;
+  color: #4a3728 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  transition: all 0.18s ease !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+}
+
+.inova-search__chip:hover {
+  background: #7b5454 !important;
+  border-color: #7b5454 !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 3px 10px rgba(123, 84, 84, 0.25) !important;
+}
+
+.inova-search__chip:active {
+  transform: translateY(0) !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 768px) {
+  .inova-search__quick-chips {
+    padding: 12px 16px 10px !important;
+    gap: 6px !important;
+  }
+  .inova-search__chip {
+    font-size: 11px !important;
+    padding: 5px 11px !important;
+  }
+}

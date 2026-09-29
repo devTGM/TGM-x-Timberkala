@@ -67,9 +67,6 @@
             type="text"
             name="q"
             value="{{ search.terms | escape }}"
-            {% if search.performed %}
-              autofocus
-            {% endif %}
             placeholder="{{ 'general.search.search' | t }}"
             data-search="true"
           >
