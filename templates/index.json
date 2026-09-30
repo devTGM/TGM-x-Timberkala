@@ -35,6 +35,7 @@
           "type": "category_card",
           "settings": {
             "collection": "bird-figurines-1",
+            "image": "shopify://shop_images/ChatGPTImageSep29_2026at07_54_07PM-2.webp",
             "title": "BIRD FIGURINES 🦩",
             "subtitle": "ADD THE PERFECT TOUCH OF NATURE",
             "button_link": ""
@@ -43,9 +44,9 @@
         "category_card_PEFFXN": {
           "type": "category_card",
           "settings": {
-            "collection": "wall-accents",
-            "image": "shopify://shop_images/DSC08376.jpg",
-            "title": "Wall Decor 🪵",
+            "collection": "ducks",
+            "image": "shopify://shop_images/C16D6104-5265-4E80-BB8C-CAC9E9533142.webp",
+            "title": "WHAT THE DUCKS",
             "subtitle": "TOUCHES THAT ADD CHARACTER",
             "button_link": ""
           }

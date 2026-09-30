@@ -362,7 +362,7 @@
       ],
       "custom_css": [],
       "settings": {
-        "layout": "option_inova",
+        "layout": "option_inline",
         "header_padding_vertical_desktop": 18,
         "header_padding_vertical_mobile": 12,
         "header_max_width": "1440px",
@@ -384,7 +384,7 @@
         "menu_font_weight": "500",
         "menu_text_transform": "uppercase",
         "menu_letter_spacing": 1,
-        "teaser_menu": "main-header-mobile-nav-copy",
+        "teaser_menu": "main-header",
         "mobile_footer_menu": "mobile-footer-menu",
         "transparent_header_color": "#222321",
         "drawer_title": "Shop by",
