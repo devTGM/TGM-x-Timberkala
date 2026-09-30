@@ -384,13 +384,13 @@
         "menu_font_weight": "500",
         "menu_text_transform": "uppercase",
         "menu_letter_spacing": 1,
-        "teaser_menu": "main-header",
+        "teaser_menu": "main-header-mobile-nav-copy",
         "mobile_footer_menu": "mobile-footer-menu",
         "transparent_header_color": "#222321",
         "drawer_title": "Shop by",
         "typing_search": "Search products...",
         "suggestions_title": "",
-        "suggestions_menu": "main-header-mobile-nav-copy"
+        "suggestions_menu": "main-header"
       }
     },
     "custom_liquid_9gjUz7": {
