@@ -122,25 +122,36 @@
     justify-content: center !important;
     text-align: center !important;
     margin: 0 auto !important;
-    width: var(--logo-width-mobile, 130px) !important;
-    max-width: 100% !important;
-    min-height: auto !important;
+    width: auto !important;
+    max-width: var(--logo-width-mobile, 145px) !important;
+    min-height: var(--logo-max-height-mob, 42px) !important;
     text-decoration: none !important;
     color: inherit !important;
   }
 
-  .wt-header__col--left .wt-header__logo__img--mobile {
+  /* Hide desktop logo on mobile screens (< 990px) */
+  .wt-header__col--left .wt-header__logo__img:not(.wt-header__logo__img--mobile):not(.inova-logo-mob),
+  .wt-header .wt-header__logo__img:not(.wt-header__logo__img--mobile):not(.inova-logo-mob) {
+    display: none !important;
+  }
+
+  /* Show mobile logo on mobile screens (< 990px) */
+  .wt-header__col--left .wt-header__logo__img.wt-header__logo__img--mobile,
+  .wt-header__col--left .wt-header__logo__img--mobile,
+  .wt-header__col--left .inova-logo-mob,
+  .wt-header .wt-header__logo__img.wt-header__logo__img--mobile,
+  .wt-header .wt-header__logo__img--mobile,
+  .wt-header .inova-logo-mob {
     display: block !important;
-    width: 100% !important;
+    width: auto !important;
+    max-width: var(--logo-width-mobile, 145px) !important;
     height: auto !important;
     max-height: var(--logo-max-height-mob, 48px) !important;
     object-fit: contain !important;
     object-position: center !important;
     margin: 0 auto !important;
-  }
-
-  .wt-header__col--left .wt-header__logo__img {
-    display: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 }
 
@@ -183,7 +194,9 @@
     margin: 0 !important;
   }
 
-  .wt-header__col--left .wt-header__logo__img--mobile {
+  .wt-header__col--left .wt-header__logo__img--mobile,
+  .wt-header .wt-header__logo__img--mobile,
+  .inova-logo-mob {
     display: none !important;
   }
 }
@@ -1657,16 +1670,44 @@ video.inova-media-element,
     left: 50% !important;
     top: 50% !important;
     transform: translate(-50%, -50%) !important;
+    z-index: 5 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    max-width: calc(100% - 130px) !important;
+  }
+
+  .wt-header__col--inova-center .wt-header__logo,
+  .wt-header__col--inova-center .inova-header__logo {
+    position: static !important;
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .inova-logo-desk {
     display: none !important;
   }
 
-  .inova-logo-mob {
+  .inova-logo-mob,
+  .wt-header__logo__img.inova-logo-mob,
+  .wt-header__logo__img--mobile {
     display: block !important;
-    max-height: 40px !important;
+    max-height: var(--logo-max-height-mob, 42px) !important;
+    max-width: var(--logo-width-mobile, 145px) !important;
     width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    margin: 0 auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   .inova-currency-pill {
@@ -2144,24 +2185,31 @@ body {
     top: 50% !important;
     transform: translate(-50%, -50%) !important;
     margin: 0 !important;
-    z-index: 4 !important;
+    z-index: 5 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
-  .wt-header--inline .wt-header__logo__img--mobile {
+  .wt-header--inline .wt-header__logo__img:not(.wt-header__logo__img--mobile):not(.inova-logo-mob) {
+    display: none !important;
+  }
+
+  .wt-header--inline .wt-header__logo__img.wt-header__logo__img--mobile,
+  .wt-header--inline .wt-header__logo__img--mobile,
+  .wt-header--inline .inova-logo-mob {
     display: block !important;
     height: auto !important;
     max-height: var(--logo-max-height-mob, 50px) !important;
     width: auto !important;
     max-width: var(--logo-width-mobile, 160px) !important;
     object-fit: contain !important;
+    object-position: center !important;
     margin: 0 auto !important;
-  }
-
-  .wt-header--inline .wt-header__logo__img:not(.wt-header__logo__img--mobile) {
-    display: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
 
   .wt-header--inline .wt-header__col--center {
@@ -5683,3 +5731,72 @@ search-drawer[results] .inova-search__quick-chips {
     padding: 5px 11px !important;
   }
 }
+
+/* ==========================================================================
+   MOBILE HEADER LOGO DISPLAY GUARANTEE (< 990px)
+   Ensures brand logo is always visible, crisp, and centered on all mobile views
+   ========================================================================== */
+@media (max-width: 989px) {
+  /* Hide desktop logo images on mobile */
+  .wt-header .wt-header__logo__img:not(.wt-header__logo__img--mobile):not(.inova-logo-mob),
+  .wt-header .inova-logo-desk {
+    display: none !important;
+  }
+
+  /* Show and center mobile logo */
+  .wt-header .wt-header__logo__img.wt-header__logo__img--mobile,
+  .wt-header .wt-header__logo__img--mobile,
+  .wt-header .inova-logo-mob,
+  .wt-header .wt-header__logo__img.inova-logo-mob {
+    display: block !important;
+    width: auto !important;
+    max-width: var(--logo-width-mobile, 145px) !important;
+    height: auto !important;
+    max-height: var(--logo-max-height-mob, 46px) !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    margin: 0 auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Ensure logo container is centered in header bar */
+  .wt-header .wt-header__logo,
+  .wt-header__body .wt-header__logo,
+  .wt-header__col--left .wt-header__logo,
+  .wt-header--inline .wt-header__logo {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    max-width: calc(100% - 130px) !important;
+    z-index: 5 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .wt-header__col--inova-center .wt-header__logo {
+    position: static !important;
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+  }
+
+  .wt-header .wt-header__logo__link {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: auto !important;
+    max-width: var(--logo-width-mobile, 145px) !important;
+    min-height: 32px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+

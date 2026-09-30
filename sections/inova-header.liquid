@@ -113,10 +113,11 @@
             <img
               srcset="{{ section.settings.logo | image_url: width: mobile_image_size }} 1x, {{ section.settings.logo | image_url: width: mobile_image_size_double }} 2x"
               src="{{ section.settings.logo | image_url: width: mobile_image_size }}"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               width="{{ section.settings.logo.width }}"
               height="{{ section.settings.logo.height }}"
-              class="wt-header__logo__img inova-logo-mob"
+              class="wt-header__logo__img inova-logo-mob wt-header__logo__img--mobile"
               alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
             >
           {%- else -%}

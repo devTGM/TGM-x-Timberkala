@@ -137,18 +137,31 @@
       color: inherit !important;
     }
 
-    .wt-header__col--left .wt-header__logo__img--mobile {
+    /* Hide desktop logo on mobile screens (< 990px) */
+    .wt-header__col--left .wt-header__logo__img:not(.wt-header__logo__img--mobile):not(.inova-logo-mob),
+    .wt-header .wt-header__logo__img:not(.wt-header__logo__img--mobile):not(.inova-logo-mob),
+    .inova-logo-desk {
+      display: none !important;
+    }
+
+    /* Force mobile logo display and proper centering on mobile */
+    .wt-header__col--left .wt-header__logo__img.wt-header__logo__img--mobile,
+    .wt-header__col--left .wt-header__logo__img--mobile,
+    .wt-header__col--left .inova-logo-mob,
+    .wt-header .wt-header__logo__img.wt-header__logo__img--mobile,
+    .wt-header .wt-header__logo__img--mobile,
+    .wt-header .inova-logo-mob,
+    .wt-header .wt-header__logo__img.inova-logo-mob {
       display: block !important;
-      width: 100% !important;
+      width: auto !important;
+      max-width: var(--logo-width-mobile, 140px) !important;
       height: auto !important;
       max-height: var(--logo-max-height-mob, 50px) !important;
       object-fit: contain !important;
       object-position: center !important;
       margin: 0 auto !important;
-    }
-
-    .wt-header__col--left .wt-header__logo__img {
-      display: none !important;
+      visibility: visible !important;
+      opacity: 1 !important;
     }
   }
 
@@ -212,7 +225,9 @@
 
     .wt-header__col--left .wt-header__logo__img--mobile,
     .wt-header--inline .wt-header__body--inline .wt-header__logo__img--mobile,
-    .wt-header--inline .wt-header__body--inline .wt-header__logo__img.wt-header__logo__img--mobile {
+    .wt-header--inline .wt-header__body--inline .wt-header__logo__img.wt-header__logo__img--mobile,
+    .wt-header .inova-logo-mob,
+    .inova-logo-mob {
       display: none !important;
     }
   }
@@ -883,10 +898,11 @@
               <img
                 srcset="{{ section.settings.logo | image_url: width: mobile_image_size }} 1x, {{ section.settings.logo | image_url: width: mobile_image_size_double }} 2x"
                 src="{{ section.settings.logo | image_url: width: mobile_image_size }}"
-                loading="lazy"
+                loading="eager"
+                fetchpriority="high"
                 width="{{ section.settings.logo.width }}"
                 height="{{ section.settings.logo.height }}"
-                class="wt-header__logo__img inova-logo-mob"
+                class="wt-header__logo__img inova-logo-mob wt-header__logo__img--mobile"
                 alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
               >
             {%- else -%}
@@ -1053,10 +1069,11 @@
               <img
                 srcset="{{ section.settings.logo | image_url: width: mobile_image_size }} 1x, {{ section.settings.logo | image_url: width: mobile_image_size_double }} 2x"
                 src="{{ section.settings.logo | image_url: width: mobile_image_size }}"
-                loading="lazy"
+                loading="eager"
+                fetchpriority="high"
                 width="{{ section.settings.logo.width }}"
                 height="{{ section.settings.logo.height }}"
-                class="wt-header__logo__img wt-header__logo__img--mobile"
+                class="wt-header__logo__img wt-header__logo__img--mobile inova-logo-mob"
                 alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
               >
             {%- else -%}
@@ -1253,10 +1270,11 @@
               <img
                 srcset="{{ section.settings.logo | image_url: width: mobile_image_size }} 1x, {{ section.settings.logo | image_url: width: mobile_image_size_double }} 2x"
                 src="{{ section.settings.logo | image_url: width: mobile_image_size }}"
-                loading="lazy"
+                loading="eager"
+                fetchpriority="high"
                 width="{{ section.settings.logo.width }}"
                 height="{{ section.settings.logo.height }}"
-                class="wt-header__logo__img wt-header__logo__img--mobile"
+                class="wt-header__logo__img wt-header__logo__img--mobile inova-logo-mob"
                 alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
               >
             {% endif %}
