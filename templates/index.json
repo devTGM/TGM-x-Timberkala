@@ -164,7 +164,7 @@
         "products_to_show": 24,
         "show_view_all": true,
         "button_select": "primary",
-        "number_of_column_desktop": 3,
+        "number_of_column_desktop": 5,
         "spacing_desktop": "16",
         "make_products_full_width": true,
         "number_of_column_mobile": 2.1,
