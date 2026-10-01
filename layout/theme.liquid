@@ -304,6 +304,101 @@
         fill: currentColor !important;
       }
 
+      /* ── TIMBERKALA MOBILE HEADER LOGO GUARANTEE (Global High Specificity) ── */
+      @media (max-width: 989px) {
+        /* Hide desktop logo images on mobile */
+        html body #header .wt-header__logo__link img:first-child:not(:only-child),
+        html body .wt-header .wt-header__logo__link img:first-child:not(:only-child),
+        html body .wt-header .wt-header__logo__img:not(.wt-header__logo__img--mobile):not(.inova-logo-mob),
+        html body .wt-header .inova-logo-desk {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          height: 0 !important;
+          width: 0 !important;
+          pointer-events: none !important;
+        }
+
+        /* Center the brand logo in the mobile header bar */
+        html body #header.wt-header .wt-header__logo,
+        html body #header .wt-header__col--left .wt-header__logo,
+        html body #header .wt-header__col--inova-center .wt-header__logo,
+        html body #header .wt-header__body .wt-header__logo,
+        html body .wt-header .wt-header__col--left .wt-header__logo,
+        html body .wt-header .wt-header__logo {
+          position: absolute !important;
+          left: 50% !important;
+          top: 50% !important;
+          transform: translate(-50%, -50%) !important;
+          display: flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          margin: 0 auto !important;
+          padding: 0 !important;
+          max-width: calc(100vw - 140px) !important;
+          z-index: 99 !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          pointer-events: auto !important;
+          text-align: center !important;
+        }
+
+        html body #header.wt-header .wt-header__logo__link,
+        html body #header .wt-header__logo__link,
+        html body .wt-header .wt-header__logo__link {
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          margin: 0 auto !important;
+          padding: 0 !important;
+          text-align: center !important;
+          width: auto !important;
+          max-width: var(--logo-width-mobile, 145px) !important;
+          min-height: 32px !important;
+          text-decoration: none !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+        }
+
+        /* Force mobile logo image display with ultra-high specificity */
+        html body #header .wt-header__col--left img.wt-header__logo__img.wt-header__logo__img--mobile,
+        html body #header .wt-header__col--left img.wt-header__logo__img--mobile,
+        html body #header .wt-header__col--left .wt-header__logo__img--mobile,
+        html body #header .wt-header .wt-header__logo__img--mobile,
+        html body #header .wt-header__logo__link img:last-child,
+        html body .wt-header .wt-header__col--left img.wt-header__logo__img.wt-header__logo__img--mobile,
+        html body .wt-header .wt-header__col--left img.wt-header__logo__img--mobile,
+        html body .wt-header .wt-header__col--left .wt-header__logo__img--mobile,
+        html body .wt-header .wt-header__logo__img--mobile,
+        html body .wt-header .inova-logo-mob,
+        html body .wt-header .wt-header__logo__img.inova-logo-mob,
+        html body .wt-header .wt-header__logo__link img:last-child,
+        html body .wt-header__logo img:last-child {
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          height: auto !important;
+          max-height: 44px !important;
+          width: auto !important;
+          max-width: 145px !important;
+          object-fit: contain !important;
+          object-position: center !important;
+          margin: 0 auto !important;
+        }
+
+        /* Ensure header row allows absolute centering overflow */
+        html body #header .wt-header__body,
+        html body .wt-header .wt-header__body {
+          position: relative !important;
+          overflow: visible !important;
+        }
+
+        html body #header .wt-header__col--left,
+        html body .wt-header .wt-header__col--left {
+          overflow: visible !important;
+        }
+      }
+
       /* Navigation dropdowns and mobile navigation drawer */
       body .wt-header__nav__dropdown,
       body .wt-header__dropdown,
@@ -1426,34 +1521,197 @@ btn.addEventListener("click", () => {
     }
   }, { passive: true });
 })();
+<!-- =========================================================================
+     TIMBERKALA MOBILE HEADER LOGO BULLETPROOF ENFORCER
+     Ensures logo is centered, visible, and never hidden by any CSS cascade
+     ========================================================================= -->
+<style id="timberkala-mobile-logo-force">
+  @media (max-width: 989px) {
+    /* Hide desktop logo on mobile */
+    html body #header .wt-header__logo__link img:first-child:not(:only-child),
+    html body .wt-header .wt-header__logo__link img:first-child:not(:only-child),
+    html body .wt-header .wt-header__logo__img:not(.wt-header__logo__img--mobile):not(.inova-logo-mob),
+    html body .wt-header .inova-logo-desk {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+
+    /* Force mobile logo container centered */
+    html body #header.wt-header .wt-header__logo,
+    html body #header .wt-header__col--left .wt-header__logo,
+    html body #header .wt-header__body .wt-header__logo,
+    html body .wt-header .wt-header__col--left .wt-header__logo,
+    html body .wt-header .wt-header__logo {
+      position: absolute !important;
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin: 0 auto !important;
+      padding: 0 !important;
+      max-width: calc(100vw - 140px) !important;
+      z-index: 99 !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      text-align: center !important;
+    }
+
+    html body #header.wt-header .wt-header__logo__link,
+    html body #header .wt-header__logo__link,
+    html body .wt-header .wt-header__logo__link {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      margin: 0 auto !important;
+      padding: 0 !important;
+      text-align: center !important;
+      width: auto !important;
+      max-width: var(--logo-width-mobile, 145px) !important;
+      min-height: 32px !important;
+      text-decoration: none !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+    }
+
+    /* Force mobile logo image visible with extreme specificity */
+    html body #header .wt-header__col--left img.wt-header__logo__img.wt-header__logo__img--mobile,
+    html body #header .wt-header__col--left img.wt-header__logo__img--mobile,
+    html body #header .wt-header__col--left .wt-header__logo__img--mobile,
+    html body #header .wt-header .wt-header__logo__img--mobile,
+    html body #header .wt-header__logo__link img:last-child,
+    html body .wt-header .wt-header__col--left img.wt-header__logo__img.wt-header__logo__img--mobile,
+    html body .wt-header .wt-header__col--left img.wt-header__logo__img--mobile,
+    html body .wt-header .wt-header__col--left .wt-header__logo__img--mobile,
+    html body .wt-header .wt-header__logo__img--mobile,
+    html body .wt-header .inova-logo-mob,
+    html body .wt-header .wt-header__logo__img.inova-logo-mob,
+    html body .wt-header .wt-header__logo__link img:last-child,
+    html body .wt-header__logo img:last-child {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      height: auto !important;
+      max-height: 44px !important;
+      width: auto !important;
+      max-width: 145px !important;
+      object-fit: contain !important;
+      object-position: center !important;
+      margin: 0 auto !important;
+    }
+  }
+</style>
+
+<script id="timberkala-mobile-logo-enforcer">
+(function() {
+  function enforceMobileLogo() {
+    var isMobile = window.innerWidth < 990;
+    var headers = document.querySelectorAll('.wt-header, page-header, #header');
+    if (!headers.length) return;
+
+    headers.forEach(function(header) {
+      var logoContainer = header.querySelector('.wt-header__logo, .inova-header__logo');
+      var logoLink = header.querySelector('.wt-header__logo__link, .inova-logo__link');
+      var images = header.querySelectorAll('.wt-header__logo img, .inova-header__logo img');
+
+      if (!isMobile) {
+        if (logoContainer) {
+          logoContainer.style.removeProperty('position');
+          logoContainer.style.removeProperty('left');
+          logoContainer.style.removeProperty('top');
+          logoContainer.style.removeProperty('transform');
+          logoContainer.style.removeProperty('z-index');
+        }
+        if (images.length >= 2) {
+          images[0].style.removeProperty('display');
+          images[0].style.removeProperty('visibility');
+          images[1].style.removeProperty('display');
+          images[1].style.removeProperty('visibility');
+        }
+        return;
+      }
+
+      // Mobile view (< 990px)
+      if (logoContainer) {
+        logoContainer.style.setProperty('position', 'absolute', 'important');
+        logoContainer.style.setProperty('left', '50%', 'important');
+        logoContainer.style.setProperty('top', '50%', 'important');
+        logoContainer.style.setProperty('transform', 'translate(-50%, -50%)', 'important');
+        logoContainer.style.setProperty('display', 'flex', 'important');
+        logoContainer.style.setProperty('align-items', 'center', 'important');
+        logoContainer.style.setProperty('justify-content', 'center', 'important');
+        logoContainer.style.setProperty('margin', '0 auto', 'important');
+        logoContainer.style.setProperty('padding', '0', 'important');
+        logoContainer.style.setProperty('max-width', 'calc(100vw - 140px)', 'important');
+        logoContainer.style.setProperty('z-index', '99', 'important');
+        logoContainer.style.setProperty('visibility', 'visible', 'important');
+        logoContainer.style.setProperty('opacity', '1', 'important');
+        logoContainer.style.setProperty('pointer-events', 'auto', 'important');
+      }
+
+      if (logoLink) {
+        logoLink.style.setProperty('display', 'inline-flex', 'important');
+        logoLink.style.setProperty('align-items', 'center', 'important');
+        logoLink.style.setProperty('justify-content', 'center', 'important');
+        logoLink.style.setProperty('visibility', 'visible', 'important');
+        logoLink.style.setProperty('opacity', '1', 'important');
+        logoLink.style.setProperty('width', 'auto', 'important');
+      }
+
+      if (images.length >= 2) {
+        images[0].style.setProperty('display', 'none', 'important');
+        images[0].style.setProperty('visibility', 'hidden', 'important');
+        images[0].style.setProperty('opacity', '0', 'important');
+
+        var mob = images[1];
+        mob.style.setProperty('display', 'block', 'important');
+        mob.style.setProperty('visibility', 'visible', 'important');
+        mob.style.setProperty('opacity', '1', 'important');
+        mob.style.setProperty('height', 'auto', 'important');
+        mob.style.setProperty('max-height', '44px', 'important');
+        mob.style.setProperty('width', 'auto', 'important');
+        mob.style.setProperty('max-width', '145px', 'important');
+        mob.style.setProperty('object-fit', 'contain', 'important');
+        mob.style.setProperty('object-position', 'center', 'important');
+        mob.style.setProperty('margin', '0 auto', 'important');
+      } else if (images.length === 1) {
+        var single = images[0];
+        single.style.setProperty('display', 'block', 'important');
+        single.style.setProperty('visibility', 'visible', 'important');
+        single.style.setProperty('opacity', '1', 'important');
+        single.style.setProperty('height', 'auto', 'important');
+        single.style.setProperty('max-height', '44px', 'important');
+        single.style.setProperty('width', 'auto', 'important');
+        single.style.setProperty('max-width', '145px', 'important');
+        single.style.setProperty('object-fit', 'contain', 'important');
+        single.style.setProperty('object-position', 'center', 'important');
+        single.style.setProperty('margin', '0 auto', 'important');
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', enforceMobileLogo);
+  } else {
+    enforceMobileLogo();
+  }
+  window.addEventListener('load', enforceMobileLogo, { passive: true });
+  window.addEventListener('resize', enforceMobileLogo, { passive: true });
+  [50, 150, 300, 600, 1000, 2000].forEach(function(delay) {
+    setTimeout(enforceMobileLogo, delay);
+  });
+
+  if (typeof MutationObserver !== 'undefined') {
+    var observer = new MutationObserver(function() {
+      enforceMobileLogo();
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+  }
+})();
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </body>
