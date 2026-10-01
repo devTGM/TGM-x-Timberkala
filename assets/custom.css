@@ -144,11 +144,13 @@
   .wt-header .inova-logo-mob {
     display: block !important;
     width: auto !important;
-    max-width: var(--logo-width-mobile, 145px) !important;
-    height: auto !important;
-    max-height: var(--logo-max-height-mob, 48px) !important;
+    max-width: var(--logo-width-mobile, 175px) !important;
+    height: 62px !important;
+    max-height: var(--logo-max-height-mob, 68px) !important;
     object-fit: contain !important;
     object-position: center !important;
+    transform: scale(1.15) !important;
+    transform-origin: center center !important;
     margin: 0 auto !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -2201,12 +2203,14 @@ body {
   .wt-header--inline .wt-header__logo__img--mobile,
   .wt-header--inline .inova-logo-mob {
     display: block !important;
-    height: auto !important;
-    max-height: var(--logo-max-height-mob, 50px) !important;
+    height: 62px !important;
+    max-height: var(--logo-max-height-mob, 68px) !important;
     width: auto !important;
-    max-width: var(--logo-width-mobile, 160px) !important;
+    max-width: var(--logo-width-mobile, 175px) !important;
     object-fit: contain !important;
     object-position: center !important;
+    transform: scale(1.15) !important;
+    transform-origin: center center !important;
     margin: 0 auto !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -5750,11 +5754,13 @@ search-drawer[results] .inova-search__quick-chips {
   .wt-header .wt-header__logo__img.inova-logo-mob {
     display: block !important;
     width: auto !important;
-    max-width: var(--logo-width-mobile, 145px) !important;
-    height: auto !important;
-    max-height: var(--logo-max-height-mob, 46px) !important;
+    max-width: var(--logo-width-mobile, 175px) !important;
+    height: 62px !important;
+    max-height: var(--logo-max-height-mob, 68px) !important;
     object-fit: contain !important;
     object-position: center !important;
+    transform: scale(1.15) !important;
+    transform-origin: center center !important;
     margin: 0 auto !important;
     visibility: visible !important;
     opacity: 1 !important;

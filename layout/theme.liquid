@@ -377,12 +377,14 @@
           display: block !important;
           visibility: visible !important;
           opacity: 1 !important;
-          height: auto !important;
-          max-height: 44px !important;
+          height: 62px !important;
+          max-height: 68px !important;
           width: auto !important;
-          max-width: 145px !important;
+          max-width: 175px !important;
           object-fit: contain !important;
           object-position: center !important;
+          transform: scale(1.15) !important;
+          transform-origin: center center !important;
           margin: 0 auto !important;
         }
 
@@ -1594,12 +1596,14 @@ btn.addEventListener("click", () => {
       display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
-      height: auto !important;
-      max-height: 44px !important;
+      height: 62px !important;
+      max-height: 68px !important;
       width: auto !important;
-      max-width: 145px !important;
+      max-width: 175px !important;
       object-fit: contain !important;
       object-position: center !important;
+      transform: scale(1.15) !important;
+      transform-origin: center center !important;
       margin: 0 auto !important;
     }
   }
@@ -1630,6 +1634,9 @@ btn.addEventListener("click", () => {
           images[0].style.removeProperty('visibility');
           images[1].style.removeProperty('display');
           images[1].style.removeProperty('visibility');
+          images[1].style.removeProperty('height');
+          images[1].style.removeProperty('max-height');
+          images[1].style.removeProperty('transform');
         }
         return;
       }
@@ -1670,24 +1677,28 @@ btn.addEventListener("click", () => {
         mob.style.setProperty('display', 'block', 'important');
         mob.style.setProperty('visibility', 'visible', 'important');
         mob.style.setProperty('opacity', '1', 'important');
-        mob.style.setProperty('height', 'auto', 'important');
-        mob.style.setProperty('max-height', '44px', 'important');
+        mob.style.setProperty('height', '62px', 'important');
+        mob.style.setProperty('max-height', '68px', 'important');
         mob.style.setProperty('width', 'auto', 'important');
-        mob.style.setProperty('max-width', '145px', 'important');
+        mob.style.setProperty('max-width', '175px', 'important');
         mob.style.setProperty('object-fit', 'contain', 'important');
         mob.style.setProperty('object-position', 'center', 'important');
+        mob.style.setProperty('transform', 'scale(1.15)', 'important');
+        mob.style.setProperty('transform-origin', 'center center', 'important');
         mob.style.setProperty('margin', '0 auto', 'important');
       } else if (images.length === 1) {
         var single = images[0];
         single.style.setProperty('display', 'block', 'important');
         single.style.setProperty('visibility', 'visible', 'important');
         single.style.setProperty('opacity', '1', 'important');
-        single.style.setProperty('height', 'auto', 'important');
-        single.style.setProperty('max-height', '44px', 'important');
+        single.style.setProperty('height', '62px', 'important');
+        single.style.setProperty('max-height', '68px', 'important');
         single.style.setProperty('width', 'auto', 'important');
-        single.style.setProperty('max-width', '145px', 'important');
+        single.style.setProperty('max-width', '175px', 'important');
         single.style.setProperty('object-fit', 'contain', 'important');
         single.style.setProperty('object-position', 'center', 'important');
+        single.style.setProperty('transform', 'scale(1.15)', 'important');
+        single.style.setProperty('transform-origin', 'center center', 'important');
         single.style.setProperty('margin', '0 auto', 'important');
       }
     });
