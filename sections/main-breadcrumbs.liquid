@@ -22,15 +22,53 @@
     {% endif %}
   }
 
+  [data-section-id="{{ section.id }}"] .breadcrumbs {
+    box-sizing: border-box !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 14px !important;
+    padding-bottom: 12px !important;
+  }
+  @media (min-width: 768px) {
+    [data-section-id="{{ section.id }}"] .breadcrumbs {
+      padding-left: 24px !important;
+      padding-right: 24px !important;
+      padding-top: 16px !important;
+      padding-bottom: 14px !important;
+    }
+  }
+  @media (min-width: 1200px) {
+    [data-section-id="{{ section.id }}"] .breadcrumbs {
+      padding-left: 32px !important;
+      padding-right: 32px !important;
+      padding-top: 18px !important;
+      padding-bottom: 16px !important;
+    }
+  }
+
   body.template-product [data-section-id="{{ section.id }}"].breadcrumbs__wrapper {
     padding-top: 6px !important;
     padding-bottom: 0px !important;
     margin-bottom: 0px !important;
   }
   body.template-product [data-section-id="{{ section.id }}"] .breadcrumbs {
-    padding-top: 0px !important;
-    padding-bottom: 0px !important;
+    padding-top: 8px !important;
+    padding-bottom: 4px !important;
     margin-bottom: 0px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  @media (min-width: 768px) {
+    body.template-product [data-section-id="{{ section.id }}"] .breadcrumbs {
+      padding-left: 24px !important;
+      padding-right: 24px !important;
+    }
+  }
+  @media (min-width: 1200px) {
+    body.template-product [data-section-id="{{ section.id }}"] .breadcrumbs {
+      padding-left: 32px !important;
+      padding-right: 32px !important;
+    }
   }
 </style>
 <div class="breadcrumbs__wrapper" data-section-id="{{ section.id }}">
