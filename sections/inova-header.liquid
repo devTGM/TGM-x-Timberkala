@@ -298,22 +298,18 @@
       </button>
     </div>
 
-    <!-- Quick category chips: visible when search is empty -->
-    {%- if section.settings.suggestions_menu != blank -%}
-      <div class="inova-search__quick-chips" aria-label="Browse categories">
-        {%- for link in section.settings.suggestions_menu.links limit: 8 -%}
-          <a href="{{ link.url }}" class="inova-search__chip" tabindex="-1">{{ link.title }}</a>
-        {%- endfor -%}
-      </div>
-    {%- endif -%}
-
     <div class="wt-header__search__results">
-      <div class="predictive-search-status">
+      <!-- Search suggestions (popular category circles, visible when search input is empty) -->
+      <div class="search-top-suggestions-wrapper">
         {% render 'search-top' %}
       </div>
 
+      <!-- ARIA live region for screen-reader announcements (isolated from suggestions) -->
+      <div class="predictive-search-status visually-hidden" role="status" aria-live="polite"></div>
+
       {% render 'loader' %}
 
+      <!-- Dynamic predictive search results container -->
       <div class="search-result-wrapper" data-predictive-search></div>
     </div>
   </form>

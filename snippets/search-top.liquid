@@ -1,32 +1,127 @@
-<div class="search-result-top__title">{{ section.settings.suggestions_title }}</div>
+{%- assign suggestions_title = section.settings.suggestions_title | strip -%}
+{%- if suggestions_title == blank -%}
+  {%- assign suggestions_title = 'Explore Collections' -%}
+{%- endif -%}
 
-<ul class="search-result-top__list collection-list">
-  {%- for link in section.settings.suggestions_menu.links -%}
-    <li class="search-result-top__item {% if link.links.size > 0 %}search-result-top__item--row {% endif %} collection-list__item">
-      {% if link.links.size > 0 %}
-        <a class="headline__title" href="{{ link.url }}"> {{ link.title }}</a>
-        <div class="search-result-top__item__sublinks">
-          {% for sublink in link.links %}
-            <div class="search-result-top__item__sublink">
-              {% if sublink.type == 'product_link' or sublink.type == 'collection_link' %}
-                {% render 'card',
-                  img: sublink.object.featured_image,
-                  url: sublink.object.url,
-                  title: sublink.object.title
-                %}
-              {% else %}
-                <a class="card__title" href="{{ sublink.url }}"> {{ sublink.title }}</a>
-              {% endif %}
+<div class="search-result-top__header">
+  <h3 class="search-result-top__title">{{ suggestions_title }}</h3>
+</div>
+
+<ul class="search-result-top__list" role="list">
+  {%- assign rendered_count = 0 -%}
+
+  {%- if section.settings.suggestions_menu != blank and section.settings.suggestions_menu.links.size > 0 -%}
+    {%- for link in section.settings.suggestions_menu.links -%}
+      {%- if link.links.size > 0 -%}
+        {%- for sublink in link.links -%}
+          {%- assign rendered_count = rendered_count | plus: 1 -%}
+          {%- assign card_img = blank -%}
+          {%- if sublink.type == 'collection_link' and sublink.object != blank -%}
+            {%- assign card_img = sublink.object.image | default: sublink.object.featured_image | default: sublink.object.products.first.featured_image -%}
+          {%- elsif sublink.type == 'product_link' and sublink.object != blank -%}
+            {%- assign card_img = sublink.object.featured_image | default: sublink.object.featured_media.preview_image -%}
+          {%- else -%}
+            {%- assign col_handle = sublink.url | split: '/collections/' | last | split: '?' | first | split: '/' | first -%}
+            {%- if collections[col_handle] != blank -%}
+              {%- assign card_img = collections[col_handle].image | default: collections[col_handle].featured_image | default: collections[col_handle].products.first.featured_image -%}
+            {%- endif -%}
+          {%- endif -%}
+
+          <li class="search-result-top__item">
+            <a class="search-suggest-card" href="{{ sublink.url }}" title="{{ sublink.title | escape }}">
+              <div class="search-suggest-card__avatar">
+                {%- if card_img != blank -%}
+                  <img
+                    src="{{ card_img | image_url: width: 140, height: 140, crop: 'center' }}"
+                    srcset="{{ card_img | image_url: width: 80, height: 80, crop: 'center' }} 80w, {{ card_img | image_url: width: 140, height: 140, crop: 'center' }} 140w"
+                    sizes="(max-width: 640px) 56px, 64px"
+                    alt="{{ sublink.title | escape }}"
+                    width="64"
+                    height="64"
+                    loading="lazy"
+                    class="search-suggest-card__img"
+                  >
+                {%- else -%}
+                  <div class="search-suggest-card__placeholder">
+                    <span>{{ sublink.title | slice: 0, 1 | upcase }}</span>
+                  </div>
+                {%- endif -%}
+              </div>
+              <span class="search-suggest-card__title">{{ sublink.title }}</span>
+            </a>
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        {%- assign rendered_count = rendered_count | plus: 1 -%}
+        {%- assign card_img = blank -%}
+        {%- if link.type == 'collection_link' and link.object != blank -%}
+          {%- assign card_img = link.object.image | default: link.object.featured_image | default: link.object.products.first.featured_image -%}
+        {%- elsif link.type == 'product_link' and link.object != blank -%}
+          {%- assign card_img = link.object.featured_image | default: link.object.featured_media.preview_image -%}
+        {%- else -%}
+          {%- assign col_handle = link.url | split: '/collections/' | last | split: '?' | first | split: '/' | first -%}
+          {%- if collections[col_handle] != blank -%}
+            {%- assign card_img = collections[col_handle].image | default: collections[col_handle].featured_image | default: collections[col_handle].products.first.featured_image -%}
+          {%- endif -%}
+        {%- endif -%}
+
+        <li class="search-result-top__item">
+          <a class="search-suggest-card" href="{{ link.url }}" title="{{ link.title | escape }}">
+            <div class="search-suggest-card__avatar">
+              {%- if card_img != blank -%}
+                <img
+                  src="{{ card_img | image_url: width: 140, height: 140, crop: 'center' }}"
+                  srcset="{{ card_img | image_url: width: 80, height: 80, crop: 'center' }} 80w, {{ card_img | image_url: width: 140, height: 140, crop: 'center' }} 140w"
+                  sizes="(max-width: 640px) 56px, 64px"
+                  alt="{{ link.title | escape }}"
+                  width="64"
+                  height="64"
+                  loading="lazy"
+                  class="search-suggest-card__img"
+                >
+              {%- else -%}
+                <div class="search-suggest-card__placeholder">
+                  <span>{{ link.title | slice: 0, 1 | upcase }}</span>
+                </div>
+              {%- endif -%}
             </div>
-          {% endfor %}
-        </div>
-      {% else %}
-        {% if link.type == 'product_link' or link.type == 'collection_link' %}
-          {% render 'card', img: link.object.featured_image, url: link.object.url, title: link.object.title %}
-        {% else %}
-          <a class="card__title" href="{{ link.url }}"> {{ link.title }}</a>
-        {% endif %}
-      {% endif %}
-    </li>
-  {%- endfor -%}
+            <span class="search-suggest-card__title">{{ link.title }}</span>
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- if rendered_count == 0 -%}
+    {%- assign fallback_handles = 'all-products,wall-accents,animal-and-bird-figurines,furniture,table-decor,mini-masterpieces,gifting,accessories,wind-chimes,festive-collection,combo-collection' | split: ',' -%}
+    {%- for handle in fallback_handles -%}
+      {%- assign col = collections[handle] -%}
+      {%- if col != blank -%}
+        {%- assign card_img = col.image | default: col.featured_image | default: col.products.first.featured_image -%}
+        <li class="search-result-top__item">
+          <a class="search-suggest-card" href="{{ col.url }}" title="{{ col.title | escape }}">
+            <div class="search-suggest-card__avatar">
+              {%- if card_img != blank -%}
+                <img
+                  src="{{ card_img | image_url: width: 140, height: 140, crop: 'center' }}"
+                  srcset="{{ card_img | image_url: width: 80, height: 80, crop: 'center' }} 80w, {{ card_img | image_url: width: 140, height: 140, crop: 'center' }} 140w"
+                  sizes="(max-width: 640px) 56px, 64px"
+                  alt="{{ col.title | escape }}"
+                  width="64"
+                  height="64"
+                  loading="lazy"
+                  class="search-suggest-card__img"
+                >
+              {%- else -%}
+                <div class="search-suggest-card__placeholder">
+                  <span>{{ col.title | slice: 0, 1 | upcase }}</span>
+                </div>
+              {%- endif -%}
+            </div>
+            <span class="search-suggest-card__title">{{ col.title }}</span>
+          </a>
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
 </ul>

@@ -79,6 +79,14 @@ class DrawerSearchSection extends HTMLElement {
   openDrawer() {
     if (!this.isOpen) {
       this.toggleDrawerClasses();
+      if (!this.getQuery().length) {
+        this.removeAttribute("results");
+        this.removeAttribute("loading");
+        this.setAttribute("empty", "true");
+        if (this.predictiveSearchResults) {
+          this.predictiveSearchResults.innerHTML = "";
+        }
+      }
     }
   }
 
@@ -331,7 +339,11 @@ class DrawerSearchSection extends HTMLElement {
   clearResults() {
     if (this.input) this.input.value = "";
     this.removeAttribute("results");
+    this.removeAttribute("loading");
     this.setAttribute("empty", "true");
+    if (this.predictiveSearchResults) {
+      this.predictiveSearchResults.innerHTML = "";
+    }
   }
 }
 
