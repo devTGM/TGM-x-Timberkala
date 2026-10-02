@@ -3189,6 +3189,39 @@ body.template-product .wt-product__wrapper {
   }
 }
 
+/* ── Product Brand / Vendor Readability on Jute ── */
+.wt-product__brand,
+.wt-product__brand__name,
+.wt-product__brand span {
+  color: #3c2c20 !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  opacity: 1 !important;
+  display: block !important;
+  margin-bottom: 4px !important;
+}
+
+.card__subtitle,
+.card__container .card__subtitle,
+.collection__grid__item .card__subtitle,
+.wt-product__upsell__vendor,
+.wt-product__upsell__product .card__subtitle,
+.tk-upsell-item__vendor {
+  color: #5c4538 !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+.product__tax,
+.product__tax.caption.rte,
+.product__tax a {
+  color: #4a3728 !important;
+  font-weight: 500 !important;
+  opacity: 1 !important;
+}
+
 /* Filter accordion group headers */
 body.template-collection .collection__aside .filter-group__title,
 body.template-collection .collection__aside details > summary {
