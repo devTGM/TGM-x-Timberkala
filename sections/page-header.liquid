@@ -119,7 +119,10 @@
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      max-width: calc(100% - 150px) !important;
+      max-width: calc(100% - 140px) !important;
+      max-height: none !important;
+      height: auto !important;
+      overflow: visible !important;
       z-index: 5 !important;
       text-align: center !important;
     }
@@ -130,8 +133,12 @@
       justify-content: center !important;
       text-align: center !important;
       margin: 0 auto !important;
-      width: var(--logo-width-mobile, 140px) !important;
-      max-width: 100% !important;
+      padding: 0 !important;
+      width: auto !important;
+      max-width: var(--logo-width-mobile, 160px) !important;
+      max-height: none !important;
+      height: auto !important;
+      overflow: visible !important;
       min-height: auto !important;
       text-decoration: none !important;
       color: inherit !important;
@@ -144,7 +151,7 @@
       display: none !important;
     }
 
-    /* Force mobile logo display and proper centering on mobile */
+    /* Force mobile logo display without clipping */
     .wt-header__col--left .wt-header__logo__img.wt-header__logo__img--mobile,
     .wt-header__col--left .wt-header__logo__img--mobile,
     .wt-header__col--left .inova-logo-mob,
@@ -154,14 +161,14 @@
     .wt-header .wt-header__logo__img.inova-logo-mob {
       display: block !important;
       width: auto !important;
-      max-width: var(--logo-width-mobile, 220px) !important;
-      height: 78px !important;
-      max-height: var(--logo-max-height-mob, 84px) !important;
+      max-width: var(--logo-width-mobile, 160px) !important;
+      height: 60px !important;
+      max-height: 62px !important;
       object-fit: contain !important;
       object-position: center !important;
-      transform: scale(1.3) !important;
-      transform-origin: center center !important;
+      transform: none !important;
       margin: 0 auto !important;
+      padding: 0 !important;
       visibility: visible !important;
       opacity: 1 !important;
     }

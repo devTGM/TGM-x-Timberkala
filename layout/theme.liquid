@@ -466,6 +466,9 @@
           margin: 0 auto !important;
           padding: 0 !important;
           max-width: calc(100vw - 140px) !important;
+          max-height: none !important;
+          height: auto !important;
+          overflow: visible !important;
           z-index: 99 !important;
           visibility: visible !important;
           opacity: 1 !important;
@@ -483,14 +486,17 @@
           padding: 0 !important;
           text-align: center !important;
           width: auto !important;
-          max-width: var(--logo-width-mobile, 220px) !important;
+          max-width: var(--logo-width-mobile, 160px) !important;
+          max-height: none !important;
+          height: auto !important;
+          overflow: visible !important;
           min-height: 52px !important;
           text-decoration: none !important;
           visibility: visible !important;
           opacity: 1 !important;
         }
 
-        /* Force mobile logo image display with ultra-high specificity */
+        /* Force mobile logo image display with ultra-high specificity without clipping */
         html body #header .wt-header__col--left img.wt-header__logo__img.wt-header__logo__img--mobile,
         html body #header .wt-header__col--left img.wt-header__logo__img--mobile,
         html body #header .wt-header__col--left .wt-header__logo__img--mobile,
@@ -507,15 +513,15 @@
           display: block !important;
           visibility: visible !important;
           opacity: 1 !important;
-          height: 78px !important;
-          max-height: 84px !important;
+          height: 60px !important;
+          max-height: 62px !important;
           width: auto !important;
-          max-width: 220px !important;
+          max-width: 160px !important;
           object-fit: contain !important;
           object-position: center !important;
-          transform: scale(1.3) !important;
-          transform-origin: center center !important;
+          transform: none !important;
           margin: 0 auto !important;
+          padding: 0 !important;
         }
 
         /* Ensure header row allows absolute centering overflow */
@@ -523,7 +529,7 @@
         html body .wt-header .wt-header__body {
           position: relative !important;
           overflow: visible !important;
-          min-height: 68px !important;
+          min-height: 66px !important;
         }
 
         html body #header .wt-header__col--left,
@@ -1842,6 +1848,9 @@ btn.addEventListener("click", () => {
       margin: 0 auto !important;
       padding: 0 !important;
       max-width: calc(100vw - 140px) !important;
+      max-height: none !important;
+      height: auto !important;
+      overflow: visible !important;
       z-index: 99 !important;
       visibility: visible !important;
       opacity: 1 !important;
@@ -1859,7 +1868,10 @@ btn.addEventListener("click", () => {
       padding: 0 !important;
       text-align: center !important;
       width: auto !important;
-      max-width: var(--logo-width-mobile, 220px) !important;
+      max-width: var(--logo-width-mobile, 160px) !important;
+      max-height: none !important;
+      height: auto !important;
+      overflow: visible !important;
       min-height: 52px !important;
       text-decoration: none !important;
       visibility: visible !important;
@@ -1883,15 +1895,22 @@ btn.addEventListener("click", () => {
       display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
-      height: 78px !important;
-      max-height: 84px !important;
+      height: 60px !important;
+      max-height: 62px !important;
       width: auto !important;
-      max-width: 220px !important;
+      max-width: 160px !important;
       object-fit: contain !important;
       object-position: center !important;
-      transform: scale(1.3) !important;
-      transform-origin: center center !important;
+      transform: none !important;
       margin: 0 auto !important;
+      padding: 0 !important;
+    }
+
+    html body #header .wt-header__body,
+    html body .wt-header .wt-header__body {
+      position: relative !important;
+      overflow: visible !important;
+      min-height: 66px !important;
     }
   }
 </style>
@@ -1940,6 +1959,9 @@ btn.addEventListener("click", () => {
         logoContainer.style.setProperty('margin', '0 auto', 'important');
         logoContainer.style.setProperty('padding', '0', 'important');
         logoContainer.style.setProperty('max-width', 'calc(100vw - 140px)', 'important');
+        logoContainer.style.setProperty('max-height', 'none', 'important');
+        logoContainer.style.setProperty('height', 'auto', 'important');
+        logoContainer.style.setProperty('overflow', 'visible', 'important');
         logoContainer.style.setProperty('z-index', '99', 'important');
         logoContainer.style.setProperty('visibility', 'visible', 'important');
         logoContainer.style.setProperty('opacity', '1', 'important');
@@ -1953,6 +1975,9 @@ btn.addEventListener("click", () => {
         logoLink.style.setProperty('visibility', 'visible', 'important');
         logoLink.style.setProperty('opacity', '1', 'important');
         logoLink.style.setProperty('width', 'auto', 'important');
+        logoLink.style.setProperty('max-height', 'none', 'important');
+        logoLink.style.setProperty('height', 'auto', 'important');
+        logoLink.style.setProperty('overflow', 'visible', 'important');
       }
 
       if (images.length >= 2) {
@@ -1964,28 +1989,26 @@ btn.addEventListener("click", () => {
         mob.style.setProperty('display', 'block', 'important');
         mob.style.setProperty('visibility', 'visible', 'important');
         mob.style.setProperty('opacity', '1', 'important');
-        mob.style.setProperty('height', '78px', 'important');
-        mob.style.setProperty('max-height', '84px', 'important');
+        mob.style.setProperty('height', '60px', 'important');
+        mob.style.setProperty('max-height', '62px', 'important');
         mob.style.setProperty('width', 'auto', 'important');
-        mob.style.setProperty('max-width', '220px', 'important');
+        mob.style.setProperty('max-width', '160px', 'important');
         mob.style.setProperty('object-fit', 'contain', 'important');
         mob.style.setProperty('object-position', 'center', 'important');
-        mob.style.setProperty('transform', 'scale(1.3)', 'important');
-        mob.style.setProperty('transform-origin', 'center center', 'important');
+        mob.style.setProperty('transform', 'none', 'important');
         mob.style.setProperty('margin', '0 auto', 'important');
       } else if (images.length === 1) {
         var single = images[0];
         single.style.setProperty('display', 'block', 'important');
         single.style.setProperty('visibility', 'visible', 'important');
         single.style.setProperty('opacity', '1', 'important');
-        single.style.setProperty('height', '78px', 'important');
-        single.style.setProperty('max-height', '84px', 'important');
+        single.style.setProperty('height', '60px', 'important');
+        single.style.setProperty('max-height', '62px', 'important');
         single.style.setProperty('width', 'auto', 'important');
-        single.style.setProperty('max-width', '220px', 'important');
+        single.style.setProperty('max-width', '160px', 'important');
         single.style.setProperty('object-fit', 'contain', 'important');
         single.style.setProperty('object-position', 'center', 'important');
-        single.style.setProperty('transform', 'scale(1.3)', 'important');
-        single.style.setProperty('transform-origin', 'center center', 'important');
+        single.style.setProperty('transform', 'none', 'important');
         single.style.setProperty('margin', '0 auto', 'important');
       }
     });
