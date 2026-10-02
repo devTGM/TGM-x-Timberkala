@@ -27,6 +27,43 @@
       {% endif %}
     }
   }
+
+  /* Guaranteed vertical layout: Category Nav -> Filter & Sort Toolbar -> Product Grid -> Pagination */
+  [data-section-id="{{ section.id }}"] .collection__body {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  [data-section-id="{{ section.id }}"] .collection__header {
+    order: 1 !important;
+  }
+  [data-section-id="{{ section.id }}"] .tk-subcollection-nav-wrapper {
+    order: 2 !important;
+  }
+  [data-section-id="{{ section.id }}"] .collection__sticky-header {
+    order: 3 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
+    top: auto !important;
+    background: transparent !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  [data-section-id="{{ section.id }}"] .collection__subheader {
+    display: none !important;
+  }
+  [data-section-id="{{ section.id }}"] #product-grid,
+  [data-section-id="{{ section.id }}"] .collection__grid {
+    order: 4 !important;
+    width: 100% !important;
+    margin-top: 0 !important;
+  }
+  [data-section-id="{{ section.id }}"] .wt-pagination-wrapper {
+    order: 5 !important;
+    width: 100% !important;
+  }
 </style>
 
 {% if section.settings['full-width-enabled'] %}

@@ -3880,10 +3880,9 @@ body.no-focus-visible .form-checkbox__input:focus-visible ~ .input-decorator {
 }
 @media (min-width: 1200px) {
   .collection__body {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: auto;
-    grid-template-areas: "header header" "counter toolbar" "items items" "more more";
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
 }
 .collection__aside:not(.wt-filter--drawer) {
@@ -4058,10 +4057,8 @@ body.no-focus-visible .form-checkbox__input:focus-visible ~ .input-decorator {
 }
 @media (min-width: 1200px) {
   .collection__sticky-header {
-    grid-column: 1/3;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+    width: 100%;
+    flex-direction: column;
   }
 }
 .collection__sticky-header.transition {
