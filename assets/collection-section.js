@@ -33,6 +33,7 @@ class CollectionSection extends HTMLElement {
 
   init() {
     this.createOverlay();
+    this.ensureDrawerInBody();
     this.updateTabindexes(this.isOpen());
 
     document.body.addEventListener("click", (e) => {
@@ -145,6 +146,8 @@ class CollectionSection extends HTMLElement {
       return;
     }
 
+    this.ensureDrawerInBody();
+
     if (this.isOpen()) {
       // close drawer — restore scroll position that was saved when drawer opened
       const savedTop = parseInt(document.body.style.top, 10) || 0;
@@ -206,6 +209,16 @@ class CollectionSection extends HTMLElement {
     if (!document.querySelector(`.${this.pageOverlayClass}`)) {
       this.overlay?.classList.add(this.pageOverlayClass);
       document.body.appendChild(this.overlay);
+    }
+    this.ensureDrawerInBody();
+  }
+
+  ensureDrawerInBody() {
+    if (this.isDrawerMode()) {
+      const drawer = this.drawer();
+      if (drawer && drawer.parentElement !== document.body) {
+        document.body.appendChild(drawer);
+      }
     }
   }
 }
