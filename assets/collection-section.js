@@ -37,8 +37,27 @@ class CollectionSection extends HTMLElement {
     this.updateTabindexes(this.isOpen());
 
     document.body.addEventListener("click", (e) => {
-      if (this.triggerClasses.some((cls) => e.target.classList.contains(cls) || (e.target.closest && e.target.closest(`.${cls}`)))) {
+      const closeBtn = e.target.closest && (e.target.closest(".wt-filter__close") || e.target.closest(".wt-cart__cta"));
+      if (closeBtn) {
+        if (e.preventDefault) e.preventDefault();
+        if (e.stopPropagation) e.stopPropagation();
+        this.closeDrawer();
+        return;
+      }
+
+      const overlay = e.target.classList && e.target.classList.contains(this.pageOverlayClass);
+      if (overlay) {
+        if (e.preventDefault) e.preventDefault();
+        if (e.stopPropagation) e.stopPropagation();
+        this.closeDrawer();
+        return;
+      }
+
+      const trigger = e.target.closest && e.target.closest(".collection__filter-trigger");
+      if (trigger) {
+        if (e.preventDefault) e.preventDefault();
         this.toggleDrawer(e);
+        return;
       }
     });
 
@@ -136,6 +155,18 @@ class CollectionSection extends HTMLElement {
       // Always visible mode
       setTabindex(this.sectionsTriggers(), "0");
       setTabindex(this.toggleDrawerElements(), "0");
+    }
+  }
+
+  closeDrawer() {
+    if (this.isOpen()) {
+      this.toggleDrawer();
+    }
+  }
+
+  openDrawer() {
+    if (!this.isOpen()) {
+      this.toggleDrawer();
     }
   }
 

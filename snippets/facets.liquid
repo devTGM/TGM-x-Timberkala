@@ -31,7 +31,7 @@
       class="wt-filter__close"
       aria-label="{{ 'aria-label.facets-close' | t }}"
       tabindex="-1"
-      onclick="document.querySelector('collection-section')?.toggleDrawer()"
+      onclick="event.preventDefault(); event.stopPropagation(); (document.querySelector('collection-section')?.closeDrawer || document.querySelector('collection-section')?.toggleDrawer)?.call(document.querySelector('collection-section'));"
     >
       {% render 'icons', id: 'close' %}
     </button>
@@ -75,7 +75,7 @@
       <button
         aria-label="{{ 'products.facets.apply' | t }}"
         class="btn-checkout wt-cart__cta"
-        onclick="document.querySelector('collection-section')?.toggleDrawer()"
+        onclick="event.preventDefault(); event.stopPropagation(); (document.querySelector('collection-section')?.closeDrawer || document.querySelector('collection-section')?.toggleDrawer)?.call(document.querySelector('collection-section'));"
         tabindex="-1"
       >
         {{ 'products.facets.apply' | t }}

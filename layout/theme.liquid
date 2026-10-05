@@ -1642,7 +1642,10 @@
 
       .wt-filter .wt-filter__close .svg-icon,
       .wt-filter--drawer .wt-filter__close .svg-icon,
-      body.page-overlay-on .wt-filter .wt-filter__close .svg-icon {
+      body.page-overlay-on .wt-filter .wt-filter__close .svg-icon,
+      .wt-filter .wt-filter__close *,
+      .wt-filter--drawer .wt-filter__close *,
+      body.page-overlay-on .wt-filter .wt-filter__close * {
         width: 14px !important;
         height: 14px !important;
         fill: currentColor !important;
@@ -2342,6 +2345,60 @@ btn.addEventListener("click", () => {
 })();
 </script>
 
+<script>
+/* Filter Drawer Close Handler: Guaranteed capture-phase close for X button, Apply, and Overlay */
+(function() {
+  function doCloseFilterDrawer(e) {
+    if (e) {
+      if (e.preventDefault) e.preventDefault();
+      if (e.stopPropagation) e.stopPropagation();
+      if (e.stopImmediatePropagation) e.stopImmediatePropagation();
+    }
+
+    var colSec = document.querySelector('collection-section');
+    if (colSec && typeof colSec.closeDrawer === 'function') {
+      colSec.closeDrawer();
+      return;
+    }
+
+    // Direct DOM fallback
+    var drawer = document.querySelector('.wt-filter');
+    if (drawer) {
+      drawer.classList.remove('wt-filter--drawer-open');
+    }
+    document.body.classList.remove('page-overlay-on');
+    var savedTop = parseInt(document.body.style.top, 10) || 0;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    if (-savedTop > 0) {
+      window.scrollTo(0, -savedTop);
+    }
+  }
+
+  // Capture phase listener catches click before any other listeners can interfere or duplicate
+  document.addEventListener('click', function(e) {
+    var closeTarget = e.target && e.target.closest && (e.target.closest('.wt-filter__close') || e.target.closest('.wt-cart__cta'));
+    if (closeTarget) {
+      doCloseFilterDrawer(e);
+      return;
+    }
+    if (e.target && e.target.classList && e.target.classList.contains('page-overlay')) {
+      doCloseFilterDrawer(e);
+      return;
+    }
+  }, true);
+
+  // Also close on Escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' || e.keyCode === 27) {
+      if (document.body.classList.contains('page-overlay-on')) {
+        doCloseFilterDrawer(e);
+      }
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
