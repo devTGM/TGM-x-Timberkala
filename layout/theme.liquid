@@ -1451,6 +1451,314 @@
           padding: 6px 14px !important;
         }
       }
+
+      /* ============================================================
+         UNIVERSAL FILTER DRAWER & BACKDROP FIX (All Collection Templates & Search)
+         Ensures crisp, solid white drawer sits strictly above backdrop blur (999999 > 999998)
+         ============================================================ */
+      body.page-overlay-on .page-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        background: rgba(0, 0, 0, 0.55) !important;
+        backdrop-filter: blur(4px) !important;
+        -webkit-backdrop-filter: blur(4px) !important;
+        z-index: 999998 !important;
+        display: block !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        cursor: pointer !important;
+      }
+
+      /* Base Drawer Container - Crisp solid white, strictly above backdrop */
+      .wt-filter,
+      .wt-filter--drawer,
+      body .wt-filter,
+      body .wt-filter--drawer,
+      body.page-overlay-on .wt-filter,
+      body.page-overlay-on .wt-filter--drawer,
+      body[class*="template-collection"] .wt-filter,
+      body[class*="template-search"] .wt-filter {
+        position: fixed !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        max-height: 100dvh !important;
+        background: #ffffff !important;
+        z-index: 999999 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        filter: none !important;
+      }
+
+      /* Desktop Drawer (min-width: 1200px): slides from right side (width 440px) */
+      @media (min-width: 1200px) {
+        .wt-filter,
+        .wt-filter--drawer,
+        body .wt-filter,
+        body .wt-filter--drawer,
+        body[class*="template-collection"] .wt-filter,
+        body[class*="template-search"] .wt-filter {
+          right: 0 !important;
+          left: auto !important;
+          width: 440px !important;
+          max-width: 90vw !important;
+          transform: translateX(105%) !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
+          box-shadow: -8px 0 36px rgba(0, 0, 0, 0.22) !important;
+          border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+          border-right: none !important;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0.3s !important;
+        }
+
+        .wt-filter.wt-filter--drawer-open,
+        .wt-filter--drawer.wt-filter--drawer-open,
+        body.page-overlay-on .wt-filter,
+        body.page-overlay-on .wt-filter--drawer,
+        body.page-overlay-on[class*="template-collection"] .wt-filter,
+        body.page-overlay-on[class*="template-search"] .wt-filter {
+          transform: translateX(0) !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          pointer-events: auto !important;
+        }
+      }
+
+      /* Mobile & Tablet Drawer (max-width: 1199px): slides from left side */
+      @media (max-width: 1199px) {
+        .wt-filter,
+        .wt-filter--drawer,
+        body .wt-filter,
+        body .wt-filter--drawer,
+        body[class*="template-collection"] .wt-filter,
+        body[class*="template-search"] .wt-filter {
+          left: 0 !important;
+          right: auto !important;
+          width: 86vw !important;
+          max-width: 380px !important;
+          transform: translateX(-105%) !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+          pointer-events: none !important;
+          box-shadow: 8px 0 36px rgba(0, 0, 0, 0.22) !important;
+          border-right: 1px solid rgba(0, 0, 0, 0.08) !important;
+          border-left: none !important;
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0.3s !important;
+        }
+
+        .wt-filter.wt-filter--drawer-open,
+        .wt-filter--drawer.wt-filter--drawer-open,
+        body.page-overlay-on .wt-filter,
+        body.page-overlay-on .wt-filter--drawer,
+        body.page-overlay-on[class*="template-collection"] .wt-filter,
+        body.page-overlay-on[class*="template-search"] .wt-filter {
+          transform: translateX(0) !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          pointer-events: auto !important;
+        }
+      }
+
+      /* Drawer Header */
+      .wt-filter .wt-filter__header,
+      .wt-filter--drawer .wt-filter__header,
+      body.page-overlay-on .wt-filter .wt-filter__header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 20px 24px !important;
+        background: #ffffff !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+        margin: 0 !important;
+        flex-shrink: 0 !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+      }
+
+      .wt-filter .wt-filter__title,
+      .wt-filter--drawer .wt-filter__title,
+      .wt-filter .wt-filter__header h3,
+      .wt-filter--drawer .wt-filter__header h3,
+      body.page-overlay-on .wt-filter .wt-filter__title {
+        font-size: 15px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+        color: #111111 !important;
+        margin: 0 !important;
+        line-height: 1 !important;
+      }
+
+      /* Drawer Close Button */
+      .wt-filter .wt-filter__close,
+      .wt-filter--drawer .wt-filter__close,
+      body.page-overlay-on .wt-filter .wt-filter__close {
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        min-height: 38px !important;
+        border-radius: 50% !important;
+        background: #f2f2f2 !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        cursor: pointer !important;
+        color: #111111 !important;
+        pointer-events: auto !important;
+        z-index: 10 !important;
+        transition: background 0.2s ease, transform 0.15s ease !important;
+      }
+
+      .wt-filter .wt-filter__close:hover,
+      .wt-filter--drawer .wt-filter__close:hover,
+      body.page-overlay-on .wt-filter .wt-filter__close:hover {
+        background: #e5e5e5 !important;
+        transform: scale(1.05) !important;
+      }
+
+      .wt-filter .wt-filter__close:active,
+      .wt-filter--drawer .wt-filter__close:active,
+      body.page-overlay-on .wt-filter .wt-filter__close:active {
+        background: #d8d8d8 !important;
+        transform: scale(0.95) !important;
+      }
+
+      .wt-filter .wt-filter__close .svg-icon,
+      .wt-filter--drawer .wt-filter__close .svg-icon,
+      body.page-overlay-on .wt-filter .wt-filter__close .svg-icon {
+        width: 14px !important;
+        height: 14px !important;
+        fill: currentColor !important;
+        pointer-events: none !important;
+      }
+
+      /* Drawer Body */
+      .wt-filter .wt-filter__body,
+      .wt-filter--drawer .wt-filter__body,
+      body.page-overlay-on .wt-filter .wt-filter__body {
+        flex: 1 1 auto !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 20px 24px !important;
+        margin: 0 !important;
+        background: #ffffff !important;
+        box-sizing: border-box !important;
+        pointer-events: auto !important;
+      }
+
+      /* Filter Section Headers inside Drawer */
+      .wt-filter .filter__header,
+      .wt-filter--drawer .filter__header,
+      body.page-overlay-on .wt-filter .filter__header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        font-size: 13.5px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.05em !important;
+        text-transform: uppercase !important;
+        color: #222222 !important;
+        padding: 16px 0 !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+        cursor: pointer !important;
+      }
+
+      .wt-filter .filter__header .svg-icon,
+      .wt-filter--drawer .filter__header .svg-icon,
+      body.page-overlay-on .wt-filter .filter__header .svg-icon {
+        width: 12px !important;
+        height: 12px !important;
+        fill: #555555 !important;
+        pointer-events: none !important;
+      }
+
+      /* Drawer Footer */
+      .wt-filter .wt-filter__footer,
+      .wt-filter--drawer .wt-filter__footer,
+      body.page-overlay-on .wt-filter .wt-filter__footer {
+        display: block !important;
+        visibility: visible !important;
+        flex-shrink: 0 !important;
+        padding: 16px 24px calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+        background: #ffffff !important;
+        border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+        pointer-events: auto !important;
+      }
+
+      .wt-filter .wt-filter__footer__body,
+      .wt-filter--drawer .wt-filter__footer__body,
+      body.page-overlay-on .wt-filter .wt-filter__footer__body {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+        align-items: stretch !important;
+      }
+
+      .wt-filter .wt-cart__cta,
+      .wt-filter .btn-checkout,
+      body.page-overlay-on .wt-filter .wt-cart__cta,
+      body.page-overlay-on .wt-filter .btn-checkout {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        height: 48px !important;
+        background: #111111 !important;
+        color: #ffffff !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        letter-spacing: 0.12em !important;
+        text-transform: uppercase !important;
+        border-radius: 8px !important;
+        border: none !important;
+        cursor: pointer !important;
+        text-decoration: none !important;
+        transition: background 0.2s ease !important;
+      }
+
+      .wt-filter .wt-cart__cta:hover,
+      .wt-filter .btn-checkout:hover,
+      body.page-overlay-on .wt-filter .wt-cart__cta:hover,
+      body.page-overlay-on .wt-filter .btn-checkout:hover {
+        background: #333333 !important;
+        color: #ffffff !important;
+      }
+
+      .wt-filter .wt-filter__clear-all,
+      .wt-filter .wt-filter__remove-all,
+      body.page-overlay-on .wt-filter .wt-filter__clear-all,
+      body.page-overlay-on .wt-filter .wt-filter__remove-all {
+        display: block !important;
+        text-align: center !important;
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.05em !important;
+        color: #666666 !important;
+        text-decoration: underline !important;
+        padding: 6px 0 !important;
+        cursor: pointer !important;
+        background: none !important;
+        border: none !important;
+      }
     </style>
 
     {%- liquid
