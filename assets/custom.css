@@ -2546,10 +2546,9 @@ body.template-collection .collection__title .h1 {
 }
 
 /* ============================================================
-   DESKTOP SIDEBAR FILTER (min-width: 1200px)
+   DESKTOP INLINE SIDEBAR FILTER (min-width: 1200px, only when inline)
    ============================================================ */
 @media (min-width: 1200px) {
-  /* --- Sidebar + Grid Layout (flex-based, matching theme architecture) --- */
   body.template-collection .collection.collection--with-aside {
     display: flex !important;
     flex-direction: row !important;
@@ -2557,8 +2556,7 @@ body.template-collection .collection__title .h1 {
     align-items: flex-start !important;
   }
 
-  /* --- Sidebar Filter Panel: always visible on desktop --- */
-  body.template-collection .collection.collection--with-aside > .collection__aside.wt-filter {
+  body.template-collection .collection.collection--with-aside > .collection__aside.wt-filter:not(.wt-filter--drawer) {
     position: sticky !important;
     top: 80px !important;
     flex: 0 0 240px !important;
@@ -2583,16 +2581,13 @@ body.template-collection .collection__title .h1 {
     right: auto !important;
   }
 
-  /* Collection body takes remaining space */
   body.template-collection .collection.collection--with-aside > .collection__body {
     flex: 1 !important;
     min-width: 0 !important;
   }
 
-  /* Hide close button in desktop sidebar mode */
-  body.template-collection .collection__aside .wt-filter__close,
-  body.template-collection .wt-filter:not(.wt-filter--drawer) .wt-filter__close,
-  body.template-collection [data-filter-position="always"] .wt-filter__close {
+  /* Hide close button ONLY in inline sidebar mode */
+  body.template-collection .collection.collection--with-aside > .collection__aside.wt-filter:not(.wt-filter--drawer) .wt-filter__close {
     display: none !important;
     visibility: hidden !important;
     width: 0 !important;
@@ -2600,8 +2595,8 @@ body.template-collection .collection__title .h1 {
     overflow: hidden !important;
   }
 
-  /* Filter header — clean desktop inline */
-  body.template-collection .collection__aside .wt-filter__header {
+  /* Inline sidebar header */
+  body.template-collection .collection.collection--with-aside > .collection__aside.wt-filter:not(.wt-filter--drawer) .wt-filter__header {
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
@@ -2614,15 +2609,82 @@ body.template-collection .collection__title .h1 {
     margin-bottom: 8px !important;
   }
 
-  /* Hide filter footer (apply/clear) for inline desktop sidebar */
-  body.template-collection .collection--with-aside .wt-filter__footer {
+  /* Hide footer only in inline sidebar mode */
+  body.template-collection .collection.collection--with-aside > .collection__aside.wt-filter:not(.wt-filter--drawer) .wt-filter__footer {
     display: none !important;
   }
 }
 
 /* ============================================================
-   MOBILE & TABLET FILTER DRAWER (max-width: 1199px)
+   UNIVERSAL FILTER DRAWER (Desktop Drawer & Mobile/Tablet Drawer)
    ============================================================ */
+
+/* 1. Backdrop Overlay: Dims entire viewport including sticky header */
+body.page-overlay-on .page-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  background: rgba(0, 0, 0, 0.55) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  z-index: 999998 !important; /* Above store header (100) */
+  display: block !important;
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+/* 2. Base Drawer Container */
+body.template-collection .wt-filter--drawer,
+body.template-collection .wt-filter.wt-filter--drawer-open,
+body.page-overlay-on.template-collection .wt-filter {
+  position: fixed !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  background: #ffffff !important; /* Crisp 100% solid white */
+  z-index: 999999 !important; /* Always ABOVE backdrop and store header */
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Desktop Drawer: slides from right side (width 440px) */
+@media (min-width: 1200px) {
+  body.template-collection .wt-filter--drawer {
+    right: 0 !important;
+    left: auto !important;
+    width: 440px !important;
+    max-width: 90vw !important;
+    transform: translateX(105%) !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    box-shadow: -8px 0 36px rgba(0, 0, 0, 0.22) !important;
+    border-left: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-right: none !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0.3s !important;
+  }
+
+  body.template-collection .wt-filter--drawer.wt-filter--drawer-open,
+  body.page-overlay-on.template-collection .wt-filter--drawer {
+    transform: translateX(0) !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Mobile & Tablet Drawer: slides from left side (width 86vw / 380px max) */
 @media (max-width: 1199px) {
   body.template-collection .collection.collection--with-aside {
     display: block !important;
@@ -2635,228 +2697,216 @@ body.template-collection .collection__title .h1 {
     flex: none !important;
   }
 
-  /* When drawer is closed: completely hidden offscreen */
-  body.template-collection .collection__aside.wt-filter:not(.wt-filter--drawer-open) {
-    position: fixed !important;
-    top: 0 !important;
+  body.template-collection .collection__aside.wt-filter {
     left: 0 !important;
+    right: auto !important;
     width: 86vw !important;
     max-width: 380px !important;
-    height: 100% !important;
-    height: 100dvh !important;
-    max-height: 100dvh !important;
     transform: translateX(-105%) !important;
     visibility: hidden !important;
     opacity: 0 !important;
     pointer-events: none !important;
-    z-index: 100002 !important;
+    box-shadow: 8px 0 36px rgba(0, 0, 0, 0.22) !important;
+    border-right: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-left: none !important;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0.3s !important;
   }
 
-  /* When drawer is open: solid white, high z-index above header & backdrop */
   body.template-collection .collection__aside.wt-filter.wt-filter--drawer-open,
   body.page-overlay-on.template-collection .collection__aside.wt-filter {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    bottom: 0 !important;
-    width: 86vw !important;
-    max-width: 380px !important;
-    height: 100% !important;
-    height: 100dvh !important;
-    max-height: 100dvh !important;
-    background: #ffffff !important; /* CRITICAL: Crisp, opaque solid white */
-    z-index: 100002 !important; /* Above header and page overlay */
     transform: translateX(0) !important;
     visibility: visible !important;
     opacity: 1 !important;
     pointer-events: auto !important;
-    display: flex !important;
-    flex-direction: column !important;
-    box-shadow: 6px 0 32px rgba(0, 0, 0, 0.22) !important;
-    border-right: 1px solid rgba(0, 0, 0, 0.08) !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
+}
 
-  /* Dark backdrop overlay */
-  .page-overlay-on .page-overlay {
-    z-index: 100001 !important;
-    background: rgba(0, 0, 0, 0.55) !important;
-    backdrop-filter: blur(4px) !important;
-    -webkit-backdrop-filter: blur(4px) !important;
-    display: block !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-  }
+/* 3. Drawer Header (Desktop & Mobile) */
+body.template-collection .wt-filter--drawer .wt-filter__header,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__header,
+body.page-overlay-on.template-collection .wt-filter .wt-filter__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 20px 24px !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  margin: 0 !important;
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
 
-  /* Drawer Header */
-  body.template-collection .collection__aside.wt-filter .wt-filter__header {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 16px 20px !important;
-    background: #ffffff !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-    margin: 0 !important;
-    flex-shrink: 0 !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
+body.template-collection .wt-filter--drawer .wt-filter__header > div,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__header > div,
+body.template-collection .wt-filter .wt-filter__title {
+  font-size: 15px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  color: #111111 !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+}
 
-  body.template-collection .collection__aside.wt-filter .wt-filter__header > div,
-  body.template-collection .collection__aside.wt-filter .wt-filter__header h3,
-  body.template-collection .collection__aside.wt-filter .wt-filter__header .wt-filter__title {
-    font-size: 14px !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.12em !important;
-    text-transform: uppercase !important;
-    color: #111111 !important;
-    margin: 0 !important;
-    line-height: 1 !important;
-  }
+/* 4. Drawer Close Button (Desktop & Mobile) - ALWAYS VISIBLE */
+body.template-collection .wt-filter--drawer .wt-filter__close,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__close,
+body.page-overlay-on.template-collection .wt-filter .wt-filter__close {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  border-radius: 50% !important;
+  background: #f2f2f2 !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  cursor: pointer !important;
+  color: #111111 !important;
+  transition: background 0.2s ease, transform 0.15s ease !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
 
-  /* Drawer Close Button: stylish circular ✕ button */
-  body.template-collection .collection__aside.wt-filter .wt-filter__close {
-    display: flex !important;
-    visibility: visible !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
-    min-height: 36px !important;
-    border-radius: 50% !important;
-    background: #f4f4f4 !important;
-    border: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    cursor: pointer !important;
-    color: #111111 !important;
-    transition: background 0.2s ease, transform 0.15s ease !important;
-    -webkit-tap-highlight-color: transparent !important;
-  }
+body.template-collection .wt-filter--drawer .wt-filter__close:hover,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__close:hover {
+  background: #e5e5e5 !important;
+  transform: scale(1.05) !important;
+}
 
-  body.template-collection .collection__aside.wt-filter .wt-filter__close:active {
-    background: #e5e5e5 !important;
-    transform: scale(0.92) !important;
-  }
+body.template-collection .wt-filter--drawer .wt-filter__close:active,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__close:active {
+  background: #d8d8d8 !important;
+  transform: scale(0.95) !important;
+}
 
-  body.template-collection .collection__aside.wt-filter .wt-filter__close .svg-icon {
-    width: 14px !important;
-    height: 14px !important;
-    fill: currentColor !important;
-    pointer-events: none !important;
-  }
+body.template-collection .wt-filter--drawer .wt-filter__close .svg-icon,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__close .svg-icon {
+  width: 14px !important;
+  height: 14px !important;
+  fill: currentColor !important;
+  pointer-events: none !important;
+}
 
-  /* Drawer Body: scrollable container */
-  body.template-collection .collection__aside.wt-filter .wt-filter__body {
-    flex: 1 1 auto !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    padding: 16px 20px !important;
-    margin: 0 !important;
-    background: #ffffff !important;
-    box-sizing: border-box !important;
-  }
+/* 5. Drawer Body (Desktop & Mobile) */
+body.template-collection .wt-filter--drawer .wt-filter__body,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__body,
+body.page-overlay-on.template-collection .wt-filter .wt-filter__body {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  padding: 20px 24px !important;
+  margin: 0 !important;
+  background: #ffffff !important;
+  box-sizing: border-box !important;
+}
 
-  /* Accordion Headers inside Drawer */
-  body.template-collection .collection__aside.wt-filter .filter__header {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    font-size: 13px !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.05em !important;
-    text-transform: uppercase !important;
-    color: #222222 !important;
-    padding: 14px 0 !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
-    cursor: pointer !important;
-  }
+/* Filter Section Headers inside Drawer */
+body.template-collection .wt-filter--drawer .filter__header,
+body.template-collection .wt-filter.wt-filter--drawer-open .filter__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.05em !important;
+  text-transform: uppercase !important;
+  color: #222222 !important;
+  padding: 16px 0 !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+  cursor: pointer !important;
+}
 
-  body.template-collection .collection__aside.wt-filter .filter__header .svg-icon {
-    width: 12px !important;
-    height: 12px !important;
-    fill: #555555 !important;
-    pointer-events: none !important;
-  }
+body.template-collection .wt-filter--drawer .filter__header .svg-icon,
+body.template-collection .wt-filter.wt-filter--drawer-open .filter__header .svg-icon {
+  width: 12px !important;
+  height: 12px !important;
+  fill: #555555 !important;
+  pointer-events: none !important;
+}
 
-  /* Drawer Footer: Apply & Clear */
-  body.template-collection .collection__aside.wt-filter .wt-filter__footer {
-    display: block !important;
-    visibility: visible !important;
-    flex-shrink: 0 !important;
-    padding: 14px 20px calc(14px + env(safe-area-inset-bottom, 0px)) !important;
-    background: #ffffff !important;
-    border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
-    margin: 0 !important;
-    box-sizing: border-box !important;
-  }
+/* 6. Drawer Footer (Desktop & Mobile) */
+body.template-collection .wt-filter--drawer .wt-filter__footer,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__footer,
+body.page-overlay-on.template-collection .wt-filter .wt-filter__footer {
+  display: block !important;
+  visibility: visible !important;
+  flex-shrink: 0 !important;
+  padding: 16px 24px calc(16px + env(safe-area-inset-bottom, 0px)) !important;
+  background: #ffffff !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
 
-  body.template-collection .collection__aside.wt-filter .wt-filter__footer__body {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 8px !important;
-    align-items: stretch !important;
-  }
+body.template-collection .wt-filter--drawer .wt-filter__footer__body,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__footer__body {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 10px !important;
+  align-items: stretch !important;
+}
 
-  /* APPLY Button */
-  body.template-collection .collection__aside.wt-filter .wt-cart__cta,
-  body.template-collection .collection__aside.wt-filter .btn-checkout {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 100% !important;
-    height: 48px !important;
-    background: #111111 !important;
-    color: #ffffff !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.12em !important;
-    text-transform: uppercase !important;
-    border: none !important;
-    border-radius: 8px !important;
-    cursor: pointer !important;
-    transition: background 0.2s ease !important;
-    -webkit-tap-highlight-color: transparent !important;
-  }
+/* APPLY Button */
+body.template-collection .wt-filter--drawer .wt-cart__cta,
+body.template-collection .wt-filter--drawer .btn-checkout,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-cart__cta,
+body.template-collection .wt-filter.wt-filter--drawer-open .btn-checkout {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 48px !important;
+  background: #111111 !important;
+  color: #ffffff !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.14em !important;
+  text-transform: uppercase !important;
+  border: none !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: background 0.2s ease !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
 
-  body.template-collection .collection__aside.wt-filter .wt-cart__cta:hover,
-  body.template-collection .collection__aside.wt-filter .btn-checkout:hover {
-    background: #2a2a2a !important;
-  }
+body.template-collection .wt-filter--drawer .wt-cart__cta:hover,
+body.template-collection .wt-filter--drawer .btn-checkout:hover,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-cart__cta:hover,
+body.template-collection .wt-filter.wt-filter--drawer-open .btn-checkout:hover {
+  background: #2a2a2a !important;
+}
 
-  body.template-collection .collection__aside.wt-filter .wt-cart__cta:active,
-  body.template-collection .collection__aside.wt-filter .btn-checkout:active {
-    background: #000000 !important;
-    transform: scale(0.99) !important;
-  }
+/* REMOVE ALL Button */
+body.template-collection .wt-filter--drawer .wt-filter__clear-all,
+body.template-collection .wt-filter--drawer .wt-filter__remove-all,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__clear-all,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__remove-all {
+  display: block !important;
+  text-align: center !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 6px 0 !important;
+  margin: 0 auto !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+}
 
-  /* REMOVE ALL Button */
-  body.template-collection .collection__aside.wt-filter .wt-filter__clear-all,
-  body.template-collection .collection__aside.wt-filter .wt-filter__remove-all {
-    display: block !important;
-    text-align: center !important;
-    background: transparent !important;
-    border: none !important;
-    padding: 6px 0 !important;
-    margin: 0 auto !important;
-    cursor: pointer !important;
-    text-decoration: none !important;
-  }
-
-  body.template-collection .collection__aside.wt-filter .wt-filter__remove-all span,
-  body.template-collection .collection__aside.wt-filter .wt-filter__clear-all {
-    font-size: 11.5px !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.08em !important;
-    text-transform: uppercase !important;
-    color: #777777 !important;
-    text-decoration: underline !important;
-  }
+body.template-collection .wt-filter--drawer .wt-filter__remove-all span,
+body.template-collection .wt-filter--drawer .wt-filter__clear-all,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__remove-all span,
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__clear-all {
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #777777 !important;
+  text-decoration: underline !important;
 }
 
 /* Ensure button click targets include child SVGs */
