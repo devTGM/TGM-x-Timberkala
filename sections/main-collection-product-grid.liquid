@@ -114,12 +114,24 @@
             class="tk-subcollection-nav__link{% if collection.handle == 'all-products' or collection.handle == 'all' %} active{% endif %}"
           >All Products</a>
           {%- assign categories = "Wall Decor,Table Decor,Figurines,Furniture,Hangings" | split: "," -%}
-          {%- assign handles = "wall-decor,table-decor,figurines,furniture,hangings" | split: "," -%}
+          {%- assign handles = "wall-decor,table-decor,animal-and-bird-figurines,furniture,hangings-1" | split: "," -%}
           {%- for cat in categories -%}
             {%- assign cat_handle = handles[forloop.index0] -%}
+            {%- assign is_active = false -%}
+            {%- if collection.handle == cat_handle -%}
+              {%- assign is_active = true -%}
+            {%- elsif cat_handle == 'wall-decor' and collection.handle == 'wall-accents' -%}
+              {%- assign is_active = true -%}
+            {%- elsif cat_handle == 'table-decor' and collection.handle == 'table-decor-items' -%}
+              {%- assign is_active = true -%}
+            {%- elsif cat_handle == 'animal-and-bird-figurines' and collection.handle contains 'figurin' -%}
+              {%- assign is_active = true -%}
+            {%- elsif cat_handle == 'hangings-1' and collection.handle contains 'hanging' -%}
+              {%- assign is_active = true -%}
+            {%- endif -%}
             <a
               href="/collections/{{ cat_handle }}"
-              class="tk-subcollection-nav__link{% if collection.handle == cat_handle %} active{% endif %}"
+              class="tk-subcollection-nav__link{% if is_active %} active{% endif %}"
             >{{ cat }}</a>
           {%- endfor -%}
         </nav>
