@@ -36,7 +36,7 @@ class CollectionSection extends HTMLElement {
     this.updateTabindexes(this.isOpen());
 
     document.body.addEventListener("click", (e) => {
-      if (this.triggerClasses.some((cls) => e.target.classList.contains(cls))) {
+      if (this.triggerClasses.some((cls) => e.target.classList.contains(cls) || (e.target.closest && e.target.closest(`.${cls}`)))) {
         this.toggleDrawer(e);
       }
     });
@@ -163,12 +163,29 @@ class CollectionSection extends HTMLElement {
       const currentTop = document.documentElement.scrollTop || document.body.scrollTop;
       document.body.style.top = `${-currentTop}px`;
       document.body.style.left = "0px";
+      this.openAllCollapsibleSections();
     }
 
     this.drawer()?.classList.toggle(this.classDrawerActive);
     document.body.classList.toggle(this.activeOverlayBodyClass);
 
     this.updateTabindexes(this.isOpen());
+  }
+
+  openAllCollapsibleSections() {
+    const sections = this.drawer()?.querySelectorAll("collapsible-section");
+    sections?.forEach((section) => {
+      section.dataset.open = "true";
+      const trigger = section.querySelector(".wt-collapse__trigger");
+      if (trigger) {
+        trigger.classList.add("wt-collapse__trigger--active");
+        trigger.setAttribute("aria-expanded", "true");
+        const focusableElements = section.querySelectorAll('[tabindex="-1"]');
+        if (typeof setTabindex === "function") {
+          setTabindex(focusableElements, "0");
+        }
+      }
+    });
   }
 
   closeAllCollapsibleSections() {
