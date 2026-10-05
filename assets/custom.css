@@ -1906,9 +1906,11 @@ body:not(.template-index):not(.template-collection):not(.template-product) .wt-h
 }
 
 /* Page Container (#root) and Bento Section - Seamless Zero-Gap Flush Union */
-#root,
-main[role="main"],
-.page-container {
+/* IMPORTANT: z-index: 20 is ONLY needed on Homepage (template-index) for the signature hero curtain effect.
+   On other pages (and whenever an overlay is active), #root MUST be static/auto so fixed drawers and modals escape to viewport stacking! */
+body.template-index #root,
+body.template-index main[role="main"],
+body.template-index .page-container {
   position: relative !important;
   z-index: 20 !important;
   background-color: #ffffff !important;
@@ -1917,6 +1919,44 @@ main[role="main"],
   border-top: none !important;
   min-height: 80vh !important;
 }
+
+body:not(.template-index) #root,
+body:not(.template-index) main[role="main"],
+body:not(.template-index) .page-container,
+body.page-overlay-on #root,
+body.page-overlay-on main[role="main"],
+body.page-overlay-on .page-container {
+  position: static !important;
+  z-index: auto !important;
+  background-color: #ffffff !important;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+  min-height: 80vh !important;
+  transform: none !important;
+  filter: none !important;
+  perspective: none !important;
+  contain: none !important;
+  isolation: auto !important;
+}
+
+/* Ensure collection and search containers cannot create a stacking context over the overlay */
+body.page-overlay-on collection-section,
+body.page-overlay-on .collection,
+body.template-collection collection-section,
+body.template-collection .collection,
+body.template-search collection-section,
+body.template-search .collection,
+body.page-overlay-on [data-section-id*="collection"],
+body.page-overlay-on [data-section-id*="search"] {
+  position: static !important;
+  z-index: auto !important;
+  transform: none !important;
+  filter: none !important;
+  contain: none !important;
+  isolation: auto !important;
+}
+
 
 /* Footer Group - Solid background and high stacking context */
 .shopify-section-group-footer-group,
@@ -2641,7 +2681,10 @@ body.page-overlay-on .page-overlay {
 /* 2. Base Drawer Container */
 body.template-collection .wt-filter--drawer,
 body.template-collection .wt-filter.wt-filter--drawer-open,
-body.page-overlay-on.template-collection .wt-filter {
+body.page-overlay-on.template-collection .wt-filter,
+body.template-search .wt-filter--drawer,
+body.template-search .wt-filter.wt-filter--drawer-open,
+body.page-overlay-on.template-search .wt-filter {
   position: fixed !important;
   top: 0 !important;
   bottom: 0 !important;
@@ -2649,18 +2692,22 @@ body.page-overlay-on.template-collection .wt-filter {
   height: 100dvh !important;
   max-height: 100dvh !important;
   background: #ffffff !important; /* Crisp 100% solid white */
-  z-index: 999999 !important; /* Always ABOVE backdrop and store header */
+  z-index: 999999 !important; /* Always ABOVE backdrop (999998) and store header (100) */
   display: flex !important;
   flex-direction: column !important;
   overflow: hidden !important;
   margin: 0 !important;
   padding: 0 !important;
   box-sizing: border-box !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
 }
 
 /* Desktop Drawer: slides from right side (width 440px) */
 @media (min-width: 1200px) {
-  body.template-collection .wt-filter--drawer {
+  body.template-collection .wt-filter--drawer,
+  body.template-search .wt-filter--drawer {
     right: 0 !important;
     left: auto !important;
     width: 440px !important;
@@ -2676,7 +2723,11 @@ body.page-overlay-on.template-collection .wt-filter {
   }
 
   body.template-collection .wt-filter--drawer.wt-filter--drawer-open,
-  body.page-overlay-on.template-collection .wt-filter--drawer {
+  body.page-overlay-on.template-collection .wt-filter--drawer,
+  body.page-overlay-on.template-collection .wt-filter,
+  body.template-search .wt-filter--drawer.wt-filter--drawer-open,
+  body.page-overlay-on.template-search .wt-filter--drawer,
+  body.page-overlay-on.template-search .wt-filter {
     transform: translateX(0) !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -2686,18 +2737,23 @@ body.page-overlay-on.template-collection .wt-filter {
 
 /* Mobile & Tablet Drawer: slides from left side (width 86vw / 380px max) */
 @media (max-width: 1199px) {
-  body.template-collection .collection.collection--with-aside {
+  body.template-collection .collection.collection--with-aside,
+  body.template-search .collection.collection--with-aside {
     display: block !important;
     width: 100% !important;
   }
 
-  body.template-collection .collection.collection--with-aside > .collection__body {
+  body.template-collection .collection.collection--with-aside > .collection__body,
+  body.template-search .collection.collection--with-aside > .collection__body {
     width: 100% !important;
     max-width: 100% !important;
     flex: none !important;
   }
 
-  body.template-collection .collection__aside.wt-filter {
+  body.template-collection .collection__aside.wt-filter,
+  body.template-collection .wt-filter,
+  body.template-search .collection__aside.wt-filter,
+  body.template-search .wt-filter {
     left: 0 !important;
     right: auto !important;
     width: 86vw !important;
@@ -2713,7 +2769,11 @@ body.page-overlay-on.template-collection .wt-filter {
   }
 
   body.template-collection .collection__aside.wt-filter.wt-filter--drawer-open,
-  body.page-overlay-on.template-collection .collection__aside.wt-filter {
+  body.page-overlay-on.template-collection .collection__aside.wt-filter,
+  body.page-overlay-on.template-collection .wt-filter,
+  body.template-search .collection__aside.wt-filter.wt-filter--drawer-open,
+  body.page-overlay-on.template-search .collection__aside.wt-filter,
+  body.page-overlay-on.template-search .wt-filter {
     transform: translateX(0) !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -2724,7 +2784,11 @@ body.page-overlay-on.template-collection .wt-filter {
 /* 3. Drawer Header (Desktop & Mobile) */
 body.template-collection .wt-filter--drawer .wt-filter__header,
 body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__header,
-body.page-overlay-on.template-collection .wt-filter .wt-filter__header {
+body.page-overlay-on.template-collection .wt-filter .wt-filter__header,
+body.template-search .wt-filter--drawer .wt-filter__header,
+body.template-search .wt-filter.wt-filter--drawer-open .wt-filter__header,
+body.page-overlay-on.template-search .wt-filter .wt-filter__header,
+body.page-overlay-on .wt-filter .wt-filter__header {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
@@ -2739,7 +2803,11 @@ body.page-overlay-on.template-collection .wt-filter .wt-filter__header {
 
 body.template-collection .wt-filter--drawer .wt-filter__header > div,
 body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__header > div,
-body.template-collection .wt-filter .wt-filter__title {
+body.template-collection .wt-filter .wt-filter__title,
+body.template-search .wt-filter--drawer .wt-filter__header > div,
+body.template-search .wt-filter.wt-filter--drawer-open .wt-filter__header > div,
+body.template-search .wt-filter .wt-filter__title,
+body.page-overlay-on .wt-filter .wt-filter__title {
   font-size: 15px !important;
   font-weight: 700 !important;
   letter-spacing: 0.12em !important;
@@ -2749,10 +2817,14 @@ body.template-collection .wt-filter .wt-filter__title {
   line-height: 1 !important;
 }
 
-/* 4. Drawer Close Button (Desktop & Mobile) - ALWAYS VISIBLE */
+/* 4. Drawer Close Button (Desktop & Mobile) - ALWAYS VISIBLE & CLICKABLE */
 body.template-collection .wt-filter--drawer .wt-filter__close,
 body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__close,
-body.page-overlay-on.template-collection .wt-filter .wt-filter__close {
+body.page-overlay-on.template-collection .wt-filter .wt-filter__close,
+body.template-search .wt-filter--drawer .wt-filter__close,
+body.template-search .wt-filter.wt-filter--drawer-open .wt-filter__close,
+body.page-overlay-on.template-search .wt-filter .wt-filter__close,
+body.page-overlay-on .wt-filter .wt-filter__close {
   display: flex !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -2771,22 +2843,30 @@ body.page-overlay-on.template-collection .wt-filter .wt-filter__close {
   color: #111111 !important;
   transition: background 0.2s ease, transform 0.15s ease !important;
   -webkit-tap-highlight-color: transparent !important;
+  pointer-events: auto !important;
+  z-index: 10 !important;
 }
 
 body.template-collection .wt-filter--drawer .wt-filter__close:hover,
-body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__close:hover {
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__close:hover,
+body.template-search .wt-filter--drawer .wt-filter__close:hover,
+body.page-overlay-on .wt-filter .wt-filter__close:hover {
   background: #e5e5e5 !important;
   transform: scale(1.05) !important;
 }
 
 body.template-collection .wt-filter--drawer .wt-filter__close:active,
-body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__close:active {
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__close:active,
+body.template-search .wt-filter--drawer .wt-filter__close:active,
+body.page-overlay-on .wt-filter .wt-filter__close:active {
   background: #d8d8d8 !important;
   transform: scale(0.95) !important;
 }
 
 body.template-collection .wt-filter--drawer .wt-filter__close .svg-icon,
-body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__close .svg-icon {
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__close .svg-icon,
+body.template-search .wt-filter--drawer .wt-filter__close .svg-icon,
+body.page-overlay-on .wt-filter .wt-filter__close .svg-icon {
   width: 14px !important;
   height: 14px !important;
   fill: currentColor !important;
@@ -2796,7 +2876,11 @@ body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__close .sv
 /* 5. Drawer Body (Desktop & Mobile) */
 body.template-collection .wt-filter--drawer .wt-filter__body,
 body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__body,
-body.page-overlay-on.template-collection .wt-filter .wt-filter__body {
+body.page-overlay-on.template-collection .wt-filter .wt-filter__body,
+body.template-search .wt-filter--drawer .wt-filter__body,
+body.template-search .wt-filter.wt-filter--drawer-open .wt-filter__body,
+body.page-overlay-on.template-search .wt-filter .wt-filter__body,
+body.page-overlay-on .wt-filter .wt-filter__body {
   flex: 1 1 auto !important;
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
@@ -2804,11 +2888,14 @@ body.page-overlay-on.template-collection .wt-filter .wt-filter__body {
   margin: 0 !important;
   background: #ffffff !important;
   box-sizing: border-box !important;
+  pointer-events: auto !important;
 }
 
 /* Filter Section Headers inside Drawer */
 body.template-collection .wt-filter--drawer .filter__header,
-body.template-collection .wt-filter.wt-filter--drawer-open .filter__header {
+body.template-collection .wt-filter.wt-filter--drawer-open .filter__header,
+body.template-search .wt-filter--drawer .filter__header,
+body.page-overlay-on .wt-filter .filter__header {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
@@ -2823,7 +2910,9 @@ body.template-collection .wt-filter.wt-filter--drawer-open .filter__header {
 }
 
 body.template-collection .wt-filter--drawer .filter__header .svg-icon,
-body.template-collection .wt-filter.wt-filter--drawer-open .filter__header .svg-icon {
+body.template-collection .wt-filter.wt-filter--drawer-open .filter__header .svg-icon,
+body.template-search .wt-filter--drawer .filter__header .svg-icon,
+body.page-overlay-on .wt-filter .filter__header .svg-icon {
   width: 12px !important;
   height: 12px !important;
   fill: #555555 !important;
@@ -2833,7 +2922,11 @@ body.template-collection .wt-filter.wt-filter--drawer-open .filter__header .svg-
 /* 6. Drawer Footer (Desktop & Mobile) */
 body.template-collection .wt-filter--drawer .wt-filter__footer,
 body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__footer,
-body.page-overlay-on.template-collection .wt-filter .wt-filter__footer {
+body.page-overlay-on.template-collection .wt-filter .wt-filter__footer,
+body.template-search .wt-filter--drawer .wt-filter__footer,
+body.template-search .wt-filter.wt-filter--drawer-open .wt-filter__footer,
+body.page-overlay-on.template-search .wt-filter .wt-filter__footer,
+body.page-overlay-on .wt-filter .wt-filter__footer {
   display: block !important;
   visibility: visible !important;
   flex-shrink: 0 !important;
@@ -2842,10 +2935,13 @@ body.page-overlay-on.template-collection .wt-filter .wt-filter__footer {
   border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
   margin: 0 !important;
   box-sizing: border-box !important;
+  pointer-events: auto !important;
 }
 
 body.template-collection .wt-filter--drawer .wt-filter__footer__body,
-body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__footer__body {
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__footer__body,
+body.template-search .wt-filter--drawer .wt-filter__footer__body,
+body.page-overlay-on .wt-filter .wt-filter__footer__body {
   display: flex !important;
   flex-direction: column !important;
   gap: 10px !important;
@@ -2856,7 +2952,11 @@ body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__footer__b
 body.template-collection .wt-filter--drawer .wt-cart__cta,
 body.template-collection .wt-filter--drawer .btn-checkout,
 body.template-collection .wt-filter.wt-filter--drawer-open .wt-cart__cta,
-body.template-collection .wt-filter.wt-filter--drawer-open .btn-checkout {
+body.template-collection .wt-filter.wt-filter--drawer-open .btn-checkout,
+body.template-search .wt-filter--drawer .wt-cart__cta,
+body.template-search .wt-filter--drawer .btn-checkout,
+body.page-overlay-on .wt-filter .wt-cart__cta,
+body.page-overlay-on .wt-filter .btn-checkout {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -2873,12 +2973,15 @@ body.template-collection .wt-filter.wt-filter--drawer-open .btn-checkout {
   cursor: pointer !important;
   transition: background 0.2s ease !important;
   -webkit-tap-highlight-color: transparent !important;
+  pointer-events: auto !important;
 }
 
 body.template-collection .wt-filter--drawer .wt-cart__cta:hover,
 body.template-collection .wt-filter--drawer .btn-checkout:hover,
 body.template-collection .wt-filter.wt-filter--drawer-open .wt-cart__cta:hover,
-body.template-collection .wt-filter.wt-filter--drawer-open .btn-checkout:hover {
+body.template-collection .wt-filter.wt-filter--drawer-open .btn-checkout:hover,
+body.template-search .wt-filter--drawer .wt-cart__cta:hover,
+body.page-overlay-on .wt-filter .wt-cart__cta:hover {
   background: #2a2a2a !important;
 }
 
@@ -2886,7 +2989,11 @@ body.template-collection .wt-filter.wt-filter--drawer-open .btn-checkout:hover {
 body.template-collection .wt-filter--drawer .wt-filter__clear-all,
 body.template-collection .wt-filter--drawer .wt-filter__remove-all,
 body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__clear-all,
-body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__remove-all {
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__remove-all,
+body.template-search .wt-filter--drawer .wt-filter__clear-all,
+body.template-search .wt-filter--drawer .wt-filter__remove-all,
+body.page-overlay-on .wt-filter .wt-filter__clear-all,
+body.page-overlay-on .wt-filter .wt-filter__remove-all {
   display: block !important;
   text-align: center !important;
   background: transparent !important;
@@ -2895,12 +3002,17 @@ body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__remove-al
   margin: 0 auto !important;
   cursor: pointer !important;
   text-decoration: none !important;
+  pointer-events: auto !important;
 }
 
 body.template-collection .wt-filter--drawer .wt-filter__remove-all span,
 body.template-collection .wt-filter--drawer .wt-filter__clear-all,
 body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__remove-all span,
-body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__clear-all {
+body.template-collection .wt-filter.wt-filter--drawer-open .wt-filter__clear-all,
+body.template-search .wt-filter--drawer .wt-filter__remove-all span,
+body.template-search .wt-filter--drawer .wt-filter__clear-all,
+body.page-overlay-on .wt-filter .wt-filter__remove-all span,
+body.page-overlay-on .wt-filter .wt-filter__clear-all {
   font-size: 11.5px !important;
   font-weight: 600 !important;
   letter-spacing: 0.08em !important;

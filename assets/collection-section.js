@@ -139,9 +139,9 @@ class CollectionSection extends HTMLElement {
   }
 
   toggleDrawer(e) {
-    if (e) e.preventDefault();
+    if (e && e.preventDefault) e.preventDefault();
 
-    if (!this.currentDrawerMode) {
+    if (!this.isDrawerMode()) {
       return;
     }
 
