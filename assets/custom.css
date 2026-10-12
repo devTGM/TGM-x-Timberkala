@@ -3634,6 +3634,57 @@ body.template-product .wt-product__wrapper {
   }
 }
 
+/* ==========================================================================
+   STICKY PRODUCT MEDIA GALLERY ON DESKTOP (>= 900px)
+   Pins the product image/gallery in view while customers scroll through
+   extensive details, specifications, accordions, and reviews.
+   ========================================================================== */
+@media (min-width: 900px) {
+  body.template-product .wt-product,
+  .wt-product {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+  }
+
+  body.template-product .wt-product__gallery,
+  body.template-product gallery-section.wt-product__gallery,
+  .wt-product__gallery {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 90px !important;
+    align-self: flex-start !important;
+    height: auto !important;
+    height: -webkit-fit-content !important;
+    height: -moz-fit-content !important;
+    height: fit-content !important;
+    z-index: 5 !important;
+  }
+
+  body.template-product .wt-product__gallery--collage,
+  .wt-product__gallery--collage {
+    height: auto !important;
+    height: fit-content !important;
+  }
+
+  body.template-product .wt-product__main,
+  .wt-product__main {
+    top: 90px !important;
+  }
+
+  /* Keep the sticky image neatly within view on various desktop/laptop screen heights */
+  body.template-product .wt-product__gallery .wt-product__img,
+  .wt-product__gallery .wt-product__img {
+    max-height: calc(100vh - 120px) !important;
+    height: auto !important;
+    width: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
 /* ── Product Brand / Vendor Readability on Jute ── */
 .wt-product__brand,
 .wt-product__brand__name,
