@@ -3,7 +3,7 @@
   Matches exact styling of Inova demo store on Desktop & Mobile:
   - 100vh Fullscreen Video & Image slides with proportional object-fit: cover (no stretching!)
   - Giant center brand watermark ("I N O V A" / "T I M B E R K A L A")
-  - Floating pill dock with "GET 20% OFF" badge (visible on mobile and desktop)
+  - Floating pill dock with "GET 15% OFF" badge (visible on mobile and desktop)
   - Bottom-left slide heading + full-width mobile pill button
   - Bottom-left slide indicator dots (○ • •) matching mobile preview
 {%- endcomment -%}
@@ -175,17 +175,11 @@
     <aside id="inova-floating-dock" class="inova-floating-dock {% if section.settings.show_social_dock_mobile == false %}mobile-dock-hidden{% endif %}" aria-label="Social and Discounts">
       <div class="inova-dock-socials">
         {%- assign fb_link = settings.social_facebook_link | default: 'https://facebook.com/Timberkala' -%}
-        {%- assign tw_link = settings.social_twitter_link | default: 'https://twitter.com/timberkala' -%}
         {%- assign ig_link = settings.social_instagram_link | default: 'https://instagram.com/timber.kala/' -%}
         {%- assign pin_link = settings.social_pinterest_link | default: 'https://pinterest.com' -%}
         {%- if fb_link != blank -%}
           <a href="{{ fb_link }}" target="_blank" rel="noopener" aria-label="Facebook" class="inova-dock-icon">
             <svg width="15" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          </a>
-        {%- endif -%}
-        {%- if tw_link != blank -%}
-          <a href="{{ tw_link }}" target="_blank" rel="noopener" aria-label="X" class="inova-dock-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           </a>
         {%- endif -%}
         {%- if ig_link != blank -%}
@@ -200,8 +194,8 @@
         {%- endif -%}
       </div>
 
-      <a href="{{ section.settings.dock_discount_url | default: '/collections/all-products' }}" class="inova-dock-pill" aria-label="{{ section.settings.dock_discount_text | default: 'GET 20% OFF' }}">
-        <span class="inova-dock-pill__text">{{ section.settings.dock_discount_text | default: 'GET 20% OFF' }}</span>
+      <a href="{{ section.settings.dock_discount_url | default: '/collections/all-products' }}" class="inova-dock-pill" aria-label="{{ section.settings.dock_discount_text | default: 'GET 15% OFF' }}">
+        <span class="inova-dock-pill__text">{{ section.settings.dock_discount_text | default: 'GET 15% OFF' }}</span>
       </a>
     </aside>
 
@@ -793,7 +787,7 @@ body.template-index .hero-section.hero-scrolled,
     text-indent: clamp(14px, 4vw, 24px) !important;
   }
 
-  /* Left Floating Pill Badge on Mobile ("GET 20% OFF") */
+  /* Left Floating Pill Badge on Mobile ("GET 15% OFF") */
   .inova-floating-dock {
     display: flex !important;
     position: fixed !important;
@@ -819,7 +813,7 @@ body.template-index .hero-section.hero-scrolled,
     display: none !important;
   }
 
-  /* Hide social icons inside the pill on mobile so ONLY the clean vertical "GET 20% OFF" badge is shown */
+  /* Hide social icons inside the pill on mobile so ONLY the clean vertical "GET 15% OFF" badge is shown */
   .inova-dock-socials {
     display: none !important;
   }
@@ -1135,7 +1129,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "text",
       "id": "dock_discount_text",
       "label": "Floating Dock Discount Text",
-      "default": "GET 20% OFF"
+      "default": "GET 15% OFF"
     },
     {
       "type": "url",
