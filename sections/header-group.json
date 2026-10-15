@@ -67,8 +67,8 @@
         "image_playful": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/banner_website_glass_and_wood.webp",
-            "mobile_image": "shopify://shop_images/TK-mobile.webp",
+            "image": "shopify://shop_images/Festive_Banner_2.png",
+            "mobile_image": "shopify://shop_images/Festive_Mobile_1.png",
             "hide_overlay_mobile": true,
             "hide_overlay_desktop": true,
             "heading": "",
