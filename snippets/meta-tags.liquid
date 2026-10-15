@@ -2,7 +2,7 @@
   assign og_title = page_title | default: shop.name
   assign og_url = canonical_url | default: shop.url
   assign og_type = 'website'
-  assign og_description = page_description | default: shop.description | default: shop.name
+  assign og_description = page_description | default: shop.description | default: 'Handcrafted luxury wooden home decor and artisan sculptures by Timberkala (TIMBERकला).'
 
   if request.page_type == 'product'
     assign og_type = 'product'
@@ -13,19 +13,24 @@
   elsif request.page_type == 'password'
     assign og_url = shop.url
   endif
-%}
+-%}
 
-<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:site_name" content="Timberkala">
 <meta property="og:url" content="{{ og_url }}">
 <meta property="og:title" content="{{ og_title | escape }}">
 <meta property="og:type" content="{{ og_type }}">
 <meta property="og:description" content="{{ og_description | escape }}">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="hi_IN">
 
 {%- if page_image -%}
   <meta property="og:image" content="http:{{ page_image | image_url }}">
   <meta property="og:image:secure_url" content="https:{{ page_image | image_url }}">
   <meta property="og:image:width" content="{{ page_image.width }}">
   <meta property="og:image:height" content="{{ page_image.height }}">
+{%- else -%}
+  <meta property="og:image" content="https://www.timberkala.com/cdn/shop/files/Timber_Kala_Logo_7b253cba-6ed5-4e44-b429-cb40810b296e.png">
+  <meta property="og:image:secure_url" content="https://www.timberkala.com/cdn/shop/files/Timber_Kala_Logo_7b253cba-6ed5-4e44-b429-cb40810b296e.png">
 {%- endif -%}
 
 {%- if request.page_type == 'product' -%}
@@ -44,6 +49,11 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ og_title | escape }}">
 <meta name="twitter:description" content="{{ og_description | escape }}">
+{%- if page_image -%}
+  <meta name="twitter:image" content="https:{{ page_image | image_url }}">
+{%- else -%}
+  <meta name="twitter:image" content="https://www.timberkala.com/cdn/shop/files/Timber_Kala_Logo_7b253cba-6ed5-4e44-b429-cb40810b296e.png">
+{%- endif -%}
 
 <!-- Google Brand Knowledge Graph & Merchant Entity -->
 <script type="application/ld+json">
@@ -52,11 +62,27 @@
   "@type": ["Organization", "OnlineStore"],
   "@id": "https://www.timberkala.com/#organization",
   "name": "Timberkala",
-  "alternateName": ["Timber Kala", "TIMBER KALA"],
+  "alternateName": [
+    "Timber Kala",
+    "TimberKala",
+    "TIMBERकला",
+    "TIMBER KALA",
+    "Timber kala",
+    "टिंबरकला",
+    "टिंबर कला"
+  ],
+  "legalName": "Timberkala",
   "url": "https://www.timberkala.com",
-  "logo": "https://www.timberkala.com/cdn/shop/files/Timber_Kala_Logo_7b253cba-6ed5-4e44-b429-cb40810b296e.png",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://www.timberkala.com/cdn/shop/files/Timber_Kala_Logo_7b253cba-6ed5-4e44-b429-cb40810b296e.png",
+    "width": 512,
+    "height": 512,
+    "caption": "Timberkala - Artisan Handcrafted Wooden Decor"
+  },
   "image": "https://www.timberkala.com/cdn/shop/files/Timber_Kala_Logo_7b253cba-6ed5-4e44-b429-cb40810b296e.png",
-  "description": "Discover handcrafted wooden home decor that blends tradition with modern elegance. Explore unique, artisan-made wall decor, figurines, and home accents at Timberkala.",
+  "description": "Timberkala (TIMBERकला) is an Indian artisanal home decor brand crafting luxury wooden sculptures, molten glass on reclaimed teak wood roots, animal & bird figurines, and bespoke architectural wall accents.",
+  "slogan": "Handcrafted Wooden Elegance & Artisan Decor",
   "email": "timberkala.marketing@gmail.com",
   "currenciesAccepted": "INR",
   "paymentAccepted": "Credit Card, Debit Card, UPI, Net Banking",
@@ -64,19 +90,44 @@
   "sameAs": [
     "https://www.instagram.com/timber.kala/",
     "https://www.facebook.com/Timberkala",
-    "https://www.youtube.com/timberkala"
+    "https://www.youtube.com/@timberkala",
+    "https://in.pinterest.com/timberkala/"
   ],
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "contactType": "customer service",
-    "email": "timberkala.marketing@gmail.com",
-    "availableLanguage": ["en", "hi"]
+  "knowsAbout": [
+    "Handcrafted Wooden Decor",
+    "Teak Wood Root Art",
+    "Molten Glass on Wood Sculptures",
+    "Artisan Animal Figurines",
+    "Architectural Wall Accents",
+    "Indian Woodcraft"
+  ],
+  "foundingLocation": {
+    "@type": "Place",
+    "name": "Delhi, India"
   },
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "B-1 13, B 1 Block, Paschim Vihar",
     "addressLocality": "Delhi",
+    "addressRegion": "Delhi",
+    "postalCode": "110063",
     "addressCountry": "IN"
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "email": "timberkala.marketing@gmail.com",
+      "availableLanguage": ["English", "Hindi"]
+    }
+  ],
+  "hasMerchantReturnPolicy": {
+    "@type": "MerchantReturnPolicy",
+    "applicableCountry": "IN",
+    "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+    "merchantReturnDays": 7,
+    "returnMethod": "https://schema.org/ReturnByMail",
+    "returnFees": "https://schema.org/FreeReturn"
   }
 }
 </script>
@@ -89,8 +140,18 @@
   "@id": "https://www.timberkala.com/#website",
   "url": "https://www.timberkala.com",
   "name": "Timberkala",
-  "alternateName": ["Timber Kala", "TIMBER KALA"],
-  "description": "Discover handcrafted wooden home decor that blends tradition with modern elegance.",
+  "alternateName": [
+    "Timber Kala",
+    "TimberKala",
+    "TIMBERकला",
+    "TIMBER KALA",
+    "Timber kala",
+    "टिंबरकला",
+    "टिंबर कला"
+  ],
+  "publisher": {
+    "@id": "https://www.timberkala.com/#organization"
+  },
   "potentialAction": {
     "@type": "SearchAction",
     "target": {
@@ -102,26 +163,88 @@
 }
 </script>
 
-{%- if request.page_type == 'collection' -%}
-<!-- Google Breadcrumbs for Collection Sitelinks -->
+{%- if request.page_type == 'index' -%}
+<!-- Google Sitelinks Navigation Elements (Primary Category Architecture) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
+  "@type": "ItemList",
   "itemListElement": [
     {
-      "@type": "ListItem",
+      "@type": "SiteNavigationElement",
       "position": 1,
-      "name": "Home",
-      "item": "https://www.timberkala.com"
+      "name": "Wall Decor",
+      "description": "Handcrafted wooden wall decor, 3D carved panels, spiritual wall art, and architectural accents by Timberkala.",
+      "url": "https://www.timberkala.com/collections/wall-decor"
     },
     {
-      "@type": "ListItem",
+      "@type": "SiteNavigationElement",
       "position": 2,
-      "name": {{ collection.title | json }},
-      "item": {{ canonical_url | json }}
+      "name": "Table Decor",
+      "description": "Artisanal wooden table decor, molten glass on teak root bases, statement bowls, artifacts, and centerpiece accents.",
+      "url": "https://www.timberkala.com/collections/table-decor"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 3,
+      "name": "Figurines",
+      "description": "Handcrafted wooden animal and bird figurines, ethically handcarved in reclaimed teak wood by master Indian artisans.",
+      "url": "https://www.timberkala.com/collections/animal-and-bird-figurines"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 4,
+      "name": "Furniture",
+      "description": "Bespoke solid wood furniture, handcrafted tables, artisan stools, and heirloom statement pieces by Timberkala.",
+      "url": "https://www.timberkala.com/collections/furniture"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 5,
+      "name": "Hangings",
+      "description": "Handcrafted wooden wall hangings, resonant acoustic wind chimes, and artisanal hanging ornaments for living spaces.",
+      "url": "https://www.timberkala.com/collections/hangings-1"
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "position": 6,
+      "name": "All Products",
+      "description": "Explore the complete handcrafted wooden home decor catalog, teak root sculptures, and luxury artisan artifacts by Timberkala.",
+      "url": "https://www.timberkala.com/collections/all-products"
     }
   ]
+}
+</script>
+{%- elsif request.page_type == 'collection' -%}
+<!-- Google CollectionPage & Breadcrumbs for Sitelinks -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": {{ collection.title | json }},
+  "url": {{ canonical_url | json }},
+  "description": {{ collection.description | strip_html | default: "Explore handcrafted wooden decor in the " | append: collection.title | append: " collection by Timberkala." | json }},
+  "isPartOf": {
+    "@type": "WebSite",
+    "@id": "https://www.timberkala.com/#website"
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://www.timberkala.com"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": {{ collection.title | json }},
+        "item": {{ canonical_url | json }}
+      }
+    ]
+  }
 }
 </script>
 {%- elsif request.page_type == 'product' -%}
@@ -137,13 +260,128 @@
       "name": "Home",
       "item": "https://www.timberkala.com"
     },
+    {%- if collection -%}
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ collection.title | json }},
+      "item": {{ shop.url | append: collection.url | json }}
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ product.title | json }},
+      "item": {{ canonical_url | json }}
+    }
+    {%- else -%}
     {
       "@type": "ListItem",
       "position": 2,
       "name": {{ product.title | json }},
       "item": {{ canonical_url | json }}
     }
+    {%- endif -%}
   ]
 }
 </script>
+{%- elsif request.page_type == 'article' -%}
+<!-- Google Article & Breadcrumb Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ article.title | json }},
+  "image": [
+    {{ article.image | image_url: width: 1200 | prepend: "https:" | json }}
+  ],
+  "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+  "dateModified": {{ article.updated_at | default: article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+  "author": {
+    "@type": "Person",
+    "name": {{ article.author | default: "Timberkala" | json }}
+  },
+  "publisher": {
+    "@id": "https://www.timberkala.com/#organization"
+  },
+  "description": {{ article.excerpt_or_content | strip_html | truncate: 200 | json }},
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ canonical_url | json }}
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.timberkala.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ blog.title | json }},
+      "item": {{ shop.url | append: blog.url | json }}
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": {{ article.title | json }},
+      "item": {{ canonical_url | json }}
+    }
+  ]
+}
+</script>
+{%- elsif request.page_type == 'page' -%}
+<!-- Google Breadcrumbs for Pages -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.timberkala.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ page.title | json }},
+      "item": {{ canonical_url | json }}
+    }
+  ]
+}
+</script>
+{%- if page.handle == 'about-us' or page.handle contains 'about' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": {{ page.title | json }},
+  "url": {{ canonical_url | json }},
+  "description": "Learn about Timberkala (TIMBERकला), handcrafted wooden home decor, reclaimed teak wood roots, and bespoke artisan sculptures.",
+  "mainEntity": {
+    "@id": "https://www.timberkala.com/#organization"
+  }
+}
+</script>
+{%- elsif page.handle == 'contact' or page.handle contains 'contact' -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": {{ page.title | json }},
+  "url": {{ canonical_url | json }},
+  "mainEntity": {
+    "@id": "https://www.timberkala.com/#organization"
+  }
+}
+</script>
+{%- endif -%}
 {%- endif -%}

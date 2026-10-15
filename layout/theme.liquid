@@ -40,11 +40,44 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-    <title>{{ page_title }}</title>
+    <title>
+      {%- if template.name == 'index' -%}
+        {{ page_title }}
+        {%- unless page_title contains 'Timberkala' or page_title contains 'TIMBERकला' or page_title contains 'Timber Kala' %} &ndash; Handcrafted Wooden Home Decor &amp; Sculptures{% endunless -%}
+      {%- else -%}
+        {{ page_title }}
+        {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+        {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+        {%- unless page_title contains shop.name or page_title contains 'Timberkala' %} &ndash; {{ shop.name }}{% endunless -%}
+      {%- endif -%}
+    </title>
 
-    {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}">
-    {% endif %}
+    {%- capture meta_desc -%}
+      {%- if page_description -%}
+        {{ page_description | escape }}
+      {%- elsif template.name == 'index' -%}
+        Discover handcrafted wooden home decor at Timberkala (TIMBERकला). Shop artisan molten glass on teak wood root sculptures, handcarved figurines, and luxury wall accents. Made in India.
+      {%- elsif template.name == 'collection' -%}
+        {%- if collection.handle == 'wall-decor' or collection.handle == 'wall-accents' -%}
+          Shop handcrafted wooden wall decor, 3D carved panels, spiritual wall art &amp; architectural accents by Timberkala. Handcrafted in India with insured delivery.
+        {%- elsif collection.handle == 'table-decor' or collection.handle == 'table-decor-items' or collection.handle == 'modern-table-decor' -%}
+          Discover artisanal wooden table decor, molten glass on teak root bases, statement bowls &amp; centerpiece artifacts by Timberkala.
+        {%- elsif collection.handle contains 'figurin' or collection.handle == 'animal-and-bird-figurines' -%}
+          Explore handcrafted wooden animal &amp; bird figurines, ethically handcarved in reclaimed teak wood by master Indian artisans at Timberkala.
+        {%- elsif collection.handle == 'furniture' -%}
+          Discover handcrafted solid wood furniture, bespoke tables, artisanal stools &amp; statement interior furniture pieces by Timberkala.
+        {%- elsif collection.handle contains 'hanging' or collection.handle == 'hangings-1' -%}
+          Explore handcrafted wooden hangings, resonant acoustic wind chimes &amp; decorative hanging accents by Timberkala.
+        {%- else -%}
+          Explore handcrafted {{ collection.title }} by Timberkala. Unique artisan-made wooden home decor, sustainable teak root craftsmanship &amp; bespoke interior accents.
+        {%- endif -%}
+      {%- elsif template.name == 'product' -%}
+        Shop {{ product.title }} by Timberkala. Artisanal handcrafted wooden decor with 100% insured pan-India delivery and authentic craftsmanship.
+      {%- else -%}
+        Handcrafted luxury wooden home decor and artisan sculptures by Timberkala (TIMBERकला).
+      {%- endif -%}
+    {%- endcapture -%}
+    <meta name="description" content="{{ meta_desc | strip | strip_newlines }}">
 <script src='https://bridge.shopflo.com/js/shopflo.bundle.js' async></script>
     {% render 'meta-tags' %}
 
