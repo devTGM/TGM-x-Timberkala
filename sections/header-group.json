@@ -17,7 +17,7 @@
         "ann_shipping": {
           "type": "announcement",
           "settings": {
-            "text": "✦ Free Shipping on orders above ₹2000 across India",
+            "text": "✦ Get 15% off on your orders. Use Code: FESTIVE15",
             "link": "/collections/all-products"
           }
         },
