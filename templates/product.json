@@ -65,10 +65,21 @@
             "margin-bottom": 8
           }
         },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "color_swatch_names": "",
+            "variant_picture_swatch_names": "",
+            "dropdown_swatch_names": "",
+            "margin-top": 8,
+            "margin-bottom": 8
+          }
+        },
         "price": {
           "type": "price",
           "settings": {
-            "show_tax_included": false,
+            "show_tax_included": true,
             "size_text": 140,
             "size_text_mobile": 130
           }
@@ -78,17 +89,6 @@
           "settings": {
             "show-separator-line": false,
             "color-background": "#ffffff",
-            "margin-top": 8,
-            "margin-bottom": 8
-          }
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "color_swatch_names": "",
-            "variant_picture_swatch_names": "",
-            "dropdown_swatch_names": "",
             "margin-top": 8,
             "margin-bottom": 8
           }
@@ -322,9 +322,9 @@
         "custom_liquid_H8nd4C",
         "rating",
         "90ea3cd3-aa22-44f6-b6de-365eb7f85b9c",
+        "variant_picker",
         "price",
         "separator_RrKQ4A",
-        "variant_picker",
         "custom_liquid_jBMGDR",
         "text_j6RwH3",
         "upsell_pdp",
