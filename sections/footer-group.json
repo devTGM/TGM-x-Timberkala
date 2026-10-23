@@ -11,6 +11,10 @@
   "type": "footer",
   "name": "Footer Group",
   "sections": {
+    "global_faq": {
+      "type": "global-faq",
+      "settings": {}
+    },
     "custom_liquid_gem8Nb": {
       "type": "custom-liquid",
       "name": "Concept Inova Footer",
@@ -37,6 +41,7 @@
     }
   },
   "order": [
+    "global_faq",
     "custom_liquid_gem8Nb",
     "footer"
   ]
