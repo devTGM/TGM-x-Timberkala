@@ -1889,9 +1889,10 @@
 
     <main id="root" class="" role="main">
       {{ content_for_layout }}
+      {% unless template.name == 'index' %}
+        {% section 'global-faq' %}
+      {% endunless %}
     </main>
-
-    {% section 'global-faq' %}
     {% sections 'footer-group' %}
     {% section 'cart-drawer' %}
     {% render 'background-sound' %}
