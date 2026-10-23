@@ -18,9 +18,9 @@
   {%- style -%}
     #shopify-section-{{ section.id }} {
       --tk-faq-bg: {{ section.settings.bg_color | default: '#141414' }};
-      --tk-faq-card-bg: {{ section.settings.card_bg | default: 'rgba(255, 255, 255, 0.035)' }};
-      --tk-faq-card-bg-hover: {{ section.settings.card_bg_hover | default: 'rgba(255, 255, 255, 0.06)' }};
-      --tk-faq-card-border: {{ section.settings.card_border | default: 'rgba(255, 255, 255, 0.09)' }};
+      --tk-faq-card-bg: {{ section.settings.card_bg | default: '#1a1a1a' }};
+      --tk-faq-card-bg-hover: rgba(255, 255, 255, 0.06);
+      --tk-faq-card-border: rgba(255, 255, 255, 0.09);
       --tk-faq-card-border-active: {{ section.settings.accent_color | default: '#ffddbf' }};
       --tk-faq-text: {{ section.settings.text_color | default: '#faf9f6' }};
       --tk-faq-text-muted: {{ section.settings.muted_text_color | default: 'rgba(250, 249, 246, 0.72)' }};
@@ -1738,7 +1738,7 @@
       "type": "color",
       "id": "card_bg",
       "label": "Card Background",
-      "default": "rgba(255, 255, 255, 0.035)"
+      "default": "#1a1a1a"
     },
     {
       "type": "range",
