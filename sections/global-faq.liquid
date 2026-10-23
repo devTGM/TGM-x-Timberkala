@@ -1,6 +1,7 @@
 {%- comment -%}
   -----------------------------------------------------------------------------
-  TIMBERKALA (TIMBERकला) — GLOBAL ATELIER FAQ SECTION
+  TIMBERKALA (TIMBERकला) — LUXURY ATELIER FAQ SECTION
+  Architectural Digest / Editorial Luxury Design
   AEO (Answer Engine Optimization) & GEO (Generative Engine Optimization)
   Renders on every page of the website with visible accessible accordion &
   valid Schema.org FAQPage JSON-LD structured data.
@@ -9,7 +10,6 @@
 
 {%- if section.settings.enable_faq -%}
 
-  {%- comment -%} Determine FAQ Items: Custom blocks if added, else default 20 curated AEO/GEO questions {%- endcomment -%}
   {%- assign has_custom_blocks = false -%}
   {%- if section.blocks.size > 0 -%}
     {%- assign has_custom_blocks = true -%}
@@ -17,27 +17,27 @@
 
   {%- style -%}
     #shopify-section-{{ section.id }} {
-      --tk-faq-bg: {{ section.settings.bg_color | default: '#141414' }};
-      --tk-faq-card-bg: {{ section.settings.card_bg | default: '#1a1a1a' }};
-      --tk-faq-card-bg-hover: rgba(255, 255, 255, 0.06);
-      --tk-faq-card-border: rgba(255, 255, 255, 0.09);
-      --tk-faq-card-border-active: {{ section.settings.accent_color | default: '#ffddbf' }};
-      --tk-faq-text: {{ section.settings.text_color | default: '#faf9f6' }};
-      --tk-faq-text-muted: {{ section.settings.muted_text_color | default: 'rgba(250, 249, 246, 0.72)' }};
-      --tk-faq-accent: {{ section.settings.accent_color | default: '#ffddbf' }};
-      --tk-faq-accent-glow: rgba(255, 221, 191, 0.15);
-      --tk-faq-max-width: {{ section.settings.max_width | default: '1280' }}px;
-      --tk-faq-pt: {{ section.settings.padding_top | default: 70 }}px;
-      --tk-faq-pb: {{ section.settings.padding_bottom | default: 60 }}px;
+      --tk-faq-bg: {{ section.settings.bg_color | default: '#fbf9f5' }};
+      --tk-faq-card-bg: {{ section.settings.card_bg | default: '#ffffff' }};
+      --tk-faq-card-border: {{ section.settings.border_color | default: '#e8e4dc' }};
+      --tk-faq-text: {{ section.settings.text_color | default: '#1a1a1a' }};
+      --tk-faq-text-muted: #5e5a52;
+      --tk-faq-accent: {{ section.settings.accent_color | default: '#7b5454' }};
+      --tk-faq-accent-warm: #8c5e3c;
+      --tk-faq-pill-bg: #f2ede4;
+      --tk-faq-pill-border: #e2ddd3;
+      --tk-faq-max-width: {{ section.settings.max_width | default: '1360' }}px;
+      --tk-faq-pt: {{ section.settings.padding_top | default: 80 }}px;
+      --tk-faq-pb: {{ section.settings.padding_bottom | default: 90 }}px;
     }
 
     .tk-faq-section {
       background-color: var(--tk-faq-bg);
       color: var(--tk-faq-text);
-      font-family: 'Jost', system-ui, -apple-system, sans-serif;
-      padding: var(--tk-faq-pt) 24px var(--tk-faq-pb);
+      font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding: var(--tk-faq-pt) 32px var(--tk-faq-pb);
       position: relative;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid var(--tk-faq-card-border);
       content-visibility: auto;
       contain-intrinsic-size: 800px;
     }
@@ -47,80 +47,87 @@
       margin: 0 auto;
     }
 
-    /* Header styling */
-    .tk-faq-header {
-      text-align: center;
-      max-width: 820px;
-      margin: 0 auto 36px;
+    /* Two-Column Editorial Layout on Desktop */
+    .tk-faq-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
     }
 
+    @media (min-width: 990px) {
+      .tk-faq-grid {
+        grid-template-columns: 400px 1fr;
+        gap: 72px;
+        align-items: start;
+      }
+      .tk-faq-sidebar {
+        position: sticky;
+        top: 110px;
+      }
+    }
+
+    /* Left Sidebar: Header & Controls */
     .tk-faq-eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       font-size: 11px;
       font-weight: 600;
-      letter-spacing: 2px;
+      letter-spacing: 2.2px;
       text-transform: uppercase;
       color: var(--tk-faq-accent);
-      background: rgba(255, 221, 191, 0.08);
-      border: 1px solid rgba(255, 221, 191, 0.2);
-      padding: 5px 14px;
-      border-radius: 50px;
       margin-bottom: 14px;
     }
 
-    .tk-faq-eyebrow-spark {
-      color: var(--tk-faq-accent);
-      font-size: 10px;
+    .tk-faq-eyebrow-line {
+      width: 24px;
+      height: 1px;
+      background: var(--tk-faq-accent);
+      display: inline-block;
     }
 
     .tk-faq-title {
       font-family: 'Jost', sans-serif;
-      font-size: clamp(24px, 4vw, 36px);
-      font-weight: 500;
-      letter-spacing: 1px;
+      font-size: clamp(28px, 3.2vw, 42px);
+      font-weight: 400;
+      letter-spacing: -0.5px;
       text-transform: uppercase;
-      color: #ffffff;
-      margin: 0 0 14px;
-      line-height: 1.25;
+      color: var(--tk-faq-text);
+      margin: 0 0 16px;
+      line-height: 1.15;
     }
 
     .tk-faq-subtitle {
-      font-size: clamp(13px, 1.6vw, 15px);
-      line-height: 1.65;
+      font-size: 14.5px;
+      line-height: 1.7;
       color: var(--tk-faq-text-muted);
-      margin: 0;
+      margin: 0 0 28px;
+      font-weight: 400;
     }
 
-    /* Live Search Input */
-    .tk-faq-search-wrap {
-      max-width: 620px;
-      margin: 0 auto 28px;
-      position: relative;
-    }
-
+    /* Refined Search Box */
     .tk-faq-search-box {
       display: flex;
       align-items: center;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 50px;
-      padding: 6px 18px;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      background: #ffffff;
+      border: 1px solid #dcd7ce;
+      border-radius: 8px;
+      padding: 6px 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      transition: all 0.25s ease;
     }
 
     .tk-faq-search-box:focus-within {
       border-color: var(--tk-faq-accent);
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 0 0 4px var(--tk-faq-accent-glow);
+      box-shadow: 0 0 0 3px rgba(123, 84, 84, 0.12);
     }
 
     .tk-faq-search-icon {
       color: var(--tk-faq-accent);
       display: flex;
       align-items: center;
-      margin-right: 12px;
+      margin-right: 10px;
       flex-shrink: 0;
     }
 
@@ -129,116 +136,210 @@
       background: transparent;
       border: none;
       outline: none;
-      color: #ffffff;
+      color: #1a1a1a;
       font-family: 'Jost', sans-serif;
-      font-size: 14px;
+      font-size: 13.5px;
       padding: 8px 0;
     }
 
     .tk-faq-search-input::placeholder {
-      color: rgba(250, 249, 246, 0.45);
+      color: #9c978f;
     }
 
     .tk-faq-search-clear {
-      background: rgba(255, 255, 255, 0.1);
+      background: #eeebe3;
       border: none;
       border-radius: 50%;
-      color: #faf9f6;
-      width: 22px;
-      height: 22px;
+      color: #555;
+      width: 20px;
+      height: 20px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      font-size: 12px;
+      font-size: 11px;
       line-height: 1;
-      margin-left: 8px;
+      margin-left: 6px;
       transition: background 0.2s;
     }
 
     .tk-faq-search-clear:hover {
       background: var(--tk-faq-accent);
-      color: #1a1a1a;
+      color: #ffffff;
     }
 
     .tk-faq-search-count {
-      text-align: center;
       font-size: 12px;
       letter-spacing: 0.5px;
       color: var(--tk-faq-accent);
-      margin-top: 8px;
+      margin-bottom: 18px;
       min-height: 18px;
       font-weight: 500;
     }
 
-    /* Category Filter Tabs */
+    /* Category Filter List */
     .tk-faq-categories {
       display: flex;
-      align-items: center;
-      justify-content: center;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 36px;
-      padding: 0 8px;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    @media (min-width: 990px) {
+      .tk-faq-categories {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+      }
     }
 
     .tk-faq-tab-btn {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: var(--tk-faq-text-muted);
-      border-radius: 50px;
-      padding: 8px 18px;
+      background: var(--tk-faq-pill-bg);
+      border: 1px solid var(--tk-faq-pill-border);
+      color: #524f49;
+      border-radius: 6px;
+      padding: 10px 16px;
       font-family: 'Jost', sans-serif;
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.3px;
       cursor: pointer;
-      transition: all 0.25s ease;
-      white-space: nowrap;
+      transition: all 0.22s ease;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .tk-faq-tab-btn:hover {
-      background: rgba(255, 255, 255, 0.08);
-      color: #ffffff;
-      border-color: rgba(255, 221, 191, 0.35);
-      transform: translateY(-1px);
+      background: #eae4d8;
+      color: #1a1a1a;
+      border-color: #d8d0c2;
     }
 
     .tk-faq-tab-btn.is-active {
-      background: var(--tk-faq-accent);
-      color: #1a1a1a;
-      border-color: var(--tk-faq-accent);
-      font-weight: 600;
-      box-shadow: 0 4px 16px rgba(255, 221, 191, 0.25);
+      background: #1a1a1a;
+      color: #ffffff;
+      border-color: #1a1a1a;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
     }
 
-    /* Grid / Accordion Stack */
-    .tk-faq-accordion-wrap {
-      max-width: 980px;
-      margin: 0 auto;
+    /* Concierge Card in Sidebar */
+    .tk-faq-concierge-card {
+      background: #f4eee4;
+      border: 1px solid #e2ddd3;
+      border-radius: 10px;
+      padding: 24px;
+      margin-top: 12px;
+    }
+
+    .tk-faq-concierge-badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--tk-faq-accent);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .tk-faq-concierge-title {
+      font-family: 'Jost', sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: #1a1a1a;
+      margin: 0 0 6px;
+      letter-spacing: 0.2px;
+    }
+
+    .tk-faq-concierge-desc {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--tk-faq-text-muted);
+      margin: 0 0 18px;
+    }
+
+    .tk-faq-concierge-actions {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
+    }
+
+    .tk-faq-btn-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #1a1a1a;
+      color: #ffffff;
+      padding: 12px 18px;
+      border-radius: 6px;
+      font-family: 'Jost', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .tk-faq-btn-wa:hover {
+      background: #7b5454;
+      color: #ffffff;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(123, 84, 84, 0.25);
+    }
+
+    .tk-faq-btn-email {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: transparent;
+      color: #1a1a1a;
+      border: 1px solid #ccc5b8;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-family: 'Jost', sans-serif;
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s ease;
+    }
+
+    .tk-faq-btn-email:hover {
+      background: #ffffff;
+      border-color: #1a1a1a;
+      color: #1a1a1a;
+    }
+
+    /* Right Column: Accordion Stack */
+    .tk-faq-accordion-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
     }
 
     .tk-faq-card {
-      background: var(--tk-faq-card-bg);
-      border: 1px solid var(--tk-faq-card-border);
-      border-radius: 12px;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      background: transparent;
+      border-bottom: 1px solid var(--tk-faq-card-border);
+      transition: all 0.28s ease;
       overflow: hidden;
     }
 
-    .tk-faq-card:hover {
-      background: var(--tk-faq-card-bg-hover);
-      border-color: rgba(255, 221, 191, 0.28);
-      transform: translateY(-1px);
+    .tk-faq-card:first-child {
+      border-top: 1px solid var(--tk-faq-card-border);
     }
 
     .tk-faq-card[open] {
-      background: rgba(255, 255, 255, 0.055);
-      border-color: rgba(255, 221, 191, 0.45);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+      background: #ffffff;
+      border: 1px solid var(--tk-faq-card-border);
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+      margin: 10px 0;
+      padding: 4px 6px 6px;
     }
 
     .tk-faq-card.is-hidden {
@@ -251,11 +352,16 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      padding: 18px 22px;
+      gap: 20px;
+      padding: 22px 12px;
       cursor: pointer;
       user-select: none;
       position: relative;
+      transition: padding 0.2s ease;
+    }
+
+    .tk-faq-card[open] .tk-faq-summary {
+      padding: 18px 18px 12px;
     }
 
     .tk-faq-summary::-webkit-details-marker {
@@ -264,84 +370,97 @@
 
     .tk-faq-question-wrap {
       display: flex;
-      align-items: center;
-      gap: 12px;
+      align-items: baseline;
+      gap: 16px;
       flex: 1;
       min-width: 0;
     }
 
-    .tk-faq-category-tag {
+    .tk-faq-index {
+      font-family: 'Jost', serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: #9e978c;
+      letter-spacing: 1px;
+      flex-shrink: 0;
+    }
+
+    .tk-faq-category-chip {
       font-size: 10px;
       font-weight: 600;
-      letter-spacing: 1px;
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      padding: 3px 8px;
+      padding: 2px 7px;
       border-radius: 4px;
-      background: rgba(255, 221, 191, 0.1);
+      background: #f0ebe1;
       color: var(--tk-faq-accent);
-      border: 1px solid rgba(255, 221, 191, 0.2);
       flex-shrink: 0;
     }
 
     .tk-faq-question-title {
       font-family: 'Jost', sans-serif;
-      font-size: clamp(14.5px, 1.8vw, 16px);
-      font-weight: 500;
-      line-height: 1.4;
-      color: #ffffff;
+      font-size: clamp(15.5px, 1.6vw, 17.5px);
+      font-weight: 450;
+      line-height: 1.45;
+      color: var(--tk-faq-text);
       margin: 0;
-      letter-spacing: 0.3px;
+      letter-spacing: -0.1px;
       transition: color 0.2s ease;
     }
 
-    .tk-faq-card:hover .tk-faq-question-title,
-    .tk-faq-card[open] .tk-faq-question-title {
+    .tk-faq-card:hover .tk-faq-question-title {
       color: var(--tk-faq-accent);
     }
 
-    /* Chevron Toggle */
-    .tk-faq-chevron {
-      width: 32px;
-      height: 32px;
+    .tk-faq-card[open] .tk-faq-question-title {
+      color: #1a1a1a;
+      font-weight: 500;
+    }
+
+    /* Minimal Plus/Minus Indicator */
+    .tk-faq-toggle-icon {
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid #dcd7ce;
+      background: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--tk-faq-accent);
-      flex-shrink: 0;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .tk-faq-card:hover .tk-faq-chevron {
-      background: rgba(255, 221, 191, 0.15);
-      border-color: var(--tk-faq-accent);
-    }
-
-    .tk-faq-card[open] .tk-faq-chevron {
-      transform: rotate(180deg);
-      background: var(--tk-faq-accent);
       color: #1a1a1a;
-      border-color: var(--tk-faq-accent);
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+      position: relative;
     }
 
-    /* Answer Container */
+    .tk-faq-card:hover .tk-faq-toggle-icon {
+      border-color: #1a1a1a;
+      background: #1a1a1a;
+      color: #ffffff;
+    }
+
+    .tk-faq-card[open] .tk-faq-toggle-icon {
+      background: #1a1a1a;
+      border-color: #1a1a1a;
+      color: #ffffff;
+      transform: rotate(45deg);
+    }
+
+    /* Answer Content */
     .tk-faq-answer {
-      padding: 0 22px 22px 22px;
+      padding: 0 12px 24px 44px;
       color: var(--tk-faq-text-muted);
       font-size: 14.5px;
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
-    .tk-faq-answer-inner {
-      border-top: 1px solid rgba(255, 255, 255, 0.07);
-      padding-top: 16px;
+    .tk-faq-card[open] .tk-faq-answer {
+      padding: 0 18px 18px 44px;
     }
 
     .tk-faq-answer p {
       margin: 0 0 12px;
-      color: rgba(250, 249, 246, 0.88);
+      color: #4a4740;
     }
 
     .tk-faq-answer p:last-child {
@@ -349,17 +468,17 @@
     }
 
     .tk-faq-answer-lead {
-      color: #ffffff !important;
-      font-weight: 500;
-      background: rgba(255, 221, 191, 0.05);
-      border-left: 3px solid var(--tk-faq-accent);
+      color: #1a1a1a !important;
+      font-weight: 450;
+      background: #f7f3eb;
+      border-left: 2px solid var(--tk-faq-accent);
       padding: 10px 14px;
-      border-radius: 0 8px 8px 0;
+      border-radius: 0 6px 6px 0;
       margin-bottom: 12px !important;
     }
 
     .tk-faq-answer strong {
-      color: #ffffff;
+      color: #1a1a1a;
       font-weight: 600;
     }
 
@@ -367,151 +486,38 @@
       color: var(--tk-faq-accent);
       text-decoration: underline;
       text-underline-offset: 3px;
-      transition: opacity 0.2s;
-    }
-
-    .tk-faq-answer a:hover {
-      opacity: 0.8;
     }
 
     /* No search results state */
     .tk-faq-no-results {
       display: none;
       text-align: center;
-      padding: 40px 20px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px dashed rgba(255, 255, 255, 0.15);
-      border-radius: 12px;
+      padding: 48px 24px;
+      background: #ffffff;
+      border: 1px dashed #dcd7ce;
+      border-radius: 8px;
     }
 
     .tk-faq-no-results p {
-      margin: 0 0 14px;
+      margin: 0 0 16px;
       color: var(--tk-faq-text-muted);
-      font-size: 14px;
+      font-size: 14.5px;
     }
 
-    /* Bottom Concierge Assistance Card */
-    .tk-faq-concierge {
-      margin-top: 48px;
-      background: linear-gradient(135deg, rgba(255, 221, 191, 0.06) 0%, rgba(255, 255, 255, 0.02) 100%);
-      border: 1px solid rgba(255, 221, 191, 0.25);
-      border-radius: 16px;
-      padding: 32px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 28px;
-      flex-wrap: wrap;
-    }
-
-    .tk-faq-concierge-text {
-      max-width: 580px;
-    }
-
-    .tk-faq-concierge-badge {
-      font-size: 10.5px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--tk-faq-accent);
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .tk-faq-concierge-title {
-      font-family: 'Jost', sans-serif;
-      font-size: 20px;
-      font-weight: 500;
-      color: #ffffff;
-      margin: 0 0 8px;
-      letter-spacing: 0.5px;
-    }
-
-    .tk-faq-concierge-desc {
-      font-size: 13.5px;
-      line-height: 1.6;
-      color: var(--tk-faq-text-muted);
-      margin: 0;
-    }
-
-    .tk-faq-concierge-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .tk-faq-btn-wa {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #25d366;
-      color: #ffffff;
-      padding: 12px 24px;
-      border-radius: 50px;
-      font-family: 'Jost', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 18px rgba(37, 211, 102, 0.25);
-    }
-
-    .tk-faq-btn-wa:hover {
-      background: #20ba5a;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(37, 211, 102, 0.4);
-      color: #ffffff;
-    }
-
-    .tk-faq-btn-email {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.08);
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 12px 22px;
-      border-radius: 50px;
-      font-family: 'Jost', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .tk-faq-btn-email:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: var(--tk-faq-accent);
-      color: var(--tk-faq-accent);
-      transform: translateY(-2px);
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
+    /* Mobile Responsive */
+    @media (max-width: 989px) {
       .tk-faq-section {
-        padding: 48px 16px 40px;
+        padding: 56px 20px 64px;
       }
-      .tk-faq-summary {
-        padding: 16px;
-        gap: 12px;
+      .tk-faq-header {
+        text-align: center;
       }
-      .tk-faq-question-wrap {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
+      .tk-faq-eyebrow {
+        justify-content: center;
       }
-      .tk-faq-answer {
-        padding: 0 16px 18px;
-        font-size: 13.5px;
-      }
-      .tk-faq-chevron {
-        width: 28px;
-        height: 28px;
+      .tk-faq-search-box {
+        margin: 0 auto 20px;
+        max-width: 540px;
       }
       .tk-faq-categories {
         justify-content: flex-start;
@@ -524,19 +530,21 @@
       .tk-faq-categories::-webkit-scrollbar {
         display: none;
       }
-      .tk-faq-concierge {
-        padding: 24px 20px;
-        flex-direction: column;
-        align-items: flex-start;
+      .tk-faq-tab-btn {
+        flex-shrink: 0;
       }
-      .tk-faq-concierge-actions {
-        width: 100%;
-        flex-direction: column;
+      .tk-faq-question-wrap {
+        gap: 10px;
       }
-      .tk-faq-btn-wa,
-      .tk-faq-btn-email {
-        width: 100%;
-        justify-content: center;
+      .tk-faq-index {
+        display: none;
+      }
+      .tk-faq-answer {
+        padding: 0 12px 18px 12px;
+        font-size: 13.5px;
+      }
+      .tk-faq-card[open] .tk-faq-answer {
+        padding: 0 14px 16px 14px;
       }
     }
   {%- endstyle -%}
@@ -550,811 +558,849 @@
   >
     <div class="tk-faq-container">
       
-      <!-- Section Header -->
-      <header class="tk-faq-header">
-        <div class="tk-faq-eyebrow">
-          <span class="tk-faq-eyebrow-spark">✦</span>
-          <span>{{ section.settings.eyebrow_text | default: 'ATELIER KNOWLEDGE BASE & CURATION' }}</span>
-        </div>
-        <h2 id="tk-faq-heading" class="tk-faq-title">
-          {{ section.settings.heading | default: 'FREQUENTLY ASKED QUESTIONS' }}
-        </h2>
-        <p class="tk-faq-subtitle">
-          {{ section.settings.subheading | default: "Authoritative answers regarding Timberkala's reclaimed teak craft, Vastu placement, care protocols, pan-India transit insurance, and bespoke commissions." }}
-        </p>
-      </header>
+      <div class="tk-faq-grid">
+        
+        <!-- Left Column: Editorial Overview & Controls -->
+        <aside class="tk-faq-sidebar">
+          
+          <header class="tk-faq-header">
+            <div class="tk-faq-eyebrow">
+              <span class="tk-faq-eyebrow-line"></span>
+              <span>{{ section.settings.eyebrow_text | default: 'TIMBERKALA ATELIER CURATION' }}</span>
+            </div>
+            <h2 id="tk-faq-heading" class="tk-faq-title">
+              {{ section.settings.heading | default: 'FREQUENTLY ASKED QUESTIONS' }}
+            </h2>
+            <p class="tk-faq-subtitle">
+              {{ section.settings.subheading | default: "Authoritative guidance on Timberkala's reclaimed teak craft, sacred Vastu placements, organic care rituals, pan-India transit insurance, and bespoke commissions." }}
+            </p>
+          </header>
 
-      {%- if section.settings.show_search -%}
-        <!-- Instant Live Search Bar -->
-        <div class="tk-faq-search-wrap" role="search" aria-label="Search FAQs">
-          <div class="tk-faq-search-box">
-            <span class="tk-faq-search-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </span>
-            <input
-              type="text"
-              id="tkFaqSearchInput"
-              class="tk-faq-search-input"
-              placeholder="Search questions (e.g. teak, termite, vastu, molten glass, shipping, returns)..."
-              aria-label="Search frequently asked questions"
-            />
-            <button
-              type="button"
-              id="tkFaqSearchClear"
-              class="tk-faq-search-clear"
-              aria-label="Clear search"
-              style="display: none;"
-            >✕</button>
-          </div>
-          <div class="tk-faq-search-count" id="tkFaqCount" aria-live="polite"></div>
-        </div>
-      {%- endif -%}
+          {%- if section.settings.show_search -%}
+            <!-- Live Instant Search Bar -->
+            <div class="tk-faq-search-box" role="search" aria-label="Search FAQs">
+              <span class="tk-faq-search-icon" aria-hidden="true">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </span>
+              <input
+                type="text"
+                id="tkFaqSearchInput"
+                class="tk-faq-search-input"
+                placeholder="Search teak, vastu, glass, shipping..."
+                aria-label="Search frequently asked questions"
+              />
+              <button
+                type="button"
+                id="tkFaqSearchClear"
+                class="tk-faq-search-clear"
+                aria-label="Clear search"
+                style="display: none;"
+              >✕</button>
+            </div>
+            <div class="tk-faq-search-count" id="tkFaqCount" aria-live="polite"></div>
+          {%- endif -%}
 
-      {%- if section.settings.show_categories -%}
-        <!-- Category Filter Tabs -->
-        <nav class="tk-faq-categories" aria-label="FAQ categories">
-          <button type="button" class="tk-faq-tab-btn is-active" data-cat="all">All Questions (20)</button>
-          <button type="button" class="tk-faq-tab-btn" data-cat="craft">🪵 Teak Craft & Materials (5)</button>
-          <button type="button" class="tk-faq-tab-btn" data-cat="vastu">✨ Vastu & Styling (4)</button>
-          <button type="button" class="tk-faq-tab-btn" data-cat="care">🛡️ Care & Durability (3)</button>
-          <button type="button" class="tk-faq-tab-btn" data-cat="shipping">📦 Shipping & Guarantee (5)</button>
-          <button type="button" class="tk-faq-tab-btn" data-cat="bespoke">🎨 Bespoke & B2B (3)</button>
-        </nav>
-      {%- endif -%}
+          {%- if section.settings.show_categories -%}
+            <!-- Category Filter Tabs -->
+            <nav class="tk-faq-categories" aria-label="FAQ categories">
+              <button type="button" class="tk-faq-tab-btn is-active" data-cat="all">
+                <span>All Inquiries</span>
+                <span>(20)</span>
+              </button>
+              <button type="button" class="tk-faq-tab-btn" data-cat="craft">
+                <span>Teak Craft & Materials</span>
+                <span>(5)</span>
+              </button>
+              <button type="button" class="tk-faq-tab-btn" data-cat="vastu">
+                <span>Vastu & Home Placement</span>
+                <span>(4)</span>
+              </button>
+              <button type="button" class="tk-faq-tab-btn" data-cat="care">
+                <span>Care & Durability</span>
+                <span>(3)</span>
+              </button>
+              <button type="button" class="tk-faq-tab-btn" data-cat="shipping">
+                <span>Transit Guarantee & Returns</span>
+                <span>(5)</span>
+              </button>
+              <button type="button" class="tk-faq-tab-btn" data-cat="bespoke">
+                <span>Bespoke & B2B Orders</span>
+                <span>(3)</span>
+              </button>
+            </nav>
+          {%- endif -%}
 
-      <!-- Accordion Stack -->
-      <div class="tk-faq-accordion-wrap" id="tkFaqList">
+          {%- if section.settings.show_concierge -%}
+            <!-- Atelier Assistance Card -->
+            <div class="tk-faq-concierge-card">
+              <span class="tk-faq-concierge-badge">ATELIER CONCIERGE</span>
+              <h3 class="tk-faq-concierge-title">Have a space styling question?</h3>
+              <p class="tk-faq-concierge-desc">
+                Share photos of your wall or console table for complimentary digital mockups and sculpture styling advice.
+              </p>
+              <div class="tk-faq-concierge-actions">
+                <a
+                  href="https://wa.me/917827290399?text=Hello%20Timberkala%20Atelier%2C%20I%20have%20a%20question%20regarding%20handcrafted%20decor"
+                  target="_blank"
+                  rel="noopener"
+                  class="tk-faq-btn-wa"
+                  aria-label="Chat on WhatsApp"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.52 3.48A11.93 11.93 0 0 0 12.06 0C5.45 0 .09 5.36.09 11.97c0 2.11.55 4.17 1.6 6L0 24l6.23-1.63a11.9 11.9 0 0 0 5.83 1.51h.01c6.6 0 11.97-5.37 11.97-11.97 0-3.2-.12-6.22-3.52-8.43zM12.07 21.9a9.92 9.92 0 0 1-5.06-1.39l-.36-.22-3.76.99 1-3.66-.24-.38a9.9 9.9 0 0 1-1.52-5.27c0-5.48 4.46-9.94 9.95-9.94 2.66 0 5.16 1.03 7.03 2.91a9.9 9.9 0 0 1 2.91 7.04c0 5.48-4.46 9.92-9.95 9.92zm5.45-7.44c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.18-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.64-.93-2.25-.25-.59-.5-.51-.68-.52-.18-.01-.38-.01-.58-.01-.2 0-.53.07-.8.37-.28.3-1.07 1.05-1.07 2.56s1.1 2.97 1.25 3.17c.15.2 2.16 3.3 5.23 4.63.73.32 1.3.5 1.74.64.73.23 1.4.2 1.93.12.59-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.08-.12-.28-.2-.58-.35z"/>
+                  </svg>
+                  <span>Chat with Atelier</span>
+                </a>
+                <a
+                  href="mailto:timberkala.marketing@gmail.com?subject=Timberkala%20Artisan%20Inquiry"
+                  class="tk-faq-btn-email"
+                >
+                  <span>Email Atelier</span>
+                </a>
+              </div>
+            </div>
+          {%- endif -%}
 
-        {%- if has_custom_blocks -%}
-          {%- for block in section.blocks -%}
+        </aside>
+
+        <!-- Right Column: Accordion Stack -->
+        <div class="tk-faq-accordion-stack" id="tkFaqList">
+
+          {%- if has_custom_blocks -%}
+            {%- for block in section.blocks -%}
+              <details
+                class="tk-faq-card"
+                name="tk-faq-accordion"
+                data-category="{{ block.settings.category | default: 'craft' | handleize }}"
+                itemscope
+                itemprop="mainEntity"
+                itemtype="https://schema.org/Question"
+                {{ block.shopify_attributes }}
+              >
+                <summary class="tk-faq-summary">
+                  <div class="tk-faq-question-wrap">
+                    <span class="tk-faq-index">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+                    {%- if block.settings.category != blank -%}
+                      <span class="tk-faq-category-chip">{{ block.settings.category }}</span>
+                    {%- endif -%}
+                    <h3 class="tk-faq-question-title" itemprop="name">
+                      {{ block.settings.question | escape }}
+                    </h3>
+                  </div>
+                  <span class="tk-faq-toggle-icon" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                  </span>
+                </summary>
+                <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                  <div itemprop="text">
+                    {{ block.settings.answer }}
+                  </div>
+                </div>
+              </details>
+            {%- endfor -%}
+
+          {%- else -%}
+
+            <!-- ==========================================
+                 CATEGORY 1: TEAK CRAFT & MATERIALS (5)
+                 ========================================== -->
+            <!-- 01 -->
             <details
               class="tk-faq-card"
               name="tk-faq-accordion"
-              data-category="{{ block.settings.category | default: 'craft' | handleize }}"
+              data-category="craft"
               itemscope
               itemprop="mainEntity"
               itemtype="https://schema.org/Question"
-              {{ block.shopify_attributes }}
             >
               <summary class="tk-faq-summary">
                 <div class="tk-faq-question-wrap">
-                  {%- if block.settings.category != blank -%}
-                    <span class="tk-faq-category-tag">{{ block.settings.category }}</span>
-                  {%- endif -%}
+                  <span class="tk-faq-index">01</span>
+                  <span class="tk-faq-category-chip">Teak Craft</span>
                   <h3 class="tk-faq-question-title" itemprop="name">
-                    {{ block.settings.question | escape }}
+                    What types of handcrafted home decor products does Timberkala offer?
                   </h3>
                 </div>
-                <span class="tk-faq-chevron" aria-hidden="true">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 </span>
               </summary>
               <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-                <div class="tk-faq-answer-inner" itemprop="text">
-                  {{ block.settings.answer }}
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Timberkala (TIMBERकला) crafts bespoke, artisanal luxury wooden home decor items marrying heritage woodworking with organic modern design.
+                  </p>
+                  <p>
+                    Our curated collections include hand-carved sacred spiritual sculptures (Ganesha, Buddha, Krishna), 3D multi-layered architectural wall art panels, handblown molten glass vessels sculpted onto natural teak root crutches, lifelike animal and bird figurines, resonant wind chimes, and contemporary organic tabletop statement centerpieces.
+                  </p>
                 </div>
               </div>
             </details>
-          {%- endfor -%}
 
-        {%- else -%}
+            <!-- 02 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="craft"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">02</span>
+                  <span class="tk-faq-category-chip">Authenticity</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    Are all Timberkala products handmade from authentic reclaimed wood?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Yes, 100% of Timberkala products are individually handcrafted from genuine reclaimed teak wood and weathered river driftwood.
+                  </p>
+                  <p>
+                    We strictly never use MDF, particle boards, compressed sawdust, or plastic resin imitations. Every wooden artifact is hand-chiseled by generational master artisans, preserving authentic wood grain variations, organic root curves, natural knots, and age-old fissures that make each creation entirely unique.
+                  </p>
+                </div>
+              </div>
+            </details>
 
-          <!-- ==========================================
-               CATEGORY 1: TEAK CRAFT & MATERIALS (5)
-               ========================================== -->
-          <!-- FAQ 1 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="craft"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Teak Craft</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  What types of handcrafted home decor products does Timberkala offer?
-                </h3>
+            <!-- 03 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="craft"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">03</span>
+                  <span class="tk-faq-category-chip">Materials</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    What wood species does Timberkala use in its sculptures and wall accents?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> We specialize primarily in aged reclaimed teak wood (<em>Tectona grandis</em>) and salvaged riverbed driftwood roots.
+                  </p>
+                  <p>
+                    Aged reclaimed teak wood is universally celebrated for its dense heartwood fiber structure, high natural silica and oil content, rich golden-brown patina, and unmatched dimensional stability that resists seasonal warping, cracking, or shrinkage across all indoor climates.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Timberkala (TIMBERकला) crafts bespoke, artisanal luxury wooden home decor items marrying heritage woodworking with organic modern design.
-                </p>
-                <p>
-                  Our curated collections include hand-carved sacred spiritual sculptures (Ganesha, Buddha, Krishna), 3D multi-layered architectural wall art panels, handblown molten glass vessels sculpted onto natural teak root crutches, lifelike animal and bird figurines, resonant wind chimes, and contemporary organic tabletop statement centerpieces.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 2 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="craft"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Authenticity</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  Are all Timberkala products handmade from authentic reclaimed wood?
-                </h3>
+            <!-- 04 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="craft"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">04</span>
+                  <span class="tk-faq-category-chip">Sustainability</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    Where does Timberkala source its reclaimed wood and materials?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Timberkala ethically salvages seasoned timber from dismantled vintage architectural havelis, century-old structural beams, and fallen riverbed roots across regional craft clusters in India.
+                  </p>
+                  <p>
+                    By redirecting premium aged timber from landfills into timeless luxury art, we champion circular sustainability and support indigenous Indian woodworking artisans without contributing to deforestation.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Yes, 100% of Timberkala products are individually handcrafted from genuine reclaimed teak wood and weathered river driftwood.
-                </p>
-                <p>
-                  We strictly never use MDF, particle boards, compressed sawdust, or plastic resin imitations. Every wooden artifact is hand-chiseled by generational master artisans, preserving authentic wood grain variations, organic root curves, natural knots, and age-old fissures that make each creation entirely unique.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 3 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="craft"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Materials</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  What wood species does Timberkala use in its sculptures and wall accents?
-                </h3>
+            <!-- 05 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="craft"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">05</span>
+                  <span class="tk-faq-category-chip">Glass & Teak</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    Can molten glass on teak root wood hold water for live plants and flowers?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Yes, Timberkala's molten glass vessels are 100% watertight, food-grade safe, and ideal for hydroponic plants, lucky bamboo, or fresh floral displays.
+                  </p>
+                  <p>
+                    Each recycled glass vessel is hand-blown and shaped directly onto its specific teak root cradle while molten hot. The cooled glass perfectly mirrors the contours of the root for a snug, secure fit. The glass bowl lifts off easily for cleaning and fresh water replacement.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> We specialize primarily in aged reclaimed teak wood (<em>Tectona grandis</em>) and salvaged riverbed driftwood roots.
-                </p>
-                <p>
-                  Aged reclaimed teak wood is universally celebrated for its dense heartwood fiber structure, high natural silica and oil content, rich golden-brown patina, and unmatched dimensional stability that resists seasonal warping, cracking, or shrinkage across all indoor climates.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 4 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="craft"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Sustainability</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  Where does Timberkala source its reclaimed wood and materials?
-                </h3>
+            <!-- ==========================================
+                 CATEGORY 2: VASTU & HOME STYLING (4)
+                 ========================================== -->
+            <!-- 06 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="vastu"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">06</span>
+                  <span class="tk-faq-category-chip">Vastu Guide</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    What is the best direction to place or hang a wooden Ganesha sculpture as per Vastu?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> According to classical Vastu Shastra, placing or hanging a wooden Ganesha on the North, Northeast (Ishanya), or East wall brings prosperity, peace, and removes life obstacles.
+                  </p>
+                  <p>
+                    Place the idol at eye level facing into your living room or entrance foyer. Natural teak wood aligns with the Earth and Wood elements of Vastu, harmonizing household energies. Avoid positioning sacred sculptures on South walls, beneath staircases, or adjoining washrooms.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Timberkala ethically salvages seasoned timber from dismantled vintage architectural havelis, century-old structural beams, and fallen riverbed roots across regional craft clusters in India.
-                </p>
-                <p>
-                  By redirecting premium aged timber from landfills into timeless luxury art, we champion circular sustainability and support indigenous Indian woodworking artisans without contributing to deforestation.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 5 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="craft"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Glass & Teak</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  Can molten glass on teak root wood hold water for live plants and flowers?
-                </h3>
+            <!-- 07 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="vastu"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">07</span>
+                  <span class="tk-faq-category-chip">Mounting</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    How to securely hang heavy wooden wall art and sculptures on living room walls?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Every Timberkala wall accent features pre-installed, reinforced steel keyhole brackets or heavy-duty metal cleats tested to support up to 15 kg.
+                  </p>
+                  <p>
+                    For concrete and brick walls, drill and insert standard 6mm or 8mm plastic rawl plugs (anchors) with 1.5 to 2-inch stainless steel screws, leaving 3mm of the screw head exposed to slide into the rear bracket. For drywall partitions, use metal butterfly toggle bolts for maximum stability.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Yes, Timberkala's molten glass vessels are 100% watertight, food-grade safe, and ideal for hydroponic plants, lucky bamboo, or fresh floral displays.
-                </p>
-                <p>
-                  Each recycled glass vessel is hand-blown and shaped directly onto its specific teak root cradle while molten hot. The cooled glass perfectly mirrors the contours of the root for a snug, secure fit. The glass bowl lifts off easily for cleaning and fresh water replacement.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- ==========================================
-               CATEGORY 2: VASTU & HOME STYLING (4)
-               ========================================== -->
-          <!-- FAQ 6 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="vastu"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Vastu Shastra</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  What is the best direction to place or hang a wooden Ganesha sculpture as per Vastu?
-                </h3>
+            <!-- 08 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="vastu"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">08</span>
+                  <span class="tk-faq-category-chip">Wabi-Sabi</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    What are the aesthetic benefits of Wabi-Sabi wooden decor in modern Indian homes?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Wabi-Sabi decor celebrates organic asymmetry, natural weathering, and authentic imperfection, bringing grounding soul to contemporary spaces.
+                  </p>
+                  <p>
+                    Modern urban apartments often feature sterile ceramic tiles, glass, and synthetic laminates. Introducing Timberkala's reclaimed root sculptures and organic wooden panels creates biophilic balance, tactile warmth, and an understated rustic luxury that never goes out of fashion.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> According to classical Vastu Shastra, placing or hanging a wooden Ganesha on the North, Northeast (Ishanya), or East wall brings prosperity, peace, and removes life obstacles.
-                </p>
-                <p>
-                  Place the idol at eye level facing into your living room or entrance foyer. Natural teak wood aligns with the Earth and Wood elements of Vastu, harmonizing household energies. Avoid positioning sacred sculptures on South walls, beneath staircases, or adjoining washrooms.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 7 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="vastu"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Installation</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  How to securely hang heavy wooden wall art and sculptures on living room walls?
-                </h3>
+            <!-- 09 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="vastu"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">09</span>
+                  <span class="tk-faq-category-chip">Wood Guide</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    Reclaimed teak wood vs Sheesham or Mango wood: What makes reclaimed teak unique?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Reclaimed teak wood (<em>Tectona grandis</em>) is decades older than newly harvested plantation Sheesham or Mango wood, resulting in fully stabilized core moisture.
+                  </p>
+                  <p>
+                    While freshly cut woods tend to crack or expand during monsoon humidity, reclaimed teak has zero movement. Furthermore, teak's inherent natural oils and silica offer superior water resistance, natural pest immunity, and a distinguished golden-amber patina that darkens gracefully over time.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Every Timberkala wall accent features pre-installed, reinforced steel keyhole brackets or heavy-duty metal cleats tested to support up to 15 kg.
-                </p>
-                <p>
-                  For concrete and brick walls, drill and insert standard 6mm or 8mm plastic rawl plugs (anchors) with 1.5 to 2-inch stainless steel screws, leaving 3mm of the screw head exposed to slide into the rear bracket. For drywall partitions, use metal butterfly toggle bolts for maximum stability.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 8 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="vastu"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Wabi-Sabi Styling</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  What are the aesthetic benefits of Wabi-Sabi wooden decor in modern Indian homes?
-                </h3>
+            <!-- ==========================================
+                 CATEGORY 3: CARE & DURABILITY (3)
+                 ========================================== -->
+            <!-- 10 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="care"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">10</span>
+                  <span class="tk-faq-category-chip">Pest Defense</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    Is Timberkala handcrafted wooden decor termite-resistant and borer-proof?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Yes, Timberkala wooden decor is naturally termite-resistant, borer-proof, and resilient against rot.
+                  </p>
+                  <p>
+                    Aged teak wood contains natural Tectoquione and high silica resin concentrations that make it naturally unpalatable to termites and wood-boring pests. In addition, all raw timber undergoes kiln-seasoning and is hand-sealed with deep-penetrating organic bio-wax polishes for lifelong pest protection.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Wabi-Sabi decor celebrates organic asymmetry, natural weathering, and authentic imperfection, bringing grounding soul to contemporary spaces.
-                </p>
-                <p>
-                  Modern urban apartments often feature sterile ceramic tiles, glass, and synthetic laminates. Introducing Timberkala's reclaimed root sculptures and organic wooden panels creates biophilic balance, tactile warmth, and an understated rustic luxury that never goes out of fashion.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 9 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="vastu"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Wood Comparison</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  Reclaimed teak wood vs Sheesham or Mango wood: What makes reclaimed teak unique?
-                </h3>
+            <!-- 11 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="care"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">11</span>
+                  <span class="tk-faq-category-chip">Care Guide</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    How should I clean and maintain handcrafted wooden decor and sculptures?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Routine maintenance requires only gentle weekly dusting with a soft, dry microfiber cloth or soft bristle brush.
+                  </p>
+                  <p>
+                    Avoid aerosol chemical sprays, alcohol wipes, or soaking the wood in water. To nourish the wood grain and restore rich sheen, apply a tiny pea-sized drop of natural beeswax polish or food-grade mineral oil once every 12 months with a lint-free cotton cloth.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Reclaimed teak wood (<em>Tectona grandis</em>) is decades older than newly harvested plantation Sheesham or Mango wood, resulting in fully stabilized core moisture.
-                </p>
-                <p>
-                  While freshly cut woods tend to crack or expand during monsoon humidity, reclaimed teak has zero movement. Furthermore, teak's inherent natural oils and silica offer superior water resistance, natural pest immunity, and a distinguished golden-amber patina that darkens gracefully over time.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- ==========================================
-               CATEGORY 3: CARE & DURABILITY (3)
-               ========================================== -->
-          <!-- FAQ 10 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="care"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Pest Protection</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  Is Timberkala handcrafted wooden decor termite-resistant and borer-proof?
-                </h3>
+            <!-- 12 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="care"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">12</span>
+                  <span class="tk-faq-category-chip">Finishes</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    What protective finishes and polishes are applied to Timberkala wood?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> We exclusively use zero-VOC, food-grade organic botanical oils and natural beeswax finishes.
+                  </p>
+                  <p>
+                    Unlike synthetic polyurethane or chemical lacquers that create artificial plastic coats, our hand-rubbed organic waxes penetrate deep into the teak fiber pores. This seals the timber against moisture while keeping indoor air pure, child-friendly, and pet-safe.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Yes, Timberkala wooden decor is naturally termite-resistant, borer-proof, and resilient against rot.
-                </p>
-                <p>
-                  Aged teak wood contains natural Tectoquione and high silica resin concentrations that make it naturally unpalatable to termites and wood-boring pests. In addition, all raw timber undergoes kiln-seasoning and is hand-sealed with deep-penetrating organic bio-wax polishes for lifelong pest protection.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 11 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="care"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Care Guide</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  How should I clean and maintain handcrafted wooden decor and sculptures?
-                </h3>
+            <!-- ==========================================
+                 CATEGORY 4: SHIPPING & GUARANTEE (5)
+                 ========================================== -->
+            <!-- 13 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="shipping"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">13</span>
+                  <span class="tk-faq-category-chip">Insurance</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    Are Timberkala shipments insured against transit damage across India?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Yes, 100% of Timberkala shipments are fully insured against transit damage, cracks, or glass breakage across all pincodes in India.
+                  </p>
+                  <p>
+                    Each piece is encased in multi-ply honeycomb corrugated boxes with reinforced high-density foam edge blocks. In the rare event of transit damage, simply WhatsApp us unboxing photos within 7 days, and we will issue a free replacement immediately with zero return courier costs to you.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Routine maintenance requires only gentle weekly dusting with a soft, dry microfiber cloth or soft bristle brush.
-                </p>
-                <p>
-                  Avoid aerosol chemical sprays, alcohol wipes, or soaking the wood in water. To nourish the wood grain and restore rich sheen, apply a tiny pea-sized drop of natural beeswax polish or food-grade mineral oil once every 12 months with a lint-free cotton cloth.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 12 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="care"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Organic Finishes</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  What protective finishes and polishes are applied to Timberkala wood?
-                </h3>
+            <!-- 14 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="shipping"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">14</span>
+                  <span class="tk-faq-category-chip">Dispatch</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    How long does pan-India delivery take from order placement?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Orders are individually inspected, cushioned, and dispatched within 24 to 48 hours from our atelier.
+                  </p>
+                  <p>
+                    Express courier transit takes <strong>2 to 4 business days</strong> for major metropolitan cities (Delhi NCR, Mumbai, Bengaluru, Hyderabad, Pune, Chennai, Kolkata) and <strong>4 to 7 business days</strong> for rest of India. You receive live SMS and WhatsApp tracking links upon dispatch.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> We exclusively use zero-VOC, food-grade organic botanical oils and natural beeswax finishes.
-                </p>
-                <p>
-                  Unlike synthetic polyurethane or chemical lacquers that create artificial plastic coats, our hand-rubbed organic waxes penetrate deep into the teak fiber pores. This seals the timber against moisture while keeping indoor air pure, child-friendly, and pet-safe.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- ==========================================
-               CATEGORY 4: SHIPPING & GUARANTEE (5)
-               ========================================== -->
-          <!-- FAQ 13 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="shipping"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Transit Insurance</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  Are Timberkala shipments insured against transit damage across India?
-                </h3>
+            <!-- 15 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="shipping"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">15</span>
+                  <span class="tk-faq-category-chip">Returns</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    What is Timberkala's return, refund, and replacement policy?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> We offer a hassle-free 7-day return and exchange policy for any damaged, defective, or incorrect items.
+                  </p>
+                  <p>
+                    Contact our concierge team via WhatsApp (+91 78272 90399) or email (timberkala.marketing@gmail.com) within 7 days of delivery. Our courier partner will arrange a doorstep reverse pickup, and your replacement or full refund will be processed promptly.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Yes, 100% of Timberkala shipments are fully insured against transit damage, cracks, or glass breakage across all pincodes in India.
-                </p>
-                <p>
-                  Each piece is encased in multi-ply honeycomb corrugated boxes with reinforced high-density foam edge blocks. In the rare event of transit damage, simply WhatsApp us unboxing photos within 7 days, and we will issue a free replacement immediately with zero return courier costs to you.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 14 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="shipping"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Delivery Times</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  How long does pan-India delivery take from order placement?
-                </h3>
+            <!-- 16 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="shipping"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">16</span>
+                  <span class="tk-faq-category-chip">Tracking</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    How can I track my Timberkala order after dispatch?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Upon dispatch, an automated SMS, WhatsApp, and email notification is sent with your unique Airway Bill (AWB) number and real-time tracking URL.
+                  </p>
+                  <p>
+                    You can click the link to see current hub checkpoints and expected delivery date, or contact our customer support desk on WhatsApp anytime with your order number for an instant status update.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Orders are individually inspected, cushioned, and dispatched within 24 to 48 hours from our atelier.
-                </p>
-                <p>
-                  Express courier transit takes <strong>2 to 4 business days</strong> for major metropolitan cities (Delhi NCR, Mumbai, Bengaluru, Hyderabad, Pune, Chennai, Kolkata) and <strong>4 to 7 business days</strong> for rest of India. You receive live SMS and WhatsApp tracking links upon dispatch.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 15 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="shipping"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Return Policy</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  What is Timberkala's return, refund, and replacement policy?
-                </h3>
+            <!-- 17 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="shipping"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">17</span>
+                  <span class="tk-faq-category-chip">Free Delivery</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    Is shipping free on Timberkala orders?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Yes, Timberkala provides 100% Free Express Shipping on all orders above ₹2,000 across India.
+                  </p>
+                  <p>
+                    Orders below ₹2,000 carry a nominal flat shipping fee calculated transparently at checkout. There are zero hidden handling or insurance fees at delivery.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> We offer a hassle-free 7-day return and exchange policy for any damaged, defective, or incorrect items.
-                </p>
-                <p>
-                  Contact our concierge team via WhatsApp (+91 78272 90399) or email (timberkala.marketing@gmail.com) within 7 days of delivery. Our courier partner will arrange a doorstep reverse pickup, and your replacement or full refund will be processed promptly.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 16 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="shipping"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Order Tracking</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  How can I track my Timberkala order after dispatch?
-                </h3>
+            <!-- ==========================================
+                 CATEGORY 5: BESPOKE & B2B (3)
+                 ========================================== -->
+            <!-- 18 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="bespoke"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">18</span>
+                  <span class="tk-faq-category-chip">Custom Projects</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    Can I customize wooden wall accents or sculptures for interior design projects?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Yes, Timberkala works closely with architects, interior stylists, and homeowners on bespoke architectural commissions and custom sizes.
+                  </p>
+                  <p>
+                    We can tailor dimensions, select specific wood grain tones (natural teak, smoked charcoal, honey patina), or carve customized spiritual motifs. Send your room renders or measurements to info@timberkala.com or WhatsApp (+91 78272 90399) to discuss project specifications.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Upon dispatch, an automated SMS, WhatsApp, and email notification is sent with your unique Airway Bill (AWB) number and real-time tracking URL.
-                </p>
-                <p>
-                  You can click the link to see current hub checkpoints and expected delivery date, or contact our customer support desk on WhatsApp anytime with your order number for an instant status update.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 17 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="shipping"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Free Shipping</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  Is shipping free on Timberkala orders?
-                </h3>
+            <!-- 19 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="bespoke"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">19</span>
+                  <span class="tk-faq-category-chip">Corporate B2B</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    Does Timberkala offer handcrafted corporate gifts and B2B orders?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Yes, Timberkala curates luxury handcrafted corporate gift hampers, Diwali gifts, executive desk accessories, and wedding favors.
+                  </p>
+                  <p>
+                    We provide bespoke laser engraving of company logos, artisanal gift packaging, custom greeting cards, and multi-location pan-India delivery logistics. Contact our B2B division directly for tiered volume quotations.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Yes, Timberkala provides 100% Free Express Shipping on all orders above ₹2,000 across India.
-                </p>
-                <p>
-                  Orders below ₹2,000 carry a nominal flat shipping fee calculated transparently at checkout. There are zero hidden handling or insurance fees at delivery.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- ==========================================
-               CATEGORY 5: BESPOKE & B2B (3)
-               ========================================== -->
-          <!-- FAQ 18 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="bespoke"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Customization</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  Can I customize wooden wall accents or sculptures for interior design projects?
-                </h3>
+            <!-- 20 -->
+            <details
+              class="tk-faq-card"
+              name="tk-faq-accordion"
+              data-category="bespoke"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <summary class="tk-faq-summary">
+                <div class="tk-faq-question-wrap">
+                  <span class="tk-faq-index">20</span>
+                  <span class="tk-faq-category-chip">Styling Mockup</span>
+                  <h3 class="tk-faq-question-title" itemprop="name">
+                    How can I get personalized styling advice or digital mockups for my home?
+                  </h3>
+                </div>
+                <span class="tk-faq-toggle-icon" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                </span>
+              </summary>
+              <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  <p class="tk-faq-answer-lead">
+                    <strong>Direct Answer:</strong> Timberkala offers complimentary 1-on-1 interior styling consultations with our in-house decor curators.
+                  </p>
+                  <p>
+                    Simply share photos of your wall, entryway console, or coffee table along with dimensions via WhatsApp (+91 78272 90399). Our team will prepare digital mockups and curated sculpture recommendations tailored to your lighting, wall color, and interior aesthetic.
+                  </p>
+                </div>
               </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Yes, Timberkala works closely with architects, interior stylists, and homeowners on bespoke architectural commissions and custom sizes.
-                </p>
-                <p>
-                  We can tailor dimensions, select specific wood grain tones (natural teak, smoked charcoal, honey patina), or carve customized spiritual motifs. Send your room renders or measurements to info@timberkala.com or WhatsApp (+91 78272 90399) to discuss project specifications.
-                </p>
-              </div>
-            </div>
-          </details>
+            </details>
 
-          <!-- FAQ 19 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="bespoke"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Corporate & B2B</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  Does Timberkala offer handcrafted corporate gifts and B2B orders?
-                </h3>
-              </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Yes, Timberkala curates luxury handcrafted corporate gift hampers, Diwali gifts, executive desk accessories, and wedding favors.
-                </p>
-                <p>
-                  We provide bespoke laser engraving of company logos, artisanal gift packaging, custom greeting cards, and multi-location pan-India delivery logistics. Contact our B2B division directly for tiered volume quotations.
-                </p>
-              </div>
-            </div>
-          </details>
+          {%- endif -%}
 
-          <!-- FAQ 20 -->
-          <details
-            class="tk-faq-card"
-            name="tk-faq-accordion"
-            data-category="bespoke"
-            itemscope
-            itemprop="mainEntity"
-            itemtype="https://schema.org/Question"
-          >
-            <summary class="tk-faq-summary">
-              <div class="tk-faq-question-wrap">
-                <span class="tk-faq-category-tag">Styling Advice</span>
-                <h3 class="tk-faq-question-title" itemprop="name">
-                  How can I get personalized styling advice or digital mockups for my home?
-                </h3>
-              </div>
-              <span class="tk-faq-chevron" aria-hidden="true">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-              </span>
-            </summary>
-            <div class="tk-faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-              <div class="tk-faq-answer-inner" itemprop="text">
-                <p class="tk-faq-answer-lead">
-                  <strong>Direct Answer:</strong> Timberkala offers complimentary 1-on-1 interior styling consultations with our in-house decor curators.
-                </p>
-                <p>
-                  Simply share photos of your wall, entryway console, or coffee table along with dimensions via WhatsApp (+91 78272 90399). Our team will prepare digital mockups and curated sculpture recommendations tailored to your lighting, wall color, and interior aesthetic.
-                </p>
-              </div>
-            </div>
-          </details>
+          <!-- No Results Search Fallback -->
+          <div class="tk-faq-no-results" id="tkFaqNoResults" role="alert">
+            <p>No questions matched your search query. Would you like direct assistance from our design curators?</p>
+            <a href="https://wa.me/917827290399?text=Hello%20Timberkala%2C%20I%20couldn%27t%20find%20my%20question%20on%20the%20website" class="tk-faq-btn-wa" target="_blank" rel="noopener">
+              Chat with Atelier on WhatsApp
+            </a>
+          </div>
 
-        {%- endif -%}
-
-        <!-- No Results Search Fallback -->
-        <div class="tk-faq-no-results" id="tkFaqNoResults" role="alert">
-          <p>No questions matched your search query. Would you like direct assistance?</p>
-          <a href="https://wa.me/917827290399?text=Hello%20Timberkala%2C%20I%20couldn%27t%20find%20my%20question%20on%20the%20website" class="tk-faq-btn-wa" target="_blank" rel="noopener">
-            Chat on WhatsApp (+91 78272 90399)
-          </a>
         </div>
 
       </div>
-
-      {%- if section.settings.show_concierge -%}
-        <!-- Bottom Atelier Concierge Card -->
-        <aside class="tk-faq-concierge" aria-label="Atelier Customer Assistance">
-          <div class="tk-faq-concierge-text">
-            <span class="tk-faq-concierge-badge">TIMBERKALA ATELIER CONCIERGE</span>
-            <h3 class="tk-faq-concierge-title">Have a specific question about your space?</h3>
-            <p class="tk-faq-concierge-desc">
-              Connect with our master craft curators for live photos of current raw root pieces, custom sizing mockups, or Vastu placement advice.
-            </p>
-          </div>
-          <div class="tk-faq-concierge-actions">
-            <a
-              href="https://wa.me/917827290399?text=Hello%20Timberkala%20Atelier%2C%20I%20have%20a%20question%20regarding%20handcrafted%20decor"
-              target="_blank"
-              rel="noopener"
-              class="tk-faq-btn-wa"
-              aria-label="Chat with Timberkala on WhatsApp"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.52 3.48A11.93 11.93 0 0 0 12.06 0C5.45 0 .09 5.36.09 11.97c0 2.11.55 4.17 1.6 6L0 24l6.23-1.63a11.9 11.9 0 0 0 5.83 1.51h.01c6.6 0 11.97-5.37 11.97-11.97 0-3.2-.12-6.22-3.52-8.43zM12.07 21.9a9.92 9.92 0 0 1-5.06-1.39l-.36-.22-3.76.99 1-3.66-.24-.38a9.9 9.9 0 0 1-1.52-5.27c0-5.48 4.46-9.94 9.95-9.94 2.66 0 5.16 1.03 7.03 2.91a9.9 9.9 0 0 1 2.91 7.04c0 5.48-4.46 9.92-9.95 9.92zm5.45-7.44c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.18-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.68-1.64-.93-2.25-.25-.59-.5-.51-.68-.52-.18-.01-.38-.01-.58-.01-.2 0-.53.07-.8.37-.28.3-1.07 1.05-1.07 2.56s1.1 2.97 1.25 3.17c.15.2 2.16 3.3 5.23 4.63.73.32 1.3.5 1.74.64.73.23 1.4.2 1.93.12.59-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.08-.12-.28-.2-.58-.35z"/>
-              </svg>
-              <span>Chat on WhatsApp</span>
-            </a>
-            <a
-              href="mailto:timberkala.marketing@gmail.com?subject=Timberkala%20Artisan%20Inquiry"
-              class="tk-faq-btn-email"
-              aria-label="Email Timberkala Atelier"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-              </svg>
-              <span>Email Atelier</span>
-            </a>
-          </div>
-        </aside>
-      {%- endif -%}
 
     </div>
   </section>
 
   <!-- =========================================================================
        VALID SCHEMA.ORG FAQPAGE JSON-LD STRUCTURED DATA (AEO & GEO OPTIMIZED)
-       Crawlable by Perplexity, Googlebot, ChatGPT, Gemini, Copilot, Bingbot
        ========================================================================= -->
   <script type="application/ld+json">
   {
@@ -1550,7 +1596,6 @@
 
   <!-- =========================================================================
        CLIENT-SIDE SEARCH, CATEGORY FILTER, & ACCORDION BEHAVIOR
-       Progressive enhancement, zero external dependencies, 100% performance score
        ========================================================================= -->
   <script>
     (function() {
@@ -1587,7 +1632,6 @@
               visibleCount++;
             } else {
               card.classList.add('is-hidden');
-              // Close if hidden
               if (card.hasAttribute('open')) {
                 card.removeAttribute('open');
               }
@@ -1596,7 +1640,7 @@
 
           if (countDisplay) {
             if (query.length > 0 || activeCategory !== 'all') {
-              countDisplay.textContent = 'Showing ' + visibleCount + ' of ' + totalCards + ' questions';
+              countDisplay.textContent = 'Showing ' + visibleCount + ' of ' + totalCards + ' inquiries';
             } else {
               countDisplay.textContent = '';
             }
@@ -1607,7 +1651,6 @@
           }
         }
 
-        // Live Search Input Listener
         if (searchInput) {
           searchInput.addEventListener('input', updateFilter);
         }
@@ -1622,7 +1665,6 @@
           });
         }
 
-        // Category Tabs Listener
         categoryBtns.forEach(function(btn) {
           btn.addEventListener('click', function() {
             categoryBtns.forEach(function(b) { b.classList.remove('is-active'); });
@@ -1632,7 +1674,6 @@
           });
         });
 
-        // Progressive Enhancement: Exclusive accordion closure for older browsers
         cards.forEach(function(card) {
           card.addEventListener('toggle', function() {
             if (card.open) {
@@ -1645,7 +1686,6 @@
           });
         });
 
-        // Deep linking: If URL has hash #faq or #tk-faq-section, smooth scroll
         if (window.location.hash === '#faq' || window.location.hash === '#tk-faq-section') {
           setTimeout(function() {
             section.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1674,13 +1714,13 @@
       "id": "enable_faq",
       "label": "Enable FAQ Section",
       "default": true,
-      "info": "Displays rich FAQ accordion & generates Google/AI AEO & GEO FAQPage schema."
+      "info": "Displays editorial FAQ accordion & generates Google/AI AEO & GEO FAQPage schema."
     },
     {
       "type": "text",
       "id": "eyebrow_text",
       "label": "Eyebrow Badge",
-      "default": "ATELIER KNOWLEDGE BASE & CURATION"
+      "default": "TIMBERKALA ATELIER CURATION"
     },
     {
       "type": "text",
@@ -1692,7 +1732,7 @@
       "type": "textarea",
       "id": "subheading",
       "label": "Section Subheading",
-      "default": "Authoritative answers regarding Timberkala's reclaimed teak craft, Vastu placement, care protocols, pan-India transit insurance, and bespoke commissions."
+      "default": "Authoritative guidance on Timberkala's reclaimed teak craft, sacred Vastu placements, organic care rituals, pan-India transit insurance, and bespoke commissions."
     },
     {
       "type": "checkbox",
@@ -1720,55 +1760,61 @@
       "type": "color",
       "id": "bg_color",
       "label": "Section Background Color",
-      "default": "#141414"
-    },
-    {
-      "type": "color",
-      "id": "text_color",
-      "label": "Text Color",
-      "default": "#faf9f6"
-    },
-    {
-      "type": "color",
-      "id": "accent_color",
-      "label": "Accent Color (Gold)",
-      "default": "#ffddbf"
+      "default": "#fbf9f5"
     },
     {
       "type": "color",
       "id": "card_bg",
-      "label": "Card Background",
+      "label": "Active Card Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Primary Text Color",
       "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Terracotta Bronze)",
+      "default": "#7b5454"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Divider Border Color",
+      "default": "#e8e4dc"
     },
     {
       "type": "range",
       "id": "max_width",
-      "min": 800,
+      "min": 1000,
       "max": 1600,
       "step": 40,
       "unit": "px",
       "label": "Maximum Content Width",
-      "default": 1280
+      "default": 1360
     },
     {
       "type": "range",
       "id": "padding_top",
-      "min": 20,
-      "max": 120,
+      "min": 40,
+      "max": 140,
       "step": 5,
       "unit": "px",
       "label": "Padding Top",
-      "default": 70
+      "default": 80
     },
     {
       "type": "range",
       "id": "padding_bottom",
-      "min": 20,
-      "max": 120,
+      "min": 40,
+      "max": 140,
       "step": 5,
       "unit": "px",
       "label": "Padding Bottom",
-      "default": 60
+      "default": 90
     }
   ],
   "blocks": [
