@@ -1,8 +1,10 @@
 {% comment %}
   Timberkala PDP Upsell / Cross-sell Component
   Placed immediately before the Add to Cart button on Product pages.
-  Supports manual product selection via block settings with smart
-  automatic fallback to collection/related products and recommendations API.
+  Recommends relevant, product-specific handcrafted pieces tailored to each product:
+  1. Per-product metafield pairings (Shopify Search & Discovery complementary products)
+  2. Dynamic Shopify Recommendations API (intent=related per product ID)
+  3. Secondary fallback to complementary intent and rotated primary collection
 {% endcomment %}
 
 {%- liquid
@@ -11,12 +13,21 @@
   assign max_items = block.settings.max_products | default: 2
   assign manual_products = block.settings.product_upsell
   assign rendered_count = 0
+
+  # Check product-level custom or Search & Discovery metafields first
+  assign metafield_products = product.metafields.shopify--discovery--product_recommendations.complementary_products.value
+  if metafield_products == blank
+    assign metafield_products = product.metafields.custom.upsell_products.value
+  endif
+  if metafield_products == blank
+    assign metafield_products = product.metafields.custom.related_products.value
+  endif
 -%}
 
 {% capture upsell_items_html %}
-  {% comment %} 1. Try manual products first {% endcomment %}
-  {% if manual_products != blank and manual_products.count > 0 %}
-    {% for item in manual_products %}
+  {% comment %} 1. Try per-product metafield products first {% endcomment %}
+  {% if metafield_products != blank and metafield_products.count > 0 %}
+    {% for item in metafield_products %}
       {% if item.available and item.id != product.id %}
         {% render 'product-upsell-item', item: item %}
         {% assign rendered_count = rendered_count | plus: 1 %}
@@ -25,28 +36,15 @@
     {% endfor %}
   {% endif %}
 
-  {% comment %} 2. Fallback: Find matching products from current product's collections {% endcomment %}
-  {% if rendered_count == 0 %}
-    {% assign target_col = null %}
-    {% for col in product.collections %}
-      {% if col.handle != 'all' and col.handle != 'frontpage' and col.all_products_count > 1 %}
-        {% assign target_col = col %}
-        {% break %}
+  {% comment %} 2. Try manual block products (if explicitly set for this block) {% endcomment %}
+  {% if rendered_count == 0 and manual_products != blank and manual_products.count > 0 %}
+    {% for item in manual_products %}
+      {% if item.available and item.id != product.id %}
+        {% render 'product-upsell-item', item: item %}
+        {% assign rendered_count = rendered_count | plus: 1 %}
+        {% if rendered_count >= max_items %}{% break %}{% endif %}
       {% endif %}
     {% endfor %}
-    {% if target_col == null and product.collections.first %}
-      {% assign target_col = product.collections.first %}
-    {% endif %}
-
-    {% if target_col != null %}
-      {% for item in target_col.products %}
-        {% if item.available and item.id != product.id %}
-          {% render 'product-upsell-item', item: item %}
-          {% assign rendered_count = rendered_count | plus: 1 %}
-          {% if rendered_count >= max_items %}{% break %}{% endif %}
-        {% endif %}
-      {% endfor %}
-    {% endif %}
   {% endif %}
 {% endcapture %}
 
@@ -55,7 +53,6 @@
   id="tk-pdp-upsell-{{ block.id }}"
   data-product-id="{{ product.id }}"
   data-max-items="{{ max_items }}"
-  {% if rendered_count == 0 %}style="display: none;"{% endif %}
 >
   <div class="tk-pdp-upsell__card">
     <div class="tk-pdp-upsell__header">
@@ -70,7 +67,21 @@
     </div>
 
     <div class="tk-pdp-upsell__list" id="tk-pdp-upsell-list-{{ block.id }}">
-      {{ upsell_items_html }}
+      {% if rendered_count > 0 %}
+        {{ upsell_items_html }}
+      {% else %}
+        {% for i in (1..max_items) %}
+          <div class="tk-upsell-skeleton" aria-hidden="true">
+            <div class="tk-upsell-skeleton__img"></div>
+            <div class="tk-upsell-skeleton__body">
+              <div class="tk-upsell-skeleton__line tk-upsell-skeleton__line--vendor"></div>
+              <div class="tk-upsell-skeleton__line tk-upsell-skeleton__line--title"></div>
+              <div class="tk-upsell-skeleton__line tk-upsell-skeleton__line--price"></div>
+            </div>
+            <div class="tk-upsell-skeleton__btn"></div>
+          </div>
+        {% endfor %}
+      {% endif %}
     </div>
   </div>
 </div>
@@ -83,6 +94,7 @@
     margin: 16px 0 20px !important;
     width: 100% !important;
     box-sizing: border-box !important;
+    transition: opacity 0.3s ease !important;
   }
 
   .tk-pdp-upsell__card {
@@ -152,6 +164,12 @@
     padding: 10px 12px !important;
     box-sizing: border-box !important;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease !important;
+    animation: tkFadeIn 0.35s ease !important;
+  }
+
+  @keyframes tkFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
   .tk-upsell-item:hover {
@@ -314,6 +332,73 @@
     100% { transform: rotate(360deg); }
   }
 
+  /* Shimmer Skeleton */
+  .tk-upsell-skeleton {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.06) !important;
+    border-radius: 10px !important;
+    padding: 10px 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  .tk-upsell-skeleton__img {
+    width: 66px !important;
+    height: 66px !important;
+    border-radius: 8px !important;
+    background: linear-gradient(90deg, #f0ede6 25%, #f8f6f0 50%, #f0ede6 75%) !important;
+    background-size: 200% 100% !important;
+    animation: tkShimmer 1.5s infinite !important;
+    flex-shrink: 0 !important;
+  }
+
+  .tk-upsell-skeleton__body {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+  }
+
+  .tk-upsell-skeleton__line {
+    border-radius: 4px !important;
+    background: linear-gradient(90deg, #f0ede6 25%, #f8f6f0 50%, #f0ede6 75%) !important;
+    background-size: 200% 100% !important;
+    animation: tkShimmer 1.5s infinite !important;
+  }
+
+  .tk-upsell-skeleton__line--vendor {
+    width: 35% !important;
+    height: 8px !important;
+  }
+
+  .tk-upsell-skeleton__line--title {
+    width: 85% !important;
+    height: 12px !important;
+  }
+
+  .tk-upsell-skeleton__line--price {
+    width: 40% !important;
+    height: 10px !important;
+  }
+
+  .tk-upsell-skeleton__btn {
+    width: 68px !important;
+    height: 34px !important;
+    border-radius: 999px !important;
+    background: linear-gradient(90deg, #f0ede6 25%, #f8f6f0 50%, #f0ede6 75%) !important;
+    background-size: 200% 100% !important;
+    animation: tkShimmer 1.5s infinite !important;
+    flex-shrink: 0 !important;
+  }
+
+  @keyframes tkShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
   /* Mobile Tweaks */
   @media (max-width: 600px) {
     .tk-pdp-upsell {
@@ -325,12 +410,14 @@
       border-radius: 12px !important;
     }
 
-    .tk-upsell-item {
+    .tk-upsell-item,
+    .tk-upsell-skeleton {
       padding: 9px 10px !important;
       gap: 10px !important;
     }
 
-    .tk-upsell-item__image-link {
+    .tk-upsell-item__image-link,
+    .tk-upsell-skeleton__img {
       width: 58px !important;
       height: 58px !important;
     }
@@ -343,7 +430,8 @@
       font-size: 12px !important;
     }
 
-    .tk-upsell-item__add-btn {
+    .tk-upsell-item__add-btn,
+    .tk-upsell-skeleton__btn {
       padding: 6px 12px !important;
       font-size: 11px !important;
       min-width: 64px !important;
@@ -361,83 +449,169 @@
 
     var currentProdId = {{ product.id | json }};
     var maxItems = parseInt(container.getAttribute('data-max-items') || '2', 10);
-    var existingItems = listEl.querySelectorAll('.tk-upsell-item');
+    var hasServerItems = {{ rendered_count }} > 0;
 
-    // If server rendered items, attach event listeners
-    if (existingItems.length > 0) {
+    // If server rendered real items (via per-product metafields or manual block settings), attach event listeners
+    if (hasServerItems) {
       attachUpsellEvents(container);
-    } else {
-      // Client-side fallback: fetch Shopify recommendations
-      fetch('/recommendations/products.json?product_id=' + currentProdId + '&limit=4&intent=related')
-        .then(function(res) { return res.json(); })
+      return;
+    }
+
+    // Dynamic product-specific recommendations
+    var recBaseUrl = {{ routes.product_recommendations_url | json }} || '/recommendations/products';
+    var primaryColHandle = {{ product.collections.first.handle | json }};
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function loadRecommendations(intent) {
+      var url = recBaseUrl + '.json?product_id=' + currentProdId + '&limit=8&intent=' + intent;
+      return fetch(url)
+        .then(function(res) {
+          if (!res.ok) throw new Error('Network error');
+          return res.json();
+        })
         .then(function(data) {
           var products = data.products || [];
-          var count = 0;
-          products.forEach(function(p) {
-            if (count >= maxItems || p.id === currentProdId) return;
-            var availableVariant = p.variants && p.variants.find(function(v) { return v.available; });
-            if (!availableVariant) return;
-
-            var imgUrl = p.featured_image
-              ? p.featured_image.replace(/(\.[^.?]+)(\?.*)?$/, '_160x160$1$2')
-              : '';
-            var priceStr = '₹' + (p.price / 100).toLocaleString('en-IN');
-            var compareStr = p.compare_at_price && p.compare_at_price > p.price
-              ? '₹' + (p.compare_at_price / 100).toLocaleString('en-IN')
-              : '';
-
-            var itemDiv = document.createElement('div');
-            itemDiv.className = 'tk-upsell-item';
-            itemDiv.setAttribute('data-product-id', p.id);
-            itemDiv.setAttribute('data-variant-id', availableVariant.id);
-
-            var optionsHtml = '';
-            if (p.variants.length > 1) {
-              optionsHtml += '<select class="tk-upsell-item__variant-select" aria-label="Select variant">';
-              p.variants.forEach(function(v) {
-                if (v.available) {
-                  optionsHtml += '<option value="' + v.id + '" data-price="₹' + (v.price / 100).toLocaleString('en-IN') + '">' + v.title + '</option>';
-                }
-              });
-              optionsHtml += '</select>';
-            }
-
-            itemDiv.innerHTML =
-              '<a href="' + p.url + '" class="tk-upsell-item__image-link">' +
-                (imgUrl ? '<img src="' + imgUrl + '" alt="" class="tk-upsell-item__image" width="66" height="66" loading="lazy">' : '') +
-              '</a>' +
-              '<div class="tk-upsell-item__details">' +
-                '<span class="tk-upsell-item__vendor">' + (p.vendor || 'TIMBER KALA') + '</span>' +
-                '<a href="' + p.url + '" class="tk-upsell-item__title">' + p.title + '</a>' +
-                '<div class="tk-upsell-item__price-row">' +
-                  '<span class="tk-upsell-item__price">' + priceStr + '</span>' +
-                  (compareStr ? '<s class="tk-upsell-item__compare-price">' + compareStr + '</s>' : '') +
-                '</div>' +
-                optionsHtml +
-              '</div>' +
-              '<div class="tk-upsell-item__action">' +
-                '<button type="button" class="tk-upsell-item__add-btn" data-variant-id="' + availableVariant.id + '">' +
-                  '<span class="tk-upsell-btn-text">+ Add</span>' +
-                  '<span class="tk-upsell-btn-loading" hidden><svg class="tk-spinner" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="31.4 31.4"/></svg></span>' +
-                  '<span class="tk-upsell-btn-added" hidden>✓ Added</span>' +
-                '</button>' +
-              '</div>';
-
-            listEl.appendChild(itemDiv);
-            count++;
+          return products.filter(function(p) {
+            return p.id !== currentProdId && p.available;
           });
-
-          if (count > 0) {
-            container.style.display = '';
-            attachUpsellEvents(container);
-          } else {
-            container.style.display = 'none';
-          }
-        })
-        .catch(function() {
-          container.style.display = 'none';
         });
     }
+
+    function renderUpsellItems(products) {
+      if (!products || products.length === 0) {
+        container.style.display = 'none';
+        return;
+      }
+
+      listEl.innerHTML = '';
+
+      products.forEach(function(p) {
+        var availableVariant = p.variants && p.variants.find(function(v) { return v.available; });
+        if (!availableVariant) return;
+
+        var imgUrl = '';
+        if (p.featured_image) {
+          imgUrl = p.featured_image;
+          if (imgUrl.indexOf('?') > -1) {
+            imgUrl += '&width=160';
+          } else {
+            imgUrl += '?width=160';
+          }
+          if (imgUrl.indexOf('//') === 0) {
+            imgUrl = 'https:' + imgUrl;
+          }
+        }
+
+        var priceNum = p.price / 100;
+        var priceStr = '₹' + priceNum.toLocaleString('en-IN');
+        var compareStr = '';
+        var discountBadge = '';
+
+        if (p.compare_at_price && p.compare_at_price > p.price) {
+          var compNum = p.compare_at_price / 100;
+          compareStr = '₹' + compNum.toLocaleString('en-IN');
+          var pct = Math.round(((p.compare_at_price - p.price) / p.compare_at_price) * 100);
+          if (pct > 0) {
+            discountBadge = '<span class="tk-upsell-item__discount-badge">-' + pct + '%</span>';
+          }
+        }
+
+        var itemDiv = document.createElement('div');
+        itemDiv.className = 'tk-upsell-item';
+        itemDiv.setAttribute('data-product-id', p.id);
+        itemDiv.setAttribute('data-variant-id', availableVariant.id);
+
+        var optionsHtml = '';
+        var multiVariants = p.variants && p.variants.length > 1;
+        if (multiVariants) {
+          optionsHtml += '<select class="tk-upsell-item__variant-select" aria-label="Select variant for ' + escapeHtml(p.title) + '">';
+          p.variants.forEach(function(v) {
+            if (v.available) {
+              var vPrice = '₹' + (v.price / 100).toLocaleString('en-IN');
+              optionsHtml += '<option value="' + v.id + '" data-price="' + vPrice + '">' + escapeHtml(v.title) + '</option>';
+            }
+          });
+          optionsHtml += '</select>';
+        }
+
+        var imgHtml = imgUrl
+          ? '<img src="' + imgUrl + '" alt="' + escapeHtml(p.title) + '" class="tk-upsell-item__image" width="66" height="66" loading="lazy">'
+          : '<div class="tk-upsell-item__image" style="background:#e8dfd1;"></div>';
+
+        itemDiv.innerHTML =
+          '<a href="' + p.url + '" class="tk-upsell-item__image-link" aria-label="' + escapeHtml(p.title) + '">' +
+            imgHtml +
+          '</a>' +
+          '<div class="tk-upsell-item__details">' +
+            '<span class="tk-upsell-item__vendor">' + escapeHtml(p.vendor || 'TIMBER KALA') + '</span>' +
+            '<a href="' + p.url + '" class="tk-upsell-item__title" title="' + escapeHtml(p.title) + '">' + escapeHtml(p.title) + '</a>' +
+            '<div class="tk-upsell-item__price-row">' +
+              '<span class="tk-upsell-item__price">' + priceStr + '</span>' +
+              (compareStr ? '<s class="tk-upsell-item__compare-price">' + compareStr + '</s>' : '') +
+              discountBadge +
+            '</div>' +
+            optionsHtml +
+          '</div>' +
+          '<div class="tk-upsell-item__action">' +
+            '<button type="button" class="tk-upsell-item__add-btn" data-variant-id="' + availableVariant.id + '" aria-label="Add ' + escapeHtml(p.title) + ' to cart">' +
+              '<span class="tk-upsell-btn-text">+ Add</span>' +
+              '<span class="tk-upsell-btn-loading" hidden><svg class="tk-spinner" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" fill="none" stroke-dasharray="31.4 31.4"/></svg></span>' +
+              '<span class="tk-upsell-btn-added" hidden>✓ Added</span>' +
+            '</button>' +
+          '</div>';
+
+        listEl.appendChild(itemDiv);
+      });
+
+      container.style.display = '';
+      attachUpsellEvents(container);
+    }
+
+    // Primary: fetch intent=related (Shopify intelligent correlation)
+    loadRecommendations('related')
+      .then(function(items) {
+        if (items && items.length > 0) {
+          renderUpsellItems(items.slice(0, maxItems));
+        } else {
+          // Secondary fallback: intent=complementary
+          return loadRecommendations('complementary').then(function(compItems) {
+            if (compItems && compItems.length > 0) {
+              renderUpsellItems(compItems.slice(0, maxItems));
+            } else if (primaryColHandle) {
+              // Tertiary fallback: fetch same collection products, dynamically rotated per product ID
+              return fetch('/collections/' + primaryColHandle + '/products.json?limit=15')
+                .then(function(res) { return res.json(); })
+                .then(function(colData) {
+                  var colProds = (colData.products || []).filter(function(p) {
+                    return p.id !== currentProdId && p.available;
+                  });
+                  if (colProds.length > 0) {
+                    var offset = currentProdId % colProds.length;
+                    var rotated = colProds.slice(offset).concat(colProds.slice(0, offset));
+                    renderUpsellItems(rotated.slice(0, maxItems));
+                  } else {
+                    container.style.display = 'none';
+                  }
+                });
+            } else {
+              container.style.display = 'none';
+            }
+          });
+        }
+      })
+      .catch(function(err) {
+        console.warn('Upsell recommendation error:', err);
+        container.style.display = 'none';
+      });
 
     function attachUpsellEvents(root) {
       // Variant select changes
