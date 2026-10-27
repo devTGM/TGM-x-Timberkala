@@ -104,6 +104,27 @@
           {%- when 'content' -%}
             <div class="main-article__body" itemprop="articleBody" {{ block.shopify_attributes }}>
               {{ article.content }}
+
+              <div class="tk-article-author-card" itemscope itemprop="author" itemtype="https://schema.org/Person">
+                <div class="tk-article-author-card__badge">✦ Artisan Atelier & Conservation ✦</div>
+                <div class="tk-article-author-card__content">
+                  <div class="tk-article-author-card__avatar" aria-hidden="true">
+                    <span>TK</span>
+                  </div>
+                  <div class="tk-article-author-card__info">
+                    <h4 class="tk-article-author-card__name" itemprop="name">Curated by Master Woodcraft Atelier</h4>
+                    <p class="tk-article-author-card__title" itemprop="jobTitle">Master Woodcraft Conservator & Curator · Timberkala</p>
+                    <p class="tk-article-author-card__bio">
+                      Dedicated to the heritage of hand-carved Indian woodwork, sustainable reclaimed teak root preservation, and authentic molten glass fusion craft. Every editorial guide is authored and peer-reviewed by our generational woodcraft masters and interior restoration curators.
+                    </p>
+                    <div class="tk-article-author-card__meta">
+                      <span class="tk-author-pill">✓ Heritage Woodcraft Verified</span>
+                      <span class="tk-author-pill">✓ 100% Sustainable Reclaimed Wood</span>
+                      <span class="tk-author-pill">✓ Vastu & Architectural Alignment</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
           {%- when 'social_sharing' %}

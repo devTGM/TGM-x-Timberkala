@@ -285,11 +285,11 @@
 }
 </script>
 {%- elsif request.page_type == 'article' -%}
-<!-- Google Article & Breadcrumb Schema -->
+<!-- Google BlogPosting & Breadcrumb Schema (EEAT & GEO Optimized) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Article",
+  "@type": "BlogPosting",
   "headline": {{ article.title | json }},
   "image": [
     {{ article.image | image_url: width: 1200 | prepend: "https:" | json }}
@@ -298,11 +298,17 @@
   "dateModified": {{ article.updated_at | default: article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
   "author": {
     "@type": "Person",
-    "name": {{ article.author | default: "Timberkala" | json }}
+    "name": "Master Woodcraft Atelier",
+    "jobTitle": "Master Woodcraft Conservator & Curator",
+    "url": "https://www.timberkala.com/pages/about-us",
+    "worksFor": {
+      "@id": "https://www.timberkala.com/#organization"
+    }
   },
   "publisher": {
     "@id": "https://www.timberkala.com/#organization"
   },
+  "inLanguage": "en-IN",
   "description": {{ article.excerpt_or_content | strip_html | truncate: 200 | json }},
   "mainEntityOfPage": {
     "@type": "WebPage",
