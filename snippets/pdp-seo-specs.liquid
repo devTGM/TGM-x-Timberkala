@@ -1,0 +1,383 @@
+{% comment %}
+  Timberkala PDP SEO, AEO & GEO Product Specifications & Direct Answer Engine
+  Renders structured Tabular Specifications, AEO Direct Answer box, and Vastu alignment
+  on every Product Display Page (PDP) for Google Shopping, AI Overviews, Perplexity & voice search.
+{% endcomment %}
+
+{%- liquid
+  assign title_lower = product.title | downcase
+  assign type_lower = product.type | downcase
+  assign desc_lower = product.description | downcase
+
+  # Detect product characteristics for dynamic AEO direct answer
+  assign is_wall = false
+  assign is_glass = false
+  assign is_deity = false
+  assign is_animal = false
+  assign is_chime = false
+
+  if title_lower contains 'wall' or type_lower contains 'wall' or desc_lower contains 'wall' or title_lower contains 'mask' or title_lower contains 'plate'
+    assign is_wall = true
+  endif
+
+  if title_lower contains 'glass' or title_lower contains 'valley' or desc_lower contains 'molten glass'
+    assign is_glass = true
+  endif
+
+  if title_lower contains 'ganesha' or title_lower contains 'buddha' or title_lower contains 'mukha' or desc_lower contains 'divine' or desc_lower contains 'vastu'
+    assign is_deity = true
+  endif
+
+  if title_lower contains 'duck' or title_lower contains 'giraffe' or title_lower contains 'bird' or title_lower contains 'animal' or type_lower contains 'figurine'
+    assign is_animal = true
+  endif
+
+  if title_lower contains 'chime' or title_lower contains 'bell' or title_lower contains 'hanging'
+    assign is_chime = true
+  endif
+
+  # Dynamic AEO direct answer copy (45-50 words snippet capture)
+  if is_glass
+    assign pdp_direct_answer = product.title | append: ' is an artisanal molten glass on reclaimed teak root sculpture handcrafted in India. Recycled glass is hand-blown and slumped at 1,000°C directly onto salvaged teak root wood, creating an unrepeatable fusion of organic timber crevices and crystal-clear glass. Finished with non-toxic organic bio-wax.'
+    assign pdp_category_label = 'Molten Glass on Teak Root Art'
+    assign pdp_vastu_guide = 'North or East corner of living room credenzas to harmonize Fire (glassmaking) and Wood elements.'
+  elsif is_deity
+    assign pdp_direct_answer = product.title | append: ' is a sacred wooden sculpture hand-carved from seasoned reclaimed hardwood by Indian master artisans. Intricately chiseled to capture divine poise and serenity, it carries natural termite resistance from aged Tectoquine oils and brings spiritual grounding and auspicious Vastu harmony to homes.'
+    assign pdp_category_label = 'Sacred Wooden Deity Sculpture'
+    assign pdp_vastu_guide = 'East (vitality & health), North (Kubera wealth), or North-East (Ishanya for spiritual clarity).'
+  elsif is_wall
+    assign pdp_direct_answer = product.title | append: ' is a handcrafted wooden wall accent carved from 100% salvaged reclaimed teak wood. Designed to soften acoustic echoes and anchor modern living spaces with organic texture, each piece celebrates authentic wabi-sabi wood grain and is sealed with zero-VOC natural beeswax.'
+    assign pdp_category_label = 'Handcrafted Wooden Wall Decor'
+    assign pdp_vastu_guide = 'North, East, or North-East walls to optimize acoustic balance and invite positive cosmic energy.'
+  elsif is_animal
+    assign pdp_direct_answer = product.title | append: ' is an artisan wooden figurine hand-carved from seasoned salvaged hardwood. Shaped by Indian master woodturners following the natural curve of the timber grain, this heirloom collectible features unique wabi-sabi character, smooth contours, and a chemical-free organic wax finish.'
+    assign pdp_category_label = 'Artisan Hardwood Figurine'
+    assign pdp_vastu_guide = 'Console tables, living room bookshelves, or office desks to invite grounding natural vitality.'
+  elsif is_chime
+    assign pdp_direct_answer = product.title | append: ' is a handcrafted acoustic wooden hanging chime carved from seasoned hardwood bells and natural jute cords. Tuned to produce mellow woodland tones that calm ambient apartment noise, it harmonizes wind energy and invites peaceful chi to balconies and entrances.'
+    assign pdp_category_label = 'Acoustic Wooden Wind Chime'
+    assign pdp_vastu_guide = 'North-West (Vayu quadrant) or East balcony/entryway to disperse energetic stagnation.'
+  else
+    assign pdp_direct_answer = product.title | append: ' is an authentic handcrafted wooden home decor artefact sculpted from 100% reclaimed teak roots and seasoned hardwoods by Indian master artisans. Finished with food-grade bio-wax and naturally resistant to termites, each piece provides biophilic warmth and timeless domestic elegance.'
+    assign pdp_category_label = 'Artisan Reclaimed Hardwood Decor'
+    assign pdp_vastu_guide = 'Living room centerpieces, dining credenzas, or study tables facing North or East.'
+  endif
+
+  # Dimensions extraction
+  assign pdp_dimensions = product.metafields.custom.dimensions.value | default: product.metafields.custom.dimensions
+  if pdp_dimensions == blank or pdp_dimensions == ''
+    assign pdp_dimensions = 'Varies uniquely per individual handcrafted piece (~10-40 cm; check variant sizing)'
+  endif
+
+  # Size option check
+  assign size_option = product.options_by_name['Size']
+-%}
+
+<div class="tk-pdp-specs-container" id="tk-pdp-specifications">
+  
+  <!-- AEO DIRECT ANSWER SNIPPET BOX -->
+  <div class="tk-pdp-direct-answer" itemprop="description">
+    <div class="tk-pdp-direct-answer__badge">
+      <span>✦ Quick Facts · Artisan Overview</span>
+      <span class="tk-pdp-category-tag">{{ pdp_category_label }}</span>
+    </div>
+    <p class="tk-pdp-direct-answer__text">
+      {{ pdp_direct_answer }}
+    </p>
+  </div>
+
+  <!-- TABULAR SPECIFICATIONS CARD (STRUCTURED FOR SEARCH & AEO) -->
+  <div class="tk-pdp-specs-card">
+    <div class="tk-pdp-specs-card__header">
+      <h4 class="tk-pdp-specs-card__title">
+        <span class="tk-specs-icon">📐</span>
+        <span>Artisan Specifications &amp; Material Purity</span>
+      </h4>
+      <span class="tk-pdp-purity-pill">100% Authentic Hardwood</span>
+    </div>
+
+    <table class="tk-pdp-specs-table" aria-label="Product specifications for {{ product.title | escape }}">
+      <tbody>
+        <tr>
+          <th scope="row">Material Purity</th>
+          <td>
+            <strong>100% Solid Reclaimed Hardwood</strong>
+            <span class="tk-spec-note">(Zero MDF, Zero Particle Board, Zero Polyresin)</span>
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Timber Species</th>
+          <td>
+            Salvaged Teak Wood (<em>Tectona grandis</em>) &amp; Seasoned Driftwood Roots
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Artisan Craftsmanship</th>
+          <td>
+            Hand-chiseled, lathe-turned &amp; hand-buffed by Indian Master Artisans
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Termite &amp; Pest Defense</th>
+          <td>
+            <strong>Naturally Immune</strong> — High natural Tectoquine essential oils; zero toxic synthetic pesticides
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Finish &amp; Protective Seal</th>
+          <td>
+            Hand-rubbed Organic Bio-Wax &amp; Cold-Pressed Plant Oils (Zero VOCs, Food &amp; Child Safe)
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Dimensions &amp; Sizing</th>
+          <td>
+            {{ pdp_dimensions }}
+            {%- if size_option and size_option.values.size > 0 -%}
+              <div class="tk-spec-subsizes">Available Options: {{ size_option.values | join: ' • ' }}</div>
+            {%- endif -%}
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Acoustic &amp; Interior Role</th>
+          <td>
+            Biophilic acoustic grounding; softens flutter echoes in glass &amp; tile apartments
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Vastu Shastra Alignment</th>
+          <td>
+            {{ pdp_vastu_guide }}
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Care &amp; Cleaning</th>
+          <td>
+            Dust weekly with a dry microfiber cloth. Nourish once annually with natural beeswax. Avoid soaking in water.
+          </td>
+        </tr>
+
+        <tr>
+          <th scope="row">Country of Origin</th>
+          <td>
+            <strong>India</strong> (Handcrafted Indian Heritage Artistry • Insured Pan-India Transit)
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- TRUST PILLARS BAR -->
+    <div class="tk-pdp-trust-bar">
+      <div class="tk-pdp-trust-pill">
+        <span class="tk-trust-emoji">🌱</span>
+        <span>Eco-Salvaged Timber</span>
+      </div>
+      <div class="tk-pdp-trust-pill">
+        <span class="tk-trust-emoji">🛡️</span>
+        <span>Natural Termite Proof</span>
+      </div>
+      <div class="tk-pdp-trust-pill">
+        <span class="tk-trust-emoji">📦</span>
+        <span>Custom Foam Transit</span>
+      </div>
+      <div class="tk-pdp-trust-pill">
+        <span class="tk-trust-emoji">✨</span>
+        <span>Zero Chemical Polishes</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<style>
+/* ============================================================
+   TIMBERKALA PDP SEO, AEO & GEO SPECIFICATIONS MODULE
+   ============================================================ */
+.tk-pdp-specs-container {
+  width: 100% !important;
+  margin: 22px 0 10px !important;
+  box-sizing: border-box !important;
+  font-family: inherit !important;
+}
+
+/* AEO DIRECT ANSWER BOX */
+.tk-pdp-direct-answer {
+  background: #ffffff !important;
+  border-left: 4px solid #c5a059 !important;
+  border-top: 1px solid #ebdcc5 !important;
+  border-right: 1px solid #ebdcc5 !important;
+  border-bottom: 1px solid #ebdcc5 !important;
+  border-radius: 8px !important;
+  padding: 14px 16px !important;
+  margin-bottom: 18px !important;
+  box-shadow: 0 2px 8px rgba(40, 30, 20, 0.03) !important;
+}
+
+.tk-pdp-direct-answer__badge {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: #8c6a2e !important;
+  margin-bottom: 6px !important;
+}
+
+.tk-pdp-category-tag {
+  background: rgba(197, 160, 89, 0.15) !important;
+  padding: 2px 8px !important;
+  border-radius: 4px !important;
+  font-size: 10px !important;
+  letter-spacing: 0.06em !important;
+}
+
+.tk-pdp-direct-answer__text {
+  font-size: 13.5px !important;
+  line-height: 1.6 !important;
+  color: #382e25 !important;
+  margin: 0 !important;
+}
+
+/* TABULAR SPECIFICATIONS CARD */
+.tk-pdp-specs-card {
+  background: #fdfbf7 !important;
+  border: 1px solid #ebdcc5 !important;
+  border-radius: 10px !important;
+  padding: 18px !important;
+  box-sizing: border-box !important;
+}
+
+.tk-pdp-specs-card__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-bottom: 1px solid #ebdcc5 !important;
+  padding-bottom: 12px !important;
+  margin-bottom: 12px !important;
+}
+
+.tk-pdp-specs-card__title {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: #1e1916 !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.tk-specs-icon {
+  font-size: 15px !important;
+}
+
+.tk-pdp-purity-pill {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  background: #281e14 !important;
+  color: #e6c88b !important;
+  padding: 3px 9px !important;
+  border-radius: 999px !important;
+}
+
+/* TABLE STYLING */
+.tk-pdp-specs-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  color: #382e25 !important;
+}
+
+.tk-pdp-specs-table th,
+.tk-pdp-specs-table td {
+  padding: 9px 8px !important;
+  vertical-align: top !important;
+  border-bottom: 1px solid rgba(235, 220, 197, 0.7) !important;
+}
+
+.tk-pdp-specs-table tr:last-child th,
+.tk-pdp-specs-table tr:last-child td {
+  border-bottom: none !important;
+}
+
+.tk-pdp-specs-table th {
+  width: 36% !important;
+  font-weight: 600 !important;
+  color: #705e4d !important;
+  text-align: left !important;
+  padding-left: 0 !important;
+}
+
+.tk-pdp-specs-table td {
+  padding-right: 0 !important;
+  color: #2b221b !important;
+}
+
+.tk-spec-note {
+  display: block !important;
+  font-size: 11px !important;
+  color: #8c7765 !important;
+  margin-top: 2px !important;
+}
+
+.tk-spec-subsizes {
+  font-size: 11.5px !important;
+  color: #8c6a2e !important;
+  font-weight: 600 !important;
+  margin-top: 3px !important;
+}
+
+/* TRUST BAR */
+.tk-pdp-trust-bar {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 8px !important;
+  margin-top: 14px !important;
+  padding-top: 14px !important;
+  border-top: 1px solid #ebdcc5 !important;
+}
+
+.tk-pdp-trust-pill {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: #ffffff !important;
+  border: 1px solid #ebdcc5 !important;
+  padding: 6px 10px !important;
+  border-radius: 6px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #4a3b2c !important;
+}
+
+.tk-trust-emoji {
+  font-size: 13px !important;
+}
+
+@media (max-width: 500px) {
+  .tk-pdp-specs-table th {
+    width: 40% !important;
+    font-size: 12px !important;
+  }
+  .tk-pdp-specs-table td {
+    font-size: 12px !important;
+  }
+  .tk-pdp-trust-bar {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>

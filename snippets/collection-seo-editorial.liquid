@@ -1,0 +1,425 @@
+{% comment %}
+  Timberkala Collection SEO, AEO & GEO Editorial Engine
+  Renders tailored, keyword-dense editorial content, direct answer snippets,
+  Vastu guidelines, and FAQPage structured data dynamically on every collection page.
+{% endcomment %}
+
+{%- liquid
+  assign handle = collection.handle | downcase
+  assign title = collection.title | escape
+
+  # Default fallbacks
+  assign col_heading = 'Handcrafted Wooden Home Decor Items & Living Room Artefacts'
+  assign direct_answer = 'Timberkala crafts luxury wooden home decor items sculpted from 100% salvaged reclaimed teak roots and seasoned hardwoods. Finished with non-toxic organic bio-waxes and designed with sacred Vastu principles, our one-of-a-kind Indian woodcraft brings natural warmth, biophilic grounding, and acoustic calm to contemporary urban flats.'
+  assign primary_desc = 'Discover one-of-a-kind handcrafted wooden decor created by master artisans across India. Unlike mass-manufactured MDF or synthetic polyresin, each Timberkala piece is carved from decades-old reclaimed timber, celebrating natural live edges, annular grain patterns, and authentic wabi-sabi imperfections.'
+  assign secondary_desc = 'Whether you are styling a minimalist urban apartment or an expansive villa, solid hardwood decor serves as an acoustic and energetic anchor. Our sustainable timber is naturally rich in Tectoquine oils, rendering it permanently resistant to termites, borer beetles, and seasonal humidity warping.'
+
+  # Category Specific Overrides
+  if handle contains 'wall-accent' or handle contains 'wall-decor'
+    assign col_heading = 'Handcrafted Wooden Wall Decor Items & Sacred Wall Accents'
+    assign direct_answer = 'Handcrafted wooden wall decor items by Timberkala are sculpted from aged reclaimed teak root timber and sacred hardwoods. Ideal for living rooms, pooja alcoves, and foyers, these pieces soften acoustic echoes, harmonize Vastu energy, and anchor modern spaces with one-of-a-kind organic grain textures.'
+    assign primary_desc = 'Explore our exclusive collection of handcrafted wooden wall art, carved Ganesha wall hangings, and architectural wood reliefs. Each piece is hand-chiseled from salvaged teak wood beams and root systems, providing timeless tactile depth that mass-produced canvas prints and plastic panels cannot match.'
+    assign secondary_desc = 'As per Vastu Shastra, placing wooden wall decor on North (Kubera direction for wealth), East (vitality and health), and North-East (Ishanya for spiritual clarity) walls invites positive cosmic vibrations into the home. Every heavy wall panel is engineered for secure mounting with interlocking brackets.'
+
+  elsif handle contains 'glass-on-wood'
+    assign col_heading = 'Molten Glass on Teak Root Wood Decor Vases & Sculptures'
+    assign direct_answer = 'Molten glass on teak root wood is a handcrafted fusion art where recycled glass is hand-blown and slumped directly over salvaged teak roots at 1,000°C. As the glowing glass cools, it forms an exact custom-fitted impression of the wood crevices, creating an unrepeatable luxury vase or bowl.'
+    assign primary_desc = 'Timberkala’s Valley Vases and molten glass on wood root sculptures bring the elemental harmony of fire, water, and earth into contemporary living rooms. Perfect as botanical ikebana displays, floating candle bowls, or tabletop terrariums, each piece is 100% unique in shape and wood contour.'
+    assign secondary_desc = 'The darkened char underneath the glass vessel is the authentic mark of red-hot artisanal glassblowing. The detachable glass bowl lifts off easily for washing with lukewarm water, while the dense reclaimed teak root base requires only an annual rub with natural beeswax to maintain its golden luster.'
+
+  elsif handle contains 'table-decor'
+    assign col_heading = 'Artisan Wooden Tabletop Decor & Living Room Centerpieces'
+    assign direct_answer = 'Artisan wooden tabletop accessories by Timberkala include hand-carved centerpiece sculptures, root bowls, and tactile wood accents. Carved from seasoned reclaimed timber and finished with chemical-free bio-waxes, they add biophilic warmth, organic contrast, and conversation-starting artistry to coffee tables, mantels, and credenzas.'
+    assign primary_desc = 'Transform flat living room surfaces with handcrafted wooden artefacts designed to balance the seven elements of interior design. Our tabletop sculptures pair naturally with marble, glass, and brass accents, providing the tactile grounding essential for relaxing modern living spaces.'
+    assign secondary_desc = 'Every tabletop sculpture is stabilized against seasonal moisture shifts, ensuring zero warping or cracking under continuous indoor air conditioning. Hand-buffed with food-grade beeswax, our pieces are completely child-safe, non-toxic, and chemical-free.'
+
+  elsif handle contains 'animal' or handle contains 'bird' or handle contains 'figurine'
+    assign col_heading = 'Handcrafted Wooden Bird Figurines & Animal Sculptures for Home Decor'
+    assign direct_answer = 'Timberkala’s wooden bird figurines and animal sculptures are hand-carved by Indian master woodturners using salvaged hardwood contours. Featuring elegant elongated giraffes, charismatic birds, and wildlife forms, they celebrate natural timber grain flows and organic wabi-sabi knots with zero synthetic coatings.'
+    assign primary_desc = 'Bring the quiet poise of nature into your home with artisan-sculpted animal and bird figures. Our craftsmen follow the natural curve of each tree branch and root knot, allowing the timber itself to dictate the animal posture, making every single figurine a unique heirloom sculpture.'
+    assign secondary_desc = 'Ideal for bookshelf styling, study desks, and console vignettes, these animal sculptures require minimal care—simply dry-dust with a soft microfiber cloth weekly and admire how the natural wood grain deepens in color over years of domestic display.'
+
+  elsif handle contains 'hanging' or handle contains 'chime' or handle contains 'bell'
+    assign col_heading = 'Handcrafted Wooden Wind Chimes for Balcony & Living Room Hangings'
+    assign direct_answer = 'Handcrafted wooden wind chimes by Timberkala are tuned to emit deep, mellow acoustic woodland tones rather than sharp metallic ringing. Crafted from seasoned hardwood bells and organic jute cords, they invite positive chi, tranquil acoustic serenity, and Vastu protection to balconies, verandas, and foyers.'
+    assign primary_desc = 'Create a calming sanctuary in your urban home with handcrafted wooden hanging accents. In high-rise apartments, the gentle acoustic resonance of solid timber chimes filters exterior traffic noise, creating a soothing natural soundscape.'
+    assign secondary_desc = 'According to Vastu and Feng Shui, hanging wooden wind chimes in the East or North-West quadrant of a balcony or entryway harmonizes wind energy, breaks energetic stagnation, and welcomes prosperity into the dwelling.'
+
+  elsif handle contains 'duck'
+    assign col_heading = 'Artisan Handcrafted Wooden Duck Figurines: Whimsical Root Woodcraft'
+    assign direct_answer = 'Timberkala’s wooden swagger duck figurines are hand-carved from salvaged root bulbs and seasoned teak driftwood. Each duck features a unique posture, quirky boot details, and visible natural wood grain, making them India’s favorite housewarming and joyful gifting collectible.'
+    assign primary_desc = 'Add playful sophistication to your living room shelves, hallway consoles, or work desk. Handcrafted by heritage woodturners, these lovable wooden duck sculptures combine traditional Indian lathe craft with modern whimsical charm.'
+    assign secondary_desc = 'Finished with organic, zero-VOC wax polishes that allow the natural wood texture to shine through, these durable sculptures make memorable conversation starters for art collectors and design lovers alike.'
+
+  elsif handle contains 'exclusive' or handle contains 'bestseller'
+    assign col_heading = 'Exclusive Masterpiece Wooden Sculptures: Collector Atelier Collection'
+    assign direct_answer = 'The Timberkala Exclusive Pieces collection represents our master woodcrafters’ most ambitious works—monumental root sculptures, hand-carved deity reliefs, and large-format molten glass root installations. Hand-selected for extraordinary timber grain maturity and museum-grade artisanal complexity.'
+    assign primary_desc = 'For connoisseurs of Indian heritage art and sustainable luxury, our exclusive wooden artefacts provide unmatched architectural presence in luxury residences, corporate boardrooms, and boutique hospitality lounges.'
+    assign secondary_desc = 'Each masterpiece is individually cataloged, verified for authentic reclaimed timber provenance, and supplied with a Timberkala Atelier Certificate of Craftsmanship.'
+  endif
+-%}
+
+<section
+  class="tk-col-editorial"
+  id="tk-col-editorial-{{ collection.id | default: 'main' }}"
+  aria-labelledby="tk-col-editorial-heading-{{ collection.id | default: 'main' }}"
+>
+  <div class="tk-col-editorial__card">
+    
+    <!-- HEADER & DIRECT ANSWER (AEO / FEATURED SNIPPET) -->
+    <header class="tk-col-editorial__header">
+      <div class="tk-col-editorial__eyebrow">
+        <span>✦ Timberkala Atelier Editorial · {{ title }} ✦</span>
+      </div>
+      <h2 id="tk-col-editorial-heading-{{ collection.id | default: 'main' }}" class="tk-col-editorial__title">
+        {{ col_heading }}
+      </h2>
+      
+      <div class="tk-col-editorial__direct-answer">
+        <div class="tk-col-editorial__badge">✦ Quick Facts · Artisan Overview</div>
+        <p class="tk-col-editorial__direct-answer-text">
+          {{ direct_answer }}
+        </p>
+      </div>
+    </header>
+
+    <!-- VISIBLE LEAD CONTENT -->
+    <div class="tk-col-editorial__content">
+      <p class="tk-col-editorial__lead">
+        {{ primary_desc }}
+      </p>
+
+      <!-- EXPANDABLE DEEP DIVE (SEO / AEO DEPTH) -->
+      <div class="tk-col-editorial__expanded" id="tk-col-expanded-{{ collection.id | default: 'main' }}">
+        <p>
+          {{ secondary_desc }}
+        </p>
+
+        <!-- ARTISAN SPECIFICATIONS GRID -->
+        <div class="tk-col-specs-grid">
+          <div class="tk-col-spec-item">
+            <span class="tk-col-spec-icon">🌱</span>
+            <div class="tk-col-spec-text">
+              <strong>100% Reclaimed Wood</strong>
+              <span>Salvaged old-growth roots aged 50+ yrs; zero live tree felling</span>
+            </div>
+          </div>
+          <div class="tk-col-spec-item">
+            <span class="tk-col-spec-icon">🛡️</span>
+            <div class="tk-col-spec-text">
+              <strong>Natural Termite Defense</strong>
+              <span>High natural Tectoquine heartwood oils; naturally insect-immune</span>
+            </div>
+          </div>
+          <div class="tk-col-spec-item">
+            <span class="tk-col-spec-icon">✨</span>
+            <div class="tk-col-spec-text">
+              <strong>Non-Toxic Bio-Wax</strong>
+              <span>Hand-buffed with organic beeswax & cold-pressed oils; zero VOCs</span>
+            </div>
+          </div>
+          <div class="tk-col-spec-item">
+            <span class="tk-col-spec-icon">📦</span>
+            <div class="tk-col-spec-text">
+              <strong>Insured Pan-India Transit</strong>
+              <span>Multi-layer custom shockproof foam packaging for safe arrival</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLLECTION FAQ SECTION (AEO & SCHEMA.ORG FAQPAGES) -->
+        <div class="tk-col-faq" itemscope itemtype="https://schema.org/FAQPage">
+          <h3 class="tk-col-faq__title">Frequently Asked Questions About {{ title }}</h3>
+
+          <div class="tk-col-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h4 class="tk-col-faq-item__q" itemprop="name">
+              Are all {{ title }} products made from authentic solid wood?
+            </h4>
+            <div class="tk-col-faq-item__a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">
+                Yes. Every Timberkala sculpture and decor piece is handcrafted from 100% authentic solid reclaimed timber—primarily aged teak roots, seasoned hardwoods, and salvaged architectural beams. We never use MDF, particle board, or hollow synthetic composites.
+              </p>
+            </div>
+          </div>
+
+          <div class="tk-col-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h4 class="tk-col-faq-item__q" itemprop="name">
+              How do I clean and care for wooden decor from this collection?
+            </h4>
+            <div class="tk-col-faq-item__a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">
+                Simply dust weekly using a dry microfiber cloth or soft natural horsehair brush. Never wash with tap water or spray commercial chemical polishes. To replenish the wood’s natural luster, massage a tiny dab of natural beeswax or mineral oil into the grain once every 6 to 12 months.
+              </p>
+            </div>
+          </div>
+
+          <div class="tk-col-faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <h4 class="tk-col-faq-item__q" itemprop="name">
+              Is this collection suitable for modern air-conditioned apartments?
+            </h4>
+            <div class="tk-col-faq-item__a" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+              <p itemprop="text">
+                Yes. Because our reclaimed timber has already seasoned naturally for decades before carving, its internal moisture content is permanently stabilized. It will not warp, cup, or crack when transitioning between air-conditioned interiors and humid ambient weather.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- READ MORE / LESS TOGGLE BUTTON -->
+      <button
+        type="button"
+        class="tk-col-editorial__toggle"
+        id="tk-col-toggle-btn-{{ collection.id | default: 'main' }}"
+        aria-expanded="false"
+        aria-controls="tk-col-expanded-{{ collection.id | default: 'main' }}"
+      >
+        <span class="tk-col-toggle-more">Read Full Atelier Notes & Vastu Guide ▾</span>
+        <span class="tk-col-toggle-less" hidden>Show Less ▴</span>
+      </button>
+
+    </div>
+  </div>
+</section>
+
+<style>
+/* ============================================================
+   TIMBERKALA LUXURY COLLECTION SEO / AEO / GEO COMPONENT
+   ============================================================ */
+.tk-col-editorial {
+  width: 100% !important;
+  max-width: 1320px !important;
+  margin: 40px auto 60px !important;
+  padding: 0 20px !important;
+  box-sizing: border-box !important;
+}
+
+.tk-col-editorial__card {
+  background: #fdfbf7 !important;
+  border: 1px solid #ebdcc5 !important;
+  border-radius: 14px !important;
+  padding: 36px 40px !important;
+  box-shadow: 0 6px 24px rgba(40, 30, 20, 0.04) !important;
+  box-sizing: border-box !important;
+}
+
+.tk-col-editorial__eyebrow {
+  display: inline-block !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.14em !important;
+  color: #8c6a2e !important;
+  background: rgba(197, 160, 89, 0.15) !important;
+  padding: 4px 12px !important;
+  border-radius: 4px !important;
+  margin-bottom: 12px !important;
+}
+
+.tk-col-editorial__title {
+  font-family: inherit !important;
+  font-size: 24px !important;
+  line-height: 1.35 !important;
+  font-weight: 600 !important;
+  color: #1e1916 !important;
+  margin: 0 0 18px !important;
+  letter-spacing: -0.01em !important;
+}
+
+.tk-col-editorial__direct-answer {
+  background: #ffffff !important;
+  border-left: 4px solid #c5a059 !important;
+  border-top: 1px solid #ebdcc5 !important;
+  border-right: 1px solid #ebdcc5 !important;
+  border-bottom: 1px solid #ebdcc5 !important;
+  border-radius: 8px !important;
+  padding: 18px 22px !important;
+  margin-bottom: 22px !important;
+}
+
+.tk-col-editorial__badge {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.1em !important;
+  color: #8c6a2e !important;
+  margin-bottom: 6px !important;
+}
+
+.tk-col-editorial__direct-answer-text {
+  font-size: 15px !important;
+  line-height: 1.7 !important;
+  color: #2b241e !important;
+  margin: 0 !important;
+  font-weight: 500 !important;
+}
+
+.tk-col-editorial__lead {
+  font-size: 15.5px !important;
+  line-height: 1.75 !important;
+  color: #4a3e33 !important;
+  margin: 0 0 16px !important;
+}
+
+.tk-col-editorial__expanded {
+  display: none;
+  margin-top: 18px !important;
+  border-top: 1px solid #ebdcc5 !important;
+  padding-top: 20px !important;
+  font-size: 15px !important;
+  line-height: 1.75 !important;
+  color: #4a3e33 !important;
+}
+
+.tk-col-editorial__expanded.is-open {
+  display: block !important;
+  animation: tkFadeIn 0.35s ease !important;
+}
+
+@keyframes tkFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Specs Grid */
+.tk-col-specs-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+  gap: 16px !important;
+  margin: 26px 0 32px !important;
+}
+
+.tk-col-spec-item {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  background: #ffffff !important;
+  border: 1px solid #ebdcc5 !important;
+  border-radius: 8px !important;
+  padding: 14px 16px !important;
+}
+
+.tk-col-spec-icon {
+  font-size: 20px !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
+}
+
+.tk-col-spec-text strong {
+  display: block !important;
+  font-size: 13.5px !important;
+  color: #1e1916 !important;
+  margin-bottom: 2px !important;
+}
+
+.tk-col-spec-text span {
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+  color: #6a5c4f !important;
+}
+
+/* FAQ in Collection */
+.tk-col-faq {
+  margin-top: 28px !important;
+}
+
+.tk-col-faq__title {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #1e1916 !important;
+  margin: 0 0 14px !important;
+}
+
+.tk-col-faq-item {
+  background: #ffffff !important;
+  border: 1px solid #ebdcc5 !important;
+  border-radius: 8px !important;
+  padding: 14px 18px !important;
+  margin-bottom: 12px !important;
+}
+
+.tk-col-faq-item__q {
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  color: #1e1916 !important;
+  margin: 0 0 6px !important;
+}
+
+.tk-col-faq-item__a p {
+  font-size: 13.5px !important;
+  line-height: 1.65 !important;
+  color: #52463b !important;
+  margin: 0 !important;
+}
+
+/* Toggle Button */
+.tk-col-editorial__toggle {
+  background: transparent !important;
+  border: 1.5px solid #c5a059 !important;
+  color: #8c6a2e !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  padding: 9px 20px !important;
+  border-radius: 999px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin-top: 14px !important;
+  transition: all 0.25s ease !important;
+}
+
+.tk-col-editorial__toggle:hover {
+  background: #c5a059 !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.3) !important;
+}
+
+@media (max-width: 768px) {
+  .tk-col-editorial {
+    margin: 24px auto 40px !important;
+    padding: 0 12px !important;
+  }
+  .tk-col-editorial__card {
+    padding: 22px 18px !important;
+    border-radius: 10px !important;
+  }
+  .tk-col-editorial__title {
+    font-size: 19px !important;
+  }
+  .tk-col-editorial__direct-answer {
+    padding: 14px 14px !important;
+  }
+  .tk-col-editorial__direct-answer-text {
+    font-size: 14px !important;
+  }
+  .tk-col-specs-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+</style>
+
+<script>
+(function() {
+  var sectionId = {{ collection.id | default: 'main' | json }};
+  var btn = document.getElementById('tk-col-toggle-btn-' + sectionId);
+  var expanded = document.getElementById('tk-col-expanded-' + sectionId);
+  if (!btn || !expanded) return;
+
+  btn.addEventListener('click', function() {
+    var isOpen = expanded.classList.contains('is-open');
+    if (isOpen) {
+      expanded.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.querySelector('.tk-col-toggle-more').hidden = false;
+      btn.querySelector('.tk-col-toggle-less').hidden = true;
+    } else {
+      expanded.classList.add('is-open');
+      btn.setAttribute('aria-expanded', 'true');
+      btn.querySelector('.tk-col-toggle-more').hidden = true;
+      btn.querySelector('.tk-col-toggle-less').hidden = false;
+    }
+  });
+})();
+</script>
