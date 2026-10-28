@@ -3918,6 +3918,51 @@ body.template-collection .collection__title {
   line-height: 1.2 !important;
 }
 
+/* "PRE ORDER" Badge styling — luxury obsidian & antique gold */
+.card__badges .card__badge--preorder,
+.card__badges--item.card__badge--preorder,
+.card__badges--product .card__badge--preorder,
+.badge--preorder {
+  background: #1c1712 !important;
+  color: #ffd875 !important;
+  border: 1px solid #c5a059 !important;
+  font-size: 10.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 4px 10px !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 10px rgba(197, 160, 89, 0.25), 0 2px 6px rgba(0, 0, 0, 0.4) !important;
+  line-height: 1.2 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  z-index: 6 !important;
+}
+
+.card__badges .card__badge--preorder::before,
+.card__badges--item.card__badge--preorder::before,
+.card__badges--product .card__badge--preorder::before,
+.badge--preorder::before {
+  content: "✦" !important;
+  font-size: 9px !important;
+  color: #c5a059 !important;
+  line-height: 1 !important;
+}
+
+/* PDP title inline preorder badge pill */
+.tk-pdp-preorder-pill {
+  margin-left: 10px;
+  vertical-align: middle;
+  display: inline-flex !important;
+}
+
+.tk-pdp-preorder-pill--no-brand {
+  margin-left: 0 !important;
+  margin-bottom: 8px !important;
+}
+
+
 /* ============================================================
    PRODUCT CARDS — HIDE REVIEWS & RATINGS
    ============================================================ */

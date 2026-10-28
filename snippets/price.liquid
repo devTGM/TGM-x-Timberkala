@@ -114,6 +114,26 @@
     </small>
   </div>
   {%- if show_badges -%}
+    {%- liquid
+      assign is_price_preorder = false
+      assign price_title_lower = product.title | downcase
+      if price_title_lower contains 'pre order' or price_title_lower contains 'pre-order' or price_title_lower contains 'preorder' or price_title_lower contains 'pre booking' or price_title_lower contains 'pre-booking' or price_title_lower contains 'prebooking'
+        assign is_price_preorder = true
+      endif
+      for tag in product.tags
+        assign downcase_tag = tag | downcase
+        if downcase_tag == 'preorder' or downcase_tag == 'pre-order' or downcase_tag == 'pre order' or downcase_tag == 'prebooking' or downcase_tag == 'pre-booking' or downcase_tag == 'pre booking' or downcase_tag contains 'preorder' or downcase_tag contains 'pre-order'
+          assign is_price_preorder = true
+        endif
+      endfor
+      if product.template_suffix contains 'preorder' or product.template_suffix contains 'pre-order'
+        assign is_price_preorder = true
+      endif
+    -%}
+    {%- if is_price_preorder -%}
+      <span class="badge badge--preorder">PRE ORDER</span>
+    {%- endif -%}
+
     <span class="badge price__badge-sale color-{{ settings.sale_badge_color_scheme }}">
       {{ 'products.product.on_sale' | t }}
     </span>

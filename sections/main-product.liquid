@@ -174,8 +174,30 @@
         }
                 </script>
 
+{%- liquid
+  assign is_pdp_preorder = false
+  assign pdp_title_lower = product.title | downcase
+  if pdp_title_lower contains 'pre order' or pdp_title_lower contains 'pre-order' or pdp_title_lower contains 'preorder' or pdp_title_lower contains 'pre booking' or pdp_title_lower contains 'pre-booking' or pdp_title_lower contains 'prebooking'
+    assign is_pdp_preorder = true
+  endif
+  for tag in product.tags
+    assign downcase_tag = tag | downcase
+    if downcase_tag == 'preorder' or downcase_tag == 'pre-order' or downcase_tag == 'pre order' or downcase_tag == 'prebooking' or downcase_tag == 'pre-booking' or downcase_tag == 'pre booking' or downcase_tag contains 'preorder' or downcase_tag contains 'pre-order'
+      assign is_pdp_preorder = true
+    endif
+  endfor
+  if product.template_suffix contains 'preorder' or product.template_suffix contains 'pre-order'
+    assign is_pdp_preorder = true
+  endif
+-%}
+
                 <div data-gallery class="{% if section.settings.enable-image-zoom %}photoswipe{% endif %}">
                     <div class="card__badges card__badges--product">
+                        {%- if is_pdp_preorder -%}
+                            <div class="card__badges--item card__badge--preorder" data-custom-badge="preorder">
+                                PRE ORDER
+                            </div>
+                        {%- endif -%}
                         {% assign custom-badge-1-input = settings['custom-badge-1-input'] | downcase %}
                         {% assign custom-badge-2-input = settings['custom-badge-2-input'] | downcase %}
                         {% assign custom-badge-3-input = settings['custom-badge-3-input'] | downcase %}
@@ -652,7 +674,12 @@
                                     class="{% if settings.animations %} scroll-trigger animate--slide-in {% endif %} {% if settings.disabled_animations_on_mobile %} disabled-on-mobile {% endif %}"
                             >
                                 <div class="wt-product__brand ">
-                                    <span class="wt-product__brand__name">{{ block.settings.brand }}</span>
+                                    {%- if block.settings.brand != blank -%}
+                                        <span class="wt-product__brand__name">{{ block.settings.brand }}</span>
+                                    {%- endif -%}
+                                    {%- if is_pdp_preorder -%}
+                                        <span class="badge--preorder tk-pdp-preorder-pill{% if block.settings.brand == blank %} tk-pdp-preorder-pill--no-brand{% endif %}">PRE ORDER</span>
+                                    {%- endif -%}
                                 </div>
                                 <h1 class="wt-product__name">{{ product.title }}</h1>
                             </div>

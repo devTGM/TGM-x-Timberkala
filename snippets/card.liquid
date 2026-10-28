@@ -152,6 +152,27 @@
           {% endif %}
           <div class="card__badges">
             {% assign current_card_prod = card_product | default: product %}
+            {%- liquid
+              assign is_card_preorder = false
+              assign card_title_lower = current_card_prod.title | downcase
+              if card_title_lower contains 'pre order' or card_title_lower contains 'pre-order' or card_title_lower contains 'preorder' or card_title_lower contains 'pre booking' or card_title_lower contains 'pre-booking' or card_title_lower contains 'prebooking'
+                assign is_card_preorder = true
+              endif
+              for tag in current_card_prod.tags
+                assign downcase_tag = tag | downcase
+                if downcase_tag == 'preorder' or downcase_tag == 'pre-order' or downcase_tag == 'pre order' or downcase_tag == 'prebooking' or downcase_tag == 'pre-booking' or downcase_tag == 'pre booking' or downcase_tag contains 'preorder' or downcase_tag contains 'pre-order'
+                  assign is_card_preorder = true
+                endif
+              endfor
+              if current_card_prod.template_suffix contains 'preorder' or current_card_prod.template_suffix contains 'pre-order'
+                assign is_card_preorder = true
+              endif
+            -%}
+            {%- if is_card_preorder -%}
+              <div class="card__badges--item card__badge--preorder" data-custom-badge="preorder">
+                PRE ORDER
+              </div>
+            {%- endif -%}
             {% if current_card_prod and current_card_prod.compare_at_price > current_card_prod.price and current_card_prod.available %}
               {% assign discount_pct = current_card_prod.compare_at_price | minus: current_card_prod.price | times: 100.0 | divided_by: current_card_prod.compare_at_price | round %}
               {% if discount_pct > 0 %}
