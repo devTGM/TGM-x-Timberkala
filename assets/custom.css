@@ -3918,11 +3918,9 @@ body.template-collection .collection__title {
   line-height: 1.2 !important;
 }
 
-/* "PRE ORDER" Badge styling — luxury obsidian & antique gold */
+/* "PRE ORDER" Badge styling — luxury obsidian & antique gold for product cards */
 .card__badges .card__badge--preorder,
-.card__badges--item.card__badge--preorder,
-.card__badges--product .card__badge--preorder,
-.badge--preorder {
+.card__badges--item.card__badge--preorder {
   background: #1c1712 !important;
   color: #ffd875 !important;
   border: 1px solid #c5a059 !important;
@@ -3941,25 +3939,19 @@ body.template-collection .collection__title {
 }
 
 .card__badges .card__badge--preorder::before,
-.card__badges--item.card__badge--preorder::before,
-.card__badges--product .card__badge--preorder::before,
-.badge--preorder::before {
+.card__badges--item.card__badge--preorder::before {
   content: "✦" !important;
   font-size: 9px !important;
   color: #c5a059 !important;
   line-height: 1 !important;
 }
 
-/* PDP title inline preorder badge pill */
-.tk-pdp-preorder-pill {
-  margin-left: 10px;
-  vertical-align: middle;
-  display: inline-flex !important;
-}
-
-.tk-pdp-preorder-pill--no-brand {
-  margin-left: 0 !important;
-  margin-bottom: 8px !important;
+/* Strictly hide any preorder badges on the main Product Detail Page */
+.wt-product .card__badges--product,
+.wt-product .card__badge--preorder,
+.template-product .card__badges--product,
+.template-product .card__badge--preorder {
+  display: none !important;
 }
 
 
