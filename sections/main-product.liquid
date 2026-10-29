@@ -1547,17 +1547,30 @@
                 </div>
             </section>
 
-            <sticky-buy-button class="wt-product__sticky-buy">
-                <button
-                        aria-label="{{ 'products.product.add_to_cart' | t }}"
-                        class="js-add-to-cart wt-product__sticky-buy__button button button--full-width button--secondary"
-                >
-                    {% if settings['enable-bag-icon'] %}
-                        {% render 'icons', id: 'bag' %}
-                    {% endif %}
-                    <span>{{ 'products.product.add_to_cart' | t }}</span>
-                </button>
-            </sticky-buy-button>
+            <div class="wt-product__sticky-buy">
+  <button
+    type="submit"
+    name="add"
+    form="{{ product_form_id }}"
+    aria-label="Add to cart"
+    class="wt-product__sticky-buy__button button button--full-width button--secondary"
+    {% unless product.selected_or_first_available_variant.available %}
+      disabled
+    {% endunless %}
+  >
+    {% if settings['enable-bag-icon'] %}
+      {% render 'icons', id: 'bag' %}
+    {% endif %}
+
+    <span>
+      {% if product.selected_or_first_available_variant.available %}
+        Add to cart
+      {% else %}
+        {{ 'products.product.sold_out' | t }}
+      {% endif %}
+    </span>
+  </button>
+</div>
         </div>
     </section>
 
