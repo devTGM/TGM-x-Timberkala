@@ -67,7 +67,7 @@
         "image_playful": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Festive_Banner_2.png",
+            "image": "shopify://shop_images/Festive_Banner_3.png",
             "mobile_image": "shopify://shop_images/Festive_Mobile_1.png",
             "hide_overlay_mobile": true,
             "hide_overlay_desktop": true,
