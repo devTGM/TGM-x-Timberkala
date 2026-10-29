@@ -85,7 +85,7 @@
         "price": {
           "type": "price",
           "settings": {
-            "show_tax_included": false,
+            "show_tax_included": true,
             "size_text": 140,
             "size_text_mobile": 130
           }
