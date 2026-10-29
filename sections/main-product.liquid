@@ -1548,17 +1548,16 @@
             </section>
 
             <sticky-buy-button class="wt-product__sticky-buy">
-  <button
-    aria-label="{{ 'products.product.add_to_cart' | t }}"
-    class="js-add-to-cart wt-product__sticky-buy__button button button--full-width button--secondary"
-  >
-    {% if settings['enable-bag-icon'] %}
-      {% render 'icons', id: 'bag' %}
-    {% endif %}
-
-    <span>{{ 'products.product.add_to_cart' | t }}</span>
-  </button>
-</sticky-buy-button>
+                <button
+                        aria-label="{{ 'products.product.add_to_cart' | t }}"
+                        class="js-add-to-cart wt-product__sticky-buy__button button button--full-width button--secondary"
+                >
+                    {% if settings['enable-bag-icon'] %}
+                        {% render 'icons', id: 'bag' %}
+                    {% endif %}
+                    <span>{{ 'products.product.add_to_cart' | t }}</span>
+                </button>
+            </sticky-buy-button>
         </div>
     </section>
 
@@ -1668,16 +1667,7 @@
 
 <script type="module" src="{{ 'gallery.js' | asset_url }}" defer="defer"></script>
 <script type="module" src="{{ 'pdp.js' | asset_url }}" defer="defer"></script>
-<style>
-  @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }} .wt-product__wrapper,
-    #shopify-section-{{ section.id }} .wt-product,
-    #shopify-section-{{ section.id }} .wt-product__gallery {
-      margin-top: 0 !important;
-      padding-top: 0 !important;
-    }
-  }
-</style>
+
 {% schema %}
 {
   "name": "t:sections.main-product.name",
