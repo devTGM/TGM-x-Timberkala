@@ -1,16 +1,7 @@
 {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
 {{ 'module-product-gallery.css' | asset_url | stylesheet_tag }}
 
-{% if template.suffix == 'pre-booking' %}
 <style>
-  #shopify-section-{{ section.id }},
-  #shopify-section-{{ section.id }} [data-section-id="{{ section.id }}"] {
-    --section-gap-top: 0px !important;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-  }
-</style>
-{% endif %}<style>
     [data-section-id="{{ section.id }}"]
     {
 
