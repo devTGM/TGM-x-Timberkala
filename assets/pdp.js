@@ -18,7 +18,9 @@ class StickyBuyButton extends HTMLElement {
 
     btn?.addEventListener("click", (e) => {
       e.preventDefault();
-      const realAddBtn = addToCartModule?.querySelector("button[type='submit'], .button--primary, button");
+      const realAddBtn = this.closest("section")?.querySelector(
+  'product-form button[type="submit"][name="add"]'
+);
       if (realAddBtn && !realAddBtn.disabled) {
         realAddBtn.click();
       } else if (addToCartModule) {
