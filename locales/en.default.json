@@ -137,7 +137,7 @@
   },
   "products": {
     "product": {
-      "add_to_cart": "",
+      "add_to_cart": "Add to cart",
       "choose_options": "Choose options",
       "choose_option": "Choose option",
       "choose_product_options": "Choose options for {{ product_name }}",
