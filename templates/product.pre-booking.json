@@ -48,7 +48,7 @@
         "custom_liquid_WYCNRB": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<style>\n.tk-reserve {\n  box-sizing: border-box;\n  width: 92%;\n  max-width: 420px;\n  margin: 14px auto;\n  padding: 14px 16px;\n  background: #ded4c3;\n  border: 1px solid #b6a487;\n  border-radius: 4px;\n  color: #40372c;\n  text-align: center;\n  font-family: inherit;\n}\n\n.tk-reserve__label {\n  margin: 0 0 7px;\n  font-size: 10px;\n  font-weight: 700;\n  letter-spacing: 1.3px;\n  line-height: 1.6;\n}\n\n.tk-reserve__title {\n  margin: 0 0 9px;\n  font-family: Georgia, \"Times New Roman\", serif;\n  font-size: 20px;\n  font-weight: 400;\n  line-height: 1.3;\n  color: #40372c;\n}\n\n.tk-reserve__dispatch {\n  font-size: 12px;\n  line-height: 1.6;\n  color: #514637;\n}\n\n.tk-reserve__dispatch strong {\n  color: #40372c;\n  font-weight: 700;\n}\n</style>\n\n<div class=\"tk-reserve\" role=\"note\">\n  <div class=\"tk-reserve__label\">\n    THIS PIECE IS AVAILABLE FOR PRE-BOOKING\n  </div>\n\n  <div class=\"tk-reserve__title\">\n    Worth the wait. Yours to reserve.\n  </div>\n\n  <div class=\"tk-reserve__dispatch\">\n    Expected dispatch: <strong>30–45 days</strong><br>\n    from order placement.\n  </div>\n</div>"
+            "custom_liquid": "<style>\n.tk-reserve {\n  box-sizing: border-box;\n  width: 92%;\n  max-width: 420px;\n  margin: 8px auto;\n  padding: 10px 12px;\n  background: #ded4c3;\n  border: 1px solid #b6a487;\n  border-radius: 4px;\n  color: #40372c;\n  text-align: center;\n  font-family: inherit;\n}\n\n.tk-reserve__label {\n  margin: 0 0 3px;\n  font-size: 9px;\n  font-weight: 700;\n  letter-spacing: 1.1px;\n  line-height: 1.4;\n}\n\n.tk-reserve__title {\n  margin: 0 0 4px;\n  font-family: Georgia, \"Times New Roman\", serif;\n  font-size: 16px;\n  font-weight: 400;\n  line-height: 1.25;\n  color: #40372c;\n}\n\n.tk-reserve__dispatch {\n  font-size: 10px;\n  line-height: 1.4;\n  color: #514637;\n}\n\n.tk-reserve__dispatch strong {\n  color: #40372c;\n  font-weight: 700;\n}\n</style>\n\n<div class=\"tk-reserve\" role=\"note\">\n  <div class=\"tk-reserve__label\">THIS PIECE IS ON PRE-ORDER</div>\n  <div class=\"tk-reserve__title\">There’s a reason this piece has a wait.</div>\n  <div class=\"tk-reserve__dispatch\">\n    Reserve yours. Dispatch in <strong>30–45 days</strong> from order.\n  </div>\n</div>"
           }
         },
         "custom_liquid_H8nd4C": {
@@ -71,6 +71,17 @@
             "margin-bottom": 8
           }
         },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "color_swatch_names": "",
+            "variant_picture_swatch_names": "",
+            "dropdown_swatch_names": "",
+            "margin-top": 0,
+            "margin-bottom": 0
+          }
+        },
         "price": {
           "type": "price",
           "settings": {
@@ -84,17 +95,6 @@
           "settings": {
             "show-separator-line": false,
             "color-background": "#ffffff",
-            "margin-top": 8,
-            "margin-bottom": 8
-          }
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "color_swatch_names": "",
-            "variant_picture_swatch_names": "",
-            "dropdown_swatch_names": "",
             "margin-top": 8,
             "margin-bottom": 8
           }
@@ -329,9 +329,9 @@
         "custom_liquid_H8nd4C",
         "rating",
         "90ea3cd3-aa22-44f6-b6de-365eb7f85b9c",
+        "variant_picker",
         "price",
         "separator_RrKQ4A",
-        "variant_picker",
         "custom_liquid_jBMGDR",
         "text_j6RwH3",
         "upsell_pdp",
@@ -398,6 +398,7 @@
     },
     "ec5a6457-3cb6-4605-94df-ac6400f950f1": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "title": "TIMBERकला — The Gentle Wild",
         "disable_on_mobile": false,
