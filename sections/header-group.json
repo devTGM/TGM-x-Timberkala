@@ -68,7 +68,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Diwali_Banner-TK.png",
-            "mobile_image": "shopify://shop_images/Festive_Mobile_2.png",
+            "mobile_image": "shopify://shop_images/Festive_Mobile_3.png",
             "hide_overlay_mobile": true,
             "hide_overlay_desktop": true,
             "heading": "",
