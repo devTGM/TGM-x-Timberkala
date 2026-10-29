@@ -1667,7 +1667,16 @@
 
 <script type="module" src="{{ 'gallery.js' | asset_url }}" defer="defer"></script>
 <script type="module" src="{{ 'pdp.js' | asset_url }}" defer="defer"></script>
-
+<style>
+  @media screen and (max-width: 1199px) {
+    #MediaGallery-{{ section.id }} {
+      position: relative !important;
+      top: auto !important;
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+  }
+</style>
 {% schema %}
 {
   "name": "t:sections.main-product.name",
