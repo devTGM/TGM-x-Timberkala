@@ -1,0 +1,762 @@
+{% comment %}
+  Timberkala Festive Diwali Promo Banner
+  Inspired by royal festive aesthetics: Hanging marigolds, temple bells, glowing fairy lights,
+  ornate crimson & gold cartouche badge, and interactive coupon code.
+{% endcomment %}
+
+<style>
+  .tk-festive-banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    padding: 12px 12px 10px;
+    background: #fbf5eb radial-gradient(ellipse 95% 125% at 50% 50%, #fdf8f0 0%, #faebd8 55%, #f1dcbe 100%);
+    border: 1.5px solid #dfb97a;
+    box-shadow: 
+      0 4px 18px rgba(168, 107, 26, 0.14),
+      inset 0 1px 1px rgba(255, 255, 255, 0.9),
+      inset 0 -1px 1px rgba(197, 142, 60, 0.2);
+    color: #4a1315;
+    text-align: center;
+    margin-bottom: 14px;
+    width: 100%;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Shimmer Light Sweep */
+  .tk-festive-banner::after {
+    content: '';
+    position: absolute;
+    inset: -50%;
+    background: linear-gradient(
+      115deg,
+      transparent 35%,
+      rgba(255, 245, 210, 0.3) 48%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(255, 245, 210, 0.3) 52%,
+      transparent 65%
+    );
+    transform: translateX(-100%);
+    animation: tkFestiveShine 7s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: 4;
+  }
+
+  @keyframes tkFestiveShine {
+    0%, 20% { transform: translateX(-100%) rotate(15deg); }
+    55%, 100% { transform: translateX(100%) rotate(15deg); }
+  }
+
+  /* Left & Right Decorative Hangings */
+  .tk-festive-flank {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 70px;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .tk-festive-flank--left {
+    left: 0;
+  }
+
+  .tk-festive-flank--right {
+    right: 0;
+    transform: scaleX(-1);
+  }
+
+  .tk-festive-flank svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Main Inner Content */
+  .tk-festive-content {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 2px 48px;
+    box-sizing: border-box;
+  }
+
+  /* -------------------------------------------------------------
+     ROYAL FESTIVE CARTOUCHE BADGE
+     ------------------------------------------------------------- */
+  .tk-festive-badge {
+    flex-shrink: 0;
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px 10px;
+    min-width: 125px;
+    background: radial-gradient(ellipse at 50% 30%, #991319 0%, #76090e 65%, #520407 100%);
+    border: 1.5px solid #ffd875;
+    border-radius: 9px;
+    box-shadow: 
+      0 4px 12px rgba(92, 4, 7, 0.35),
+      inset 0 1px 2px rgba(255, 235, 160, 0.5),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Ornate Side Notches */
+  .tk-festive-badge::before,
+  .tk-festive-badge::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    background: #76090e;
+    border: 1.5px solid #ffd875;
+    transform: translateY(-50%) rotate(45deg);
+  }
+  .tk-festive-badge::before { left: -4.5px; border-right: none; border-top: none; }
+  .tk-festive-badge::after { right: -4.5px; border-left: none; border-bottom: none; }
+
+  .tk-badge-top {
+    font-family: Georgia, 'Times New Roman', 'Playfair Display', serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    background: linear-gradient(180deg, #fff9d6 0%, #fed867 45%, #d8961d 80%, #945f06 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
+  }
+
+  .tk-badge-main {
+    font-family: Georgia, 'Times New Roman', 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    line-height: 1.15;
+    margin-top: 1px;
+    background: linear-gradient(180deg, #ffffff 0%, #ffefa6 30%, #f7c94b 70%, #b8790b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
+  }
+
+  /* Live Now Capsule */
+  .tk-badge-pill {
+    position: absolute;
+    bottom: -7px;
+    background: linear-gradient(180deg, #fff0a8 0%, #f6bf38 45%, #d48b0a 100%);
+    border: 1px solid #ffe994;
+    border-radius: 12px;
+    padding: 1px 9px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 8.5px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #65070a;
+    text-transform: uppercase;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.28);
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .tk-badge-pill-dot {
+    width: 5px;
+    height: 5px;
+    background: #c90e15;
+    border-radius: 50%;
+    box-shadow: 0 0 4px #ff3b30;
+    animation: tkLivePulse 1.8s infinite;
+  }
+
+  @keyframes tkLivePulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(0.75); }
+  }
+
+  /* -------------------------------------------------------------
+     OFFER SECTION & COUPON
+     ------------------------------------------------------------- */
+  .tk-festive-offer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .tk-offer-headline {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 23px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #7d0f15;
+    letter-spacing: -0.3px;
+  }
+
+  .tk-offer-headline .tk-offer-light {
+    font-weight: 600;
+    font-size: 19px;
+    color: #6c1216;
+  }
+
+  .tk-offer-headline .tk-offer-bold {
+    font-weight: 800;
+    font-size: 25px;
+    color: #820b12;
+    background: linear-gradient(180deg, #8b0f15 0%, #5d070b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Coupon Code Box with One-Click Copy */
+  .tk-festive-coupon-box {
+    margin-top: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fffdf9;
+    border: 1px solid #d4a75e;
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(125, 15, 21, 0.08);
+    transition: all 0.2s ease;
+    position: relative;
+    user-select: none;
+  }
+
+  .tk-festive-coupon-box:hover {
+    background: #ffffff;
+    border-color: #b8860b;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(184, 134, 11, 0.2);
+  }
+
+  .tk-coupon-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #6d4e2d;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+
+  .tk-coupon-code {
+    font-family: monospace, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    color: #820b12;
+    letter-spacing: 0.8px;
+    background: #faebd7;
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px dashed #c48b28;
+  }
+
+  .tk-copy-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #820b12;
+    width: 14px;
+    height: 14px;
+    transition: transform 0.2s ease;
+  }
+
+  .tk-festive-coupon-box:hover .tk-copy-icon {
+    transform: scale(1.12);
+  }
+
+  .tk-copy-icon svg {
+    width: 13px;
+    height: 13px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    display: block;
+  }
+
+  .tk-copied-toast {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: #7d0f15;
+    color: #fff9e6;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 2px 7px;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.22);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.22s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    white-space: nowrap;
+    z-index: 10;
+  }
+
+  .tk-copied-toast.is-shown {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* -------------------------------------------------------------
+     HALLMARK TRUST FOOTER
+     ------------------------------------------------------------- */
+  .tk-festive-hallmark {
+    margin-top: 9px;
+    padding-top: 6px;
+    border-top: 1px dashed rgba(197, 142, 60, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-size: 9.5px;
+    font-weight: 600;
+    color: #63472b;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 3;
+    flex-wrap: wrap;
+  }
+
+  .tk-hallmark-dot {
+    color: #c48b28;
+    font-size: 11px;
+    opacity: 0.8;
+  }
+
+  /* -------------------------------------------------------------
+     RESPONSIVE STYLES
+     ------------------------------------------------------------- */
+  @media (max-width: 768px) {
+    .tk-festive-banner {
+      padding: 10px 10px 8px;
+      margin-bottom: 11px;
+    }
+
+    .tk-festive-flank {
+      width: 54px;
+    }
+
+    .tk-festive-content {
+      padding: 0 34px;
+      gap: 12px;
+    }
+
+    .tk-festive-badge {
+      min-width: 110px;
+      padding: 5px 10px 9px;
+    }
+
+    .tk-badge-top {
+      font-size: 9.5px;
+      letter-spacing: 1.6px;
+    }
+
+    .tk-badge-main {
+      font-size: 12.5px;
+      letter-spacing: 1px;
+    }
+
+    .tk-badge-pill {
+      font-size: 7.5px;
+      padding: 1px 7px;
+      bottom: -6px;
+    }
+
+    .tk-offer-headline {
+      font-size: 19px;
+    }
+    .tk-offer-headline .tk-offer-light {
+      font-size: 16px;
+    }
+    .tk-offer-headline .tk-offer-bold {
+      font-size: 21px;
+    }
+
+    .tk-festive-coupon-box {
+      padding: 2px 7px;
+      gap: 5px;
+    }
+
+    .tk-coupon-label {
+      font-size: 9.5px;
+    }
+
+    .tk-coupon-code {
+      font-size: 11px;
+    }
+
+    .tk-festive-hallmark {
+      font-size: 8.5px;
+      gap: 4px;
+      letter-spacing: 0.4px;
+      margin-top: 7px;
+      padding-top: 5px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .tk-festive-content {
+      padding: 0 24px;
+      gap: 9px;
+    }
+
+    .tk-festive-flank {
+      width: 40px;
+    }
+
+    .tk-festive-badge {
+      min-width: 96px;
+      padding: 4px 6px 8px;
+    }
+
+    .tk-badge-top {
+      font-size: 8.5px;
+      letter-spacing: 1.2px;
+    }
+
+    .tk-badge-main {
+      font-size: 11px;
+      letter-spacing: 0.8px;
+    }
+
+    .tk-offer-headline {
+      font-size: 17px;
+    }
+    .tk-offer-headline .tk-offer-light {
+      font-size: 14px;
+    }
+    .tk-offer-headline .tk-offer-bold {
+      font-size: 18px;
+    }
+
+    .tk-festive-coupon-box {
+      padding: 2px 5px;
+      gap: 4px;
+    }
+
+    .tk-coupon-label {
+      font-size: 9px;
+    }
+
+    .tk-coupon-code {
+      font-size: 10px;
+      padding: 1px 4px;
+    }
+
+    .tk-festive-hallmark {
+      font-size: 8px;
+      gap: 3px;
+    }
+  }
+
+  @media (max-width: 350px) {
+    .tk-festive-content {
+      flex-direction: column;
+      gap: 12px;
+      padding: 0 20px;
+    }
+
+    .tk-festive-offer {
+      align-items: center;
+      text-align: center;
+    }
+
+    .tk-festive-flank {
+      width: 32px;
+    }
+  }
+</style>
+
+<div class="tk-festive-banner" role="banner" aria-label="Festive Diwali Offer: Get 20% Off Use Code DIWALI20">
+
+  <!-- LEFT FLANK: Marigold Garland, Temple Bell, Golden Lotus & Glowing Fairy Lights -->
+  <div class="tk-festive-flank tk-festive-flank--left" aria-hidden="true">
+    <svg viewBox="0 0 100 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="tkGoldBrass" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#fff2be"/>
+          <stop offset="40%" stop-color="#f4c453"/>
+          <stop offset="75%" stop-color="#ca8b18"/>
+          <stop offset="100%" stop-color="#8c5804"/>
+        </linearGradient>
+
+        <filter id="tkGlowWarm" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+
+        <radialGradient id="tkMarigoldOrange" cx="40%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#ffb703"/>
+          <stop offset="45%" stop-color="#fb8500"/>
+          <stop offset="90%" stop-color="#d9480f"/>
+          <stop offset="100%" stop-color="#9e2a2b"/>
+        </radialGradient>
+
+        <radialGradient id="tkMarigoldYellow" cx="40%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#fff3b0"/>
+          <stop offset="50%" stop-color="#ffb703"/>
+          <stop offset="95%" stop-color="#e85d04"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Marigold Garland Floral Border -->
+      <g opacity="0.95">
+        <circle cx="8" cy="12" r="13" fill="url(#tkMarigoldOrange)"/>
+        <circle cx="8" cy="12" r="8" fill="url(#tkMarigoldYellow)" opacity="0.9"/>
+        <circle cx="8" cy="12" r="4" fill="#fff3b0" opacity="0.8"/>
+
+        <circle cx="10" cy="38" r="14" fill="url(#tkMarigoldYellow)"/>
+        <circle cx="10" cy="38" r="9" fill="url(#tkMarigoldOrange)" opacity="0.85"/>
+        <circle cx="10" cy="38" r="4" fill="#ffd166"/>
+
+        <circle cx="8" cy="65" r="13" fill="url(#tkMarigoldOrange)"/>
+        <circle cx="8" cy="65" r="8" fill="url(#tkMarigoldYellow)" opacity="0.9"/>
+        <circle cx="8" cy="65" r="3.5" fill="#fff3b0"/>
+
+        <circle cx="9" cy="92" r="14" fill="url(#tkMarigoldYellow)"/>
+        <circle cx="9" cy="92" r="9" fill="url(#tkMarigoldOrange)" opacity="0.85"/>
+        <circle cx="9" cy="92" r="4" fill="#ffd166"/>
+
+        <circle cx="8" cy="116" r="12" fill="url(#tkMarigoldOrange)"/>
+      </g>
+
+      <!-- Hanging Cord 1: Ornate Temple Bell -->
+      <line x1="38" y1="0" x2="38" y2="48" stroke="#cca049" stroke-width="1.2" stroke-dasharray="1.5,1.5"/>
+      <circle cx="38" cy="12" r="1.8" fill="url(#tkGoldBrass)"/>
+      <circle cx="38" cy="24" r="1.8" fill="url(#tkGoldBrass)"/>
+      <circle cx="38" cy="36" r="1.8" fill="url(#tkGoldBrass)"/>
+      <g transform="translate(38, 48)">
+        <circle cx="0" cy="0" r="3" fill="url(#tkGoldBrass)"/>
+        <path d="M-2.5,2 Q-6,14 -10,18 L10,18 Q6,14 2.5,2 Z" fill="url(#tkGoldBrass)"/>
+        <ellipse cx="0" cy="18" rx="10" ry="2.5" fill="#a46d0d"/>
+        <circle cx="0" cy="21.5" r="2.2" fill="url(#tkGoldBrass)"/>
+      </g>
+
+      <!-- Hanging Cord 2: Golden Lotus -->
+      <line x1="68" y1="0" x2="68" y2="30" stroke="#cca049" stroke-width="1.2" stroke-dasharray="1.5,1.5"/>
+      <circle cx="68" cy="10" r="1.5" fill="url(#tkGoldBrass)"/>
+      <circle cx="68" cy="20" r="1.5" fill="url(#tkGoldBrass)"/>
+      <g transform="translate(68, 30)">
+        <path d="M0,0 Q-4,8 -10,10 Q-6,4 0,-4 Q6,4 10,10 Q4,8 0,0 Z" fill="url(#tkGoldBrass)"/>
+        <path d="M0,0 Q-2,7 -6,11 Q-3,5 0,-1 Q3,5 6,11 Q2,7 0,0 Z" fill="#ffd972"/>
+        <circle cx="0" cy="13" r="1.8" fill="url(#tkGoldBrass)"/>
+      </g>
+
+      <!-- Hanging Fairy Lights String -->
+      <path d="M24,-2 Q28,25 25,55 Q21,85 26,122" fill="none" stroke="#cca049" stroke-width="0.8" opacity="0.7"/>
+      <circle cx="27" cy="18" r="6" fill="#ffd60a" opacity="0.3" filter="url(#tkGlowWarm)"/>
+      <circle cx="27" cy="18" r="2.8" fill="#fffbeb"/>
+      <circle cx="27" cy="18" r="1.8" fill="#ffc300"/>
+
+      <circle cx="25" cy="52" r="7" fill="#ffd60a" opacity="0.35" filter="url(#tkGlowWarm)"/>
+      <circle cx="25" cy="52" r="3" fill="#fffbeb"/>
+      <circle cx="25" cy="52" r="2" fill="#ffaa00"/>
+
+      <circle cx="23" cy="86" r="6" fill="#ffd60a" opacity="0.3" filter="url(#tkGlowWarm)"/>
+      <circle cx="23" cy="86" r="2.8" fill="#fffbeb"/>
+      <circle cx="23" cy="86" r="1.8" fill="#ffc300"/>
+
+      <!-- Festive Sparkles -->
+      <path d="M52,20 L53,17 L54,20 L57,21 L54,22 L53,25 L52,22 L49,21 Z" fill="#ffd875" opacity="0.85"/>
+      <path d="M78,65 L79,63 L80,65 L82,66 L80,67 L79,69 L78,67 L76,66 Z" fill="#ffd875" opacity="0.8"/>
+      <path d="M50,85 L51,83 L52,85 L54,86 L52,87 L51,89 L50,87 L48,86 Z" fill="#ffd875" opacity="0.85"/>
+    </svg>
+  </div>
+
+  <!-- RIGHT FLANK: Mirrored Festive Elements -->
+  <div class="tk-festive-flank tk-festive-flank--right" aria-hidden="true">
+    <svg viewBox="0 0 100 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <use href="#tkGoldBrass"/>
+      <g opacity="0.95">
+        <circle cx="8" cy="12" r="13" fill="url(#tkMarigoldOrange)"/>
+        <circle cx="8" cy="12" r="8" fill="url(#tkMarigoldYellow)" opacity="0.9"/>
+        <circle cx="8" cy="12" r="4" fill="#fff3b0" opacity="0.8"/>
+
+        <circle cx="10" cy="38" r="14" fill="url(#tkMarigoldYellow)"/>
+        <circle cx="10" cy="38" r="9" fill="url(#tkMarigoldOrange)" opacity="0.85"/>
+        <circle cx="10" cy="38" r="4" fill="#ffd166"/>
+
+        <circle cx="8" cy="65" r="13" fill="url(#tkMarigoldOrange)"/>
+        <circle cx="8" cy="65" r="8" fill="url(#tkMarigoldYellow)" opacity="0.9"/>
+        <circle cx="8" cy="65" r="3.5" fill="#fff3b0"/>
+
+        <circle cx="9" cy="92" r="14" fill="url(#tkMarigoldYellow)"/>
+        <circle cx="9" cy="92" r="9" fill="url(#tkMarigoldOrange)" opacity="0.85"/>
+        <circle cx="9" cy="92" r="4" fill="#ffd166"/>
+
+        <circle cx="8" cy="116" r="12" fill="url(#tkMarigoldOrange)"/>
+      </g>
+
+      <!-- Temple Bell -->
+      <line x1="38" y1="0" x2="38" y2="48" stroke="#cca049" stroke-width="1.2" stroke-dasharray="1.5,1.5"/>
+      <circle cx="38" cy="12" r="1.8" fill="url(#tkGoldBrass)"/>
+      <circle cx="38" cy="24" r="1.8" fill="url(#tkGoldBrass)"/>
+      <circle cx="38" cy="36" r="1.8" fill="url(#tkGoldBrass)"/>
+      <g transform="translate(38, 48)">
+        <circle cx="0" cy="0" r="3" fill="url(#tkGoldBrass)"/>
+        <path d="M-2.5,2 Q-6,14 -10,18 L10,18 Q6,14 2.5,2 Z" fill="url(#tkGoldBrass)"/>
+        <ellipse cx="0" cy="18" rx="10" ry="2.5" fill="#a46d0d"/>
+        <circle cx="0" cy="21.5" r="2.2" fill="url(#tkGoldBrass)"/>
+      </g>
+
+      <!-- Lotus -->
+      <line x1="68" y1="0" x2="68" y2="30" stroke="#cca049" stroke-width="1.2" stroke-dasharray="1.5,1.5"/>
+      <circle cx="68" cy="10" r="1.5" fill="url(#tkGoldBrass)"/>
+      <circle cx="68" cy="20" r="1.5" fill="url(#tkGoldBrass)"/>
+      <g transform="translate(68, 30)">
+        <path d="M0,0 Q-4,8 -10,10 Q-6,4 0,-4 Q6,4 10,10 Q4,8 0,0 Z" fill="url(#tkGoldBrass)"/>
+        <path d="M0,0 Q-2,7 -6,11 Q-3,5 0,-1 Q3,5 6,11 Q2,7 0,0 Z" fill="#ffd972"/>
+        <circle cx="0" cy="13" r="1.8" fill="url(#tkGoldBrass)"/>
+      </g>
+
+      <!-- Fairy Lights -->
+      <path d="M24,-2 Q28,25 25,55 Q21,85 26,122" fill="none" stroke="#cca049" stroke-width="0.8" opacity="0.7"/>
+      <circle cx="27" cy="18" r="6" fill="#ffd60a" opacity="0.3" filter="url(#tkGlowWarm)"/>
+      <circle cx="27" cy="18" r="2.8" fill="#fffbeb"/>
+      <circle cx="27" cy="18" r="1.8" fill="#ffc300"/>
+
+      <circle cx="25" cy="52" r="7" fill="#ffd60a" opacity="0.35" filter="url(#tkGlowWarm)"/>
+      <circle cx="25" cy="52" r="3" fill="#fffbeb"/>
+      <circle cx="25" cy="52" r="2" fill="#ffaa00"/>
+
+      <circle cx="23" cy="86" r="6" fill="#ffd60a" opacity="0.3" filter="url(#tkGlowWarm)"/>
+      <circle cx="23" cy="86" r="2.8" fill="#fffbeb"/>
+      <circle cx="23" cy="86" r="1.8" fill="#ffc300"/>
+
+      <!-- Sparkles -->
+      <path d="M52,20 L53,17 L54,20 L57,21 L54,22 L53,25 L52,22 L49,21 Z" fill="#ffd875" opacity="0.85"/>
+      <path d="M78,65 L79,63 L80,65 L82,66 L80,67 L79,69 L78,67 L76,66 Z" fill="#ffd875" opacity="0.8"/>
+      <path d="M50,85 L51,83 L52,85 L54,86 L52,87 L51,89 L50,87 L48,86 Z" fill="#ffd875" opacity="0.85"/>
+    </svg>
+  </div>
+
+  <!-- MAIN CONTENT: Badge & Offer Details -->
+  <div class="tk-festive-content">
+
+    <!-- ROYAL CARTOUCHE BADGE -->
+    <div class="tk-festive-badge" aria-label="Biggest Diwali Sale - Live Now">
+      <span class="tk-badge-top">Biggest</span>
+      <span class="tk-badge-main">Diwali Sale</span>
+      <div class="tk-badge-pill">
+        <span class="tk-badge-pill-dot" aria-hidden="true"></span>
+        <span>Live Now</span>
+      </div>
+    </div>
+
+    <!-- RIGHT OFFER SECTION -->
+    <div class="tk-festive-offer">
+      <div class="tk-offer-headline">
+        <span class="tk-offer-light">Get</span>
+        <span class="tk-offer-bold">20% Off</span>
+      </div>
+
+      <!-- Coupon Code Box with One-Click Copy -->
+      <div class="tk-festive-coupon-box" id="tkFestiveCouponBox" role="button" tabindex="0" title="Click to copy DIWALI20" aria-label="Copy DIWALI20 coupon code">
+        <span class="tk-coupon-label">Use Code:</span>
+        <span class="tk-coupon-code" id="tkCouponCodeVal">DIWALI20</span>
+        <span class="tk-copy-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <rect x="9" y="9" width="12" height="12" rx="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </span>
+        <span class="tk-copied-toast" id="tkCopiedToastAlert">Copied! ✨</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- HALLMARK TRUST FOOTER -->
+  <div class="tk-festive-hallmark">
+    <span>100% Solid Reclaimed Wood</span>
+    <span class="tk-hallmark-dot" aria-hidden="true">•</span>
+    <span>Artisan Handcarved</span>
+    <span class="tk-hallmark-dot" aria-hidden="true">•</span>
+    <span>Insured Pan-India Transit</span>
+  </div>
+
+</div>
+
+<script>
+  (function() {
+    function initFestiveBanner() {
+      var couponBox = document.getElementById('tkFestiveCouponBox');
+      var toast = document.getElementById('tkCopiedToastAlert');
+      var code = 'DIWALI20';
+
+      if (!couponBox || couponBox.dataset.initialized) return;
+      couponBox.dataset.initialized = 'true';
+
+      function showToast() {
+        if (!toast) return;
+        toast.classList.add('is-shown');
+        setTimeout(function() {
+          toast.classList.remove('is-shown');
+        }, 1500);
+      }
+
+      function copyCoupon(e) {
+        if (e) {
+          e.preventDefault();
+          e.stopPropagation();
+        }
+
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(code).then(showToast).catch(fallbackCopy);
+        } else {
+          fallbackCopy();
+        }
+      }
+
+      function fallbackCopy() {
+        var ta = document.createElement('textarea');
+        ta.value = code;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        ta.style.top = '-9999px';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try {
+          document.execCommand('copy');
+          showToast();
+        } catch (err) {}
+        document.body.removeChild(ta);
+      }
+
+      couponBox.addEventListener('click', copyCoupon);
+      couponBox.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          copyCoupon(e);
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initFestiveBanner);
+    } else {
+      initFestiveBanner();
+    }
+  })();
+</script>
