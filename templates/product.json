@@ -183,6 +183,7 @@
         },
         "collapsible_tab_JGWjWW": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "heading": "Materials",
             "content": "<p>Handcrafted from natural wood and hand-painted by skilled artisans. Each piece may have slight variations in wood grain, texture, colour, brushwork, and finish due to its handmade nature. These subtle imperfections are natural characteristics of handcrafted products and make every piece unique.<br/>Every product undergoes a thorough in-house quality check before dispatch to ensure a complete, well-finished and aesthetically pleasing piece reaches you.</p>",
@@ -201,6 +202,7 @@
         },
         "collapsible_tab_CTNcpC": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "heading": "Dimension",
             "content": "<p>{{ product.metafields.custom.dimensions.value }}</p>",
