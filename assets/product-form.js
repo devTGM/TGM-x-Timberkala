@@ -87,9 +87,11 @@ if (!customElements.get("product-form")) {
               soldOutMessage.classList.remove("hidden");
               return;
             } else if (!this.cart) {
-              // window.location = window.routes.cart_url;
-              handleFloCartBtn();
-
+              if (typeof window.openHMCartPopup === "function") {
+                window.openHMCartPopup(response);
+              } else if (typeof handleFloCartBtn === "function") {
+                handleFloCartBtn();
+              }
               return;
             }
 
@@ -100,24 +102,27 @@ if (!customElements.get("product-form")) {
                 cartData: response,
               });
             this.error = false;
+
+            const triggerCartConfirmation = () => {
+              if (typeof window.openHMCartPopup === "function") {
+                window.openHMCartPopup(response);
+              } else if (typeof handleFloCartBtn === "function") {
+                handleFloCartBtn();
+              }
+            };
+
             const quickAddModal = this.closest("quick-add-modal");
             if (quickAddModal) {
               document.body.addEventListener(
                 "modalClosed",
                 () => {
-                  setTimeout(() => {
-                    // this.redirectAfterSubmit(response);
-                  handleFloCartBtn();
-
-                  });
+                  setTimeout(triggerCartConfirmation, 50);
                 },
                 { once: true },
               );
-              if(this.cartType === 'drawer') quickAddModal.hide(true);
+              quickAddModal.hide(true);
             } else {
-              // this.redirectAfterSubmit(response);
-             handleFloCartBtn();
-
+              triggerCartConfirmation();
             }
           })
           .catch((e) => {
@@ -159,9 +164,14 @@ if (!customElements.get("product-form")) {
       }
 
       redirectAfterSubmit(response) {
-        if(this.cartType === 'drawer'){
-          // this.cart.renderContents(response);
-          handleFloCartBtn();
+        if (typeof window.openHMCartPopup === "function") {
+          window.openHMCartPopup(response);
+          return;
+        }
+        if (this.cartType === 'drawer') {
+          if (typeof handleFloCartBtn === "function") {
+            handleFloCartBtn();
+          }
           return;
         }
         window.location = window.routes.cart_url;

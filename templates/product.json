@@ -186,7 +186,7 @@
           "disabled": true,
           "settings": {
             "heading": "Materials",
-            "content": "<p>Handcrafted from natural wood and hand-painted by skilled artisans. Each piece may have slight variations in wood grain, texture, colour, brushwork, and finish due to its handmade nature. These subtle imperfections are natural characteristics of handcrafted products and make every piece unique.<br/>Every product undergoes a thorough in-house quality check before dispatch to ensure a complete, well-finished and aesthetically pleasing piece reaches you.</p>",
+            "content": "<p>Handcrafted from sustainably sourced wood—including <strong>Albesia</strong> (harvested and found in abundance), <strong>seasoned teak</strong>, and natural <strong>driftwood roots</strong>—carefully sculpted and hand-painted by skilled artisans. Each piece may have slight variations in wood grain, texture, colour, brushwork, and finish due to its handmade nature. These subtle imperfections are natural characteristics of handcrafted products and make every piece unique.<br/>Every product undergoes a thorough in-house quality check before dispatch to ensure a complete, well-finished and aesthetically pleasing piece reaches you.</p>",
             "page": "",
             "icon": "heart"
           }
@@ -543,7 +543,7 @@
         "text_qAXXrj": {
           "type": "text",
           "settings": {
-            "text": "<p>At Timber Kala, every piece tells a story. With over 400+ handcrafted decor products, we celebrate artistry and sustainability. No trees are cut to make our creations each product is made using recycled wood, ensuring beauty with responsibility.<br/><br/>Our artisans pour soul into their work, making every design unique. From elegant accents to statement decor, Timber Kala brings you products that are not just handmade, but heart-made.</p>",
+            "text": "<p>At Timber Kala, every piece tells a story. With over 400+ handcrafted decor products, we celebrate artistry and sustainability. Each creation is thoughtfully carved from sustainably sourced timber—including fast-growing <strong>Albesia</strong> (harvested and found in abundance), <strong>seasoned teak</strong>, and organic <strong>driftwood roots</strong>—ensuring beauty with environmental responsibility.<br/><br/>Our artisans pour soul into their work, making every design unique. From elegant accents to statement decor, Timber Kala brings you products that are not just handmade, but heart-made.</p>",
             "disable_on_mobile": false
           }
         },

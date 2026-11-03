@@ -668,14 +668,16 @@
             if (loadingSpan) loadingSpan.hidden = true;
             if (addedSpan) addedSpan.hidden = false;
 
-            // Render cart drawer if available
-            if (data.sections && cartDrawer && typeof cartDrawer.renderContents === 'function') {
-              cartDrawer.renderContents(data);
-            }
-
-            // Trigger theme cart updates
-            if (window.handleFloCartBtn) {
-              window.handleFloCartBtn();
+            // Trigger H&M cart confirmation popup
+            if (typeof window.openHMCartPopup === 'function') {
+              window.openHMCartPopup(data);
+            } else {
+              if (data.sections && cartDrawer && typeof cartDrawer.renderContents === 'function') {
+                cartDrawer.renderContents(data);
+              }
+              if (window.handleFloCartBtn) {
+                window.handleFloCartBtn();
+              }
             }
 
             if (typeof publish === 'function' && window.PUB_SUB_EVENTS) {

@@ -1,0 +1,606 @@
+{% comment %}
+  Timberkala — H&M Style "Added to Shopping Bag" Cart Pop-up Modal
+  Replaces full cart drawer on item addition with an elegant, responsive confirmation pop-up
+{% endcomment %}
+
+<style>
+  /* =========================================================================
+     H&M STYLE "ADDED TO SHOPPING BAG" POP-UP MODAL
+     ========================================================================= */
+
+  /* Backdrop Overlay */
+  .hm-cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(18, 14, 10, 0.48);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 999998;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.28s ease, visibility 0.28s ease;
+  }
+  .hm-cart-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* Pop-up Card Container */
+  .hm-cart-popup {
+    position: fixed;
+    top: 24px;
+    right: 28px;
+    width: 410px;
+    max-width: calc(100vw - 36px);
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 
+      0 20px 50px -10px rgba(0, 0, 0, 0.22),
+      0 6px 18px rgba(0, 0, 0, 0.08);
+    z-index: 999999;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-14px) scale(0.97);
+    transition: opacity 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.26s;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #1a1a1a;
+  }
+
+  .hm-cart-popup.is-active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+  }
+
+  /* Mobile Bottom Sheet Layout */
+  @media (max-width: 767px) {
+    .hm-cart-popup {
+      top: auto;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      max-width: 100%;
+      border-radius: 20px 20px 0 0;
+      border: none;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.22);
+      transform: translateY(100%);
+      max-height: 88vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .hm-cart-popup.is-active {
+      transform: translateY(0);
+    }
+  }
+
+  /* Mobile Drag Indicator */
+  .hm-cart-drag-pill {
+    display: none;
+    width: 38px;
+    height: 4px;
+    background: #dcd7cf;
+    border-radius: 2px;
+    margin: 10px auto 0;
+  }
+  @media (max-width: 767px) {
+    .hm-cart-drag-pill {
+      display: block;
+    }
+  }
+
+  /* Header */
+  .hm-cart-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid #f0ece6;
+  }
+  .hm-cart-header__left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .hm-cart-badge {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 50%;
+    background: #15803d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+  }
+  .hm-cart-header__title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+    color: #111111;
+  }
+  .hm-cart-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    color: #666666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    padding: 0;
+  }
+  .hm-cart-close:hover {
+    background: #f4f1ea;
+    color: #111111;
+  }
+
+  /* Body Content */
+  .hm-cart-body {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* Product Row */
+  .hm-cart-product {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .hm-cart-product__thumb {
+    width: 76px;
+    height: 92px;
+    min-width: 76px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f7f5f2;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hm-cart-product__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .hm-cart-product__details {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .hm-cart-product__brand {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #8c7355;
+  }
+  .hm-cart-product__title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: #1a1a1a;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .hm-cart-product__variant {
+    font-size: 12px;
+    color: #666666;
+    margin-top: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .hm-cart-product__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  .hm-cart-product__price {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #111111;
+  }
+  .hm-cart-product__qty {
+    font-size: 11.5px;
+    color: #555555;
+    background: #f3efe8;
+    padding: 1px 7px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  /* Free Shipping Bar */
+  .hm-cart-shipping {
+    background: #faf8f5;
+    border: 1px solid #eee8df;
+    border-radius: 8px;
+    padding: 9px 12px;
+  }
+  .hm-cart-shipping__bar {
+    width: 100%;
+    height: 4px;
+    background: #e6e0d6;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .hm-cart-shipping__fill {
+    height: 100%;
+    background: linear-gradient(90deg, #b08544, #15803d);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .hm-cart-shipping__text {
+    margin: 0;
+    font-size: 11.5px;
+    line-height: 1.3;
+    color: #444444;
+    font-weight: 500;
+  }
+  .hm-cart-shipping__text strong {
+    color: #15803d;
+  }
+
+  /* Subtotal Row */
+  .hm-cart-subtotal {
+    padding-top: 10px;
+    border-top: 1px solid #f0ece6;
+  }
+  .hm-cart-subtotal__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #111111;
+  }
+  .hm-cart-subtotal__tax {
+    margin: 4px 0 0;
+    font-size: 11px;
+    color: #777777;
+  }
+
+  /* Action Buttons */
+  .hm-cart-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 4px;
+  }
+  .hm-cart-btn {
+    width: 100%;
+    height: 46px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .hm-cart-btn--primary {
+    background: #1a1510;
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 4px 14px rgba(26, 21, 16, 0.18);
+  }
+  .hm-cart-btn--primary:hover {
+    background: #382c22;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(26, 21, 16, 0.25);
+  }
+  .hm-cart-btn--secondary {
+    background: #ffffff;
+    color: #1a1510;
+    border: 1.5px solid #1a1510;
+  }
+  .hm-cart-btn--secondary:hover {
+    background: #f7f5f2;
+    color: #1a1510;
+  }
+  .hm-cart-continue {
+    background: transparent;
+    border: none;
+    font-size: 12px;
+    color: #666666;
+    text-decoration: underline;
+    text-align: center;
+    padding: 6px 0 2px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .hm-cart-continue:hover {
+    color: #111111;
+  }
+</style>
+
+<div class="hm-cart-overlay" id="HMCartOverlay" aria-hidden="true"></div>
+
+<aside
+  class="hm-cart-popup"
+  id="HMCartPopup"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="HMCartTitle"
+  tabindex="-1"
+  aria-hidden="true"
+>
+  <div class="hm-cart-drag-pill" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <div class="hm-cart-header">
+    <div class="hm-cart-header__left">
+      <span class="hm-cart-badge" aria-hidden="true">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
+          <path d="M1.2 5L4.4 8.2L10.8 1.8" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <h3 id="HMCartTitle" class="hm-cart-header__title">Added to shopping bag</h3>
+    </div>
+    <button type="button" class="hm-cart-close" id="HMCartCloseBtn" aria-label="Close">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+        <path d="M1 1L12 12M1 12L12 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Body -->
+  <div class="hm-cart-body">
+    <!-- Product Row -->
+    <div class="hm-cart-product">
+      <div class="hm-cart-product__thumb">
+        <img
+          id="HMCartProductImg"
+          src=""
+          alt=""
+          loading="lazy"
+          width="76"
+          height="92"
+        >
+      </div>
+      <div class="hm-cart-product__details">
+        <span class="hm-cart-product__brand">TIMBERKALA</span>
+        <h4 id="HMCartProductTitle" class="hm-cart-product__title">Handcrafted Decor</h4>
+        <div id="HMCartProductVariant" class="hm-cart-product__variant" style="display:none;"></div>
+        <div class="hm-cart-product__meta">
+          <span id="HMCartProductPrice" class="hm-cart-product__price">₹0</span>
+          <span id="HMCartProductQty" class="hm-cart-product__qty">Qty: 1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Free Shipping Progress Tracker -->
+    <div class="hm-cart-shipping">
+      <div class="hm-cart-shipping__bar">
+        <div id="HMCartShippingProgress" class="hm-cart-shipping__fill" style="width: 0%;"></div>
+      </div>
+      <p id="HMCartShippingText" class="hm-cart-shipping__text">
+        Free shipping on orders above ₹2000
+      </p>
+    </div>
+
+    <!-- Subtotal -->
+    <div class="hm-cart-subtotal">
+      <div class="hm-cart-subtotal__row">
+        <span id="HMCartSubtotalCount">Shopping bag (1 item)</span>
+        <span id="HMCartSubtotalAmount">₹0</span>
+      </div>
+      <p class="hm-cart-subtotal__tax">Inclusive of all taxes · Free Pan-India Delivery above ₹2000</p>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="hm-cart-actions">
+      <button type="button" id="HMCartCheckoutBtn" class="hm-cart-btn hm-cart-btn--primary">
+        <span>Proceed to Checkout</span>
+        <svg width="14" height="12" viewBox="0 0 14 12" fill="none">
+          <path d="M8.5 1L13 6M13 6L8.5 11M13 6H1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <a href="{{ routes.cart_url }}" id="HMCartViewBagBtn" class="hm-cart-btn hm-cart-btn--secondary">
+        View Shopping Bag
+      </a>
+      <button type="button" id="HMCartContinueBtn" class="hm-cart-continue">
+        Continue shopping
+      </button>
+    </div>
+  </div>
+</aside>
+
+<script>
+  (function() {
+    // Singleton controller for H&M Cart Popup
+    var overlay = document.getElementById('HMCartOverlay');
+    var popup = document.getElementById('HMCartPopup');
+    var closeBtn = document.getElementById('HMCartCloseBtn');
+    var continueBtn = document.getElementById('HMCartContinueBtn');
+    var checkoutBtn = document.getElementById('HMCartCheckoutBtn');
+
+    var productImg = document.getElementById('HMCartProductImg');
+    var productTitle = document.getElementById('HMCartProductTitle');
+    var productVariant = document.getElementById('HMCartProductVariant');
+    var productPrice = document.getElementById('HMCartProductPrice');
+    var productQty = document.getElementById('HMCartProductQty');
+
+    var shippingProgress = document.getElementById('HMCartShippingProgress');
+    var shippingText = document.getElementById('HMCartShippingText');
+    var subtotalCount = document.getElementById('HMCartSubtotalCount');
+    var subtotalAmount = document.getElementById('HMCartSubtotalAmount');
+
+    var FREE_SHIPPING_THRESHOLD = 200000; // ₹2,000 in paise
+
+    function formatINR(paiseOrRupees) {
+      var num = typeof paiseOrRupees === 'number' ? paiseOrRupees : parseInt(paiseOrRupees, 10) || 0;
+      // If greater than 1000 and has two decimal zeroes in paise
+      var rupees = num > 9999 ? Math.round(num / 100) : num;
+      try {
+        return '₹' + rupees.toLocaleString('en-IN');
+      } catch (e) {
+        return '₹' + rupees;
+      }
+    }
+
+    function openPopup(itemData) {
+      if (!popup || !overlay) return;
+
+      // 1. Populate Added Item Info
+      if (itemData) {
+        var title = itemData.product_title || itemData.title || 'Handcrafted Wooden Decor';
+        if (productTitle) productTitle.textContent = title;
+
+        // Image extraction
+        var imgSrc = itemData.image || itemData.featured_image;
+        if (imgSrc && typeof imgSrc === 'object' && imgSrc.url) {
+          imgSrc = imgSrc.url;
+        }
+        if (imgSrc && typeof imgSrc === 'string') {
+          // If protocol-relative
+          if (imgSrc.indexOf('//') === 0) imgSrc = 'https:' + imgSrc;
+          if (productImg) {
+            productImg.src = imgSrc;
+            productImg.alt = title;
+          }
+        }
+
+        // Variant options
+        var variantTitle = itemData.variant_title;
+        if (variantTitle && variantTitle !== 'Default Title' && variantTitle !== 'Default') {
+          if (productVariant) {
+            productVariant.textContent = variantTitle;
+            productVariant.style.display = 'block';
+          }
+        } else if (productVariant) {
+          productVariant.style.display = 'none';
+        }
+
+        // Price & Qty
+        var priceVal = itemData.final_price || itemData.price || itemData.original_price || 0;
+        if (productPrice) productPrice.textContent = formatINR(priceVal);
+
+        var qtyVal = itemData.quantity || 1;
+        if (productQty) productQty.textContent = 'Qty: ' + qtyVal;
+      }
+
+      // 2. Refresh Cart State Asynchronously (/cart.js)
+      fetch('/cart.js')
+        .then(function(res) { return res.json(); })
+        .then(function(cart) {
+          updateCartState(cart);
+        })
+        .catch(function(err) {
+          console.warn('Could not fetch /cart.js', err);
+        });
+
+      // 3. Show Popup & Overlay
+      overlay.classList.add('is-active');
+      popup.classList.add('is-active');
+      overlay.setAttribute('aria-hidden', 'false');
+      popup.setAttribute('aria-hidden', 'false');
+
+      // Trap focus
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function closePopup() {
+      if (!popup || !overlay) return;
+      overlay.classList.remove('is-active');
+      popup.classList.remove('is-active');
+      overlay.setAttribute('aria-hidden', 'true');
+      popup.setAttribute('aria-hidden', 'true');
+    }
+
+    function updateCartState(cart) {
+      if (!cart) return;
+
+      var count = cart.item_count || 1;
+      var total = cart.total_price || 0;
+
+      if (subtotalCount) {
+        subtotalCount.textContent = 'Shopping bag (' + count + (count === 1 ? ' item)' : ' items)');
+      }
+      if (subtotalAmount) {
+        subtotalAmount.textContent = formatINR(total);
+      }
+
+      // Free Shipping Calculator (Threshold: ₹2,000)
+      if (shippingProgress && shippingText) {
+        if (total >= FREE_SHIPPING_THRESHOLD) {
+          shippingProgress.style.width = '100%';
+          shippingText.innerHTML = '<strong>✓ You qualify for FREE Pan-India Delivery!</strong>';
+        } else {
+          var remaining = FREE_SHIPPING_THRESHOLD - total;
+          var percent = Math.min(100, Math.max(8, Math.round((total / FREE_SHIPPING_THRESHOLD) * 100)));
+          shippingProgress.style.width = percent + '%';
+          shippingText.innerHTML = 'Add <strong>' + formatINR(remaining) + '</strong> more to unlock <strong>FREE Delivery</strong>!';
+        }
+      }
+
+      // Update Header Cart Bubbles across the page
+      var bubbleElements = document.querySelectorAll('.flo-cart-icon-bubble, .wt-header__panel__counter, #cart-icon-bubble .cart-count-bubble');
+      bubbleElements.forEach(function(el) {
+        el.textContent = count;
+      });
+    }
+
+    // Event Listeners
+    if (closeBtn) closeBtn.addEventListener('click', closePopup);
+    if (continueBtn) continueBtn.addEventListener('click', closePopup);
+    if (overlay) overlay.addEventListener('click', closePopup);
+
+    document.addEventListener('keydown', function(e) {
+      if ((e.key === 'Escape' || e.keyCode === 27) && popup && popup.classList.contains('is-active')) {
+        closePopup();
+      }
+    });
+
+    if (checkoutBtn) {
+      checkoutBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (typeof window.handleFloCheckoutBtn === 'function') {
+          window.handleFloCheckoutBtn();
+        } else {
+          window.location.href = '/checkout';
+        }
+      });
+    }
+
+    // Expose global controller
+    window.openHMCartPopup = openPopup;
+    window.closeHMCartPopup = closePopup;
+  })();
+</script>
+
