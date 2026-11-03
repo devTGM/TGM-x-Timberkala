@@ -1,6 +1,7 @@
 {% comment %}
   Timberkala — H&M Style "Added to Shopping Bag" Cart Pop-up Modal
   Replaces full cart drawer on item addition with an elegant, responsive confirmation pop-up
+  Includes Festive DIWALI20 Discount Calculation & Auto-Apply Guarantee
 {% endcomment %}
 
 <style>
@@ -46,7 +47,7 @@
     right: 28px !important;
     bottom: auto !important;
     left: auto !important;
-    width: 410px !important;
+    width: 420px !important;
     max-width: calc(100vw - 36px) !important;
     background: #ffffff !important;
     border-radius: 14px !important;
@@ -91,8 +92,8 @@
       border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
       box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.24) !important;
       transform: translateY(100%) !important;
-      max-height: 88vh !important;
-      max-height: 88dvh !important;
+      max-height: 90vh !important;
+      max-height: 90dvh !important;
       overflow-y: auto !important;
       -webkit-overflow-scrolling: touch !important;
       padding-bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
@@ -122,7 +123,7 @@
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-    padding: 16px 20px 12px !important;
+    padding: 15px 18px 12px !important;
     border-bottom: 1px solid #f0ece6 !important;
     box-sizing: border-box !important;
   }
@@ -171,23 +172,23 @@
 
   /* Body Content */
   .hm-cart-body {
-    padding: 14px 20px 16px !important;
+    padding: 14px 18px 16px !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 12px !important;
+    gap: 11px !important;
     box-sizing: border-box !important;
   }
 
   /* Product Row */
   .hm-cart-product {
     display: flex !important;
-    gap: 14px !important;
+    gap: 12px !important;
     align-items: flex-start !important;
   }
   .hm-cart-product__thumb {
-    width: 72px !important;
-    height: 88px !important;
-    min-width: 72px !important;
+    width: 70px !important;
+    height: 84px !important;
+    min-width: 70px !important;
     border-radius: 8px !important;
     overflow: hidden !important;
     background: #f7f5f2 !important;
@@ -207,10 +208,10 @@
     min-width: 0 !important;
     display: flex !important;
     flex-direction: column !important;
-    gap: 3px !important;
+    gap: 2px !important;
   }
   .hm-cart-product__brand {
-    font-size: 10.5px !important;
+    font-size: 10px !important;
     font-weight: 700 !important;
     letter-spacing: 0.8px !important;
     text-transform: uppercase !important;
@@ -218,7 +219,7 @@
   }
   .hm-cart-product__title {
     margin: 0 !important;
-    font-size: 14px !important;
+    font-size: 13.5px !important;
     font-weight: 600 !important;
     line-height: 1.35 !important;
     color: #1a1a1a !important;
@@ -228,7 +229,7 @@
     overflow: hidden !important;
   }
   .hm-cart-product__variant {
-    font-size: 12px !important;
+    font-size: 11.5px !important;
     color: #666666 !important;
     margin-top: 1px !important;
     white-space: nowrap !important;
@@ -239,18 +240,18 @@
     display: flex !important;
     align-items: center !important;
     gap: 8px !important;
-    margin-top: 4px !important;
+    margin-top: 3px !important;
   }
   .hm-cart-product__price {
-    font-size: 14.5px !important;
+    font-size: 14px !important;
     font-weight: 700 !important;
     color: #111111 !important;
   }
   .hm-cart-product__qty {
-    font-size: 11.5px !important;
+    font-size: 11px !important;
     color: #555555 !important;
     background: #f3efe8 !important;
-    padding: 1px 7px !important;
+    padding: 1px 6px !important;
     border-radius: 4px !important;
     font-weight: 500 !important;
   }
@@ -260,7 +261,7 @@
     background: #faf8f5 !important;
     border: 1px solid #eee8df !important;
     border-radius: 8px !important;
-    padding: 8px 12px !important;
+    padding: 7px 11px !important;
     box-sizing: border-box !important;
   }
   .hm-cart-shipping__bar {
@@ -269,7 +270,7 @@
     background: #e6e0d6 !important;
     border-radius: 2px !important;
     overflow: hidden !important;
-    margin-bottom: 5px !important;
+    margin-bottom: 4px !important;
   }
   .hm-cart-shipping__fill {
     height: 100% !important;
@@ -279,7 +280,7 @@
   }
   .hm-cart-shipping__text {
     margin: 0 !important;
-    font-size: 11.5px !important;
+    font-size: 11px !important;
     line-height: 1.3 !important;
     color: #444444 !important;
     font-weight: 500 !important;
@@ -288,35 +289,105 @@
     color: #15803d !important;
   }
 
-  /* Subtotal Row */
-  .hm-cart-subtotal {
-    padding-top: 8px !important;
-    border-top: 1px solid #f0ece6 !important;
+  /* Festive Promo / Coupon Badge in Pop-up */
+  .hm-cart-promo {
+    background: #fffdf9 radial-gradient(ellipse 95% 125% at 50% 50%, #fffdf8 0%, #faf3e8 100%) !important;
+    border: 1.5px solid #d4a75e !important;
+    border-radius: 8px !important;
+    padding: 8px 11px !important;
+    box-sizing: border-box !important;
   }
-  .hm-cart-subtotal__row {
+  .hm-cart-promo__header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+    margin-bottom: 2px !important;
+  }
+  .hm-cart-promo__code {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    background: #faebd7 !important;
+    border: 1px dashed #c48b28 !important;
+    border-radius: 4px !important;
+    padding: 1px 6px !important;
+    font-family: monospace, -apple-system, sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    color: #820b12 !important;
+    letter-spacing: 0.8px !important;
+  }
+  .hm-cart-promo__status {
+    font-size: 9.5px !important;
+    font-weight: 700 !important;
+    color: #15803d !important;
+    background: rgba(21, 128, 61, 0.1) !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+    letter-spacing: 0.2px !important;
+  }
+  .hm-cart-promo__desc {
+    margin: 0 !important;
+    font-size: 10px !important;
+    color: #6d4e2d !important;
+    line-height: 1.3 !important;
+  }
+
+  /* Pricing Breakdown Table */
+  .hm-cart-price-breakdown {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+    padding-top: 6px !important;
+    border-top: 1px dashed #e6decb !important;
+  }
+  .hm-cart-price-row {
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
-    font-size: 14px !important;
+    font-size: 13px !important;
+    color: #444444 !important;
+  }
+  .hm-cart-price-row--discount {
+    color: #15803d !important;
+    font-weight: 600 !important;
+  }
+  .hm-cart-price-row--final {
+    font-size: 14.5px !important;
+    font-weight: 800 !important;
+    color: #1a1a1a !important;
+    padding-top: 4px !important;
+    border-top: 1px solid #eee8df !important;
+  }
+  .hm-cart-savings-badge {
+    background: #eaf6ed !important;
+    border: 1px solid #b8e2c2 !important;
+    color: #14532d !important;
+    font-size: 11.5px !important;
     font-weight: 700 !important;
-    color: #111111 !important;
+    text-align: center !important;
+    padding: 4px 8px !important;
+    border-radius: 6px !important;
+    margin: 2px 0 !important;
   }
   .hm-cart-subtotal__tax {
-    margin: 4px 0 0 !important;
-    font-size: 11px !important;
+    margin: 2px 0 0 !important;
+    font-size: 10.5px !important;
     color: #777777 !important;
+    text-align: center !important;
   }
 
   /* Action Buttons */
   .hm-cart-actions {
     display: flex !important;
     flex-direction: column !important;
-    gap: 8px !important;
+    gap: 7px !important;
     padding-top: 2px !important;
   }
   .hm-cart-btn {
     width: 100% !important;
-    height: 46px !important;
+    height: 45px !important;
     border-radius: 8px !important;
     font-size: 13px !important;
     font-weight: 700 !important;
@@ -358,12 +429,18 @@
     color: #666666 !important;
     text-decoration: underline !important;
     text-align: center !important;
-    padding: 6px 0 2px !important;
+    padding: 5px 0 2px !important;
     cursor: pointer !important;
     transition: color 0.2s !important;
   }
   .hm-cart-continue:hover {
     color: #111111 !important;
+  }
+  .hm-cart-checkout-guarantee {
+    text-align: center !important;
+    font-size: 10.5px !important;
+    color: #666666 !important;
+    margin: 3px 0 0 !important;
   }
 </style>
 
@@ -407,8 +484,8 @@
           src=""
           alt=""
           loading="lazy"
-          width="72"
-          height="88"
+          width="70"
+          height="84"
         >
       </div>
       <div class="hm-cart-product__details">
@@ -432,14 +509,43 @@
       </p>
     </div>
 
-    <!-- Subtotal -->
-    <div class="hm-cart-subtotal">
-      <div class="hm-cart-subtotal__row">
-        <span id="HMCartSubtotalCount">Shopping bag (1 item)</span>
+    <!-- Festive Promo Badge -->
+    <div class="hm-cart-promo">
+      <div class="hm-cart-promo__header">
+        <span class="hm-cart-promo__code">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+            <line x1="7" y1="7" x2="7.01" y2="7"/>
+          </svg>
+          DIWALI20
+        </span>
+        <span class="hm-cart-promo__status">✓ 20% OFF APPLIED</span>
+      </div>
+      <p class="hm-cart-promo__desc">Diwali Festive Offer: 20% discount is auto-applied at checkout!</p>
+    </div>
+
+    <!-- Pricing Breakdown Table -->
+    <div class="hm-cart-price-breakdown">
+      <div class="hm-cart-price-row">
+        <span id="HMCartSubtotalCount">Bag Total (1 item)</span>
         <span id="HMCartSubtotalAmount">₹0</span>
       </div>
-      <p class="hm-cart-subtotal__tax">Inclusive of all taxes · Free Pan-India Delivery above ₹2000</p>
+      <div class="hm-cart-price-row hm-cart-price-row--discount">
+        <span>Diwali Savings (DIWALI20 · 20% OFF)</span>
+        <span id="HMCartDiscountAmount">-₹0</span>
+      </div>
+      <div class="hm-cart-price-row hm-cart-price-row--final">
+        <span>Estimated Total</span>
+        <span id="HMCartFinalAmount">₹0</span>
+      </div>
     </div>
+
+    <!-- Savings Pill -->
+    <div class="hm-cart-savings-badge" id="HMCartSavingsBadge">
+      🎉 You save <strong id="HMCartSavingsAmount">₹0</strong> on this order!
+    </div>
+
+    <p class="hm-cart-subtotal__tax">Inclusive of all taxes · Free Pan-India Delivery above ₹2000</p>
 
     <!-- Action Buttons -->
     <div class="hm-cart-actions">
@@ -449,6 +555,9 @@
           <path d="M8.5 1L13 6M13 6L8.5 11M13 6H1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
+      <p class="hm-cart-checkout-guarantee">
+        🔒 Code <strong>DIWALI20</strong> automatically applies at checkout
+      </p>
       <a href="{{ routes.cart_url }}" id="HMCartViewBagBtn" class="hm-cart-btn hm-cart-btn--secondary">
         View Shopping Bag
       </a>
@@ -477,10 +586,13 @@
     var shippingText = document.getElementById('HMCartShippingText');
     var subtotalCount = document.getElementById('HMCartSubtotalCount');
     var subtotalAmount = document.getElementById('HMCartSubtotalAmount');
+    var discountAmountEl = document.getElementById('HMCartDiscountAmount');
+    var finalAmountEl = document.getElementById('HMCartFinalAmount');
+    var savingsAmountEl = document.getElementById('HMCartSavingsAmount');
 
     var FREE_SHIPPING_THRESHOLD = 200000; // ₹2,000 in paise
+    var DISCOUNT_RATE = 0.20; // 20% DIWALI20 offer
 
-    // Ensure elements are direct children of document.body so no sticky/transformed header can clip or displace them
     function ensureBodyPlacement() {
       if (overlay && overlay.parentElement !== document.body) {
         document.body.appendChild(overlay);
@@ -582,23 +694,34 @@
       if (!cart) return;
 
       var count = cart.item_count || 1;
-      var total = cart.total_price || 0;
+      var rawTotal = cart.total_price || 0;
+      var discountAmt = Math.round(rawTotal * DISCOUNT_RATE);
+      var finalTotal = Math.max(0, rawTotal - discountAmt);
 
       if (subtotalCount) {
-        subtotalCount.textContent = 'Shopping bag (' + count + (count === 1 ? ' item)' : ' items)');
+        subtotalCount.textContent = 'Bag Total (' + count + (count === 1 ? ' item)' : ' items)');
       }
       if (subtotalAmount) {
-        subtotalAmount.textContent = formatINR(total);
+        subtotalAmount.textContent = formatINR(rawTotal);
+      }
+      if (discountAmountEl) {
+        discountAmountEl.textContent = '-' + formatINR(discountAmt);
+      }
+      if (finalAmountEl) {
+        finalAmountEl.textContent = formatINR(finalTotal);
+      }
+      if (savingsAmountEl) {
+        savingsAmountEl.textContent = formatINR(discountAmt);
       }
 
       // Free Shipping Calculator (Threshold: ₹2,000)
       if (shippingProgress && shippingText) {
-        if (total >= FREE_SHIPPING_THRESHOLD) {
+        if (rawTotal >= FREE_SHIPPING_THRESHOLD) {
           shippingProgress.style.width = '100%';
           shippingText.innerHTML = '<strong>✓ You qualify for FREE Pan-India Delivery!</strong>';
         } else {
-          var remaining = FREE_SHIPPING_THRESHOLD - total;
-          var percent = Math.min(100, Math.max(8, Math.round((total / FREE_SHIPPING_THRESHOLD) * 100)));
+          var remaining = FREE_SHIPPING_THRESHOLD - rawTotal;
+          var percent = Math.min(100, Math.max(8, Math.round((rawTotal / FREE_SHIPPING_THRESHOLD) * 100)));
           shippingProgress.style.width = percent + '%';
           shippingText.innerHTML = 'Add <strong>' + formatINR(remaining) + '</strong> more to unlock <strong>FREE Delivery</strong>!';
         }
@@ -625,11 +748,15 @@
     if (checkoutBtn) {
       checkoutBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        if (typeof window.handleFloCheckoutBtn === 'function') {
-          window.handleFloCheckoutBtn();
-        } else {
-          window.location.href = '/checkout';
-        }
+        var code = 'DIWALI20';
+        fetch('/discount/' + code)
+          .finally(function() {
+            if (typeof window.handleFloCheckoutBtn === 'function') {
+              window.handleFloCheckoutBtn();
+            } else {
+              window.location.href = '/checkout?discount=' + code;
+            }
+          });
       });
     }
 

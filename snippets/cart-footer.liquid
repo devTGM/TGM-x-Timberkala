@@ -1,12 +1,151 @@
+{% comment %}
+  Timberkala — Cart Drawer Footer with Festive DIWALI20 Discount Calculation & Savings Breakdown
+{% endcomment %}
+
+{% assign discount_rate = 0.20 %}
+{% assign raw_subtotal = cart.total_price %}
+{% assign discount_amount = raw_subtotal | times: discount_rate | round %}
+{% assign final_total = raw_subtotal | minus: discount_amount %}
+
+<style>
+  .tk-drawer-promo-box {
+    margin: 8px 0 12px;
+    padding: 9px 12px;
+    background: #fffdf9 radial-gradient(ellipse 95% 125% at 50% 50%, #fffdf8 0%, #faf3e8 100%);
+    border: 1.5px solid #d4a75e;
+    border-radius: 9px;
+    box-shadow: 0 2px 8px rgba(125, 15, 21, 0.05);
+    box-sizing: border-box;
+  }
+  .tk-drawer-promo-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 3px;
+  }
+  .tk-drawer-coupon-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #faebd7;
+    border: 1px dashed #c48b28;
+    border-radius: 4px;
+    padding: 2px 7px;
+    font-family: monospace, -apple-system, sans-serif;
+    font-size: 11.5px;
+    font-weight: 800;
+    color: #820b12;
+    letter-spacing: 0.8px;
+  }
+  .tk-drawer-coupon-status {
+    font-size: 10px;
+    font-weight: 700;
+    color: #15803d;
+    background: rgba(21, 128, 61, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    letter-spacing: 0.2px;
+  }
+  .tk-drawer-promo-sub {
+    margin: 0;
+    font-size: 10.5px;
+    color: #6d4e2d;
+    line-height: 1.35;
+  }
+  .tk-drawer-price-table {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed #e6decb;
+  }
+  .tk-drawer-price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #444444;
+  }
+  .tk-drawer-price-row--discount {
+    color: #15803d;
+    font-weight: 600;
+  }
+  .tk-drawer-price-row--total {
+    font-size: 14.5px;
+    font-weight: 800;
+    color: #1a1a1a;
+    padding-top: 4px;
+    border-top: 1px solid #eee8df;
+  }
+  .tk-drawer-savings-badge {
+    background: #eaf6ed;
+    border: 1px solid #b8e2c2;
+    color: #14532d;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-align: center;
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin: 2px 0 10px;
+  }
+  .tk-drawer-checkout-guarantee {
+    text-align: center;
+    font-size: 11px;
+    color: #666666;
+    margin: 6px 0 0;
+  }
+</style>
+
 <div class="wt-cart__footer__body">
-  <div class="wt-cart__subtotal">
-    <div class="wt-cart__subtotal__label">
-      <span class="text">{{ 'sections.cart.subtotal' | t }}</span>
+  {%- if cart != empty -%}
+    <!-- Festive Coupon Box -->
+    <div class="tk-drawer-promo-box">
+      <div class="tk-drawer-promo-header">
+        <span class="tk-drawer-coupon-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
+            <line x1="7" y1="7" x2="7.01" y2="7"/>
+          </svg>
+          DIWALI20
+        </span>
+        <span class="tk-drawer-coupon-status">✓ 20% OFF APPLIED</span>
+      </div>
+      <p class="tk-drawer-promo-sub">Diwali Festive Offer: 20% discount is auto-applied at checkout!</p>
     </div>
-    <div class="wt-cart__subtotal__value">
-      {{ cart.total_price | money_with_currency }}
+
+    <!-- Pricing Breakdown -->
+    <div class="tk-drawer-price-table">
+      <div class="tk-drawer-price-row">
+        <span>Subtotal</span>
+        <span>{{ raw_subtotal | money_with_currency }}</span>
+      </div>
+      <div class="tk-drawer-price-row tk-drawer-price-row--discount">
+        <span>Diwali Savings (DIWALI20 · 20% OFF)</span>
+        <span>-{{ discount_amount | money_with_currency }}</span>
+      </div>
+      <div class="tk-drawer-price-row tk-drawer-price-row--total">
+        <span>Estimated Total</span>
+        <span>{{ final_total | money_with_currency }}</span>
+      </div>
     </div>
-  </div>
+
+    <!-- Savings Pill -->
+    <div class="tk-drawer-savings-badge">
+      🎉 You save {{ discount_amount | money_with_currency }} on this order!
+    </div>
+  {%- else -%}
+    <div class="wt-cart__subtotal">
+      <div class="wt-cart__subtotal__label">
+        <span class="text">{{ 'sections.cart.subtotal' | t }}</span>
+      </div>
+      <div class="wt-cart__subtotal__value">
+        {{ cart.total_price | money_with_currency }}
+      </div>
+    </div>
+  {%- endif -%}
+
   {%- if cart.cart_level_discount_applications.size > 0 -%}
     <div>
       <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
@@ -21,27 +160,24 @@
     </div>
   {%- endif -%}
 
-  {% comment %} <button
-    aria-label="{{ 'sections.cart.checkout' | t }}"
-    type="submit"
-    id="CartDrawer-Checkout"
-    class="btn-checkout wt-cart__cta"
-    name="checkout"
-    form="CartDrawer-Form"
-    {% if cart == empty %}
-      disabled
-    {% endif %}
-    tabindex="-1"
+  <button
+    type="button"
+    style="width:100%; cursor:pointer;"
+    id="checkout2"
+    onclick="handleTimberkalaCheckout(event)"
+    class="cart__checkout-button button"
+    name="checkout2"
+    {% if cart == empty %}disabled{% endif %}
   >
-    {{ 'sections.cart.checkout' | t }}
-  </button> {% endcomment %}
+    {{ 'Checkout' }}
+  </button> 
 
-  <button type="button" style="width:100%; cursor:pointer;" id="checkout2" onclick="handleFloCheckoutBtn()" class="cart__checkout-button button" name="checkout2">
-		{{ 'Checkout' }}
-</button> 
+  <p class="tk-drawer-checkout-guarantee">
+    🔒 Code <strong>DIWALI20</strong> automatically applies at checkout
+  </p>
 
   {% if settings.show_view_cart %}
-    <div class="wt-featured-collection__button-container wt-button__container">
+    <div class="wt-featured-collection__button-container wt-button__container" style="margin-top: 6px;">
       <button
         aria-label="{{ 'aria-label.featured-collection' | t }}"
         class="wt-cart__show-cart hero__button--link"
@@ -53,3 +189,18 @@
     </div>
   {% endif %}
 </div>
+
+<script>
+  function handleTimberkalaCheckout(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    var code = 'DIWALI20';
+    fetch('/discount/' + code)
+      .finally(function() {
+        if (typeof window.handleFloCheckoutBtn === 'function') {
+          window.handleFloCheckoutBtn();
+        } else {
+          window.location.href = '/checkout?discount=' + code;
+        }
+      });
+  }
+</script>
