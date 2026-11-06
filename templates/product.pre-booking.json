@@ -51,26 +51,6 @@
             "custom_liquid": "<style>\n.tk-prebooking {\n  box-sizing: border-box;\n  position: relative;\n  width: 100%;\n  margin: 8px 0;\n  padding: 12px 20px;\n  border: 1px solid #cda14e;\n  border-radius: 10px;\n  background: linear-gradient(110deg, #f5e7d3, #fffaf1, #f3e4ce);\n  box-shadow: inset 0 0 0 2px #fff3db;\n  color: #553e2d;\n  font-family: inherit;\n  text-align: center;\n  overflow: hidden;\n}\n\n.tk-prebooking::before,\n.tk-prebooking::after {\n  content: \"\";\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  width: 8px;\n  pointer-events: none;\n  background:\n    radial-gradient(\n      ellipse at center,\n      #fff0b7 0%,\n      #dfad48 35%,\n      #ae7728 55%,\n      transparent 62%\n    ) center top / 8px 22px repeat-y;\n}\n\n.tk-prebooking::before { left: 2px; }\n.tk-prebooking::after { right: 2px; }\n\n.tk-prebooking .tk-prebooking__label {\n  display: inline-block;\n  margin: 0 0 7px;\n  padding: 5px 10px;\n  border: 1px solid #d4ac5b;\n  border-radius: 5px;\n  background: #760f22;\n  color: #fff0c8;\n  font-family: inherit;\n  font-size: 13px;\n  font-weight: 700;\n  line-height: 1.35;\n  letter-spacing: 0.3px;\n}\n\n.tk-prebooking .tk-prebooking__message {\n  margin: 0 0 6px;\n  color: #553e2d;\n  font-family: inherit;\n  font-size: 14px;\n  font-weight: 400;\n  line-height: 1.4;\n  letter-spacing: normal;\n}\n\n.tk-prebooking .tk-prebooking__dispatch {\n  margin: 0;\n  padding-top: 7px;\n  border-top: 1px dashed #cfad72;\n  color: #553e2d;\n  font-family: inherit;\n  font-size: 13px;\n  font-weight: 400;\n  line-height: 1.4;\n  letter-spacing: normal;\n}\n\n.tk-prebooking .tk-prebooking__dispatch strong {\n  color: #760f22;\n  font-size: inherit;\n  font-weight: 700;\n  white-space: nowrap;\n}\n</style>\n\n<div class=\"tk-prebooking\" role=\"note\">\n  <div class=\"tk-prebooking__label\">\n    THIS PRODUCT IS FOR PRE BOOKING\n  </div>\n\n  <div class=\"tk-prebooking__message\">\n    There’s a reason this piece has a wait.\n  </div>\n\n  <div class=\"tk-prebooking__dispatch\">\n    Reserve yours. Dispatch in <strong>30–45 days</strong> from order.\n  </div>\n</div>"
           }
         },
-        "custom_liquid_H8nd4C": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "{% render 'festive-promo-banner' %}"
-          }
-        },
-        "rating": {
-          "type": "rating",
-          "disabled": true,
-          "settings": {}
-        },
-        "90ea3cd3-aa22-44f6-b6de-365eb7f85b9c": {
-          "type": "separator",
-          "settings": {
-            "show-separator-line": false,
-            "color-background": "#ffffff",
-            "margin-top": 8,
-            "margin-bottom": 8
-          }
-        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -88,6 +68,40 @@
             "show_tax_included": true,
             "size_text": 140,
             "size_text_mobile": 130
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true,
+            "show_qty_selector": true
+          }
+        },
+        "custom_liquid_H8nd4C": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "{% render 'festive-promo-banner' %}"
+          }
+        },
+        "custom_liquid_DBtjDA": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<style>\n  #shopify-section-{{ section.id }},\n  #shopify-section-{{ section.id }} *:has(.tk-festive-countdown) {\n    margin-top: 0 !important;\n    margin-bottom: 0 !important;\n    padding-top: 0 !important;\n    padding-bottom: 0 !important;\n    min-height: 0 !important;\n  }\n\n  #shopify-section-{{ section.id }} .tk-festive-countdown {\n    box-sizing: border-box;\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    flex-wrap: wrap;\n\n    /* BANNER WIDTH */\n    width: 85% !important;\n    max-width: 380px !important;\n    margin: 0 auto !important;\n\n    padding: 12px 10px;\n    gap: 10px 14px;\n    background:\n      radial-gradient(ellipse at left, #efcf8860, transparent 40%),\n      radial-gradient(ellipse at right, #efcf8860, transparent 40%),\n      linear-gradient(100deg, #f8edda, #fffaf1 50%, #f8edda);\n    border: 1px solid #c99b43;\n    border-radius: 8px;\n    color: #750f22;\n    font-family: inherit;\n    line-height: 1.2;\n  }\n\n  .tk-festive-countdown * {\n    box-sizing: border-box;\n  }\n\n  .tk-festive-countdown .tk-festive-copy {\n    display: flex;\n    align-items: center;\n    gap: 8px;\n    white-space: nowrap;\n  }\n\n  .tk-festive-countdown .tk-festive-diya {\n    display: block;\n    flex: 0 0 auto;\n    width: 29px;\n    height: 34px;\n  }\n\n  .tk-festive-countdown .tk-festive-heading {\n    display: flex;\n    flex-direction: column;\n    gap: 4px;\n  }\n\n  .tk-festive-countdown .tk-festive-title {\n    color: #750f22;\n    font-family: Georgia, \"Times New Roman\", serif;\n    font-size: 17px;\n    font-weight: 700;\n    letter-spacing: 1px;\n    line-height: 1.1;\n  }\n\n  .tk-festive-countdown .tk-festive-label {\n    color: #705238;\n    font-size: 10px;\n    font-weight: 600;\n    letter-spacing: 1.5px;\n    text-transform: uppercase;\n  }\n\n  .tk-festive-countdown .tk-festive-timer {\n    display: flex;\n    align-items: center;\n    gap: 4px;\n    white-space: nowrap;\n  }\n\n  .tk-festive-countdown .tk-festive-unit {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    gap: 4px;\n    width: 40px;\n    height: 45px;\n    background: linear-gradient(145deg, #8b1830, #640d1c);\n    border: 1px solid #cda14e;\n    border-radius: 5px;\n    box-shadow: 0 2px 5px rgba(97, 43, 14, 0.12);\n  }\n\n  .tk-festive-countdown .tk-festive-number {\n    color: #fff4d8;\n    font-size: 19px;\n    font-weight: 700;\n    font-variant-numeric: tabular-nums;\n    line-height: 1;\n  }\n\n  .tk-festive-countdown .tk-festive-suffix {\n    color: #f1d493;\n    font-size: 7px;\n    font-weight: 600;\n    letter-spacing: 1px;\n    line-height: 1;\n  }\n\n  .tk-festive-countdown .tk-festive-colon {\n    color: #a77927;\n    font-size: 17px;\n    font-weight: 600;\n  }\n\n  @media (max-width: 480px) {\n    #shopify-section-{{ section.id }} .tk-festive-countdown {\n      padding: 10px 8px;\n      gap: 8px 10px;\n    }\n\n    .tk-festive-countdown .tk-festive-copy {\n      gap: 6px;\n    }\n\n    .tk-festive-countdown .tk-festive-diya {\n      width: 23px;\n      height: 29px;\n    }\n\n    .tk-festive-countdown .tk-festive-title {\n      font-size: 14px;\n      letter-spacing: 0.6px;\n    }\n\n    .tk-festive-countdown .tk-festive-label {\n      font-size: 9px;\n      letter-spacing: 1px;\n    }\n\n    .tk-festive-countdown .tk-festive-unit {\n      width: 34px;\n      height: 41px;\n    }\n\n    .tk-festive-countdown .tk-festive-number {\n      font-size: 17px;\n    }\n\n    .tk-festive-countdown .tk-festive-colon {\n      font-size: 14px;\n    }\n  }\n</style>\n\n<tk-diwali-narrow-clock class=\"tk-festive-countdown\">\n  <div class=\"tk-festive-copy\">\n    <svg\n      class=\"tk-festive-diya\"\n      viewBox=\"0 0 40 46\"\n      xmlns=\"http://www.w3.org/2000/svg\"\n      aria-hidden=\"true\"\n      focusable=\"false\"\n    >\n      <path\n        d=\"M20 2C21 10 29 13 26 21C24 27 15 27 13 21C10 14 18 9 20 2Z\"\n        fill=\"#D6A33D\"\n      />\n      <path\n        d=\"M20 12C20 17 24 19 22 23C21 26 17 25 17 22C16 19 19 16 20 12Z\"\n        fill=\"#FFF1BD\"\n      />\n      <path\n        d=\"M4 29H36C33 39 27 43 20 43C13 43 7 39 4 29Z\"\n        fill=\"#7B1427\"\n        stroke=\"#B98A32\"\n        stroke-width=\"1.5\"\n      />\n      <path\n        d=\"M5 29Q20 34 35 29M11 36Q20 40 29 36\"\n        fill=\"none\"\n        stroke=\"#E1BA66\"\n        stroke-width=\"1.5\"\n      />\n      <path\n        d=\"M20 25V29\"\n        stroke=\"#795023\"\n        stroke-width=\"2\"\n        stroke-linecap=\"round\"\n      />\n    </svg>\n\n    <div class=\"tk-festive-heading\">\n      <span class=\"tk-festive-title\">DIWALI EDIT</span>\n      <span class=\"tk-festive-label\">Sale ends in</span>\n    </div>\n  </div>\n\n  <div\n    class=\"tk-festive-timer\"\n    role=\"timer\"\n    aria-label=\"Time remaining until midnight in India\"\n    aria-live=\"off\"\n  >\n    <span class=\"tk-festive-unit\">\n      <span class=\"tk-festive-number\" data-hours>--</span>\n      <span class=\"tk-festive-suffix\">HRS</span>\n    </span>\n\n    <span class=\"tk-festive-colon\" aria-hidden=\"true\">:</span>\n\n    <span class=\"tk-festive-unit\">\n      <span class=\"tk-festive-number\" data-minutes>--</span>\n      <span class=\"tk-festive-suffix\">MIN</span>\n    </span>\n\n    <span class=\"tk-festive-colon\" aria-hidden=\"true\">:</span>\n\n    <span class=\"tk-festive-unit\">\n      <span class=\"tk-festive-number\" data-seconds>--</span>\n      <span class=\"tk-festive-suffix\">SEC</span>\n    </span>\n  </div>\n</tk-diwali-narrow-clock>\n\n<script>\n  (() => {\n    const tagName = \"tk-diwali-narrow-clock\";\n    if (customElements.get(tagName)) return;\n\n    class TimberkalaNarrowClock extends HTMLElement {\n      connectedCallback() {\n        clearTimeout(this.startTimer);\n        clearInterval(this.interval);\n\n        this.startTimer = setTimeout(() => {\n          this.updateClock();\n          this.interval = setInterval(() => this.updateClock(), 1000);\n        }, 0);\n\n        this.onVisibilityChange = () => {\n          if (!document.hidden) this.updateClock();\n        };\n\n        document.addEventListener(\n          \"visibilitychange\",\n          this.onVisibilityChange\n        );\n      }\n\n      disconnectedCallback() {\n        clearTimeout(this.startTimer);\n        clearInterval(this.interval);\n        document.removeEventListener(\n          \"visibilitychange\",\n          this.onVisibilityChange\n        );\n      }\n\n      updateClock() {\n        const hours = this.querySelector(\"[data-hours]\");\n        const minutes = this.querySelector(\"[data-minutes]\");\n        const seconds = this.querySelector(\"[data-seconds]\");\n\n        if (!hours || !minutes || !seconds) return;\n\n        const dayMilliseconds = 86400000;\n        const indiaOffset = 19800000;\n        const elapsedToday =\n          (Date.now() + indiaOffset) % dayMilliseconds;\n        const remaining = Math.ceil(\n          (dayMilliseconds - elapsedToday) / 1000\n        );\n\n        hours.textContent = String(\n          Math.floor(remaining / 3600)\n        ).padStart(2, \"0\");\n\n        minutes.textContent = String(\n          Math.floor((remaining % 3600) / 60)\n        ).padStart(2, \"0\");\n\n        seconds.textContent = String(\n          remaining % 60\n        ).padStart(2, \"0\");\n      }\n    }\n\n    customElements.define(tagName, TimberkalaNarrowClock);\n  })();\n</script>"
+          }
+        },
+        "rating": {
+          "type": "rating",
+          "disabled": true,
+          "settings": {}
+        },
+        "90ea3cd3-aa22-44f6-b6de-365eb7f85b9c": {
+          "type": "separator",
+          "settings": {
+            "show-separator-line": false,
+            "color-background": "#ffffff",
+            "margin-top": 8,
+            "margin-bottom": 8
           }
         },
         "separator_RrKQ4A": {
@@ -122,14 +136,6 @@
             "subtitle": "Handcrafted pieces that pair beautifully",
             "product_upsell": [],
             "max_products": 2
-          }
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": true,
-            "show_gift_card_recipient": true,
-            "show_qty_selector": true
           }
         },
         "custom_liquid_f89WQj": {
@@ -328,16 +334,17 @@
         "custom_liquid_zgCqgH",
         "title",
         "custom_liquid_WYCNRB",
-        "custom_liquid_H8nd4C",
-        "rating",
-        "90ea3cd3-aa22-44f6-b6de-365eb7f85b9c",
         "variant_picker",
         "price",
+        "buy_buttons",
+        "custom_liquid_H8nd4C",
+        "custom_liquid_DBtjDA",
+        "rating",
+        "90ea3cd3-aa22-44f6-b6de-365eb7f85b9c",
         "separator_RrKQ4A",
         "custom_liquid_jBMGDR",
         "text_j6RwH3",
         "upsell_pdp",
-        "buy_buttons",
         "custom_liquid_f89WQj",
         "separator_BtVmRq",
         "bulletpoints_iWtDxJ",
