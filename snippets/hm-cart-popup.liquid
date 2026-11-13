@@ -1,7 +1,6 @@
 {% comment %}
   Timberkala — H&M Style "Added to Shopping Bag" Cart Pop-up Modal
   Replaces full cart drawer on item addition with an elegant, responsive confirmation pop-up
-  Includes Festive DIWALI20 Discount Calculation & Auto-Apply Guarantee
 {% endcomment %}
 
 <style>
@@ -507,30 +506,11 @@
       </div>
     </div>
 
-    <!-- Festive Promo Badge -->
-    <div class="hm-cart-promo">
-      <div class="hm-cart-promo__header">
-        <span class="hm-cart-promo__code">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
-            <line x1="7" y1="7" x2="7.01" y2="7"/>
-          </svg>
-          DIWALI20
-        </span>
-        <span class="hm-cart-promo__status">✓ 20% OFF APPLIED</span>
-      </div>
-      <p class="hm-cart-promo__desc">Diwali Festive Offer: 20% discount is auto-applied at checkout!</p>
-    </div>
-
     <!-- Pricing Breakdown Table -->
     <div class="hm-cart-price-breakdown">
       <div class="hm-cart-price-row">
         <span id="HMCartSubtotalCount">Bag Total (1 item)</span>
         <span id="HMCartSubtotalAmount">₹0</span>
-      </div>
-      <div class="hm-cart-price-row hm-cart-price-row--discount">
-        <span>Diwali Savings (DIWALI20 · 20% OFF)</span>
-        <span id="HMCartDiscountAmount">-₹0</span>
       </div>
       <div class="hm-cart-price-row">
         <span>Pan-India Delivery</span>
@@ -540,11 +520,6 @@
         <span>Estimated Total</span>
         <span id="HMCartFinalAmount">₹0</span>
       </div>
-    </div>
-
-    <!-- Savings Pill -->
-    <div class="hm-cart-savings-badge" id="HMCartSavingsBadge">
-      🎉 You save <strong id="HMCartSavingsAmount">₹0</strong> on this order!
     </div>
 
     <p class="hm-cart-subtotal__tax">Inclusive of all taxes · 100% Free Pan-India Delivery on all orders</p>
@@ -557,9 +532,6 @@
           <path d="M8.5 1L13 6M13 6L8.5 11M13 6H1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-      <p class="hm-cart-checkout-guarantee">
-        🔒 Code <strong>DIWALI20</strong> automatically applies at checkout
-      </p>
       <a href="{{ routes.cart_url }}" id="HMCartViewBagBtn" class="hm-cart-btn hm-cart-btn--secondary">
         View Shopping Bag
       </a>
@@ -588,11 +560,7 @@
     var shippingText = document.getElementById('HMCartShippingText');
     var subtotalCount = document.getElementById('HMCartSubtotalCount');
     var subtotalAmount = document.getElementById('HMCartSubtotalAmount');
-    var discountAmountEl = document.getElementById('HMCartDiscountAmount');
     var finalAmountEl = document.getElementById('HMCartFinalAmount');
-    var savingsAmountEl = document.getElementById('HMCartSavingsAmount');
-
-    var DISCOUNT_RATE = 0.20; // 20% DIWALI20 offer
 
     function ensureBodyPlacement() {
       if (overlay && overlay.parentElement !== document.body) {
@@ -696,8 +664,6 @@
 
       var count = cart.item_count || 1;
       var rawTotal = cart.total_price || 0;
-      var discountAmt = Math.round(rawTotal * DISCOUNT_RATE);
-      var finalTotal = Math.max(0, rawTotal - discountAmt);
 
       if (subtotalCount) {
         subtotalCount.textContent = 'Bag Total (' + count + (count === 1 ? ' item)' : ' items)');
@@ -705,14 +671,8 @@
       if (subtotalAmount) {
         subtotalAmount.textContent = formatINR(rawTotal);
       }
-      if (discountAmountEl) {
-        discountAmountEl.textContent = '-' + formatINR(discountAmt);
-      }
       if (finalAmountEl) {
-        finalAmountEl.textContent = formatINR(finalTotal);
-      }
-      if (savingsAmountEl) {
-        savingsAmountEl.textContent = formatINR(discountAmt);
+        finalAmountEl.textContent = formatINR(rawTotal);
       }
 
       // Free Shipping: 100% Free Pan-India Delivery on all orders
@@ -741,15 +701,11 @@
     if (checkoutBtn) {
       checkoutBtn.addEventListener('click', function(e) {
         e.preventDefault();
-        var code = 'DIWALI20';
-        fetch('/discount/' + code)
-          .finally(function() {
-            if (typeof window.handleFloCheckoutBtn === 'function') {
-              window.handleFloCheckoutBtn();
-            } else {
-              window.location.href = '/checkout?discount=' + code;
-            }
-          });
+        if (typeof window.handleFloCheckoutBtn === 'function') {
+          window.handleFloCheckoutBtn();
+        } else {
+          window.location.href = '/checkout';
+        }
       });
     }
 
