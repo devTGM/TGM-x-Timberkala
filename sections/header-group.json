@@ -16,6 +16,7 @@
       "blocks": {
         "ann_shipping": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "✦ Get flat 20% off on your orders. Use Code: DIWALI20",
             "link": "/collections/all-products"
@@ -30,6 +31,7 @@
         },
         "ann_promo": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "✦ Get Your Order Delivered within 24 Hours in Delhi-NCR. Offer Valid on Prepaid Orders Only",
             "link": "/collections/all-products"
