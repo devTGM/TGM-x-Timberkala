@@ -16,6 +16,7 @@
       "blocks": {
         "ann_shipping": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "✦ Black Friday Sale is Live. Get 10% Off on all Orders and Extra 5% on Prepaid Orders.",
             "link": "/collections/all-products"
