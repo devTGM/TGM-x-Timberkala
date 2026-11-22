@@ -16,9 +16,8 @@
       "blocks": {
         "ann_shipping": {
           "type": "announcement",
-          "disabled": true,
           "settings": {
-            "text": "✦ Get flat 20% off on your orders. Use Code: DIWALI20",
+            "text": "✦ Black Friday Sale is Live. Get 10% Off on all Orders and Extra 5% on Prepaid Orders.",
             "link": "/collections/all-products"
           }
         },
