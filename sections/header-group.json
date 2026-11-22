@@ -69,8 +69,8 @@
         "image_playful": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Frame_33_1.jpg",
-            "mobile_image": "shopify://shop_images/Frame_32_3641df5e-0a31-4cd8-8ca1-f1215375bdf6.jpg",
+            "image": "shopify://shop_images/Frame_216.jpg",
+            "mobile_image": "shopify://shop_images/Frame_214.jpg",
             "hide_overlay_mobile": true,
             "hide_overlay_desktop": true,
             "heading": "",
