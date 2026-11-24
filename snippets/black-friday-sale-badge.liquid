@@ -1,17 +1,3 @@
-{% comment %}
-  Timberkala Black Friday Sale Promo Badge
-  Features:
-  - Stitched artisanal card with subtle wood-grain contours
-  - Timberkala reclaimed wood hallmark
-  - "Black Friday Sale" headline in artisanal luxury serif typography
-  - cutout.png tag showcasing the Black Friday Sale (no Cyber Monday)
-  - Concentric circular 10% OFF seal
-  - Middle bar: "Get flat 10% off on every order + 5% extra on Prepaid order."
-  - Interactive "Reserve yours ↗" CTA linking to purchase/form
-  - Dynamic rolling order counter
-  - Fully responsive for mobile and desktop
-{% endcomment %}
-
 <style>
   .tk-maker-label {
     --walnut: #42291c;
@@ -33,7 +19,6 @@
     box-shadow: 0 3px 9px #39271c20;
     font-family: inherit;
     text-align: left;
-    margin: 12px 0 16px;
   }
 
   .tk-maker-label *,
@@ -46,8 +31,9 @@
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    padding: 18px clamp(14px, 3vw, 24px) 16px;
+    padding: 16px clamp(14px, 3vw, 24px) 14px;
     isolation: isolate;
+    min-height: 155px;
   }
 
   .tk-maker-label .tk-face::before {
@@ -74,9 +60,9 @@
   .tk-maker-label .tk-face-content {
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    min-width: 0;
+    align-items: flex-start;
     flex: 1 1 auto;
+    min-width: 0;
   }
 
   .tk-maker-label .tk-maker-line {
@@ -89,6 +75,7 @@
     letter-spacing: .16em;
     font-weight: 700;
     text-transform: uppercase;
+    margin-bottom: 6px;
   }
 
   .tk-maker-label .tk-maker-line::before {
@@ -98,39 +85,22 @@
     background: var(--brass);
   }
 
-  .tk-maker-label .tk-title-row {
+  .tk-maker-label .tk-cutout-hero {
     display: flex;
     align-items: center;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
-
-  .tk-maker-label .tk-name {
-    display: block;
-    color: var(--walnut);
-    font: 700 clamp(28px, 3.2vw, 44px)/1.05 Georgia, serif;
-    letter-spacing: -.03em;
-    white-space: nowrap;
-  }
-
-  .tk-maker-label .tk-name em {
-    color: #794628;
-    font-style: italic;
-    font-weight: 400;
-  }
-
-  .tk-maker-label .tk-cutout-wrap {
-    display: inline-flex;
-    align-items: center;
-    filter: drop-shadow(0 4px 10px rgba(58, 41, 31, 0.22));
+    justify-content: center;
+    width: 100%;
+    padding: 2px 0;
+    filter: drop-shadow(0 6px 14px rgba(45, 26, 14, 0.22));
   }
 
   .tk-maker-label .tk-cutout-img {
-    display: block;
-    height: clamp(52px, 6vw, 74px);
+    height: clamp(88px, 12vw, 125px);
     width: auto;
+    max-width: 100%;
     object-fit: contain;
-    transform: rotate(-1deg);
+    transform: rotate(-0.5deg);
+    display: block;
   }
 
   .tk-maker-label .tk-seal {
@@ -204,6 +174,11 @@
 
   .tk-maker-label .tk-reserve:hover { background: #fff1d7; }
 
+  .tk-maker-label .tk-reserve u {
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.2px;
+  }
+
   .tk-maker-label .tk-preview {
     display: flex;
     align-items: center;
@@ -236,11 +211,8 @@
   .tk-maker-label .tk-reel span { display: block; height: 1.45em; }
 
   @media (max-width: 600px) {
-    .tk-maker-label .tk-title-row {
-      gap: 10px;
-    }
     .tk-maker-label .tk-cutout-img {
-      height: 48px;
+      height: clamp(68px, 18vw, 95px);
     }
     .tk-maker-label .tk-reserve {
       width: 100%;
@@ -253,11 +225,15 @@
   <div class="tk-face">
     <div class="tk-face-content">
       <div class="tk-maker-line">Timberkala · Reclaimed wood</div>
-      <div class="tk-title-row">
-        <strong class="tk-name">Black Friday <em>Sale</em></strong>
-        <div class="tk-cutout-wrap">
-          <img class="tk-cutout-img" src="{{ 'cutout.png' | asset_url }}" alt="Black Friday Sale" width="234" height="126" loading="eager">
-        </div>
+      <div class="tk-cutout-hero">
+        <img
+          class="tk-cutout-img"
+          src="{{ 'cutout.png' | asset_url }}"
+          alt="Black Friday & Cyber Monday Sale"
+          width="234"
+          height="126"
+          loading="eager"
+        >
       </div>
     </div>
 
@@ -315,7 +291,7 @@
 
       event.preventDefault();
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      target.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'center' });
+      target.scrollIntoView({ behavior: reducedMotion ? "instant" : "smooth", block: "center" });
       if (!target.disabled) target.focus({ preventScroll: true });
     }
 
