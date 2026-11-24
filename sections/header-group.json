@@ -69,7 +69,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/DESKTOP.jpg",
-            "mobile_image": "shopify://shop_images/MOBILE.jpg",
+            "mobile_image": "shopify://shop_images/Frame_214.jpg",
             "hide_overlay_mobile": true,
             "hide_overlay_desktop": true,
             "heading": "",
