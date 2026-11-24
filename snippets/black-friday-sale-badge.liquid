@@ -3,459 +3,373 @@
   Features:
   - Stitched artisanal card with subtle wood-grain contours
   - Timberkala reclaimed wood hallmark
-  - cutout.png showcasing the Black Friday & Cyber Monday Sale
-  - Concentric circular 10% OFF seal (+5% Prepaid)
-  - Middle bar: "Flat 10% off on every order + 5% extra on Prepaid orders"
+  - "Black Friday Sale" headline in artisanal luxury serif typography
+  - cutout.png tag showcasing the Black Friday Sale (no Cyber Monday)
+  - Concentric circular 10% OFF seal
+  - Middle bar: "Get flat 10% off on every order + 5% extra on Prepaid order."
   - Interactive "Reserve yours ↗" CTA linking to purchase/form
-  - Dynamic urgency counter: Orders Today digits
+  - Dynamic rolling order counter
   - Fully responsive for mobile and desktop
 {% endcomment %}
 
 <style>
-  .tk-bf-badge-wrapper {
-    width: 100%;
-    margin: 14px 0 18px;
-    box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  }
-
-  .tk-bf-card {
+  .tk-maker-label {
+    --walnut: #42291c;
+    --ink: #39271c;
+    --brass: #b49156;
+    --paper: #f5ead5;
     position: relative;
-    width: 100%;
-    background: #faf6ef;
-    border-radius: 12px;
-    border: 1.5px solid #4a382c;
-    overflow: hidden;
-    box-shadow: 0 8px 24px rgba(58, 41, 31, 0.12);
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-  }
-
-  /* -------------------------------------------------------------
-     TOP SECTION: Hallmark, Black Friday Cutout, & Circular Seal
-     ------------------------------------------------------------- */
-  .tk-bf-top {
-    position: relative;
-    padding: 16px 20px 14px;
-    background: #fbf8f2;
-    overflow: hidden;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 160px;
-    box-sizing: border-box;
-  }
-
-  /* Stitched dashed inner border */
-  .tk-bf-dashed-border {
-    position: absolute;
-    inset: 10px;
-    border: 1.5px dashed #c0b29d;
-    border-radius: 7px;
-    pointer-events: none;
-    z-index: 2;
-  }
-
-  /* Concentric wood-grain rings in SVG */
-  .tk-bf-wood-rings {
-    position: absolute;
-    right: -30px;
-    top: -40px;
-    width: 480px;
-    height: 280px;
-    pointer-events: none;
-    opacity: 0.4;
-    z-index: 1;
-  }
-
-  .tk-bf-top-content {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    gap: 16px;
-  }
-
-  .tk-bf-left-area {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    min-width: 0;
-  }
-
-  .tk-bf-hallmark {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 11.5px;
-    font-weight: 700;
-    letter-spacing: 2.5px;
-    color: #635144;
-    text-transform: uppercase;
-    line-height: 1;
-  }
-
-  .tk-bf-hallmark::before {
-    content: '';
-    display: inline-block;
-    width: 24px;
-    height: 1.5px;
-    background: #7a6657;
-  }
-
-  .tk-bf-cutout-wrap {
-    display: inline-block;
-    filter: drop-shadow(0 4px 10px rgba(45, 26, 14, 0.22));
-    margin-top: 2px;
-  }
-
-  .tk-bf-cutout-img {
+    isolation: isolate;
     display: block;
-    max-height: 110px;
-    width: auto;
-    object-fit: contain;
-    transform: rotate(-0.5deg);
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+    color: var(--ink);
+    background:
+      radial-gradient(ellipse at 8% 10%, #fff9ec 0%, transparent 55%),
+      linear-gradient(110deg, #f8efdc, #efdfc2);
+    border: 1px solid #967447;
+    border-radius: 5px;
+    box-shadow: 0 3px 9px #39271c20;
+    font-family: inherit;
+    text-align: left;
+    margin: 12px 0 16px;
   }
 
-  /* CIRCULAR 10% OFF SEAL */
-  .tk-bf-seal {
-    flex-shrink: 0;
-    width: 115px;
-    height: 115px;
-    border-radius: 50%;
-    background: #3b281f;
-    margin-right: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  .tk-maker-label *,
+  .tk-maker-label *::before,
+  .tk-maker-label *::after { box-sizing: border-box; }
+
+  .tk-maker-label .tk-face {
     position: relative;
-    box-shadow: 
-      0 4px 14px rgba(59, 40, 31, 0.3),
-      inset 0 0 0 3px #3b281f,
-      inset 0 0 0 4.5px #785f4c,
-      inset 0 0 0 6px #3b281f,
-      inset 0 0 0 7.5px #a0876f,
-      inset 0 0 0 9px #3b281f;
-    user-select: none;
-  }
-
-  .tk-bf-seal-pct {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 34px;
-    font-weight: 900;
-    color: #fff9f0;
-    line-height: 1;
-    letter-spacing: -1px;
-    margin-top: -2px;
-  }
-
-  .tk-bf-seal-off {
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 3px;
-    color: #e8dccb;
-    margin-top: 1px;
-    text-transform: uppercase;
-    line-height: 1;
-  }
-
-  .tk-bf-seal-sub {
-    font-size: 7.5px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    color: #f3d085;
-    text-transform: uppercase;
-    margin-top: 3px;
-    line-height: 1;
-  }
-
-  /* -------------------------------------------------------------
-     MIDDLE BAR: Offer Message & Action Button
-     ------------------------------------------------------------- */
-  .tk-bf-mid {
-    background: #38251c;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 20px;
     gap: 16px;
-    position: relative;
-    z-index: 4;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    box-sizing: border-box;
+    padding: 18px clamp(14px, 3vw, 24px) 16px;
+    isolation: isolate;
   }
 
-  .tk-bf-mid-text {
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0.2px;
-    color: #faf6f0;
-    line-height: 1.35;
-    flex-grow: 1;
+  .tk-maker-label .tk-face::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    z-index: -1;
+    border: 1px dashed #ab89567a;
+    border-radius: 2px;
   }
 
-  .tk-bf-mid-text strong {
-    font-weight: 700;
-    color: #ffffff;
+  .tk-maker-label .tk-face::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background: repeating-radial-gradient(
+      ellipse 83px 64px at 103% 82%,
+      transparent 0 8px, #8d62351c 9px, transparent 11px 17px
+    );
+    mask-image: linear-gradient(to right, transparent 30%, black);
   }
 
-  .tk-bf-gold-accent {
-    color: #f5d083;
-    font-weight: 700;
-  }
-
-  .tk-bf-btn {
-    flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
+  .tk-maker-label .tk-face-content {
+    display: flex;
+    flex-direction: column;
     gap: 6px;
-    background: #fbf7f0;
-    color: #38251c;
-    border: 1px solid #d4c7b5;
-    border-radius: 5px;
-    padding: 8px 16px;
-    font-size: 13.5px;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .tk-maker-label .tk-maker-line {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #735237;
+    font-size: 9px;
+    line-height: 1.3;
+    letter-spacing: .16em;
     font-weight: 700;
-    text-decoration: none;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
-    transition: transform 0.2s ease, background 0.2s ease;
-    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  .tk-maker-label .tk-maker-line::before {
+    content: "";
+    width: 18px;
+    height: 1px;
+    background: var(--brass);
+  }
+
+  .tk-maker-label .tk-title-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .tk-maker-label .tk-name {
+    display: block;
+    color: var(--walnut);
+    font: 700 clamp(28px, 3.2vw, 44px)/1.05 Georgia, serif;
+    letter-spacing: -.03em;
     white-space: nowrap;
   }
 
-  .tk-bf-btn:hover {
-    transform: translateY(-1px);
-    background: #ffffff;
+  .tk-maker-label .tk-name em {
+    color: #794628;
+    font-style: italic;
+    font-weight: 400;
   }
 
-  .tk-bf-btn u {
-    text-underline-offset: 3px;
-    text-decoration-thickness: 1.2px;
-  }
-
-  .tk-bf-btn svg {
-    width: 12px;
-    height: 12px;
-    stroke: currentColor;
-    stroke-width: 2.2;
-    fill: none;
-  }
-
-  /* -------------------------------------------------------------
-     BOTTOM BAR: Urgent Orders Counter
-     ------------------------------------------------------------- */
-  .tk-bf-bot {
-    background: #f3ece1;
-    display: flex;
+  .tk-maker-label .tk-cutout-wrap {
+    display: inline-flex;
     align-items: center;
-    padding: 10px 20px;
-    gap: 12px;
-    z-index: 4;
-    box-sizing: border-box;
+    filter: drop-shadow(0 4px 10px rgba(58, 41, 31, 0.22));
   }
 
-  .tk-bf-digits {
+  .tk-maker-label .tk-cutout-img {
+    display: block;
+    height: clamp(52px, 6vw, 74px);
+    width: auto;
+    object-fit: contain;
+    transform: rotate(-1deg);
+  }
+
+  .tk-maker-label .tk-seal {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    width: clamp(65px, 7vw, 83px);
+    aspect-ratio: 1;
+    border: 3px double #dec598;
+    border-radius: 50%;
+    outline: 1px solid #87693e;
+    background: radial-gradient(ellipse at 35% 24%, #67432b, #3f281b 75%);
+    box-shadow: inset 0 0 0 3px #543724, inset 0 0 0 4px #b69762;
+    color: #fff2d8;
+    transform: rotate(7deg);
+    flex-shrink: 0;
+  }
+
+  .tk-maker-label .tk-seal strong {
+    font: 700 clamp(22px, 2.4vw, 29px)/1 Georgia, serif;
+    letter-spacing: -.06em;
+  }
+
+  .tk-maker-label .tk-seal small {
+    margin-top: 3px;
+    font-size: 9px;
+    line-height: 1;
+    letter-spacing: .2em;
+    font-weight: 700;
+  }
+
+  .tk-maker-label .tk-band {
     display: flex;
-    gap: 4px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 9px 12px;
+    padding: 10px clamp(13px, 2.5vw, 20px);
+    background: var(--walnut);
+    color: #f9ecd5;
+    border-top: 1px solid var(--brass);
   }
 
-  .tk-bf-digit {
-    width: 24px;
-    height: 28px;
-    background: #38251c;
-    border-radius: 3.5px;
+  .tk-maker-label .tk-offer {
+    flex: 1 1 180px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #faf3e8;
+  }
+
+  .tk-maker-label .tk-offer strong {
     color: #ffffff;
-    display: flex;
+    font-weight: 700;
+  }
+
+  .tk-maker-label .tk-reserve {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 15px;
-    font-weight: 800;
-    font-family: inherit;
-    box-shadow: inset 0 -1px 2px rgba(0, 0, 0, 0.4);
-    user-select: none;
+    gap: 8px;
+    padding: 9px 14px;
+    border: 1px solid #d4b784;
+    border-radius: 3px;
+    background: #f2e1bf;
+    color: #42291c;
+    font: 700 13px/1.2 inherit;
+    text-decoration: none;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.12);
   }
 
-  .tk-bf-bot-text {
+  .tk-maker-label .tk-reserve:hover { background: #fff1d7; }
+
+  .tk-maker-label .tk-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px clamp(13px, 2.5vw, 20px);
+    color: #604a37;
     font-size: 11.5px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    color: #524035;
-    text-transform: uppercase;
-    line-height: 1;
+    letter-spacing: .08em;
   }
 
-  /* Mobile Responsiveness */
-  @media (max-width: 580px) {
-    .tk-bf-top {
-      padding: 14px 14px 12px;
-      min-height: auto;
-    }
+  .tk-maker-label .tk-wheels { display: inline-flex; gap: 3px; }
 
-    .tk-bf-hallmark {
-      font-size: 10px;
-      letter-spacing: 1.8px;
-    }
+  .tk-maker-label .tk-window {
+    display: inline-block;
+    overflow: hidden;
+    width: 1.25em;
+    height: 1.45em;
+    border-radius: 2px;
+    background: #513827;
+    color: #fff1d6;
+    text-align: center;
+    font: 700 13px/1.45 monospace;
+  }
 
-    .tk-bf-cutout-img {
-      max-height: 85px;
-    }
+  .tk-maker-label .tk-reel {
+    display: block;
+    transition: transform .8s cubic-bezier(.22,.75,.18,1);
+  }
 
-    .tk-bf-seal {
-      width: 90px;
-      height: 90px;
-      margin-right: 0;
-    }
+  .tk-maker-label .tk-reel span { display: block; height: 1.45em; }
 
-    .tk-bf-seal-pct {
-      font-size: 26px;
-    }
-
-    .tk-bf-seal-off {
-      font-size: 9px;
-      letter-spacing: 2px;
-    }
-
-    .tk-bf-seal-sub {
-      font-size: 6.5px;
-      letter-spacing: 0.8px;
-    }
-
-    .tk-bf-mid {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 12px 14px;
+  @media (max-width: 600px) {
+    .tk-maker-label .tk-title-row {
       gap: 10px;
     }
-
-    .tk-bf-mid-text {
-      font-size: 13px;
+    .tk-maker-label .tk-cutout-img {
+      height: 48px;
     }
-
-    .tk-bf-btn {
+    .tk-maker-label .tk-reserve {
       width: 100%;
-      justify-content: center;
-      padding: 9px 14px;
-    }
-
-    .tk-bf-bot {
-      padding: 9px 14px;
-      gap: 10px;
-    }
-
-    .tk-bf-digit {
-      width: 20px;
-      height: 24px;
-      font-size: 13px;
-    }
-
-    .tk-bf-bot-text {
-      font-size: 10px;
-      letter-spacing: 1px;
+      text-align: center;
     }
   }
 </style>
 
-<div class="tk-bf-badge-wrapper" role="region" aria-label="Black Friday Sale Badge">
-  <div class="tk-bf-card">
-    
-    <!-- TOP SECTION -->
-    <div class="tk-bf-top">
-      <div class="tk-bf-dashed-border"></div>
-
-      <!-- Wood-Grain Rings Contour SVG -->
-      <svg class="tk-bf-wood-rings" viewBox="0 0 480 280" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <ellipse cx="380" cy="140" rx="90" ry="80" stroke="#d5c8b5" stroke-width="1.2"/>
-        <ellipse cx="380" cy="140" rx="130" ry="115" stroke="#d5c8b5" stroke-width="1.2"/>
-        <ellipse cx="380" cy="140" rx="175" ry="155" stroke="#d5c8b5" stroke-width="1.2"/>
-        <ellipse cx="380" cy="140" rx="225" ry="200" stroke="#d5c8b5" stroke-width="1.2"/>
-        <ellipse cx="380" cy="140" rx="285" ry="250" stroke="#d5c8b5" stroke-width="1.2"/>
-        <ellipse cx="380" cy="140" rx="350" ry="305" stroke="#d5c8b5" stroke-width="1.2"/>
-      </svg>
-
-      <div class="tk-bf-top-content">
-        <div class="tk-bf-left-area">
-          <div class="tk-bf-hallmark">Timberkala • Reclaimed Wood</div>
-          <div class="tk-bf-cutout-wrap">
-            <img 
-              class="tk-bf-cutout-img" 
-              src="{{ 'cutout.png' | asset_url }}" 
-              alt="Black Friday & Cyber Monday Sale"
-              width="234"
-              height="126"
-              loading="eager"
-            >
-          </div>
-        </div>
-
-        <!-- 10% OFF SEAL -->
-        <div class="tk-bf-seal" aria-label="10% Off + 5% Prepaid">
-          <span class="tk-bf-seal-pct">10%</span>
-          <span class="tk-bf-seal-off">OFF</span>
-          <span class="tk-bf-seal-sub">+5% PREPAID</span>
+<tk-maker-label class="tk-maker-label">
+  <div class="tk-face">
+    <div class="tk-face-content">
+      <div class="tk-maker-line">Timberkala · Reclaimed wood</div>
+      <div class="tk-title-row">
+        <strong class="tk-name">Black Friday <em>Sale</em></strong>
+        <div class="tk-cutout-wrap">
+          <img class="tk-cutout-img" src="{{ 'cutout.png' | asset_url }}" alt="Black Friday Sale" width="234" height="126" loading="eager">
         </div>
       </div>
     </div>
 
-    <!-- MIDDLE BAR -->
-    <div class="tk-bf-mid">
-      <div class="tk-bf-mid-text">
-        <strong>Flat 10% off</strong> on every order + <span class="tk-bf-gold-accent">5% extra</span> on Prepaid order.
-      </div>
-      <a href="#product-form-{{ section.id }}" class="tk-bf-btn" id="tkBfReserveBtn" onclick="tkScrollToProductForm(event)">
-        <u>Reserve yours</u>
-        <svg viewBox="0 0 24 24">
-          <path d="M7 17L17 7M17 7H9M17 7V15" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
+    <div class="tk-seal" aria-hidden="true">
+      <strong>10%</strong>
+      <small>OFF</small>
     </div>
-
-    <!-- BOTTOM BAR -->
-    <div class="tk-bf-bot">
-      <div class="tk-bf-digits" id="tkBfDigitCounter" aria-label="Orders today count">
-        <span class="tk-bf-digit" id="tkBfDigit1">0</span>
-        <span class="tk-bf-digit" id="tkBfDigit2">9</span>
-        <span class="tk-bf-digit" id="tkBfDigit3">4</span>
-      </div>
-      <div class="tk-bf-bot-text">
-        Orders Today . Get Yours Before Stock Out
-      </div>
-    </div>
-
   </div>
-</div>
+
+  <div class="tk-band">
+    <span class="tk-offer">
+      Get flat <strong>10% off</strong> on every order + <strong>5% extra</strong> on Prepaid order.
+    </span>
+    <a class="tk-reserve"
+       data-reserve
+       href="{{ product.url }}?variant={{ product.selected_or_first_available_variant.id }}">
+      <u>Reserve yours</u> <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+
+  <div class="tk-preview">
+    <span class="tk-wheels" aria-hidden="true" data-wheels>082</span>
+    <span> ORDERS TODAY . GET YOURS BEFORE STOCK OUT </span>
+  </div>
+</tk-maker-label>
 
 <script>
-  function tkScrollToProductForm(e) {
-    var form = document.querySelector('form[action*="/cart/add"], .product-form, #product-form-template--');
-    if (form) {
-      e.preventDefault();
-      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }
+(() => {
+  const tag = "tk-maker-label";
+  if (customElements.get(tag)) return;
 
-  (function() {
-    // Dynamic realistic order counter based on time of day
-    try {
-      var now = new Date();
-      var hour = now.getHours();
-      var min = now.getMinutes();
-      // Increments gradually throughout the day (morning ~72, afternoon ~94, evening ~138)
-      var base = 70 + (hour * 3) + Math.floor(min / 20);
-      var countStr = ('000' + base).slice(-3);
-      var d1 = document.getElementById('tkBfDigit1');
-      var d2 = document.getElementById('tkBfDigit2');
-      var d3 = document.getElementById('tkBfDigit3');
-      if (d1 && d2 && d3) {
-        d1.textContent = countStr[0];
-        d2.textContent = countStr[1];
-        d3.textContent = countStr[2];
-      }
-    } catch(err) {}
-  })();
+  customElements.define(tag, class extends HTMLElement {
+    connectedCallback() {
+      this.addEventListener("click", this.handleReserve);
+      this.startup = setTimeout(() => this.startPreview(), 0);
+    }
+
+    disconnectedCallback() {
+      clearTimeout(this.startup);
+      clearTimeout(this.timer);
+      this.removeEventListener("click", this.handleReserve);
+    }
+
+    handleReserve(event) {
+      const link = event.target.closest("[data-reserve]");
+      if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const section = this.closest(".shopify-section") || document;
+      const controls = section.querySelectorAll(
+        "form[action*='/cart/add'] [name='add'], " +
+        "form[action*='/cart/add'] button[type='submit']"
+      );
+      const target = Array.from(controls).find(button => button.getClientRects().length);
+      if (!target) return;
+
+      event.preventDefault();
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'center' });
+      if (!target.disabled) target.focus({ preventScroll: true });
+    }
+
+    startPreview() {
+      const wheels = this.querySelector("[data-wheels]");
+      if (!wheels) return;
+
+      this.count = 82;
+      wheels.replaceChildren();
+
+      this.reels = Array.from("082", digit => {
+        const frame = document.createElement("span");
+        const reel = document.createElement("span");
+        frame.className = "tk-window";
+        reel.className = "tk-reel";
+
+        for (let i = 0; i < 20; i++) {
+          const cell = document.createElement("span");
+          cell.textContent = i % 10;
+          reel.append(cell);
+        }
+
+        reel.style.transform = `translateY(-${Number(digit) * 5}%)`;
+        frame.append(reel);
+        wheels.append(frame);
+        return reel;
+      });
+
+      this.scheduleRoll();
+    }
+
+    scheduleRoll() {
+      this.timer = setTimeout(() => {
+        const next = Math.min(235, this.count + 1 + Math.floor(Math.random() * 4));
+        const before = String(this.count).padStart(3, "0");
+        const after = String(next).padStart(3, "0");
+
+        this.reels.forEach((reel, index) => {
+          const from = Number(before[index]);
+          const to = Number(after[index]);
+          if (from === to) return;
+
+          reel.style.transition = "none";
+          reel.style.transform = `translateY(-${from * 5}%)`;
+          void reel.offsetHeight;
+          reel.style.removeProperty("transition");
+          const position = to < from ? to + 10 : to;
+          reel.style.transform = `translateY(-${position * 5}%)`;
+        });
+
+        this.count = next;
+        if (next < 235) this.scheduleRoll();
+      }, 15000 + Math.floor(Math.random() * 15001));
+    }
+  });
+})();
 </script>
