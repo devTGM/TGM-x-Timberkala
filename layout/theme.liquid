@@ -2441,5 +2441,53 @@ btn.addEventListener("click", () => {
 })();
 </script>
 
+<script>
+  (function() {
+    var path = window.location.pathname.replace(/\/+$/, '');
+    if (path === '/pages/thank-you' || path === '/pages/order-status') return;
+
+    function saveCartSnapshot(totalMajor, currency) {
+      if (totalMajor > 0) {
+        try {
+          localStorage.setItem('tk_last_cart_total', String(totalMajor));
+          if (currency) localStorage.setItem('tk_last_cart_currency', String(currency));
+        } catch (e) {}
+      }
+    }
+
+    var initialTotal = {{ cart.total_price | divided_by: 100.0 | json }};
+    var initialCurrency = {{ cart.currency.iso_code | default: shop.currency | json }};
+    saveCartSnapshot(initialTotal, initialCurrency);
+
+    function refreshCartSnapshot() {
+      fetch('/cart.js', { credentials: 'same-origin' })
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(cart) {
+          if (cart && cart.total_price > 0) {
+            saveCartSnapshot(cart.total_price / 100, cart.currency || initialCurrency);
+          }
+        })
+        .catch(function() {});
+    }
+
+    document.addEventListener('click', function(e) {
+      var target = e.target && e.target.closest && e.target.closest('[name="checkout"], [name="checkout2"], #HMCartCheckoutBtn, .cart__checkout-button, .btn-checkout, [data-shopflo-checkout]');
+      if (target) refreshCartSnapshot();
+    }, true);
+
+    if (typeof window.fetch === 'function') {
+      var origFetch = window.fetch;
+      window.fetch = function(input) {
+        var res = origFetch.apply(this, arguments);
+        var url = typeof input === 'string' ? input : (input && input.url) || '';
+        if (url.indexOf('/cart/') !== -1) {
+          res.then(function() { refreshCartSnapshot(); }).catch(function() {});
+        }
+        return res;
+      };
+    }
+  })();
+</script>
+
 </body>
 </html>
